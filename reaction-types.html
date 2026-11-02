@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The five reaction types | The Mole Hole</title>
+<meta name="description" content="Combination, decomposition, single displacement, double displacement and combustion, each as an animated dance of atoms. Classify any equation and predict its products.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/reaction-types.js"></script>
+<script defer src="assets/js/pages/reaction-types.js"></script>
+</head>
+<body data-page="reaction-types">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>The five reaction types</h1>
+        <p class="lede">Most reactions you will meet are one of five dances. Spot the dance and you can predict what comes out.</p>
+      </div>
+      <div class="lesson-moe" data-moe="cheer"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Name the five reaction types and their patterns</li>
+    <li>Classify any equation by looking at its shape</li>
+    <li>Predict products from reactants, then balance</li>
+    <li>Say when a pattern does not guarantee a reaction</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="dances" data-short="The five dances">The five dances</h2>
+    <p>Think of atoms and groups as dancers. In every reaction, partners change, but there are only a few ways it tends to happen. Learn these shapes in letters first. Real formulas follow the same steps.</p>
+  </section>
+
+  <div id="story-dance"></div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Type</th><th>Pattern</th><th>Look for</th></tr></thead>
+    <tbody>
+      <tr><td><b>Combination</b>, or synthesis</td><td>$\ce{A + B -> AB}$</td><td>Only one product</td></tr>
+      <tr><td><b>Decomposition</b></td><td>$\ce{AB -> A + B}$</td><td>Only one reactant</td></tr>
+      <tr><td><b>Single displacement</b></td><td>$\ce{A + BC -> AC + B}$</td><td>An element and a compound on each side</td></tr>
+      <tr><td><b>Double displacement</b></td><td>$\ce{AB + CD -> AD + CB}$</td><td>Two compounds swapping partners</td></tr>
+      <tr><td><b>Combustion</b></td><td>fuel + $\ce{O2}$ $\rightarrow$ $\ce{CO2 + H2O}$</td><td>$\ce{O2}$ on the left, burning</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="big-idea">Do not read the formulas first. Count the things on each side. One product, one reactant, or a loose element: that shape names the type.</div>
+
+  <section class="prose">
+    <h2 id="real" data-short="Real reactions">Real reactions, real atoms</h2>
+    <p>Now the same dances with real substances. Pick a type and a reaction, then drag the slider. Keep your eye on which atoms change partners, and on what you would see in the lab.</p>
+  </section>
+
+  <figure class="bench" id="b-floor">
+    <div class="bench-head">
+      <p class="bench-title">The dance floor</p>
+      <p class="bench-hint">Drag the slider to run the reaction.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-floor"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Type</span>
+        <div class="seg" id="floor-type">
+          <button type="button" data-value="combo" aria-pressed="true">Combination</button>
+          <button type="button" data-value="decomp" aria-pressed="false">Decomposition</button>
+          <button type="button" data-value="single" aria-pressed="false">Single displacement</button>
+          <button type="button" data-value="double" aria-pressed="false">Double displacement</button>
+          <button type="button" data-value="burn" aria-pressed="false">Combustion</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="floor-ex"></div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="floor-q">Reaction progress <span class="ctl-value" id="floor-q-out"></span></label>
+        <input type="range" id="floor-q" min="0" max="100" step="1" value="0">
+        <button type="button" class="btn small" id="floor-play" style="margin-top:8px">Run it for me</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="floor-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: some reactions wear two hats</h4>
+      <p>$\ce{2H2 + O2}$ $\rightarrow$ $\ce{2H2O}$ is combination, since it has one product, and it is also combustion, since hydrogen burns in oxygen. Exams normally accept the type the question is pointing at. Neutralization, such as $\ce{HCl + NaOH}$ $\rightarrow$ $\ce{NaCl + H2O}$, is a double displacement with its own name.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="sort" data-short="Sort the equations">Sort the equations</h2>
+    <p>Speed matters on an exam. Each equation below is one of the five. Try to name the type by shape alone, before you read the formulas closely.</p>
+  </section>
+
+  <figure class="bench" id="b-sort">
+    <div class="bench-head">
+      <p class="bench-title">Name that dance</p>
+      <p class="bench-hint">Ten equations. How many can you get?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sort"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <div id="sort-btns" style="display:flex;flex-wrap:wrap;gap:8px">
+          <button type="button" class="btn small" data-kind="combo">Combination</button>
+          <button type="button" class="btn small" data-kind="decomp">Decomposition</button>
+          <button type="button" class="btn small" data-kind="single">Single displacement</button>
+          <button type="button" class="btn small" data-kind="double">Double displacement</button>
+          <button type="button" class="btn small" data-kind="burn">Combustion</button>
+          <button type="button" class="btn ghost small" id="sort-next" hidden>Next equation</button>
+          <button type="button" class="btn ghost small" id="sort-again" hidden>Play again</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="sort-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="predict" data-short="Predict the products">Predicting products</h2>
+    <p>Here is the real payoff. Given only the reactants, the pattern tells you the products. There is one catch: the pattern gives you the partners, but you must still write correct formulas from the ion charges, and only then balance.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Four steps to predict products</p>
+    <div class="formula-body">$\text{name the pattern} \;\Rightarrow\; \text{swap partners} \;\Rightarrow\; \text{fix formulas with charges} \;\Rightarrow\; \text{balance}$</div>
+  </div>
+
+  <div id="story-predict"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: formulas before coefficients</h4>
+      <p>$\ce{Al^3+}$ and $\ce{Cl-}$ make $\ce{AlCl3}$ because the charges must cancel. The subscript 3 comes from the charges, not from what you started with. Students often copy the subscripts from the reactants and write something like $\ce{AlCl2}$. Fix each formula first. Only then balance with coefficients.</p>
+    </div>
+  </div>
+
+  <figure class="bench" id="b-lab">
+    <div class="bench-head">
+      <p class="bench-title">The prediction lab</p>
+      <p class="bench-hint">Pick reactants, predict, then check.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-lab"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Kind of reaction</span>
+        <div class="seg" id="lab-kind">
+          <button type="button" data-value="combo" aria-pressed="true">Combination</button>
+          <button type="button" data-value="decomp" aria-pressed="false">Decomposition</button>
+          <button type="button" data-value="single" aria-pressed="false">Single displacement</button>
+          <button type="button" data-value="double" aria-pressed="false">Double displacement</button>
+          <button type="button" data-value="burn" aria-pressed="false">Burn a fuel</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="lab-in">What are the products? Type them with a + between</label>
+        <input type="text" id="lab-in" autocomplete="off" spellcheck="false" placeholder="like NaCl + H2O">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
+          <button type="button" class="btn" id="lab-check">Check my products</button>
+          <button type="button" class="btn ghost" id="lab-show">Show the answer</button>
+          <button type="button" class="btn ghost" id="lab-new">Give me new reactants</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="lab-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>A pattern tells you what <em>would</em> form, not whether it <em>will</em>. Zinc pushes copper out of solution, but copper will not push out zinc. Whether a reaction really goes is the next chapter of the story.</p></div></div>
+
+  <section class="prose">
+    <h2 id="next" data-short="Where this goes">Will it really happen?</h2>
+    <p>Two of the five types need one more check, and each has its own lesson coming up.</p>
+    <ul>
+      <li><strong>Single displacement</strong> only goes if the lone element is more reactive than the one it replaces. You will find the ranking in the activity series, in <a href="redox.html">oxidation and reduction</a>.</li>
+      <li><strong>Double displacement</strong> only goes if something leaves the solution: a solid, a gas, or water. You will use <a href="solubility.html">the solubility rules</a> and <a href="precipitation.html">net ionic equations</a> to check.</li>
+      <li><strong>Combustion</strong> gets its own full treatment in <a href="combustion.html">combustion equations</a>.</li>
+    </ul>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: predict a single displacement</h4>
+    <p class="worked-q">Predict the products of magnesium metal in hydrochloric acid, then balance.</p>
+    <ol>
+      <li><b>Pattern.</b> An element plus a compound: single displacement, $\ce{A + BC}$ $\rightarrow$ $\ce{AC + B}$.</li>
+      <li><b>Swap.</b> Mg replaces the H in HCl, so the products are a magnesium chloride and hydrogen.</li>
+      <li><b>Fix formulas.</b> $\ce{Mg^2+}$ with $\ce{Cl-}$ gives $\ce{MgCl2}$. Hydrogen on its own is diatomic: $\ce{H2}$.</li>
+      <li><b>Balance.</b> <span class="answer">$\ce{Mg + 2HCl}$ $\rightarrow$ $\ce{MgCl2 + H2}$</span>. Check: Mg 1 and 1, H 2 and 2, Cl 2 and 2.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: predict a double displacement</h4>
+    <p class="worked-q">Predict the products of $\ce{Pb(NO3)2}$ and $\ce{KI}$, then balance.</p>
+    <ol>
+      <li><b>Pattern.</b> Two compounds: double displacement, $\ce{AB + CD}$ $\rightarrow$ $\ce{AD + CB}$.</li>
+      <li><b>Swap.</b> Lead pairs with iodide, and potassium pairs with nitrate.</li>
+      <li><b>Fix formulas.</b> $\ce{Pb^2+}$ with $\ce{I-}$ gives $\ce{PbI2}$. $\ce{K+}$ with $\ce{NO3-}$ gives $\ce{KNO3}$.</li>
+      <li><b>Balance.</b> <span class="answer">$\ce{Pb(NO3)2 + 2KI}$ $\rightarrow$ $\ce{PbI2 + 2KNO3}$</span>. The bright yellow solid that forms is $\ce{PbI2}$.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="reaction-types"></div>
+  <div data-practice="reaction-types"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Combination</strong>: many make one. <strong>Decomposition</strong>: one makes many.</li>
+      <li><strong>Single displacement</strong>: a lone element kicks another out of a compound.</li>
+      <li><strong>Double displacement</strong>: two compounds swap partners. Cation stays first.</li>
+      <li><strong>Combustion</strong>: fuel plus $\ce{O2}$ gives $\ce{CO2}$ and $\ce{H2O}$.</li>
+      <li>To predict: name the pattern, swap partners, <strong>fix formulas with charges</strong>, then balance.</li>
+      <li>A pattern says what would form. The activity series and solubility rules say if it really goes.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naming compounds | The Mole Hole</title>
+<meta name="description" content="One flowchart for naming ionic compounds, molecular compounds, acids and hydrates, with endless typed practice in both directions.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/naming.js"></script>
+<script defer src="assets/js/pages/naming.js"></script>
+</head>
+<body data-page="naming">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Naming compounds</h1>
+        <p class="lede">One flowchart, three paths. Once you know which path you are on, the name writes itself. Then it just takes practice.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Decide if a compound is ionic, molecular or an acid</li>
+    <li>Name ionic compounds, including Roman numerals and polyatomic ions</li>
+    <li>Name molecular compounds with prefixes, and name acids and hydrates</li>
+    <li>Go both ways: from name to formula and from formula to name</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="flow" data-short="The flowchart">One flowchart for every compound</h2>
+    <p>Every naming problem starts with the same three questions. Pick a compound, or type your own, and walk it down. Try deciding yourself once you have seen a few.</p>
+  </section>
+
+  <figure class="bench" id="b-flow">
+    <div class="bench-head">
+      <p class="bench-title">The naming flowchart</p>
+      <p class="bench-hint">Press the button to take one step.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-flow"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Pick a compound</span>
+        <div class="seg" id="fl-pick">
+          <button type="button" data-value="NaCl" aria-pressed="false">NaCl</button>
+          <button type="button" data-value="Fe2O3" aria-pressed="true">Fe₂O₃</button>
+          <button type="button" data-value="Cu(NO3)2" aria-pressed="false">Cu(NO₃)₂</button>
+          <button type="button" data-value="NH4Cl" aria-pressed="false">NH₄Cl</button>
+          <button type="button" data-value="N2O5" aria-pressed="false">N₂O₅</button>
+          <button type="button" data-value="CO" aria-pressed="false">CO</button>
+          <button type="button" data-value="HCl" aria-pressed="false">HCl</button>
+          <button type="button" data-value="H2SO4" aria-pressed="false">H₂SO₄</button>
+          <button type="button" data-value="HNO2" aria-pressed="false">HNO₂</button>
+          <button type="button" data-value="CuSO4·5H2O" aria-pressed="false">CuSO₄·5H₂O</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="fl-input">Or type any formula</label>
+        <form id="fl-form" style="display:flex;gap:8px" autocomplete="off">
+          <input type="text" id="fl-input" placeholder="Such as Cr2(SO4)3" spellcheck="false" style="flex:1 1 auto;min-width:0">
+          <button class="btn small" type="submit" style="white-space:nowrap;flex:none">Walk it</button>
+        </form>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Who answers?</span>
+        <div class="seg" id="fl-mode">
+          <button type="button" data-value="show" aria-pressed="true">Show me</button>
+          <button type="button" data-value="me" aria-pressed="false">I will decide</button>
+        </div>
+      </div>
+      <div class="ctl" id="fl-actions" style="display:flex;gap:10px;align-items:end;flex-wrap:wrap"></div>
+    </div>
+    <div class="bench-foot" id="fl-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="big-idea">Three questions: Is it an acid? Is there a metal? Can that metal have more than one charge?</div>
+
+  <section class="prose">
+    <h2 id="ionic" data-short="Ionic names">Naming ionic compounds</h2>
+    <p>Ionic names are the easiest: say the cation, then the anion. The only catch is the metals that can have more than one charge.</p>
+  </section>
+
+  <div id="story-ionic"></div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Needs no Roman numeral</th><th>Needs a Roman numeral</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Groups 1 and 2, plus $\ce{Al^3+}$, $\ce{Zn^2+}$, $\ce{Ag+}$, $\ce{Cd^2+}$, and ammonium $\ce{NH4+}$</td>
+        <td>Other transition metals and $\ce{Sn}$, $\ce{Pb}$: for example $\ce{Fe^2+}$ and $\ce{Fe^3+}$, $\ce{Cu+}$ and $\ce{Cu^2+}$, $\ce{Co^2+}$ and $\ce{Co^3+}$, $\ce{Cr^2+}$ and $\ce{Cr^3+}$, $\ce{Sn^2+}$ and $\ce{Sn^4+}$, $\ce{Pb^2+}$ and $\ce{Pb^4+}$, $\ce{Hg2^2+}$ and $\ce{Hg^2+}$</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Worked example: formula to name</h4>
+    <p class="worked-q">Name $\ce{Mn(NO3)2}$.</p>
+    <ol>
+      <li>Follow the flowchart. It does not start with H, and manganese is a metal, so it is ionic.</li>
+      <li>Manganese has several possible charges, so it needs a Roman numeral.</li>
+      <li>Nitrate is $\ce{NO3-}$. Two of them total $2 \times (-1) = -2$.</li>
+      <li>The compound is neutral, so the one manganese ion must be $+2$.</li>
+      <li>The name is <span class="answer">manganese(II) nitrate</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: name to formula</h4>
+    <p class="worked-q">Write the formula of iron(III) sulfate.</p>
+    <ol>
+      <li>The Roman numeral gives the charge directly: iron(III) is $\ce{Fe^3+}$. Sulfate is $\ce{SO4^2-}$.</li>
+      <li>Balance the charges. The lowest common multiple of 3 and 2 is 6.</li>
+      <li>$2 \times (+3) = +6$ and $3 \times (-2) = -6$, so use 2 irons and 3 sulfates.</li>
+      <li>More than one polyatomic ion needs parentheses: <span class="answer">$\ce{Fe2(SO4)3}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the Roman numeral is a charge, not a count</h4>
+      <p>$\ce{Fe2O3}$ is not iron(II) oxide just because it has 2 irons. Each iron is $+3$, so it is iron(III) oxide. And in copper(II) oxide, $\ce{CuO}$, there is only one copper. Always calculate the charge from the anion. Older books may say <b>ferrous</b> and <b>ferric</b> for iron(II) and iron(III), or <b>cuprous</b> and <b>cupric</b> for copper(I) and copper(II).</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="molecular" data-short="Molecular names">Naming molecular compounds</h2>
+    <p>Nonmetals have no fixed charges to do the math for you, so the name has to count the atoms. That is what prefixes are for.</p>
+  </section>
+
+  <div id="story-mol"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: do not mix up the two systems</h4>
+      <p>Prefixes are <b>only</b> for molecular compounds. $\ce{MgCl2}$ is not magnesium dichloride. Roman numerals are <b>only</b> for ionic compounds. $\ce{CO2}$ is not carbon(IV) oxide on your exam. And molecular formulas do not simplify, so $\ce{N2O4}$ is dinitrogen tetroxide, not nitrogen dioxide.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="acids" data-short="Acids">Naming acids</h2>
+    <p>Acids are hydrogen plus an anion, dissolved in water. So the name depends entirely on the anion's ending. You just need to know one little code.</p>
+  </section>
+
+  <div id="story-acid"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wave"></div><div class="bubble"><p>Two rhymes: "I <b>ate</b> something <b>ic</b>ky." "That Spr<b>ite</b> is delici<b>ous</b>." I drink neither, for what it is worth. Dirt is fine.</p></div></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: sulfuric or hydrosulfuric?</h4>
+      <p>$\ce{H2SO4}$ is sulfuric acid, from sulfate. $\ce{H2S}$ is hydrosulfuric acid, from sulfide. The hydro- prefix only appears when the anion has no oxygen. Also, $\ce{HCl}$ as a dry gas is <b>hydrogen chloride</b>. It only becomes hydrochloric acid when dissolved in water, written $\ce{HCl(aq)}$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="hydrates" data-short="Hydrates">Hydrates: crystals with water inside</h2>
+    <p>Some salts lock water molecules into their crystals. The water is part of the formula, written after a dot. Name the salt, then add a prefix and the word <strong>hydrate</strong>. Heat one and watch the water leave.</p>
+  </section>
+
+  <figure class="bench" id="b-hyd">
+    <div class="bench-head">
+      <p class="bench-title">Drive off the water</p>
+      <p class="bench-hint">Light the burner. Then put the water back.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-hyd"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end">
+        <button type="button" class="btn small" id="hy-burn">Light the burner</button>
+        <button type="button" class="btn small cyan" id="hy-wet">Add water back</button>
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun"><div class="readout-label">Mass of the solid</div><div class="readout-value" id="hy-mass">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Waters per formula unit</div><div class="readout-value" id="hy-n">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="hy-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="trainer" data-short="Naming trainer">The naming trainer</h2>
+    <p>Naming is pure repetition, and this is where it happens. Choose what to work on. Type your answer. After each one you will see why it is right. Capitals count here, because Co and CO are not the same thing.</p>
+  </section>
+
+  <figure class="bench" id="b-train">
+    <div class="bench-head">
+      <p class="bench-title">Naming trainer</p>
+      <p class="bench-hint">Every five in a row finds a new element.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-train"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <form id="tr-form" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center" autocomplete="off">
+          <label class="sr-only" for="tr-input">Your answer</label>
+          <input type="text" id="tr-input" spellcheck="false" style="flex:1 1 220px;font-size:1.2rem;font-weight:700">
+          <button class="btn" id="tr-check" type="submit">Check</button>
+          <button class="btn ghost" id="tr-next" type="button">Skip</button>
+        </form>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Practice these</span>
+        <div id="tr-cats" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Direction</span>
+        <div class="seg" id="tr-dir">
+          <button type="button" data-value="both" aria-pressed="true">Both ways</button>
+          <button type="button" data-value="name" aria-pressed="false">Formula to name</button>
+          <button type="button" data-value="formula" aria-pressed="false">Name to formula</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tr-foot" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="naming"></div>
+  <section class="prose"><p>The gym below has 18 kinds of problem, in both directions. Formulas are built from the ion charges, so a few combinations are for practice only and may not be stable compounds you could keep in a bottle.</p></section>
+  <div data-practice="naming"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Acid?</strong> Use the anion: -ide becomes hydro-...-ic, -ate becomes -ic, -ite becomes -ous.</li>
+      <li><strong>Metal or ammonium?</strong> Ionic: say the cation, then the anion. No prefixes.</li>
+      <li><strong>Several charges possible?</strong> Add a Roman numeral equal to the metal's charge.</li>
+      <li><strong>Only nonmetals?</strong> Molecular: use prefixes, skip mono- on the first element, end in -ide.</li>
+      <li><strong>Prefixes:</strong> mono, di, tri, tetra, penta, hexa, hepta, octa, nona, deca.</li>
+      <li><strong>Hydrates:</strong> salt name + prefix + hydrate. $\ce{CuSO4*5H2O}$ is copper(II) sulfate pentahydrate.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

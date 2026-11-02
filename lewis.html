@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lewis structures | The Mole Hole</title>
+<meta name="description" content="Draw any Lewis structure with a recipe you can step through: count electrons, connect atoms, fill octets, make multiple bonds, compute formal charge and read resonance.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/lewis.js"></script>
+<script defer src="assets/js/pages/lewis.js"></script>
+</head>
+<body data-page="lewis">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Lewis structures</h1>
+        <p class="lede">A Lewis structure is a map of where a molecule keeps its outer electrons. One short recipe draws almost all of them.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Count the valence electrons in any molecule or ion</li>
+    <li>Follow the recipe to draw a correct Lewis structure</li>
+    <li>Calculate formal charge and use it to pick the best drawing</li>
+    <li>Explain resonance and spot the three octet exceptions</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="dots" data-short="Dots and dashes">Dots and dashes</h2>
+    <p>Only the outer electrons, called <strong>valence electrons</strong>, take part in bonding. So a Lewis structure ignores everything else. Each electron is a dot, and each shared pair of electrons is a dash.</p>
+  </section>
+
+  <div id="story-dots"></div>
+
+  <div class="big-idea">Atoms keep sharing until each one sees 8 electrons around it. Hydrogen stops at 2. This is the octet rule.</div>
+
+  <section class="prose">
+    <h2 id="recipe" data-short="The recipe">The recipe</h2>
+    <p>Here is carbon dioxide, drawn with the same steps that work for nearly everything. Watch the electron count in the side panel. It never changes by magic: every electron you place comes out of that pile.</p>
+  </section>
+
+  <div id="story-recipe"></div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Step</th><th>What to do</th></tr></thead>
+    <tbody>
+      <tr><td>1. Count</td><td>Add up valence electrons. Add one for each negative charge. Subtract one for each positive charge.</td></tr>
+      <tr><td>2. Skeleton</td><td>Put the least electronegative atom in the center. Hydrogen is never in the center.</td></tr>
+      <tr><td>3. Connect</td><td>Draw a single bond to each outer atom. Each bond uses 2 electrons.</td></tr>
+      <tr><td>4. Outer atoms</td><td>Give outer atoms lone pairs until each sees 8. Hydrogen stays at 2.</td></tr>
+      <tr><td>5. Center</td><td>Put anything left over on the central atom.</td></tr>
+      <tr><td>6. Share</td><td>Is the center short of 8? Turn a lone pair from an outer atom into a double or triple bond.</td></tr>
+      <tr><td>7. Check</td><td>Count the electrons in your drawing and work out the formal charges.</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="bench" id="b-builder">
+    <div class="bench-head">
+      <p class="bench-title">The Lewis builder</p>
+      <p class="bench-hint">Pick a molecule, then press the next step button.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-builder"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Kind of molecule</span>
+        <div class="seg" id="lb-group">
+          <button type="button" data-value="simple" aria-pressed="true">Start here</button>
+          <button type="button" data-value="multiple" aria-pressed="false">Multiple bonds</button>
+          <button type="button" data-value="ion" aria-pressed="false">Ions</button>
+          <button type="button" data-value="resonance" aria-pressed="false">Resonance</button>
+          <button type="button" data-value="few" aria-pressed="false">Too few electrons</button>
+          <button type="button" data-value="odd" aria-pressed="false">Odd electrons</button>
+          <button type="button" data-value="many" aria-pressed="false">Expanded octet</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Molecule or ion <span class="ctl-value" id="lb-name"></span></span>
+        <div class="seg" id="lb-mol"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" class="btn ghost small" id="lb-back">Previous step</button>
+        <button type="button" class="btn sun small" id="lb-next">Next step</button>
+        <button type="button" class="btn ghost small" id="lb-end">Jump to the answer</button>
+        <div class="seg" id="lb-style">
+          <button type="button" data-value="line" aria-pressed="true">Bonds as dashes</button>
+          <button type="button" data-value="dots" aria-pressed="false">Bonds as dots</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Valence electrons</div><div class="readout-value" id="lb-total"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Bonding pairs</div><div class="readout-value" id="lb-bond"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Lone pairs</div><div class="readout-value" id="lb-lone"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Electrons in the drawing</div><div class="readout-value" id="lb-used"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="lb-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: an ion</h4>
+    <p class="worked-q">Draw the Lewis structure of the carbonate ion, $\ce{CO3^{2-}}$.</p>
+    <ol>
+      <li>Count. C brings 4 and each O brings 6: $4 + 3(6) = 22$. The $2-$ charge adds 2 more, so the total is <b>24 electrons</b>.</li>
+      <li>Skeleton. Carbon is less electronegative than oxygen, so C goes in the middle with three O around it.</li>
+      <li>Connect. Three single bonds use $3 \times 2 = 6$ electrons. That leaves $24 - 6 = 18$.</li>
+      <li>Outer atoms. Each O needs 3 lone pairs, or 6 electrons: $3 \times 6 = 18$. That leaves $18 - 18 = 0$.</li>
+      <li>Center. Nothing is left, and C only sees 6. So one O shares a lone pair, making a C=O double bond. C now sees 8.</li>
+      <li>Check. The drawing holds $2(4) + 2(8) = 24$ electrons. Put it in brackets with the charge: <span class="answer">one C=O and two C−O bonds, in $[\;]^{2-}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the charge changes the count</h4>
+      <p>$\ce{NH4+}$ has $5 + 4(1) - 1 = 8$ electrons, not 9. A <b>positive</b> charge means electrons were removed, and a <b>negative</b> charge means electrons were added. Students flip these all the time.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="your-turn" data-short="Your turn">Your turn</h2>
+    <p>Now you draw. The atoms are already connected with single bonds. Tap an atom to add a lone pair. Tap a bond to make it double, then triple. Rings turn green when an atom is satisfied.</p>
+  </section>
+
+  <figure class="bench" id="b-diy">
+    <div class="bench-head">
+      <p class="bench-title">Draw it yourself</p>
+      <p class="bench-hint">Tap atoms and bonds. Use every electron, with none left over.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-diy"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Pick a target</span>
+        <div class="seg" id="diy-mol"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" class="btn sun small" id="diy-check">Check my drawing</button>
+        <button type="button" class="btn ghost small" id="diy-reset">Start over</button>
+        <button type="button" class="btn ghost small" id="diy-fc">Show formal charges</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="diy-say" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="formal-charge" data-short="Formal charge">Formal charge</h2>
+    <p>Sometimes several drawings all obey the octet rule. To pick the best one, imagine snipping every bond exactly in half. Each atom keeps its lone electrons and one electron from each bond. Compare that to how many it brought. The difference is its <strong>formal charge</strong>.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Formal charge</p>
+    <div class="formula-body">$$\text{FC} = V - L - \tfrac{1}{2}B$$</div>
+    <dl>
+      <dt>$V$</dt><dd>Valence electrons the free atom brings</dd>
+      <dt>$L$</dt><dd>Electrons in lone pairs on this atom</dd>
+      <dt>$B$</dt><dd>Electrons in all the bonds on this atom</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: one structure, every atom</h4>
+    <p class="worked-q">Find the formal charges in $\ce{CO}$, which has a triple bond and one lone pair on each atom.</p>
+    <ol>
+      <li>Carbon: $\text{FC} = 4 - 2 - \tfrac{1}{2}(6) = -1$.</li>
+      <li>Oxygen: $\text{FC} = 6 - 2 - \tfrac{1}{2}(6) = +1$.</li>
+      <li>Check: the charges must add up to the charge on the molecule. $-1 + 1 = 0$, which matches neutral CO. <span class="answer">C is $-1$ and O is $+1$</span>. Yes, the negative formal charge lands on the less electronegative atom here. It is the only way to give both atoms an octet.</li>
+    </ol>
+  </div>
+
+  <figure class="bench" id="b-court">
+    <div class="bench-head">
+      <p class="bench-title">The formal charge court</p>
+      <p class="bench-hint">Tap every atom to work out its charge, then call the winner.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-court"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Case</span>
+        <div class="seg" id="court-case"></div>
+      </div>
+      <div class="ctl" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" class="btn sun small" id="court-reveal">Call the winner</button>
+        <button type="button" class="btn ghost small" id="court-reset">Hide the charges</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="court-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="big-idea">Best structure: the smallest formal charges, with any negative charge on the most electronegative atom.</div>
+
+  <section class="prose">
+    <h2 id="resonance" data-short="Resonance">Resonance</h2>
+    <p>Some molecules have several equally good drawings, and no single drawing tells the truth. This is <strong>resonance</strong>. Ozone is the classic case.</p>
+  </section>
+
+  <div id="story-resonance"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>A mule is not a horse on Mondays and a donkey on Tuesdays. A mule is always a mule, a <b>hybrid</b> of the two. A resonance hybrid is the same. I have been told the mule is less grumpy about it.</p></div></div>
+
+  <figure class="bench" id="b-res">
+    <div class="bench-head">
+      <p class="bench-title">Resonance lab</p>
+      <p class="bench-hint">Step through the drawings, then look at the real thing.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-res"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Molecule or ion <span class="ctl-value" id="res-name"></span></span>
+        <div class="seg" id="res-mol">
+          <button type="button" data-value="O3" aria-pressed="true">O₃</button>
+          <button type="button" data-value="NO3^-" aria-pressed="false">NO₃⁻</button>
+          <button type="button" data-value="CO3^2-" aria-pressed="false">CO₃²⁻</button>
+          <button type="button" data-value="C6H6" aria-pressed="false">Benzene</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">What to show</span>
+        <div class="seg" id="res-view"></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="res-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: resonance is not flipping</h4>
+      <p>The molecule does <b>not</b> switch back and forth between the drawings, and it does not spend time as each one. It has a single structure all the time. Only the electrons in the drawing move, because our notation cannot show a bond and a half. Also, resonance forms never move atoms, only electrons.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="exceptions" data-short="Octet exceptions">When the octet rule breaks</h2>
+    <p>The octet rule is a strong habit, not a law. Exams love the three ways it fails: too few electrons, an odd number of electrons, and too many.</p>
+  </section>
+
+  <div id="story-exceptions"></div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Exception</th><th>What happens</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td>Too few</td><td>Be is fine with 4, and B and Al are fine with 6</td><td>$\ce{BeCl2}$, $\ce{BF3}$, $\ce{AlCl3}$</td></tr>
+      <tr><td>Odd number</td><td>An odd total means one electron has no partner</td><td>$\ce{NO}$, $\ce{NO2}$</td></tr>
+      <tr><td>Too many</td><td>Period 3 and below can hold more than 8</td><td>$\ce{PCl5}$, $\ce{SF4}$, $\ce{SF6}$, $\ce{XeF4}$, $\ce{I3-}$</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: period 2 never expands</h4>
+      <p>C, N, O and F can never hold more than 8 electrons. If your drawing gives nitrogen 10, it is wrong. For example, $\ce{NO3-}$ has an octet on N and a $+1$ formal charge, even though two double bonds on N would make that charge vanish.</p>
+    </div>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="oops"></div><div class="bubble"><p>Textbooks disagree about $\ce{SO4^{2-}}$. Many draw two S=O double bonds so the formal charge on S is 0. Others keep four single bonds and accept the $+2$. The builder shows both. <b>Use the one your instructor uses.</b></p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="lewis"></div>
+  <div data-practice="lewis"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Count valence electrons first. Negative charge adds electrons, positive charge removes them.</li>
+      <li>Center: the least electronegative atom, never H. Bonds first, outer atoms next, leftovers on the center.</li>
+      <li>Center short of 8? Share a lone pair from an outer atom to make a multiple bond.</li>
+      <li>$\text{FC} = V - L - \tfrac{1}{2}B$, and all the formal charges add up to the overall charge.</li>
+      <li>Resonance hybrid: one real structure with identical in-between bonds. It does not flip.</li>
+      <li>Exceptions: B and Be with too few, radicals with an odd count, period 3 and below with too many.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

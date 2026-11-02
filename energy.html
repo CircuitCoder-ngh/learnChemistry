@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energy and heat | The Mole Hole</title>
+<meta name="description" content="Learn energy and heat with animations you control: kinetic and potential energy, system and surroundings, exothermic and endothermic signs, and q = mcΔT.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/energy.js"></script>
+<script defer src="assets/js/pages/energy.js"></script>
+</head>
+<body data-page="energy">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Energy and heat</h1>
+        <p class="lede">Heat is energy on the move. Its sign tells you which way it went, and that one sign wins or loses a lot of exam points.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Tell kinetic energy from potential energy at the particle level</li>
+    <li>Draw the system and surroundings, and give $q$ the right sign</li>
+    <li>Explain why a warm bathtub beats a hot teacup</li>
+    <li>Solve $q = mc\Delta T$ for any variable</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="kinds" data-short="Two kinds of energy">Two kinds of energy</h2>
+    <p><strong>Energy</strong> is the ability to do work or to move heat. It comes in two main flavors: energy of motion and energy of position. Rocks have both. So do atoms.</p>
+  </section>
+
+  <div id="story-kinds"></div>
+
+  <div class="big-idea">Energy is never created or destroyed. It only moves around or changes form. This is the law of conservation of energy, also called the first law of thermodynamics.</div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: breaking bonds does not release energy</h4>
+      <p>You may have heard that energy is "stored in bonds" and comes out when they break. It is backward. <b>Breaking</b> a bond always <b>costs</b> energy, like pulling two magnets apart. <b>Forming</b> a bond always <b>releases</b> energy. A fuel gives off heat because the bonds it forms are stronger than the bonds it breaks.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="system" data-short="System and surroundings">System and surroundings</h2>
+    <p>To talk about heat, first draw a line around the thing you care about. Inside the line is the <strong>system</strong>. Everything else is the <strong>surroundings</strong>. Every sign in this unit is written from the point of view of the system.</p>
+  </section>
+
+  <div id="story-flow"></div>
+
+  <div class="big-idea">Heat leaving the system is negative: exothermic. Heat entering the system is positive: endothermic.</div>
+
+  <div class="formula">
+    <p class="formula-name">Heat lost by one side is heat gained by the other</p>
+    <div class="formula-body">$$q_{\text{system}} = -\,q_{\text{surroundings}}$$</div>
+    <dl>
+      <dt>$q$</dt><dd>heat, in joules. The sign shows the direction.</dd>
+      <dt>$q &lt; 0$</dt><dd>exothermic: heat leaves the system, and the surroundings warm up.</dd>
+      <dt>$q &gt; 0$</dt><dd>endothermic: heat enters the system, and the surroundings cool down.</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-flow">
+    <div class="bench-head">
+      <p class="bench-title">Heat flow explorer</p>
+      <p class="bench-hint">Pick a process. Then let the lab test you.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-flow"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">What do you want to do?</span>
+        <div class="seg" id="flow-mode">
+          <button type="button" data-value="explore" aria-pressed="true">Explore</button>
+          <button type="button" data-value="test" aria-pressed="false">Test me</button>
+        </div>
+      </div>
+      <div class="ctl" id="flow-explore" style="grid-column:1/-1">
+        <span class="ctl-label">Process</span>
+        <div class="seg" id="flow-key">
+          <button type="button" data-value="methane" aria-pressed="true">Burning methane</button>
+          <button type="button" data-value="warmer" aria-pressed="false">Hand warmer</button>
+          <button type="button" data-value="freeze" aria-pressed="false">Water freezing</button>
+          <button type="button" data-value="condense" aria-pressed="false">Steam condensing</button>
+          <button type="button" data-value="coldpack" aria-pressed="false">Cold pack</button>
+          <button type="button" data-value="melt" aria-pressed="false">Ice melting</button>
+          <button type="button" data-value="boil" aria-pressed="false">Water boiling</button>
+        </div>
+      </div>
+      <div class="ctl" id="flow-amount" style="grid-column:1/-1">
+        <label class="ctl-label" for="flow-n">How much reacts <span class="ctl-value" id="flow-n-out"></span></label>
+        <input type="range" id="flow-n" min="0.5" max="5" step="0.5" value="1">
+      </div>
+      <div class="ctl" id="flow-test" style="grid-column:1/-1" hidden>
+        <span class="ctl-label">Which way does the heat go, for the system?</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="flow-out">Heat leaves: q is negative</button>
+          <button type="button" class="btn small cyan" id="flow-in">Heat enters: q is positive</button>
+          <button type="button" class="btn small ghost" id="flow-next" hidden>Next one</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="flow-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the thermometer sits in the surroundings</h4>
+      <p>If the water around a reaction gets <b>hotter</b>, the reaction is <b>exothermic</b> and its $q$ is <b>negative</b>. Students see the temperature climb and write a positive sign. The water's $q$ is positive, but the question asked about the reaction. Always ask: whose $q$ is this?</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="heat-temp" data-short="Heat vs temperature">Heat is not temperature</h2>
+    <p><strong>Temperature</strong> measures how fast the particles are moving on average. <strong>Thermal energy</strong> is the total kinetic energy of all of them. <strong>Heat</strong> is thermal energy that moves from hot to cold. A teacup can be hotter than a bathtub and still hold far less thermal energy, because the tub has far more particles.</p>
+  </section>
+
+  <figure class="bench" id="b-tub">
+    <div class="bench-head">
+      <p class="bench-title">Teacup against bathtub</p>
+      <p class="bench-hint">Can you make the teacup win? Slide it as hot as it goes.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tub"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="tub-tea">Teacup (200 g) starts at <span class="ctl-value" id="tub-tea-out"></span></label>
+        <input type="range" id="tub-tea" min="20" max="95" step="1" value="90">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="tub-bath">Bathtub (150 kg) starts at <span class="ctl-value" id="tub-bath-out"></span></label>
+        <input type="range" id="tub-bath" min="20" max="50" step="1" value="40">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Same heat, different result</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="tub-add">Add 20 kJ to each</button>
+          <button type="button" class="btn small ghost" id="tub-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Press the button and watch. The same 20 kJ sends the teacup up by about 24 °C and the bathtub up by about 0.03 °C. <b>Same heat, very different temperature change</b>, because the tub has 750 times the mass.</p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Spill a teacup on your lap and you yelp. Sit in a warm tub and you relax. But only one of them could melt 75 kg of ice, and it is the one I keep my rubber duck in.</p></div></div>
+
+  <section class="prose">
+    <h2 id="specific" data-short="Specific heat">Specific heat: why some things heat up fast</h2>
+    <p>A metal bench in the sun gets too hot to sit on. The lake next to it stays cool. They both got the same sunshine. Some materials simply need more heat to warm up. The heat needed to warm <b>1 gram</b> of a substance by <b>1 °C</b> is its <strong>specific heat</strong>, $c$.</p>
+  </section>
+
+  <figure class="bench" id="b-race">
+    <div class="bench-head">
+      <p class="bench-title">The specific heat race</p>
+      <p class="bench-hint">Same mass, same heat. Which reaches 80 °C first?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-race"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="race-q">Heat added to each <span class="ctl-value" id="race-q-out"></span></label>
+        <input type="range" id="race-q" min="0" max="50" step="0.05" value="0">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="race-m">Mass of each sample <span class="ctl-value" id="race-m-out"></span></label>
+        <input type="range" id="race-m" min="50" max="200" step="10" value="100">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Run it</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="race-go">Start the race</button>
+          <button type="button" class="btn small ghost" id="race-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="race-foot"><p>Water comes dead last, by a mile. Water's <b>high specific heat</b> is why coasts have mild weather and why car engines are cooled with a water mix.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Substance</th><th>Specific heat $c$ (J/g·°C)</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td>Liquid water</td><td>4.184</td><td>The one to memorize. Very hard to warm up.</td></tr>
+        <tr><td>Ethanol</td><td>about 2.44</td><td>Warms up faster than water.</td></tr>
+        <tr><td>Aluminum</td><td>about 0.90</td><td>Light metals have higher values.</td></tr>
+        <tr><td>Sand</td><td>about 0.84</td><td>Varies a little with the type of sand.</td></tr>
+        <tr><td>Iron</td><td>about 0.45</td><td>Heats up about 9 times faster than water.</td></tr>
+        <tr><td>Copper</td><td>about 0.385</td><td>Warms up with very little heat.</td></tr>
+        <tr><td>Gold</td><td>about 0.129</td><td>Heats up about 32 times faster than water.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <p class="formula-name">The heat equation</p>
+    <div class="formula-body">$$q = m\,c\,\Delta T$$</div>
+    <dl>
+      <dt>$q$</dt><dd>heat, in joules (J). Positive when the sample warms, negative when it cools.</dd>
+      <dt>$m$</dt><dd>mass, in grams (g).</dd>
+      <dt>$c$</dt><dd>specific heat, in J/g·°C.</dd>
+      <dt>$\Delta T$</dt><dd>$T_{\text{final}} - T_{\text{initial}}$, in °C. A change of 1 °C is the same size as a change of 1 K.</dd>
+    </dl>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: final minus initial, always</h4>
+      <p>$\Delta T$ is always <b>final minus initial</b>. Cooling from 80 °C to 30 °C gives $\Delta T = -50$ °C, and that minus sign is what makes $q$ negative. Do not subtract the small number from the big one out of habit.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: finding heat</h4>
+    <p class="worked-q">How much heat warms 250. g of water from 20.0 °C to 75.0 °C?</p>
+    <ol>
+      <li>Find the change, final minus initial: $\Delta T = 75.0 - 20.0 = +55.0\ ^\circ\text{C}$.</li>
+      <li>Write the equation and fill it in: $q = mc\Delta T = (250.\ \text{g})(4.184\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}})(55.0\ {}^\circ\text{C})$.</li>
+      <li>Grams cancel and °C cancels, leaving joules: $q = 57{,}530\ \text{J}$.</li>
+      <li>Round to three significant figures and convert: <span class="answer">$q = +57.5$ kJ</span>. It is positive, so heat entered the water.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="solve" data-short="Solving for anything">Solving for anything</h2>
+    <p>Exams love hiding the unknown. They may give $q$ and ask for the mass, or the final temperature. It is always the same equation, rearranged. Divide both sides by whatever is keeping your unknown company.</p>
+  </section>
+
+  <figure class="bench" id="b-solve">
+    <div class="bench-head">
+      <p class="bench-title">Rearrange the heat equation</p>
+      <p class="bench-hint">Pick the unknown and watch the pieces move.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-solve"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Solve for</span>
+        <div class="seg" id="solve-x">
+          <button type="button" data-value="q" aria-pressed="true">q</button>
+          <button type="button" data-value="m" aria-pressed="false">m</button>
+          <button type="button" data-value="c" aria-pressed="false">c</button>
+          <button type="button" data-value="dT" aria-pressed="false">ΔT</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Direction</span>
+        <div class="seg" id="solve-dir">
+          <button type="button" data-value="1" aria-pressed="true">Heating</button>
+          <button type="button" data-value="-1" aria-pressed="false">Cooling</button>
+        </div>
+      </div>
+      <div class="ctl" id="solve-sub-wrap">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="solve-sub">
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="al" aria-pressed="false">Aluminum</button>
+          <button type="button" data-value="fe" aria-pressed="false">Iron</button>
+          <button type="button" data-value="cu" aria-pressed="false">Copper</button>
+        </div>
+      </div>
+      <div class="ctl" id="solve-m-wrap">
+        <label class="ctl-label" for="solve-m">Mass <span class="ctl-value" id="solve-m-out"></span></label>
+        <input type="range" id="solve-m" min="10" max="500" step="10" value="100">
+      </div>
+      <div class="ctl" id="solve-t-wrap">
+        <label class="ctl-label" for="solve-t">Size of the temperature change <span class="ctl-value" id="solve-t-out"></span></label>
+        <input type="range" id="solve-t" min="1" max="60" step="1" value="25">
+      </div>
+      <div class="ctl" id="solve-q-wrap">
+        <label class="ctl-label" for="solve-q">Size of the heat <span class="ctl-value" id="solve-q-out"></span></label>
+        <input type="range" id="solve-q" min="0.5" max="40" step="0.5" value="5">
+      </div>
+    </div>
+    <div class="bench-foot" id="solve-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: a cooling block</h4>
+    <p class="worked-q">A 50.0 g iron block at 120.0 °C loses 1.35 kJ of heat. What is its final temperature? Use $c = 0.45$ J/g·°C.</p>
+    <ol>
+      <li>Give the heat its sign and put it in joules. The block <b>loses</b> heat, so $q = -1350$ J.</li>
+      <li>Rearrange for $\Delta T$ by dividing both sides by $mc$: $\Delta T = \dfrac{q}{mc}$.</li>
+      <li>Fill it in. Joules and grams cancel, leaving °C: $\Delta T = \dfrac{-1350\ \text{J}}{(50.0\ \text{g})(0.45\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}})} = -60\ {}^\circ\text{C}$.</li>
+      <li>Use $\Delta T = T_f - T_i$, so $T_f = T_i + \Delta T = 120.0 + (-60)$. The answer is <span class="answer">$T_f = 60\ ^\circ\text{C}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: identify the mystery metal</h4>
+    <p class="worked-q">A 75.0 g metal bar absorbs 1.30 kJ and warms from 20.0 °C to 58.6 °C. Which metal is it most likely to be?</p>
+    <ol>
+      <li>Find the change: $\Delta T = 58.6 - 20.0 = +38.6\ ^\circ\text{C}$. Put the heat in joules: $q = +1300$ J.</li>
+      <li>Rearrange for $c$ by dividing both sides by $m\Delta T$: $c = \dfrac{q}{m\Delta T}$.</li>
+      <li>Fill it in: $c = \dfrac{1300\ \text{J}}{(75.0\ \text{g})(38.6\ {}^\circ\text{C})} = 0.449\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}}$.</li>
+      <li>Look it up in the table. The answer is <span class="answer">iron</span>, which has $c$ of about 0.45.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="units" data-short="Energy units">Energy units</h2>
+    <p>The SI unit of energy is the <strong>joule</strong> (J). Reactions involve thousands of joules, so chemists often use <strong>kilojoules</strong> (kJ). Older books use the <strong>calorie</strong> (cal), and food labels use a third one that trips everybody up.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Energy conversions</p>
+    <div class="formula-body">$$\begin{gathered}1\text{ kJ} = 1000\text{ J} \\ 1\text{ cal} = 4.184\text{ J} \\ 1\text{ Cal} = 1000\text{ cal} = 1\text{ kcal}\end{gathered}$$</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: joules, kilojoules, and that capital C</h4>
+      <p>Specific heat uses <b>joules</b>, but many answers come out in <b>kilojoules</b>. Convert before you mix them. And a food Calorie, with a capital C, is 1000 ordinary calories. A 90 Cal snack is 90,000 cal, or about 377 kJ.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="energy"></div>
+  <div data-practice="energy"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Kinetic energy</strong> is motion. <strong>Potential energy</strong> is position or attraction. Total energy never changes.</li>
+      <li>The <strong>system</strong> is what you are studying. The <strong>surroundings</strong> are everything else.</li>
+      <li><strong>Exothermic</strong>: heat leaves, $q &lt; 0$, surroundings warm. <strong>Endothermic</strong>: heat enters, $q &gt; 0$, surroundings cool.</li>
+      <li><strong>Temperature</strong> is average particle motion. <strong>Heat</strong> is energy moving from hot to cold.</li>
+      <li>$q = mc\Delta T$, with $\Delta T$ as final minus initial. For water, $c = 4.184$ J/g·°C.</li>
+      <li>1 cal = 4.184 J. 1 kJ = 1000 J. 1 food Cal = 1000 cal.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

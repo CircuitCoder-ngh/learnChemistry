@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbitals and quantum numbers | The Mole Hole</title>
+<meta name="description" content="See real hydrogen orbitals in 3D, as clouds and balloons. Learn the four quantum numbers as an address, the allowed combinations, nodes, and how many electrons fit in each shell.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/vendor/three.min.js"></script>
+<script defer src="assets/js/chem3d.js"></script>
+<script defer src="assets/js/bank/orbitals.js"></script>
+<script defer src="assets/js/pages/orbitals.js"></script>
+</head>
+<body data-page="orbitals">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Orbitals and quantum numbers</h1>
+        <p class="lede">An electron has no neat path. It has a cloud of places it might be, and four numbers that work like its home address.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what an orbital is, and how it differs from an orbit</li>
+    <li>Use $n$, $\ell$, $m_\ell$ and $m_s$ as an address, and spot illegal ones</li>
+    <li>Recognize s, p and d shapes, and count their nodes</li>
+    <li>Count the orbitals and electrons in any subshell or shell</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="cloud" data-short="Orbit to cloud">From orbit to cloud</h2>
+    <p>The last lesson ended with a problem. You cannot track an electron along a path. So what can you say about where it is? Quite a lot, it turns out, as long as you think in odds.</p>
+  </section>
+
+  <div id="story-cloud"></div>
+
+  <div class="big-idea">An orbital is not a path. It is a region of space, usually drawn to hold 90 percent of the chance of finding the electron.</div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: orbit is not orbital</h4>
+      <p>An <b>orbit</b> is Bohr's sharp circular track, and we no longer believe in it. An <b>orbital</b> is a wave-based cloud of probability. The electron does not run along the surface of a balloon. It has some chance of being anywhere inside it, and a small chance of being outside.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="viewer" data-short="3D orbital viewer">The orbital viewer</h2>
+    <p>These are real hydrogen wavefunctions, solved by Schrödinger's equation and plotted in 3D. In <strong>cloud</strong> mode, each dot is one place the electron could be found. In <strong>balloon</strong> mode, you see the simple outline that textbooks draw. Pick the numbers and turn it with your finger.</p>
+  </section>
+
+  <figure class="bench" id="b-orb">
+    <div class="bench-head">
+      <p class="bench-title">3D orbital viewer</p>
+      <p class="bench-hint">Choose $n$, then $\ell$, then $m_\ell$. Drag to turn it.</p>
+    </div>
+    <div class="bench-stage"><div id="orb-host"></div></div>
+    <div class="bench-stage"><canvas id="c-orb2"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label"><span>$n$: size and energy</span></span>
+        <div class="seg" id="orb-n">
+          <button type="button" data-value="1" aria-pressed="false">1</button>
+          <button type="button" data-value="2" aria-pressed="false">2</button>
+          <button type="button" data-value="3" aria-pressed="true">3</button>
+          <button type="button" data-value="4" aria-pressed="false">4</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label"><span>$\ell$: shape</span></span>
+        <div class="seg" id="orb-l">
+          <button type="button" data-value="0" aria-pressed="false">0 (s)</button>
+          <button type="button" data-value="1" aria-pressed="false">1 (p)</button>
+          <button type="button" data-value="2" aria-pressed="true">2 (d)</button>
+          <button type="button" data-value="3" aria-pressed="false">3 (f)</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label"><span>$m_\ell$: direction</span></span>
+        <div class="seg" id="orb-m"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Draw it as</span>
+        <div class="seg" id="orb-mode">
+          <button type="button" data-value="cloud" aria-pressed="true">Cloud</button>
+          <button type="button" data-value="balloon" aria-pressed="false">Balloon</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Extras</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="chip" id="orb-nodes" aria-pressed="false">Show nodes</button>
+          <button type="button" class="chip" id="orb-all" aria-pressed="false">All of this subshell</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Orbital</div><div class="readout-value" id="orb-name">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Radial nodes</div><div class="readout-value" id="orb-rn">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Angular nodes</div><div class="readout-value" id="orb-an">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Orbitals in this subshell</div><div class="readout-value" id="orb-count">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="orb-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Cyan and pink mark the <b>phase</b> of the wave, like the up and down of a wave on a rope. They are not charges, and pink is not "less electron". Try 2p, then press <b>All of this subshell</b> in cloud mode. Together, the three p orbitals make a perfect sphere. I did not expect that either.</p></div></div>
+
+  <section class="prose">
+    <h2 id="address" data-short="Four numbers">Four numbers, one address</h2>
+    <p>Every electron in an atom has its own address, made of four <strong>quantum numbers</strong>. Think of a city of tall buildings: the number tells you the building, the floor, the room, and the seat.</p>
+  </section>
+
+  <div id="story-numbers"></div>
+
+  <figure class="bench" id="b-city">
+    <div class="bench-head">
+      <p class="bench-title">Electron city</p>
+      <p class="bench-hint">Tap a room, then a seat, to read its address.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-city"></canvas></div>
+    <div class="bench-controls">
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Building $n$</div><div class="readout-value" id="city-n">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Floor $\ell$</div><div class="readout-value" id="city-l">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Room $m_\ell$</div><div class="readout-value" id="city-m">—</div></div>
+        <div class="readout is-good"><div class="readout-label">Seat $m_s$</div><div class="readout-value" id="city-s">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="city-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The rules for the address</p>
+    <div class="formula-body">$$n = 1, 2, 3, \ldots$$</div>
+    <div class="formula-body">$$\ell = 0, 1, \ldots, n-1$$</div>
+    <div class="formula-body">$$m_\ell = -\ell, \ldots, 0, \ldots, +\ell$$</div>
+    <div class="formula-body">$$m_s = +\tfrac{1}{2} \text{ or } -\tfrac{1}{2}$$</div>
+    <dl>
+      <dt>$\ell$ names</dt><dd>$\ell = 0$ is s, $\ell = 1$ is p, $\ell = 2$ is d, $\ell = 3$ is f</dd>
+      <dt>Counts</dt><dd>A subshell has $2\ell + 1$ orbitals. Shell $n$ has $n^2$ orbitals and holds $2n^2$ electrons.</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-check">
+    <div class="bench-head">
+      <p class="bench-title">Address checker</p>
+      <p class="bench-hint">Build any address. Can this electron really live there?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-check"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="chk-n">$n$ <span class="ctl-value" id="chk-n-out"></span></label>
+        <input type="range" id="chk-n" min="0" max="5" step="1" value="3">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="chk-l">$\ell$ <span class="ctl-value" id="chk-l-out"></span></label>
+        <input type="range" id="chk-l" min="0" max="5" step="1" value="3">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="chk-m">$m_\ell$ <span class="ctl-value" id="chk-m-out"></span></label>
+        <input type="range" id="chk-m" min="-5" max="5" step="1" value="0">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">$m_s$</span>
+        <div class="seg" id="chk-s">
+          <button type="button" data-value="+1/2" aria-pressed="true">+½</button>
+          <button type="button" data-value="-1/2" aria-pressed="false">−½</button>
+          <button type="button" data-value="0" aria-pressed="false">0</button>
+          <button type="button" data-value="1" aria-pressed="false">1</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Try this: find the smallest $n$ that allows a d orbital. Then try $n = 2$, $\ell = 2$ and see which rule complains.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: is this address real?</h4>
+    <p class="worked-q">Which of these sets is not allowed, and why? (a) $n=3, \ell=2, m_\ell=-1, m_s=+\tfrac{1}{2}$ &nbsp; (b) $n=2, \ell=2, m_\ell=0, m_s=-\tfrac{1}{2}$ &nbsp; (c) $n=4, \ell=1, m_\ell=2, m_s=+\tfrac{1}{2}$</p>
+    <ol>
+      <li>Check (a). $\ell$ must be 0, 1 or 2 when $n=3$, so 2 is fine. $m_\ell$ runs from $-2$ to $+2$, so $-1$ is fine. Allowed. It is a 3d electron.</li>
+      <li>Check (b). When $n=2$, $\ell$ can only be 0 or 1. $\ell=2$ breaks the rule, so a "2d" orbital does not exist.</li>
+      <li>Check (c). $\ell=1$ is fine for $n=4$, but $m_\ell$ may only be $-1$, 0 or $+1$. $m_\ell=2$ breaks the rule.</li>
+      <li>So <span class="answer">(b) and (c) are not allowed</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: counting orbitals and electrons</h4>
+    <p class="worked-q">How many orbitals and electrons fit in the $n = 3$ shell? How many in just the 3d subshell?</p>
+    <ol>
+      <li>Shell: orbitals $= n^2 = 3^2 = 9$.</li>
+      <li>Each orbital holds 2 electrons, so $2n^2 = 2(9) = 18$ electrons.</li>
+      <li>Check by adding subshells: 3s has 1, 3p has 3, 3d has 5, and $1 + 3 + 5 = 9$ orbitals.</li>
+      <li>Subshell 3d: $\ell = 2$, so $2\ell + 1 = 5$ orbitals, which hold <span class="answer">10 electrons</span>. The whole shell holds <span class="answer">18</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: $\ell$ stops one short of $n$</h4>
+      <p>The largest $\ell$ is $n - 1$, not $n$. So there is no 1p, no 2d and no 3f. If you see any of those in a question, the answer is "does not exist". This is the single most tested rule in this topic.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="nodes" data-short="Nodes">Nodes: where the electron never is</h2>
+    <p>Because electrons act like waves, orbitals have <strong>nodes</strong>: places where the wave is exactly zero, so the chance of finding the electron there is zero too. Nodes follow a simple counting rule.</p>
+  </section>
+
+  <div id="story-nodes"></div>
+
+  <div class="formula">
+    <p class="formula-name">Counting nodes</p>
+    <div class="formula-body">$$\text{total nodes} = n - 1$$</div>
+    <div class="formula-body">$$\text{angular} = \ell \qquad \text{radial} = n - \ell - 1$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: nodes in a 4d orbital</h4>
+    <p class="worked-q">How many nodes of each kind does a 4d orbital have?</p>
+    <ol>
+      <li>Read the name: 4d means $n = 4$ and $\ell = 2$.</li>
+      <li>Total: $n - 1 = 4 - 1 = 3$ nodes.</li>
+      <li>Angular: $\ell = 2$ nodes. Radial: $n - \ell - 1 = 4 - 2 - 1 = 1$ node.</li>
+      <li>Check: $2 + 1 = 3$. The answer is <span class="answer">2 angular and 1 radial</span>.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wave"></div><div class="bubble"><p>People always ask how the electron crosses a node if it can never be there. It does not cross like a ball. It is a wave, spread out on both sides at once, the way a guitar string vibrates on both sides of a still point.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="orbitals"></div>
+  <div data-practice="orbitals"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Orbital</strong>: a region with about 90% chance of finding the electron. Not a path.</li>
+      <li>$n$ sets size and energy, and is 1 or higher. $\ell$ sets shape, from 0 to $n - 1$. $m_\ell$ sets direction, from $-\ell$ to $+\ell$. $m_s$ is $+\tfrac{1}{2}$ or $-\tfrac{1}{2}$.</li>
+      <li>$\ell$ = 0, 1, 2, 3 means s, p, d, f. There is no 1p, 2d or 3f.</li>
+      <li>A subshell has $2\ell + 1$ orbitals: s has 1, p has 3, d has 5, f has 7.</li>
+      <li>A shell has $n^2$ orbitals and holds $2n^2$ electrons. Each orbital holds 2.</li>
+      <li>Nodes: total $n - 1$, angular $\ell$, radial $n - \ell - 1$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

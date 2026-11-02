@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kinetic theory and real gases | The Mole Hole</title>
+<meta name="description" content="See why gases behave so simply: the postulates of kinetic theory, a live speed histogram from a real particle sim, rms speed, Graham's law effusion races, diffusion, and when real gases stop being ideal.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/kmt.js"></script>
+<script defer src="assets/js/pages/kmt.js"></script>
+</head>
+<body data-page="kmt">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>Kinetic theory and real gases</h1>
+        <p class="lede">Why do all gases follow the same simple law? Because a gas is mostly empty space with tiny things flying through it, until you crowd them.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>State the five ideas of kinetic molecular theory</li>
+    <li>Read a speed distribution and link temperature to kinetic energy</li>
+    <li>Calculate rms speed, with molar mass in kg/mol</li>
+    <li>Use Graham's law and explain when real gases stop being ideal</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="postulates" data-short="The five ideas">The five ideas of kinetic theory</h2>
+    <p><strong>Kinetic molecular theory</strong>, or KMT, is a simple picture of what a gas is. Five ideas, called <strong>postulates</strong>, are enough to explain every gas law from the last two lessons.</p>
+  </section>
+
+  <div id="story-postulates"></div>
+
+  <div class="big-idea">Temperature measures the average kinetic energy of the particles. Hotter means faster, on average.</div>
+
+  <div class="formula">
+    <p class="formula-name">Average kinetic energy of a mole of gas particles</p>
+    <div class="formula-body">$$\text{KE}_\text{avg} = \frac{3}{2}RT \qquad R = 8.314\ \frac{\text{J}}{\text{mol K}}$$</div>
+  </div>
+
+  <section class="prose">
+    <h2 id="histogram" data-short="Speed histogram">Not everyone moves at the same speed</h2>
+    <p>Temperature sets the <em>average</em>. Each particle has its own speed, and every collision changes it. Start them all at one speed below and watch what collisions do. The bars count the real particles in the box.</p>
+  </section>
+
+  <figure class="bench" id="b-hist">
+    <div class="bench-head">
+      <p class="bench-title">A live speed histogram</p>
+      <p class="bench-hint">Reset the speeds, then change the temperature.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-hist"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="hist-t">Temperature <span class="ctl-value" id="hist-t-out"></span></label>
+        <input type="range" id="hist-t" min="100" max="1000" step="10" value="300">
+      </div>
+      <div class="ctl" style="display:flex;align-items:center">
+        <button type="button" class="btn small" id="hist-same">Start all at one speed</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">rms speed of these particles</div><div class="readout-value" id="hist-rms">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Fastest right now</div><div class="readout-value" id="hist-max">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Collisions per second</div><div class="readout-value" id="hist-hits">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified 2D model, slowed way down, with speeds scaled so the rms matches real $\ce{N2}$. A 2D gas settles onto the curve $v\,e^{-v^2/2\sigma^2}$, a close cousin of the 3D Maxwell-Boltzmann curve in the next lab. Follow the ringed particle: its speed jumps with every collision, yet the overall shape <b>stays put</b>.</p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Notice the long tail on the right. A few particles are always far faster than average. That tail is why water can evaporate from a puddle long before it reaches 100 °C.</p></div></div>
+
+  <section class="prose">
+    <h2 id="rms" data-short="rms speed">How fast? The rms speed</h2>
+    <p>The real 3D curve is called the <strong>Maxwell-Boltzmann distribution</strong>. To sum up all those speeds in one number, we use the <strong>root mean square speed</strong>: square each speed, average them, and take the square root. Same temperature means same kinetic energy, so lighter particles must move faster.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Root mean square speed</p>
+    <div class="formula-body">$$u_\text{rms} = \sqrt{\frac{3RT}{M}} \qquad R = 8.314\ \frac{\text{J}}{\text{mol K}}, \quad M \text{ in kg/mol}$$</div>
+  </div>
+
+  <figure class="bench" id="b-mb">
+    <div class="bench-head">
+      <p class="bench-title">Real gases at real speeds</p>
+      <p class="bench-hint">Pick up to three gases, then slide.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-mb"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Gases to compare</span>
+        <div class="seg" id="mb-gases">
+          <button type="button" data-value="H2" aria-pressed="false">H₂</button>
+          <button type="button" data-value="He" aria-pressed="true">He</button>
+          <button type="button" data-value="H2O" aria-pressed="false">H₂O</button>
+          <button type="button" data-value="N2" aria-pressed="true">N₂</button>
+          <button type="button" data-value="O2" aria-pressed="false">O₂</button>
+          <button type="button" data-value="CO2" aria-pressed="true">CO₂</button>
+          <button type="button" data-value="Xe" aria-pressed="false">Xe</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="mb-t">Temperature <span class="ctl-value" id="mb-t-out"></span></label>
+        <input type="range" id="mb-t" min="100" max="1000" step="10" value="300">
+      </div>
+    </div>
+    <div class="bench-foot" id="mb-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: rms speed</h4>
+    <p class="worked-q">What is the rms speed of $\ce{N2}$ molecules at 25 °C?</p>
+    <ol>
+      <li>Temperature to Kelvin: $T = 25 + 273 = 298\text{ K}$.</li>
+      <li>Molar mass to kg/mol: $28.02\ \cancel{\text{g}}/\text{mol} \times \dfrac{1\text{ kg}}{1000\ \cancel{\text{g}}} = 0.02802\text{ kg/mol}$.</li>
+      <li>Use the joule trick. $1\text{ J} = 1\text{ kg m}^2/\text{s}^2$, so that is the unit of $RT$ per mole.</li>
+      <li>Put in the numbers: $u_\text{rms} = \sqrt{\dfrac{3\left(8.314\ \dfrac{\cancel{\text{kg}}\text{ m}^2}{\text{s}^2\ \cancel{\text{mol}}\ \cancel{\text{K}}}\right)(298\ \cancel{\text{K}})}{0.02802\ \cancel{\text{kg}}/\cancel{\text{mol}}}} = \sqrt{2.65 \times 10^5\ \dfrac{\text{m}^2}{\text{s}^2}}$.</li>
+      <li>The answer is <span class="answer">$515$ m/s</span>, over 1000 miles per hour. Molecules in your room are doing this right now.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: molar mass in kg/mol</h4>
+      <p>With $R = 8.314$, the molar mass must be in <b>kilograms</b> per mole. Plug in 28.02 instead of 0.02802 and $\ce{N2}$ crawls along at 16 m/s, slower than a car on a highway. A second trap: quadruple the Kelvin temperature and speed only <b>doubles</b>, because of the square root.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="graham" data-short="Graham's law">Graham's law: the effusion race</h2>
+    <p><strong>Effusion</strong> is gas escaping through a tiny hole into empty space. A faster particle reaches the hole more often, so lighter gases leak out faster. Thomas Graham measured this in the 1840s.</p>
+  </section>
+
+  <div id="story-graham"></div>
+
+  <div class="formula">
+    <p class="formula-name">Graham's law of effusion</p>
+    <div class="formula-body">$$\frac{\text{rate}_1}{\text{rate}_2} = \sqrt{\frac{M_2}{M_1}}$$</div>
+  </div>
+
+  <figure class="bench" id="b-race">
+    <div class="bench-head">
+      <p class="bench-title">The effusion race</p>
+      <p class="bench-hint">Choose two gases and call the winner.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-race"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Left gas</span>
+        <div class="seg" id="race-a">
+          <button type="button" data-value="H2" aria-pressed="true">H₂</button>
+          <button type="button" data-value="He" aria-pressed="false">He</button>
+          <button type="button" data-value="CH4" aria-pressed="false">CH₄</button>
+          <button type="button" data-value="N2" aria-pressed="false">N₂</button>
+          <button type="button" data-value="O2" aria-pressed="false">O₂</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Right gas</span>
+        <div class="seg" id="race-b">
+          <button type="button" data-value="H2" aria-pressed="false">H₂</button>
+          <button type="button" data-value="He" aria-pressed="false">He</button>
+          <button type="button" data-value="CH4" aria-pressed="false">CH₄</button>
+          <button type="button" data-value="N2" aria-pressed="false">N₂</button>
+          <button type="button" data-value="O2" aria-pressed="true">O₂</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Your prediction</span>
+        <div class="seg" id="race-pick">
+          <button type="button" data-value="a" aria-pressed="false">Left wins</button>
+          <button type="button" data-value="b" aria-pressed="false">Right wins</button>
+          <button type="button" data-value="tie" aria-pressed="false">A tie</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button type="button" class="btn small" id="race-go">Open the holes</button>
+        <button type="button" class="btn ghost small" id="race-reset">Reset the race</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="race-foot" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>A simplified 2D model with only 60 particles per side, so each race is a bit noisy. Real experiments average over trillions of trillions, and land right on the law. Speeds are slowed way down, but their ratio is true.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: comparing rates</h4>
+    <p class="worked-q">How many times faster does $\ce{H2}$ effuse than $\ce{O2}$ at the same temperature?</p>
+    <ol>
+      <li>Call hydrogen gas 1 and oxygen gas 2: $M_1 = 2.016$ g/mol and $M_2 = 32.00$ g/mol.</li>
+      <li>Note that the <b>other</b> gas's mass goes on top: $\dfrac{\text{rate}_{\ce{H2}}}{\text{rate}_{\ce{O2}}} = \sqrt{\dfrac{M_{\ce{O2}}}{M_{\ce{H2}}}}$.</li>
+      <li>Put in the numbers: $\sqrt{\dfrac{32.00\ \cancel{\text{g/mol}}}{2.016\ \cancel{\text{g/mol}}}} = \sqrt{15.87} = $ <span class="answer">$3.98$ times faster</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: identifying a mystery gas</h4>
+    <p class="worked-q">An unknown gas effuses at 0.500 times the rate of helium. What is its molar mass?</p>
+    <ol>
+      <li>Write Graham's law with the unknown as gas $x$: $\dfrac{\text{rate}_x}{\text{rate}_{\ce{He}}} = \sqrt{\dfrac{M_{\ce{He}}}{M_x}}$, so $0.500 = \sqrt{\dfrac{4.003}{M_x}}$.</li>
+      <li>Square both sides to remove the root: $0.250 = \dfrac{4.003}{M_x}$.</li>
+      <li>Solve for $M_x$: $M_x = \dfrac{4.003\text{ g/mol}}{0.250} = $ <span class="answer">$16.0$ g/mol</span>. That matches methane, $\ce{CH4}$.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="diffusion" data-short="Diffusion">Diffusion: spreading through a crowd</h2>
+    <p><strong>Diffusion</strong> is one gas spreading through another. It follows the same rule, lighter is faster. But it is far slower than the molecular speeds suggest, and the story shows why.</p>
+  </section>
+
+  <div id="story-diffusion"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: effusion is not diffusion</h4>
+      <p><b>Effusion</b> means escaping through a tiny hole into a vacuum, with no collisions in the way. <b>Diffusion</b> means mixing through another gas, with constant collisions. Graham's law is exact for effusion and only a rough guide for diffusion.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="real" data-short="Real gases">Real gases: when the ideal breaks</h2>
+    <p>Two of the five postulates are not quite true. Molecules do take up space, and they do attract each other. Most of the time it barely matters. Crowd and chill a gas, and it matters a lot.</p>
+  </section>
+
+  <div id="story-real"></div>
+
+  <div class="formula">
+    <p class="formula-name">The van der Waals equation</p>
+    <div class="formula-body">$$\left(P + a\frac{n^2}{V^2}\right)\left(V - nb\right) = nRT$$</div>
+  </div>
+
+  <figure class="bench" id="b-real">
+    <div class="bench-head">
+      <p class="bench-title">Ideal or real?</p>
+      <p class="bench-hint">Squeeze and cool a gas until the ideal law fails.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-real"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Gas</span>
+        <div class="seg" id="real-gas">
+          <button type="button" data-value="He" aria-pressed="false">He</button>
+          <button type="button" data-value="H2" aria-pressed="false">H₂</button>
+          <button type="button" data-value="N2" aria-pressed="false">N₂</button>
+          <button type="button" data-value="CO2" aria-pressed="true">CO₂</button>
+          <button type="button" data-value="NH3" aria-pressed="false">NH₃</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="real-v">Volume of 1 mol <span class="ctl-value" id="real-v-out"></span></label>
+        <input type="range" id="real-v" min="0" max="100" step="1" value="62">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="real-t">Temperature <span class="ctl-value" id="real-t-out"></span></label>
+        <input type="range" id="real-t" min="220" max="1000" step="10" value="400">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Ideal gas law</div><div class="readout-value" id="real-pi">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Van der Waals</div><div class="readout-value" id="real-pr">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">$Z = PV/nRT$</div><div class="readout-value" id="real-z">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="real-foot" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>Numbers come from the van der Waals equation, itself an approximation that gets rough at the most extreme squeezes. Below a gas's critical temperature, real condensation starts somewhat before the ring on the curve, so treat that last stretch as a sketch. The box is a simplified 2D zoomed view: as you squeeze, the view zooms in, so molecules look larger and fill more of the frame.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Gas</th><th>$a$ (L² atm/mol²)</th><th>$b$ (L/mol)</th><th>What it says</th></tr></thead>
+      <tbody>
+        <tr><td>$\ce{He}$</td><td>0.0341</td><td>0.0237</td><td>Tiny, barely sticky</td></tr>
+        <tr><td>$\ce{H2}$</td><td>0.244</td><td>0.0266</td><td>Small, nonpolar</td></tr>
+        <tr><td>$\ce{N2}$</td><td>1.39</td><td>0.0391</td><td>Larger, a little sticky</td></tr>
+        <tr><td>$\ce{CO2}$</td><td>3.59</td><td>0.0427</td><td>Larger, stickier</td></tr>
+        <tr><td>$\ce{NH3}$</td><td>4.17</td><td>0.0371</td><td>Polar and hydrogen bonds, very sticky</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: ideal versus real</h4>
+    <p class="worked-q">Find the pressure of 1.00 mol of $\ce{CO2}$ in 1.00 L at 300 K, first as an ideal gas, then with van der Waals. Use $a = 3.59$ and $b = 0.0427$.</p>
+    <ol>
+      <li>Ideal: $P = \dfrac{nRT}{V} = \dfrac{(1.00)(0.08206)(300)}{1.00} = 24.6\text{ atm}$.</li>
+      <li>Solve van der Waals for $P$: subtract the attraction term, $P = \dfrac{nRT}{V - nb} - a\dfrac{n^2}{V^2}$.</li>
+      <li>The size term: $\dfrac{(1.00)(0.08206)(300)}{1.00 - (1.00)(0.0427)} = \dfrac{24.62}{0.9573} = 25.72\text{ atm}$.</li>
+      <li>The attraction term: $3.59 \times \dfrac{(1.00)^2}{(1.00)^2} = 3.59\text{ atm}$.</li>
+      <li>Together: $P = 25.72 - 3.59 = $ <span class="answer">$22.1$ atm</span>. That is below ideal, because at this density attractions matter more than size.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: which conditions are most ideal?</h4>
+      <p>A gas is most ideal at <b>low pressure and high temperature</b>: spread out, so size does not matter, and fast, so attractions do not matter. Students often flip this. The most ideal gases are small and nonpolar, such as helium. Real gases fail at high pressure and low temperature.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="kmt"></div>
+  <div data-practice="kmt"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>KMT:</strong> tiny particles, straight-line random motion, no forces between them, elastic collisions, average KE set by Kelvin temperature.</li>
+      <li>$\text{KE}_\text{avg} = \frac{3}{2}RT$ per mole. Same $T$ means same KE for any gas.</li>
+      <li>$u_\text{rms} = \sqrt{3RT/M}$, with $R = 8.314$ and $M$ in <strong>kg/mol</strong>.</li>
+      <li><strong>Graham:</strong> $\text{rate}_1/\text{rate}_2 = \sqrt{M_2/M_1}$. Lighter means faster.</li>
+      <li><strong>Van der Waals:</strong> $a$ corrects for attractions, $b$ for molecular size.</li>
+      <li>Most ideal at low $P$ and high $T$. $Z = PV/nRT$ is 1 for an ideal gas.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

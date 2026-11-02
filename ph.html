@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pH and buffers | The Mole Hole</title>
+<meta name="description" content="Logarithms made friendly: the pH scale with real substances, strong and weak acids at the particle level, Ka and Kb, and a live buffer simulator.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/ph.js"></script>
+<script defer src="assets/js/pages/ph.js"></script>
+</head>
+<body data-page="ph">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>pH and buffers</h1>
+        <p class="lede">pH is a way of counting zeros. It turns impossibly tiny numbers into a friendly scale, and buffers are what hold it steady.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what one step on the pH scale really means</li>
+    <li>Move between pH, pOH, $[\ce{H3O+}]$ and $[\ce{OH-}]$</li>
+    <li>Tell strong from weak acids, and use $K_a$</li>
+    <li>Explain a buffer and use Henderson-Hasselbalch</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="logs" data-short="Counting zeros">Counting zeros</h2>
+    <p>You know from the <a href="acid-base.html">acids and bases lesson</a> that acids hand over protons. In water, that proton lands on a water molecule and makes $\ce{H3O+}$, the <strong>hydronium ion</strong>. Many books write it as $\ce{H+}$ for short, and they mean the same thing.</p>
+  </section>
+
+  <div id="story-logs"></div>
+
+  <div class="big-idea">Each step down the pH scale means 10 times more $\ce{H3O+}$. Lemon juice at pH 2 has 100,000 times more than pure water at pH 7.</div>
+
+  <div class="formula">
+    <p class="formula-name">The four numbers, all at 25 °C</p>
+    <div class="formula-body">$$\text{pH} = -\log[\ce{H3O+}] \qquad [\ce{H3O+}] = 10^{-\text{pH}}$$ $$\text{pOH} = -\log[\ce{OH-}] \qquad \text{pH} + \text{pOH} = 14.00$$ $$K_w = [\ce{H3O+}][\ce{OH-}] = 1.0 \times 10^{-14}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: from concentration to pH</h4>
+    <p class="worked-q">Black coffee and rain are around pH 5 to 6. A soda has $[\ce{H3O+}] = 3.2 \times 10^{-4}$ M. Find its pH, pOH and $[\ce{OH-}]$.</p>
+    <ol>
+      <li>Estimate first. $10^{-4}$ would be pH 4 and $10^{-3}$ would be pH 3, so the answer sits between 3 and 4.</li>
+      <li>Calculate: $\text{pH} = -\log(3.2 \times 10^{-4}) = $ <span class="answer">$3.49$</span>.</li>
+      <li>Use the sum: $\text{pOH} = 14.00 - 3.49 = $ <span class="answer">$10.51$</span>.</li>
+      <li>Use $K_w$: $[\ce{OH-}] = \dfrac{1.0 \times 10^{-14}}{3.2 \times 10^{-4}} = $ <span class="answer">$3.1 \times 10^{-11}$ M</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: sig figs in a log</h4>
+      <p>Only the digits <b>after</b> the decimal point in a pH count as significant. The number in front just holds the power of ten. So $3.2 \times 10^{-4}$, with two sig figs, gives a pH with two decimal places: 3.49, not 3.5.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="scale" data-short="The pH scale">The pH scale in real life</h2>
+    <p>Here is that scale with things you can find at home. Pick a substance or slide to any pH, and watch how much the hydronium amount changes.</p>
+  </section>
+
+  <figure class="bench" id="b-scale">
+    <div class="bench-head">
+      <p class="bench-title">pH explorer</p>
+      <p class="bench-hint">How much more acidic is lemon juice than milk?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-scale"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="sc-sub">
+          <button type="button" data-value="0.8" aria-pressed="false">Battery acid</button>
+          <button type="button" data-value="1.5" aria-pressed="false">Stomach acid</button>
+          <button type="button" data-value="2.3" aria-pressed="false">Lemon juice</button>
+          <button type="button" data-value="2.8" aria-pressed="false">Vinegar</button>
+          <button type="button" data-value="5" aria-pressed="false">Black coffee</button>
+          <button type="button" data-value="6.6" aria-pressed="false">Milk</button>
+          <button type="button" data-value="7" aria-pressed="true">Pure water</button>
+          <button type="button" data-value="7.4" aria-pressed="false">Blood</button>
+          <button type="button" data-value="8.1" aria-pressed="false">Seawater</button>
+          <button type="button" data-value="8.3" aria-pressed="false">Baking soda</button>
+          <button type="button" data-value="11.5" aria-pressed="false">Ammonia cleaner</button>
+          <button type="button" data-value="12.5" aria-pressed="false">Bleach</button>
+          <button type="button" data-value="14" aria-pressed="false">Drain cleaner</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="sc-ph"><span>Or set any pH</span> <span class="ctl-value" id="sc-ph-out"></span></label>
+        <input type="range" id="sc-ph" min="0" max="14" step="0.1" value="7">
+      </div>
+    </div>
+    <div class="bench-foot"><p>Typical values: real samples vary. The beaker shows the color of <b>universal indicator</b>, a dye that changes with pH. The particle picture is not to scale, since a true picture would need 10 times more dots at each step.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="strong-weak" data-short="Strong and weak">Strong and weak acids</h2>
+    <p>Two acids can have the same concentration and very different pH. The difference is what share of their molecules actually hand over a proton.</p>
+  </section>
+
+  <div id="story-acids"></div>
+
+  <figure class="bench" id="b-acids">
+    <div class="bench-head">
+      <p class="bench-title">Strong against weak</p>
+      <p class="bench-hint">Dilute them. Which one changes its percent?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-acids"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="ac-c"><span>Concentration of each acid</span> <span class="ctl-value" id="ac-c-out"></span></label>
+        <input type="range" id="ac-c" min="-3" max="0" step="0.05" value="-1">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Weak acid</span>
+        <div class="seg" id="ac-weak">
+          <button type="button" data-value="HF" aria-pressed="true">HF</button>
+          <button type="button" data-value="Ac" aria-pressed="false">Acetic acid</button>
+          <button type="button" data-value="HCN" aria-pressed="false">HCN</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="ac-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: strong does not mean concentrated</h4>
+      <p><b>Strong</b> and <b>weak</b> describe the share of molecules that ionize. <b>Concentrated</b> and <b>dilute</b> describe how much acid is in the water. A dilute strong acid and a concentrated weak acid are both real things. Weak also does not mean safe: HF is a weak acid and is very dangerous.</p>
+    </div>
+  </div>
+
+  <div class="formula">
+    <p class="formula-name">Weak acids and bases</p>
+    <div class="formula-body">$$K_a = \frac{[\ce{H3O+}][\ce{A-}]}{[\ce{HA}]} \qquad K_a K_b = K_w$$ $$\text{percent ionized} = \frac{[\ce{H3O+}]}{[\ce{HA}]_0} \times 100$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: pH of a weak acid</h4>
+    <p class="worked-q">Find the pH of 0.10 M acetic acid, with $K_a = 1.8 \times 10^{-5}$.</p>
+    <ol>
+      <li>Set up an ICE table. $$\ce{CH3COOH + H2O <=> H3O+ + CH3COO-}$$ The bottom row is $[\ce{HA}] = 0.10 - x$, and $[\ce{H3O+}] = [\ce{A-}] = x$.</li>
+      <li>Put it into $K_a$: $1.8 \times 10^{-5} = \dfrac{x^2}{0.10 - x}$.</li>
+      <li>Since $K_a$ is so small, $x$ is tiny next to 0.10. Treat $0.10 - x$ as just $0.10$: $x^2 = (1.8 \times 10^{-5})(0.10) = 1.8 \times 10^{-6}$.</li>
+      <li>Take the root: $x = \sqrt{1.8 \times 10^{-6}} = 1.34 \times 10^{-3}$ M.</li>
+      <li>Check the shortcut. $\dfrac{1.34 \times 10^{-3}}{0.10} \times 100 = 1.3\%$, which is under the usual 5% limit, so it was fine.</li>
+      <li>$\text{pH} = -\log(1.34 \times 10^{-3}) = $ <span class="answer">$2.87$</span>. A strong acid at the same concentration would be pH 1.00.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="buffers" data-short="Buffers">Buffers: holding pH steady</h2>
+    <p>Your blood stays between pH 7.35 and 7.45, whatever you eat. A <strong>buffer</strong> makes that possible. It has one partner ready to catch acid and another ready to catch base.</p>
+  </section>
+
+  <div id="story-buffer"></div>
+
+  <figure class="bench" id="b-buffer">
+    <div class="bench-head">
+      <p class="bench-title">Buffer against plain water</p>
+      <p class="bench-hint">How much acid does it take to break the buffer?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-buffer"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Add to both beakers</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px 10px">
+          <button type="button" class="btn small" id="bf-acid">Add 0.01 mol of HCl</button>
+          <button type="button" class="btn small cyan" id="bf-base">Add 0.01 mol of NaOH</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Buffer starts with</span>
+        <div class="seg" id="bf-mix">
+          <button type="button" data-value="eq" aria-pressed="true">Equal partners</button>
+          <button type="button" data-value="acid" aria-pressed="false">More acid</button>
+          <button type="button" data-value="base" aria-pressed="false">More base</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Start again</span>
+        <button type="button" class="btn small ghost" id="bf-reset">Reset both beakers</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="bf-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The Henderson-Hasselbalch equation</p>
+    <div class="formula-body">$$\text{pH} = \text{p}K_a + \log\frac{[\ce{A-}]}{[\ce{HA}]}$$</div>
+    <dl><dt>$\text{p}K_a$</dt><dd>$-\log K_a$. When $[\ce{A-}] = [\ce{HA}]$, the log term is zero and $\text{pH} = \text{p}K_a$.</dd></dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a buffer takes a hit</h4>
+    <p class="worked-q">One liter of buffer holds 0.10 mol of acetic acid and 0.10 mol of acetate, with $\text{p}K_a = 4.74$. You add 0.010 mol of $\ce{HCl}$. Find the new pH.</p>
+    <ol>
+      <li>Do the reaction first. The strong acid reacts completely with the base partner. $$\ce{H3O+ + CH3COO- -> CH3COOH + H2O}$$</li>
+      <li>Update the moles. Acetate falls: $0.10 - 0.010 = 0.09$ mol. Acetic acid rises: $0.10 + 0.010 = 0.11$ mol.</li>
+      <li>Use Henderson-Hasselbalch: $\text{pH} = 4.74 + \log\dfrac{0.09}{0.11} = 4.74 - 0.09 = $ <span class="answer">$4.65$</span>.</li>
+      <li>Compare: the same acid in a liter of plain water takes the pH from 7.00 all the way to 2.00.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>A buffer is not magic. It is a weak acid and its partner, standing by with a mop and a bucket. Give it more mess than it has mops, and pH will crash just the same. Try it above.</p></div></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: what makes a buffer</h4>
+      <p>A buffer needs a <b>weak</b> acid and its conjugate base (or a weak base and its conjugate acid). $\ce{HCl}$ with $\ce{NaCl}$ is no buffer, because $\ce{Cl-}$ is too weak a base to catch any protons.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="ph"></div>
+  <div data-practice="ph"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>$\text{pH} = -\log[\ce{H3O+}]$. One step is a factor of 10. Lower pH is more acidic.</li>
+      <li>At 25 °C, $\text{pH} + \text{pOH} = 14.00$, and $K_w = 1.0 \times 10^{-14}$.</li>
+      <li><strong>Strong</strong> acids ionize completely: pH comes straight from molarity. <strong>Weak</strong> acids need $K_a$ and an ICE table.</li>
+      <li>A larger $K_a$ means a stronger acid. $K_a K_b = K_w$ for a conjugate pair.</li>
+      <li>A <strong>buffer</strong> is a weak acid plus its conjugate base. Use $\text{pH} = \text{p}K_a + \log\frac{[\ce{A-}]}{[\ce{HA}]}$.</li>
+      <li>Strong acid or base added to a buffer: do the reaction with moles first, then Henderson-Hasselbalch.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

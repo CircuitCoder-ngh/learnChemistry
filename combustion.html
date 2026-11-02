@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combustion equations | The Mole Hole</title>
+<meta name="description" content="Learn combustion with animations you control: what burning really is, balancing any fuel with carbon, then hydrogen, then oxygen, clearing fractions, soot, carbon monoxide, and fuel math.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/combustion.js"></script>
+<script defer src="assets/js/pages/combustion.js"></script>
+</head>
+<body data-page="combustion">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Combustion equations</h1>
+        <p class="lede">Fire is atoms swapping partners with oxygen. Learn one three-step recipe and you can balance any fuel on any exam.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wow"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what combustion is and name what a fire needs</li>
+    <li>Predict the products of complete and incomplete combustion</li>
+    <li>Balance any fuel: carbon, then hydrogen, then oxygen, then clear fractions</li>
+    <li>Work out grams of $\ce{CO2}$, grams of $\ce{O2}$, and heat released</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="what" data-short="What fire is">What fire really is</h2>
+    <p>A flame looks like a thing. It is not. It is something <em>happening</em>: a chemical reaction, fast enough that you can see and feel it.</p>
+  </section>
+
+  <div id="story-fire"></div>
+
+  <div class="big-idea"><b>Combustion</b> is a fuel reacting rapidly with $\ce{O2}$, releasing heat and light.</div>
+
+  <section class="prose">
+    <p>Rust is iron reacting with oxygen too, but it takes years and gives no flame. The word "rapidly" is what separates them. A fire also has needs. Take away any one of three things and it dies. Chemists call them the <strong>fire triangle</strong>.</p>
+  </section>
+
+  <figure class="bench" id="b-triangle">
+    <div class="bench-head">
+      <p class="bench-title">Put out the campfire three ways</p>
+      <p class="bench-hint">Each button removes one side of the triangle.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-triangle"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn sun" id="fire-fuel">Pull the logs apart</button>
+          <button type="button" class="btn cyan" id="fire-air">Drop the lid on</button>
+          <button type="button" class="btn" id="fire-heat">Pour on water</button>
+          <button type="button" class="btn ghost" id="fire-reset">Relight the fire</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="fire-foot" aria-live="polite"><p>Can you put it out in all three ways? Relight it between tries.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="methane" data-short="Methane, atom by atom">Methane, atom by atom</h2>
+    <p>Now the real thing. The gas in a kitchen stove or a lab burner is mostly <strong>methane</strong>, $\ce{CH4}$. Watch it burn in three views at once: what you see, what the particles do, and what chemists write.</p>
+  </section>
+
+  <div id="story-methane"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Nothing vanishes in a fire. Every atom that went in comes out, wearing a new outfit. If your equation loses an atom, the universe will not be impressed, and neither will your grader.</p></div></div>
+
+  <div class="big-idea">Any fuel made of C and H, or of C, H and O, gives $\ce{CO2}$ and $\ce{H2O}$ when it burns completely. Always those two.</div>
+
+  <section class="prose">
+    <p>Try it yourself. Pick a fuel, then drag the slider to run the reaction forward and backward. Keep an eye on the atom count at the top. Does it ever change?</p>
+  </section>
+
+  <figure class="bench" id="b-scrub">
+    <div class="bench-head">
+      <p class="bench-title">Run the reaction by hand</p>
+      <p class="bench-hint">Drag the slider and follow one atom.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-scrub"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Fuel</span>
+        <div class="seg" id="scrub-fuel">
+          <button type="button" data-value="CH4" aria-pressed="true">Methane</button>
+          <button type="button" data-value="C2H6" aria-pressed="false">Ethane</button>
+          <button type="button" data-value="C3H8" aria-pressed="false">Propane</button>
+          <button type="button" data-value="C2H4" aria-pressed="false">Ethene</button>
+          <button type="button" data-value="C2H2" aria-pressed="false">Acetylene</button>
+          <button type="button" data-value="CH3OH" aria-pressed="false">Methanol</button>
+          <button type="button" data-value="C2H5OH" aria-pressed="false">Ethanol</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="scrub-q">Reaction progress <span class="ctl-value" id="scrub-q-out"></span></label>
+        <input type="range" id="scrub-q" min="0" max="100" step="1" value="0">
+        <button type="button" class="btn small" id="scrub-play" style="margin-top:8px">Burn it for me</button>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified model. Real flames pass through many short-lived steps, but the atoms that start and finish are exactly these.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: hydrogen leaves as water</h4>
+      <p>Students under pressure often write $\ce{H2}$ as a product. Hydrogen gas is itself a fuel, so it could not survive a fire. Hydrogen always leaves as $\ce{H2O}$. And never forget $\ce{O2}$ on the left: without it, you have not written a burn at all.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="recipe" data-short="The C, H, O recipe">The recipe: C, then H, then O last</h2>
+    <p>Here is why the order matters. Carbon appears in only one product, and so does hydrogen, so their numbers are forced. Oxygen appears in <em>both</em> products, so leave it for the end. $\ce{O2}$ contains nothing but oxygen, which means you can adjust it last without breaking anything you already fixed.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">The three-step recipe</p>
+    <div class="formula-body">$\text{C first} \;\Rightarrow\; \text{H next} \;\Rightarrow\; \text{O last} \;\Rightarrow\; \text{clear any fraction}$</div>
+  </div>
+
+  <figure class="bench" id="b-balancer">
+    <div class="bench-head">
+      <p class="bench-title">The C, H, O balancer</p>
+      <p class="bench-hint">Pick any fuel, then press Next step.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-balancer"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Kind of fuel</span>
+        <div class="seg" id="bal-fam">
+          <button type="button" data-value="alkane" aria-pressed="true">Alkane</button>
+          <button type="button" data-value="alkene" aria-pressed="false">Alkene</button>
+          <button type="button" data-value="alkyne" aria-pressed="false">Alkyne</button>
+          <button type="button" data-value="alcohol" aria-pressed="false">Alcohol</button>
+          <button type="button" data-value="sugar" aria-pressed="false">Glucose</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="bal-n">Carbon atoms <span class="ctl-value" id="bal-n-out"></span></label>
+        <input type="range" id="bal-n" min="1" max="8" step="1" value="2">
+      </div>
+      <div class="ctl">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+          <button type="button" class="btn ghost small" id="bal-back">Go back a step</button>
+          <button type="button" class="btn small" id="bal-next">Next step</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="bal-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="fractions" data-short="Clearing fractions">When oxygen needs a fraction</h2>
+    <p>Half the fuels you meet will land you on a fraction. It is not a mistake. It is a normal stop on the way, and one quick move fixes it.</p>
+  </section>
+
+  <div id="story-half"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the fraction left behind</h4>
+      <p>Most exams want the smallest <em>whole</em> numbers, so $\ce{C2H6 + 7/2 O2}$ $\rightarrow$ $\ce{2CO2 + 3H2O}$ loses marks. Double <b>every</b> coefficient, including the invisible 1 in front of the fuel. The one exception: enthalpy problems sometimes want "per 1 mol of fuel", and there the fraction is correct. Read the question.</p>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: oxygen lives in two places</h4>
+      <p>On the right, O sits in both $\ce{CO2}$ and $\ce{H2O}$, and you must add both. In $\ce{4CO2 + 6H2O}$ that is $4 \times 2 + 6 \times 1 = 14$. Counting only the $\ce{CO2}$ gives 8, and counting $\ce{H2O}$ as 2 O each gives 20. Both are wrong.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="alkanes" data-short="The alkane family">The alkane family</h2>
+    <p><strong>Alkanes</strong> are hydrocarbons with only single bonds. Every one follows the same pattern: $C_nH_{2n+2}$, so once you know the carbons, you know the hydrogens. Slide along the family, and look at the oxygen count. Which ones need doubling?</p>
+  </section>
+
+  <figure class="bench" id="b-ladder">
+    <div class="bench-head">
+      <p class="bench-title">Climb the alkane ladder</p>
+      <p class="bench-hint">Odd or even carbons: what do you notice?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ladder"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="lad-n">Carbon atoms <span class="ctl-value" id="lad-n-out"></span></label>
+        <input type="range" id="lad-n" min="1" max="8" step="1" value="1">
+      </div>
+    </div>
+    <div class="bench-foot"><p>Even carbon counts always hit a fraction, because $3n + 1$ is odd when $n$ is even. Other families follow their own rules. Alkenes are $C_nH_{2n}$ and alkynes are $C_nH_{2n-2}$. The recipe does not care. It works on all of them.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Any alkane, with 1 fuel molecule</p>
+    <div class="formula-body">$$\ce{C_nH_{2n+2}} + \frac{3n+1}{2}\,\ce{O2} \;\longrightarrow\; n\,\ce{CO2} + (n+1)\,\ce{H2O}$$</div>
+    <dl><dt>$n$</dt><dd>number of carbon atoms. If the oxygen term is a fraction, double every term.</dd></dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="oxygen-fuels" data-short="Fuels with oxygen">Fuels that bring their own oxygen</h2>
+    <p>Methanol, ethanol and glucose already contain O. The products are still $\ce{CO2}$ and $\ce{H2O}$, and the recipe is the same, with one extra subtraction at the end.</p>
+  </section>
+
+  <div id="story-ethanol"></div>
+
+  <div class="worked">
+    <h4>Worked example: methanol hits a fraction</h4>
+    <p class="worked-q">Balance the complete combustion of methanol, $\ce{CH3OH}$.</p>
+    <ol>
+      <li>Skeleton: $\ce{CH3OH + O2}$ $\rightarrow$ $\ce{CO2 + H2O}$.</li>
+      <li><b>Carbon.</b> 1 C on the left, so $\ce{1CO2}$.</li>
+      <li><b>Hydrogen.</b> Count them all: 3 on the carbon plus 1 on the oxygen makes 4 H. $4 \div 2 = 2$, so $\ce{2H2O}$.</li>
+      <li><b>Oxygen.</b> The right has $1 \times 2 + 2 \times 1 = 4$ O. The fuel brings 1, so $\ce{O2}$ must bring 3. $3 \div 2 = \tfrac{3}{2}$, so write $\tfrac{3}{2}\ce{O2}$.</li>
+      <li><b>Clear the fraction.</b> Double everything: <span class="answer">$\ce{2CH3OH + 3O2}$ $\rightarrow$ $\ce{2CO2 + 4H2O}$</span>.</li>
+      <li><b>Check.</b> C: 2 and 2. H: 8 and 8. O: $2 + 6 = 8$ and $4 + 4 = 8$. Balanced.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="incomplete" data-short="Short of oxygen">When oxygen runs short</h2>
+    <p>Everything so far assumed plenty of air. Starve a flame and the carbon cannot finish its job. It stops at <strong>carbon monoxide</strong>, $\ce{CO}$, or even at bare carbon, <strong>soot</strong>. This is called <strong>incomplete combustion</strong>. A Bunsen burner lets you control it with a sliding air hole.</p>
+  </section>
+
+  <figure class="bench" id="b-bunsen">
+    <div class="bench-head">
+      <p class="bench-title">The Bunsen burner air hole</p>
+      <p class="bench-hint">Can you make it leave soot on the beaker?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-bunsen"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="bun-air">Air hole <span class="ctl-value" id="bun-air-out"></span></label>
+        <input type="range" id="bun-air" min="0" max="100" step="1" value="100">
+        <p class="ctl-help">Slide it closed to starve the flame of oxygen.</p>
+      </div>
+      <div class="readouts">
+        <div class="readout is-cyan"><div class="readout-label">$\ce{O2}$ for each $\ce{CH4}$</div><div class="readout-value" id="bun-o2">2</div></div>
+        <div class="readout is-sun"><div class="readout-label">Heat per mole of $\ce{CH4}$</div><div class="readout-value" id="bun-heat">890 kJ</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="bun-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Look at the heat readout as you close the hole. A sooty flame wastes fuel: the carbon that stops at $\ce{CO}$ or C still has energy locked inside it. That is why a stove with a yellow flame needs fixing.</p></div></div>
+
+  <div id="story-co"></div>
+
+  <section class="prose">
+    <h2 id="elements" data-short="Burning without carbon">Burning without carbon</h2>
+    <p>Fuel does not have to contain carbon. Hydrogen, magnesium and sulfur all burn in oxygen. The rule becomes simple: <strong>you get the oxide</strong>. No carbon in, no $\ce{CO2}$ out.</p>
+  </section>
+
+  <figure class="bench" id="b-elements">
+    <div class="bench-head">
+      <p class="bench-title">Four things that burn</p>
+      <p class="bench-hint">Pick a fuel and watch its atoms.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-elements"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Fuel</span>
+        <div class="seg" id="el-pick">
+          <button type="button" data-value="H" aria-pressed="true">Hydrogen</button>
+          <button type="button" data-value="Mg" aria-pressed="false">Magnesium</button>
+          <button type="button" data-value="S" aria-pressed="false">Sulfur</button>
+          <button type="button" data-value="C" aria-pressed="false">Charcoal</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="el-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="gallery" data-short="Fuel gallery">Comparing fuels</h2>
+    <p>Not all fuels are equal. Octane makes eight $\ce{CO2}$ per molecule and methane makes one, which sounds like a huge gap. Now switch to "per gram" and watch the gap shrink. Which measure is fair depends on the question you ask.</p>
+  </section>
+
+  <figure class="bench" id="b-gallery">
+    <div class="bench-head">
+      <p class="bench-title">The fuel gallery</p>
+      <p class="bench-hint">Switch the measure, then tap a fuel.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-gallery"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Compare by</span>
+        <div class="seg" id="gal-mode">
+          <button type="button" data-value="mol" aria-pressed="true">$\ce{CO2}$ per mole of fuel</button>
+          <button type="button" data-value="g" aria-pressed="false">$\ce{CO2}$ per gram of fuel</button>
+          <button type="button" data-value="heat" aria-pressed="false">Heat per gram</button>
+          <button type="button" data-value="clean" aria-pressed="false">$\ce{CO2}$ per unit of heat</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="gal-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="math" data-short="Fuel math">The mass surprise, and the math</h2>
+    <p>A car burns about 3 kg of gasoline and makes about 9 kg of $\ce{CO2}$. That sounds impossible until you remember that most of the mass of $\ce{CO2}$ is oxygen pulled from the air. Mass in always equals mass out. Fuel is just not all of the mass in.</p>
+  </section>
+
+  <figure class="bench" id="b-mass">
+    <div class="bench-head">
+      <p class="bench-title">Follow the grams</p>
+      <p class="bench-hint">Choose a fuel and how much to burn.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-mass"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Fuel</span>
+        <div class="seg" id="mass-fuel">
+          <button type="button" data-value="CH4" aria-pressed="true">Methane</button>
+          <button type="button" data-value="C3H8" aria-pressed="false">Propane</button>
+          <button type="button" data-value="C8H18" aria-pressed="false">Octane</button>
+          <button type="button" data-value="C2H5OH" aria-pressed="false">Ethanol</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="mass-g">Grams of fuel burned <span class="ctl-value" id="mass-g-out"></span></label>
+        <input type="range" id="mass-g" min="10" max="100" step="1" value="60">
+      </div>
+    </div>
+    <div class="bench-foot" id="mass-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: grams of $\ce{CO2}$ from propane</h4>
+    <p class="worked-q">What mass of $\ce{CO2}$ forms when 10.0 g of propane burns completely?</p>
+    <ol>
+      <li>Balance it first: $\ce{C3H8 + 5O2}$ $\rightarrow$ $\ce{3CO2 + 4H2O}$.</li>
+      <li>Molar mass of $\ce{C3H8}$: $3(12.01) + 8(1.008) = 44.09\text{ g/mol}$.</li>
+      <li>Grams to moles: $10.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{44.09\ \cancel{\text{g}}} = 0.227\text{ mol C}_3\text{H}_8$.</li>
+      <li>Mole ratio from the coefficients: $0.227\ \cancel{\text{mol C}_3\text{H}_8} \times \dfrac{3\text{ mol CO}_2}{1\ \cancel{\text{mol C}_3\text{H}_8}} = 0.680\text{ mol CO}_2$.</li>
+      <li>Moles to grams: $0.680\ \cancel{\text{mol}} \times \dfrac{44.01\text{ g}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$29.9\text{ g CO}_2$</span>. Three sig figs, because 10.0 has three.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: oxygen and heat for methanol</h4>
+    <p class="worked-q">How many grams of $\ce{O2}$ does it take to burn 5.00 g of methanol? Burning 1 mol releases about 726 kJ. How much heat comes out?</p>
+    <ol>
+      <li>Use the equation from before: $\ce{2CH3OH + 3O2}$ $\rightarrow$ $\ce{2CO2 + 4H2O}$.</li>
+      <li>Molar mass of $\ce{CH3OH}$ is $12.01 + 4(1.008) + 16.00 = 32.04\text{ g/mol}$, so $5.00\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{32.04\ \cancel{\text{g}}} = 0.156\text{ mol}$.</li>
+      <li>Mole ratio, using the coefficients 3 and 2: $0.156\ \cancel{\text{mol CH}_3\text{OH}} \times \dfrac{3\text{ mol O}_2}{2\ \cancel{\text{mol CH}_3\text{OH}}} = 0.234\text{ mol O}_2$.</li>
+      <li>Mass of oxygen: $0.234\ \cancel{\text{mol}} \times \dfrac{32.00\text{ g}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$7.49\text{ g O}_2$</span>.</li>
+      <li>Heat: $0.156\ \cancel{\text{mol}} \times 726\text{ kJ/}\cancel{\text{mol}} = $ <span class="answer">$113\text{ kJ}$</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <p>The heat side of this story continues in <a href="enthalpy.html">enthalpy and Hess's law</a>. The grams side continues in <a href="stoichiometry.html">stoichiometry</a>. And chemists run this whole lesson backward, burning an unknown compound and weighing the $\ce{CO2}$ and $\ce{H2O}$ to work out its formula. That is <a href="composition.html">combustion analysis</a>.</p>
+    <h2 id="write" data-short="Write it yourself">Write it yourself</h2>
+    <p>Time to take off the training wheels. Type a whole equation. As you type, the tally counts your atoms. Press the check button when you think you have it, and if something is off, Moe will say what.</p>
+  </section>
+
+  <figure class="bench" id="b-write">
+    <div class="bench-head">
+      <p class="bench-title">The equation writer</p>
+      <p class="bench-hint">Type like this: 2C2H6 + 7O2 -&gt; 4CO2 + 6H2O</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-write"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="write-in">Your equation</label>
+        <input type="text" id="write-in" autocomplete="off" spellcheck="false" placeholder="Type the balanced equation here">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:12px">
+          <button type="button" class="btn" id="write-check">Check my equation</button>
+          <button type="button" class="btn ghost" id="write-new">Give me a new fuel</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="write-foot" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="combustion"></div>
+  <div data-practice="combustion"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Combustion</strong>: fuel + $\ce{O2}$, fast, giving heat and light. A fire needs fuel, oxygen and heat.</li>
+      <li>Fuels with C and H, or C, H and O, burn completely to <strong>$\ce{CO2}$ and $\ce{H2O}$</strong>. Never $\ce{H2}$.</li>
+      <li>Balance in this order: <strong>C, then H, then O last</strong>. Add O from both products, and subtract any O in the fuel.</li>
+      <li>Fraction on $\ce{O2}$? <strong>Multiply every coefficient</strong> by the denominator.</li>
+      <li>Short of oxygen: $\ce{CO}$ or soot (C) instead of $\ce{CO2}$, with less heat. $\ce{CO}$ is a silent poison.</li>
+      <li>Elements burn to their <strong>oxides</strong>: $\ce{2H2 + O2}$ $\rightarrow$ $\ce{2H2O}$, $\ce{2Mg + O2}$ $\rightarrow$ $\ce{2MgO}$, $\ce{S + O2}$ $\rightarrow$ $\ce{SO2}$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

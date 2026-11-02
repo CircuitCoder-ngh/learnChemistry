@@ -1,0 +1,28 @@
+/* Lesson 5.3: reagent chips, equation lines, and the color hunt. */
+.pr-seg button sub, .pr-seg button sup { font-size: 0.72em; line-height: 0; }
+.pr-mix-controls { grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+.pr-mix-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.pr-game-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.pr-game-btns .btn { flex: 1 1 150px; max-width: 280px; }
+.pr-game-btns .btn[hidden] { display: none; }
+
+/* Equations: every term wraps as a unit, so a long equation reflows on a phone. */
+.pr-eqs { min-height: 92px; }
+.pr-eq { margin: 0 0 9px; line-height: 1.5; }
+.pr-eq:last-child { margin-bottom: 0; }
+.pr-eq-name { display: block; font-weight: 700; color: #BFB2DA; font-size: 0.92rem; line-height: 1.2; }
+.pr-eq.is-net .pr-eq-name { color: #FFD23F; }
+.pr-term { display: inline-block; white-space: nowrap; }
+.pr-term.is-spec { opacity: 0.56; }
+.pr-op { display: inline-block; margin: 0 0.32em; color: #BFB2DA; }
+.pr-check { display: inline-block; margin: 2px 8px 0 0; padding: 0 0.6em; border-radius: 99px; background: #103822; color: #7CF0B0; font-size: 0.9rem; font-weight: 700; }
+.pr-real { margin: 8px 0 0; padding: 7px 12px; background: #2B1A4A; border-radius: 12px; }
+.pr-real b { color: #FF7DBE; }
+
+/* Color hunt */
+.pr-hunt { background: #1A0F2E; }
+.pr-swatches { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 7px; }
+.pr-swatch { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px 2px 3px; border-radius: 99px; background: #2B1A4A; font-size: 0.9rem; font-weight: 700; color: #8F7CB5; }
+.pr-swatch i { display: block; width: 22px; height: 22px; border-radius: 50%; background: #3B2763; box-shadow: inset 0 0 0 2px #4A3772; }
+.pr-swatch.is-found { color: #fff; background: #3B2763; }
+.pr-swatch.is-found i { background: var(--c); box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff; }

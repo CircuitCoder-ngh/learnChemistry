@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solutions and molarity | The Mole Hole</title>
+<meta name="description" content="Watch water pull salt apart, test electrolytes with a real conductivity tester, and master molarity, dilution and ion concentration with sims you control.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/solutions.js"></script>
+<script defer src="assets/js/pages/solutions.js"></script>
+</head>
+<body data-page="solutions">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Solutions and molarity</h1>
+        <p class="lede">Stir salt into water and it seems to vanish. It is still there, and you can count it.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why water pulls salt apart, and why sugar stays whole</li>
+    <li>Sort substances into strong, weak and nonelectrolytes</li>
+    <li>Calculate molarity, then use it to find moles, grams or volume</li>
+    <li>Dilute a solution, and find the concentration of each ion</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="dissolving" data-short="Dissolving">What really happens when salt dissolves</h2>
+    <p>A <strong>solution</strong> is an even mixture of two or more substances. The part that gets dissolved is the <strong>solute</strong>. The part that does the dissolving is the <strong>solvent</strong>. When water is the solvent, we call it an <strong>aqueous</strong> solution and write $\ce{(aq)}$.</p>
+  </section>
+
+  <div id="story-dissolve"></div>
+
+  <div class="big-idea">Water is polar. Its charged ends pull ionic compounds apart and wrap around each ion.</div>
+
+  <section class="prose">
+    <p>Now you control it. Drag the slider to dissolve the crystal, then switch to sugar and compare what leaves the crystal.</p>
+  </section>
+
+  <figure class="bench" id="b-dissolve">
+    <div class="bench-head">
+      <p class="bench-title">Dissolve it</p>
+      <p class="bench-hint">Drag, or press stir.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-dissolve"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Solute</span>
+        <div class="seg" id="dis-sub">
+          <button type="button" data-value="salt" aria-pressed="true">Table salt</button>
+          <button type="button" data-value="sugar" aria-pressed="false">Table sugar</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dis-p">How far along <span class="ctl-value" id="dis-p-out"></span></label>
+        <input type="range" id="dis-p" min="0" max="100" step="1" value="35">
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="dis-stir">Stir from the start</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label" id="dis-a-label">Ions set free</div><div class="readout-value" id="dis-a">0</div></div>
+        <div class="readout is-sun"><div class="readout-label" id="dis-b-label">Still in the crystal</div><div class="readout-value" id="dis-b">0</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified 2D model, with far fewer water molecules than the real thing. Na⁺ is drawn smaller than Cl⁻ because it really is smaller. Each sugar molecule is drawn simply, as two joined rings.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: dissolving is not the same for everything</h4>
+      <p>Ionic compounds split into ions: $$\begin{gathered}\ce{NaCl(s) ->} \\ \ce{Na+(aq) + Cl-(aq)}\end{gathered}$$ Most molecular compounds stay whole: $$\begin{gathered}\ce{C12H22O11(s) ->} \\ \ce{C12H22O11(aq)}\end{gathered}$$ Never write sugar as ions. And the salt has not disappeared: evaporate the water and you get it all back.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="electrolytes" data-short="Electrolytes">Which solutions carry electricity?</h2>
+    <p>Moving charges carry current. Ions in water can move, so a solution with ions can complete a circuit. A substance that gives ions in water is an <strong>electrolyte</strong>. Test some. <strong>Can you make a weak electrolyte shine as brightly as a strong one by making it more concentrated?</strong></p>
+  </section>
+
+  <figure class="bench" id="b-conduct">
+    <div class="bench-head">
+      <p class="bench-title">Conductivity tester</p>
+      <p class="bench-hint">Pick a solution and watch the bulb.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-conduct"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">In the beaker</span>
+        <div class="seg" id="con-sub"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="con-c">Concentration <span class="ctl-value" id="con-c-out"></span></label>
+        <input type="range" id="con-c" min="0" max="100" step="1" value="50">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Type</div><div class="readout-value" id="con-type">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Splits into ions</div><div class="readout-value" id="con-frac">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Total ions</div><div class="readout-value" id="con-ions">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="con-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Type</th><th>In water</th><th>Bulb</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td><b>Strong electrolyte</b></td><td>Splits completely into ions</td><td>Bright</td><td>Soluble salts, strong acids such as $\ce{HCl}$, strong bases such as $\ce{NaOH}$</td></tr>
+      <tr><td><b>Weak electrolyte</b></td><td>Only a small part splits</td><td>Dim</td><td>Weak acids such as $\ce{CH3COOH}$, weak bases such as $\ce{NH3}$</td></tr>
+      <tr><td><b>Nonelectrolyte</b></td><td>Stays as whole molecules</td><td>Off</td><td>Sugar, ethanol, most molecular compounds</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: strong does not mean concentrated</h4>
+      <p>"Strong" and "weak" are about <b>what fraction splits into ions</b>. "Concentrated" and "dilute" are about <b>how much is dissolved</b>. You can have a dilute strong acid or a concentrated weak acid. Pure water is a very poor conductor too, so a shock in the bath comes from the ions dissolved in it.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="molarity" data-short="Molarity">Molarity: how crowded is it?</h2>
+    <p>You need a way to say how concentrated a solution is. Chemists count the moles of solute in each liter of solution. That number is the <strong>molarity</strong>, written with a capital M and said "molar".</p>
+  </section>
+
+  <div id="story-make"></div>
+
+  <div class="formula">
+    <p class="formula-name">Molarity</p>
+    <div class="formula-body">$$M = \frac{\text{moles of solute}}{\text{liters of solution}}$$</div>
+    <dl>
+      <dt>$M$</dt><dd>molarity, in mol/L, also written M</dd>
+      <dt>Rearranged</dt><dd>moles $= M \times$ liters, and liters $=$ moles $\div M$</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-molar">
+    <div class="bench-head">
+      <p class="bench-title">Molarity beaker</p>
+      <p class="bench-hint">Add solute, change the volume.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-molar"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Solute</span>
+        <div class="seg" id="mol-sub">
+          <button type="button" data-value="CuSO4" aria-pressed="true">Copper(II) sulfate</button>
+          <button type="button" data-value="NiCl2" aria-pressed="false">Nickel(II) chloride</button>
+          <button type="button" data-value="CoCl2" aria-pressed="false">Cobalt(II) chloride</button>
+          <button type="button" data-value="NaCl" aria-pressed="false">Table salt</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="mol-n">Solute <span class="ctl-value" id="mol-n-out"></span></label>
+        <input type="range" id="mol-n" min="0.05" max="0.5" step="0.05" value="0.25">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="mol-v">Volume of solution <span class="ctl-value" id="mol-v-out"></span></label>
+        <input type="range" id="mol-v" min="0.4" max="2" step="0.05" value="1">
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="mol-target">Give me a target</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="mol-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Try to reach the same molarity two different ways. More solute in more water can match less solute in less water. Taste is not a valid lab method, even for chemists with excellent whiskers.</p></div></div>
+
+  <div class="worked">
+    <h4>Worked example: finding molarity from grams</h4>
+    <p class="worked-q">You dissolve 29.2 g of NaCl and add water until there is 250. mL of solution. What is the molarity?</p>
+    <ol>
+      <li>Change grams to moles. $29.2\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{58.44\ \cancel{\text{g}}} = 0.500\text{ mol NaCl}$.</li>
+      <li>Change mL to liters. $250.\ \cancel{\text{mL}} \times \dfrac{1\text{ L}}{1000\ \cancel{\text{mL}}} = 0.250\text{ L}$.</li>
+      <li>Divide moles by liters. $M = \dfrac{0.500\text{ mol}}{0.250\text{ L}} = $ <span class="answer">$2.00\text{ M}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: how much to weigh out</h4>
+    <p class="worked-q">How many grams of $\ce{CuSO4}$ do you need to make 500. mL of 0.150 M solution?</p>
+    <ol>
+      <li>Change to liters: $500.\text{ mL} = 0.500\text{ L}$.</li>
+      <li>Find moles. Liters cancel: $0.500\ \cancel{\text{L}} \times \dfrac{0.150\text{ mol}}{1\ \cancel{\text{L}}} = 0.0750\text{ mol}$.</li>
+      <li>Find grams. $0.0750\ \cancel{\text{mol}} \times \dfrac{159.62\text{ g}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$12.0\text{ g CuSO}_4$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: liters of solution, not liters of water</h4>
+      <p>Molarity uses the <b>final volume of the solution</b>. Adding 1.00 L of water to a mole of salt gives a bit more than 1.00 L of solution, so it is a bit less than 1.00 M. Also, always change mL to L first. Forgetting makes your answer 1000 times too small.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="dilution" data-short="Dilution">Dilution: adding water keeps the moles</h2>
+    <p>Labs store concentrated <strong>stock solutions</strong> and water them down when needed. Adding water spreads the solute out, and it adds no solute at all. So the moles before equal the moles after. <strong>Can you hit the target concentration?</strong></p>
+  </section>
+
+  <figure class="bench" id="b-dilute">
+    <div class="bench-head">
+      <p class="bench-title">Dilution lab</p>
+      <p class="bench-hint">Count the dots. They never change.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-dilute"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="dil-m"><span>Stock concentration, $M_1$</span> <span class="ctl-value" id="dil-m-out"></span></label>
+        <input type="range" id="dil-m" min="0.25" max="1.25" step="0.25" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dil-v"><span>Stock volume, $V_1$</span> <span class="ctl-value" id="dil-v-out"></span></label>
+        <input type="range" id="dil-v" min="50" max="250" step="25" value="100">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dil-w">Water added <span class="ctl-value" id="dil-w-out"></span></label>
+        <input type="range" id="dil-w" min="0" max="750" step="25" value="100">
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="dil-target">Give me a target</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="dil-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Dilution</p>
+    <div class="formula-body">$$M_1 V_1 = M_2 V_2$$</div>
+    <dl>
+      <dt>$M_1, V_1$</dt><dd>concentration and volume of the stock</dd>
+      <dt>$M_2, V_2$</dt><dd>concentration and <b>total</b> volume after adding water</dd>
+      <dt>Why</dt><dd>$M \times V$ is moles, and the moles do not change. Use the same volume unit on both sides.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: dilution</h4>
+    <p class="worked-q">How much 6.00 M $\ce{HCl}$ do you need to make 250. mL of 0.500 M $\ce{HCl}$? How much water do you add?</p>
+    <ol>
+      <li>Write what you know. $M_1 = 6.00$ M, $M_2 = 0.500$ M, $V_2 = 250.$ mL. You want $V_1$.</li>
+      <li>Rearrange by dividing both sides by $M_1$: $V_1 = \dfrac{M_2 V_2}{M_1}$.</li>
+      <li>Put in the numbers. $V_1 = \dfrac{0.500\ \cancel{\text{M}} \times 250.\text{ mL}}{6.00\ \cancel{\text{M}}} = $ <span class="answer">$20.8\text{ mL}$</span> of stock.</li>
+      <li>$V_2$ is the total, so the water is the difference: $250. - 20.8 = $ <span class="answer">$229\text{ mL}$ of water</span>. In real life, add acid to water, never water to acid.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: $V_2$ is the total volume</h4>
+      <p>If you start with 100 mL and add 300 mL of water, then $V_2$ is 400 mL, not 300 mL. Read carefully: does the question ask for the final volume, or for the water to add?</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="ions" data-short="Ion concentration">How many ions are in there?</h2>
+    <p>A strong electrolyte breaks into several ions, so each ion can have a different concentration from the compound. The subscripts tell you exactly how many.</p>
+  </section>
+
+  <div id="story-ions"></div>
+
+  <figure class="bench" id="b-ions">
+    <div class="bench-head">
+      <p class="bench-title">Ion counter</p>
+      <p class="bench-hint">Pick a compound and a concentration.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ions"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Compound</span>
+        <div class="seg" id="ion-sub"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="ion-c">Concentration of the compound <span class="ctl-value" id="ion-c-out"></span></label>
+        <input type="range" id="ion-c" min="0.05" max="1" step="0.05" value="0.1">
+      </div>
+    </div>
+    <div class="bench-foot" id="ion-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: ion concentration</h4>
+    <p class="worked-q">What are the concentrations of the ions in 0.150 M $\ce{Al2(SO4)3}$?</p>
+    <ol>
+      <li>Write how it splits, keeping sulfate in one piece: $$\ce{Al2(SO4)3 -> 2Al^3+ + 3SO4^2-}$$</li>
+      <li>Use the coefficients. $0.150\text{ M} \times 2 = $ <span class="answer">$0.300\text{ M Al}^{3+}$</span>.</li>
+      <li>$0.150\text{ M} \times 3 = $ <span class="answer">$0.450\text{ M SO}_4^{2-}$</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="solution-stoich" data-short="Solution stoichiometry">Solution stoichiometry: a new door to the tunnel</h2>
+    <p>Reactions in water use the same map you learned in <a href="stoichiometry.html">stoichiometry</a>. Molarity just adds another door into the mole tunnel: <strong>liters times molarity gives moles</strong>.</p>
+  </section>
+
+  <div id="story-door"></div>
+
+  <div class="worked">
+    <h4>Worked example: volume of a reacting solution</h4>
+    <p class="worked-q">What volume of 0.100 M $\ce{AgNO3}$ reacts completely with 25.0 mL of 0.200 M $\ce{CaCl2}$? The reaction is $$\ce{CaCl2 + 2AgNO3 -> 2AgCl + Ca(NO3)2}$$</p>
+    <ol>
+      <li>Go in through the door: find moles of $\ce{CaCl2}$. $0.0250\ \cancel{\text{L}} \times \dfrac{0.200\text{ mol}}{1\ \cancel{\text{L}}} = 0.00500\text{ mol CaCl}_2$.</li>
+      <li>Go across with the mole ratio. $0.00500\ \cancel{\text{mol CaCl}_2} \times \dfrac{2\text{ mol AgNO}_3}{1\ \cancel{\text{mol CaCl}_2}} = 0.0100\text{ mol AgNO}_3$.</li>
+      <li>Come out through the other door. Moles over molarity gives liters. $0.0100\ \cancel{\text{mol}} \times \dfrac{1\text{ L}}{0.100\ \cancel{\text{mol}}} = 0.100\text{ L} = $ <span class="answer">$100.\text{ mL}$</span>.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="solutions"></div>
+  <div data-practice="solutions"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>The <strong>solute</strong> dissolves in the <strong>solvent</strong> to make a <strong>solution</strong>. Polar water surrounds ions: O ends face cations, H ends face anions.</li>
+      <li><strong>Strong electrolytes</strong> split completely, <strong>weak</strong> ones barely, and <strong>nonelectrolytes</strong> not at all.</li>
+      <li><strong>Molarity</strong>: $M = \text{mol} \div \text{L of solution}$. Change mL to L first.</li>
+      <li><strong>Dilution</strong>: $M_1V_1 = M_2V_2$, where $V_2$ is the total volume. Moles stay the same.</li>
+      <li><strong>Ion concentration</strong>: multiply by the number of each ion in the formula. Polyatomic ions stay whole.</li>
+      <li><strong>In reactions</strong>: $\text{L} \times M = \text{mol}$. Then use the mole ratio as usual.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

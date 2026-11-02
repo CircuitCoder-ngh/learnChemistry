@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VSEPR and molecular shapes | The Mole Hole</title>
+<meta name="description" content="See every VSEPR shape in 3D with its bond angles, watch electron groups repel each other into place, and test molecular polarity with a real vector sum.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/vendor/three.min.js"></script>
+<script defer src="assets/js/chem3d.js"></script>
+<script defer src="assets/js/bank/vsepr.js"></script>
+<script defer src="assets/js/pages/vsepr.js"></script>
+</head>
+<body data-page="vsepr">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>VSEPR and molecular shapes</h1>
+        <p class="lede">Electrons push each other away. That one fact decides the shape of nearly every small molecule.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wow"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Count the electron groups around a central atom</li>
+    <li>Name all eleven molecular shapes and their bond angles</li>
+    <li>Tell electron geometry apart from molecular geometry</li>
+    <li>Decide if a molecule is polar by adding its bond dipoles</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="balloons" data-short="Balloons">Electron groups push apart</h2>
+    <p>Lewis structures are flat, but molecules are not. To see the real shape, use one rule: <strong>electron groups repel each other, so they get as far apart as they can.</strong> Tie some balloons together and you can see it for yourself.</p>
+  </section>
+
+  <div id="story-balloons"></div>
+
+  <section class="prose">
+    <h2 id="sim" data-short="Let them repel">Nobody tells them where to go</h2>
+    <p>This model has no list of shapes in it. It only has charges on a sphere that push each other. Add some, shake them and let them settle. Lone pairs push a little harder than bonds, just as they do in real molecules.</p>
+  </section>
+
+  <figure class="bench" id="b-sim">
+    <div class="bench-head">
+      <p class="bench-title">Repulsion simulator</p>
+      <p class="bench-hint">Try 4 bonds and 1 lone pair. Where does the lone pair land?</p>
+    </div>
+    <div class="bench-stage"><div id="v-sim"></div></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Bonds <span class="ctl-value" id="sim-b-out"></span></span>
+        <div class="seg" id="sim-b">
+          <button type="button" data-value="1" aria-pressed="false">1</button>
+          <button type="button" data-value="2" aria-pressed="false">2</button>
+          <button type="button" data-value="3" aria-pressed="false">3</button>
+          <button type="button" data-value="4" aria-pressed="true">4</button>
+          <button type="button" data-value="5" aria-pressed="false">5</button>
+          <button type="button" data-value="6" aria-pressed="false">6</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Lone pairs <span class="ctl-value" id="sim-l-out"></span></span>
+        <div class="seg" id="sim-l">
+          <button type="button" data-value="0" aria-pressed="true">0</button>
+          <button type="button" data-value="1" aria-pressed="false">1</button>
+          <button type="button" data-value="2" aria-pressed="false">2</button>
+          <button type="button" data-value="3" aria-pressed="false">3</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Disturb it</span>
+        <button type="button" class="btn sun small" id="sim-shake">Shake it</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Shape it found</div><div class="readout-value" id="sim-shape"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Smallest bond angle</div><div class="readout-value" id="sim-a0"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Largest bond angle</div><div class="readout-value" id="sim-a1"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p id="sim-say"></p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="counting" data-short="Counting groups">From Lewis structure to shape</h2>
+    <p>Here is the procedure. Draw the Lewis structure, count the groups around the central atom, then ask where the atoms ended up. Watch how the same four groups can look like two very different shapes.</p>
+  </section>
+
+  <div id="story-count"></div>
+
+  <div class="big-idea">Electron geometry counts every group. Molecular geometry only counts where the atoms are. Lone pairs are there, but you do not name them.</div>
+
+  <div class="worked">
+    <h4>Worked example: a shape with a lone pair</h4>
+    <p class="worked-q">What is the molecular shape of $\ce{SF4}$?</p>
+    <ol>
+      <li>Count valence electrons: S has 6 and each F has 7, so $6 + 4(7) = 34$.</li>
+      <li>Each F keeps 8 electrons (one bond and 3 lone pairs): $4 \times 8 = 32$. Left over: $34 - 32 = 2$, which is <b>1 lone pair</b> on S.</li>
+      <li>Count groups: 4 bonds + 1 lone pair = <b>5 groups</b>, so the electron geometry is trigonal bipyramidal.</li>
+      <li>Place the lone pair in an equatorial spot, where it has the fewest neighbors at 90°.</li>
+      <li>The atoms left look like a child's seesaw: <span class="answer">seesaw, with ideal angles of 90° and 120°, squeezed smaller by the lone pair</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="shapes" data-short="All the shapes">Every shape in 3D</h2>
+    <p>Pick the number of groups and how many are lone pairs. Drag the model to turn it. Switch to the molecule view to see how the shape gets its name.</p>
+  </section>
+
+  <figure class="bench" id="b-shapes">
+    <div class="bench-head">
+      <p class="bench-title">Shape explorer</p>
+      <p class="bench-hint">Try all thirteen combinations. They make eleven shapes.</p>
+    </div>
+    <div class="bench-stage"><div id="v-shapes"></div></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Electron groups</span>
+        <div class="seg" id="sx-g">
+          <button type="button" data-value="2" aria-pressed="false">2</button>
+          <button type="button" data-value="3" aria-pressed="false">3</button>
+          <button type="button" data-value="4" aria-pressed="true">4</button>
+          <button type="button" data-value="5" aria-pressed="false">5</button>
+          <button type="button" data-value="6" aria-pressed="false">6</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Lone pairs among them</span>
+        <div class="seg" id="sx-l"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">View</span>
+        <div class="seg" id="sx-view">
+          <button type="button" data-value="eg" aria-pressed="true">All electron groups</button>
+          <button type="button" data-value="mg" aria-pressed="false">Atoms only</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Example</span>
+        <div class="seg" id="sx-ex"></div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Molecular shape</div><div class="readout-value" id="sx-name"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Electron geometry</div><div class="readout-value" id="sx-eg"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Bond angle</div><div class="readout-value" id="sx-ang"></div></div>
+        <div class="readout"><div class="readout-label">Measured</div><div class="readout-value" id="sx-real"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="sx-say"></div>
+  </figure>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Groups</th><th>Lone pairs</th><th>Electron geometry</th><th>Molecular shape</th><th>Bond angle</th><th>Example</th></tr></thead>
+    <tbody id="shape-table"></tbody>
+  </table></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: a double bond is one group</h4>
+      <p>$\ce{CO2}$ has 4 bonding pairs on carbon, but they all point in only 2 directions. It has <b>2 groups</b>, so it is linear. Counting it as 4 groups and calling it tetrahedral is the most common wrong answer.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="lone-pairs" data-short="Lone pairs">Lone pairs take up more room</h2>
+    <p>A bonding pair is held in place by two nuclei. A lone pair is held by only one, so it spreads out and pushes harder. The bond angles close up to make room.</p>
+  </section>
+
+  <div id="story-squeeze"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>A lone pair is like someone taking up two seats on a bus. Everyone else squeezes together a little. There is one on every bus I have taken to the lab.</p></div></div>
+
+  <section class="prose">
+    <p>With 5 or 6 groups, the spots are not all equal, so where a lone pair sits matters. The rule is to <strong>minimize 90° repulsions</strong>. They are the closest, so they cost the most. Find the best spot yourself below.</p>
+  </section>
+
+  <figure class="bench" id="b-place">
+    <div class="bench-head">
+      <p class="bench-title">Place the lone pairs</p>
+      <p class="bench-hint">Tap a spot to swap a bond for a lone pair. Get the crowding as low as you can.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-place"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Challenge</span>
+        <div class="seg" id="place-mode">
+          <button type="button" data-value="5-1" aria-pressed="true">5 groups, 1 lone pair</button>
+          <button type="button" data-value="5-2" aria-pressed="false">5 groups, 2 lone pairs</button>
+          <button type="button" data-value="5-3" aria-pressed="false">5 groups, 3 lone pairs</button>
+          <button type="button" data-value="6-2" aria-pressed="false">6 groups, 2 lone pairs</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="place-say"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="polarity" data-short="Polarity">Is the molecule polar?</h2>
+    <p>Polar bonds are not enough. Each polar bond is an arrow pulling toward its more electronegative atom. To find out if the whole molecule is polar, add those arrows like vectors, tip to tail. If you end up back where you started, they cancel.</p>
+  </section>
+
+  <div id="story-polar"></div>
+
+  <figure class="bench" id="b-polar">
+    <div class="bench-head">
+      <p class="bench-title">Dipole vector adder</p>
+      <p class="bench-hint">Drag to turn. Tap an outer atom to swap it. Can you break the symmetry of methane?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-polar"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Molecule <span class="ctl-value" id="pol-name"></span></span>
+        <div class="seg" id="pol-mol"></div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Shape</div><div class="readout-value" id="pol-shape"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Size of the net dipole</div><div class="readout-value" id="pol-net"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Verdict</div><div class="readout-value" id="pol-verdict"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="pol-say"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: same shape, different answer</h4>
+    <p class="worked-q">Is $\ce{CHCl3}$ polar? Use electronegativities C = 2.55, H = 2.20 and Cl = 3.16.</p>
+    <ol>
+      <li>Shape: 4 groups, no lone pairs, so tetrahedral.</li>
+      <li>C-Cl bonds: difference $3.16 - 2.55 = 0.61$, with the arrow pointing toward Cl.</li>
+      <li>C-H bond: difference $2.55 - 2.20 = 0.35$, with the arrow pointing toward C.</li>
+      <li>The fourth corner does not balance the other three. In $\ce{CCl4}$ it would. So the arrows do not add to zero: <span class="answer">polar</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: polar bonds do not make a polar molecule</h4>
+      <p>$\ce{CO2}$, $\ce{BF3}$, $\ce{CCl4}$, $\ce{PCl5}$ and $\ce{SF6}$ all have polar bonds and are all nonpolar, because their shapes are balanced. If all the outer atoms match and there are no lone pairs on the center, the molecule is nonpolar. A few shapes with lone pairs, $\ce{XeF2}$ and $\ce{XeF4}$, are balanced too.</p>
+    </div>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>This tool adds bond dipoles only, which gives the right polar or nonpolar verdict for typical exam molecules. Lone pairs also contribute in reality. That is why $\ce{O3}$ is slightly polar even though every atom is oxygen, and why $\ce{NF3}$ has a smaller dipole than $\ce{NH3}$.</p></div></div>
+
+  <section class="prose">
+    <h2 id="game" data-short="Shape game">Name that shape</h2>
+    <p>Ten rounds. Round one starts with an easy molecule. You will soon need to count the electrons in your head.</p>
+  </section>
+
+  <figure class="bench" id="b-game">
+    <div class="bench-head">
+      <p class="bench-title">Name that shape</p>
+      <p class="bench-hint">Pick the molecular shape, not the electron geometry.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-game"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Your answer</span>
+        <div id="game-choices" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="game-say" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="vsepr"></div>
+  <div data-practice="vsepr"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Count groups: each lone pair or bond of any order is one group.</li>
+      <li>2 linear (180°), 3 trigonal planar (120°), 4 tetrahedral (109.5°), 5 trigonal bipyramidal (90° and 120°), 6 octahedral (90°).</li>
+      <li>Shape names describe only the atoms. Lone pairs are there, but you do not name them.</li>
+      <li>Lone pairs push harder and squeeze the bond angles. In a trigonal bipyramid they go equatorial. In an octahedron two go opposite each other.</li>
+      <li>Polar molecule: bond dipoles add up to more than zero. Balanced shapes with matching outer atoms are nonpolar.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

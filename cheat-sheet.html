@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat sheet | The Mole Hole</title>
+<meta name="description" content="The Chem 101 formula sheet for the night before the exam: constants, conversions, every key equation by unit, solubility rules, polyatomic ions, VSEPR shapes and more. Ready to print.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-cheat-sheet.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/pages/cheat-sheet.js"></script>
+</head>
+<body data-page="cheat-sheet">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head cs-head">
+    <div class="lesson-head-inner">
+      <div>
+        <h1>The cheat sheet</h1>
+        <p class="lede">Everything you would want the night before the exam, in one place. Read it here, or print it and scribble on it.</p>
+        <p class="cs-actions"><button type="button" class="btn sun" id="cs-print">Print this sheet</button></p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <p class="cs-printhead">The Mole Hole cheat sheet. Your instructor's tables and rules always win.</p>
+  <nav class="cs-jump bleed" aria-label="Jump to a section" id="cs-jump"></nav>
+
+  <div class="sheet bleed" id="sheet">
+
+    <section class="cs-card" id="constants" data-title="Constants">
+      <h2>Constants</h2>
+      <p class="cs-links">Used in <a data-lesson="mole"></a>, <a data-lesson="ideal-gas"></a>, <a data-lesson="light"></a></p>
+      <table class="cs-tbl">
+        <tr><th scope="row">Avogadro's number</th><td>$N_A = 6.022 \times 10^{23}\ \text{mol}^{-1}$</td></tr>
+        <tr><th scope="row">Gas constant</th><td>$R = 0.08206\ \dfrac{\text{L atm}}{\text{mol K}} = 8.314\ \dfrac{\text{J}}{\text{mol K}}$</td></tr>
+        <tr><th scope="row">Gas at STP (0 °C, 1 atm)</th><td>$22.4\ \text{L/mol}$</td></tr>
+        <tr><th scope="row">Speed of light</th><td>$c = 2.998 \times 10^{8}\ \text{m/s}$</td></tr>
+        <tr><th scope="row">Planck's constant</th><td>$h = 6.626 \times 10^{-34}\ \text{J s}$</td></tr>
+        <tr><th scope="row">Rydberg constant</th><td>$R_H = 1.097 \times 10^{7}\ \text{m}^{-1}$</td></tr>
+        <tr><th scope="row">Faraday's constant</th><td>$F = 96{,}485\ \text{C/mol e}^-$</td></tr>
+        <tr><th scope="row">Electron charge</th><td>$1.602 \times 10^{-19}\ \text{C}$</td></tr>
+        <tr><th scope="row">Masses</th><td>electron $9.109 \times 10^{-31}$ kg<br>proton $1.673 \times 10^{-27}$ kg<br>neutron $1.675 \times 10^{-27}$ kg</td></tr>
+        <tr><th scope="row">Atomic mass unit</th><td>$1\ \text{u} = 1.661 \times 10^{-27}\ \text{kg}$</td></tr>
+      </table>
+      <h3>Water</h3>
+      <table class="cs-tbl">
+        <tr><th scope="row">Specific heat</th><td>liquid $4.184\ \text{J/(g °C)}$; ice 2.09; steam 2.0</td></tr>
+        <tr><th scope="row">Density</th><td>$1.00\ \text{g/mL}$</td></tr>
+        <tr><th scope="row">Heat of fusion, vaporization</th><td>$6.01\ \text{kJ/mol}$ (334 J/g), $40.7\ \text{kJ/mol}$ (2260 J/g)</td></tr>
+        <tr><th scope="row">Boiling, freezing constants</th><td>$K_b = 0.512$, $K_f = 1.86\ \text{°C/}m$</td></tr>
+        <tr><th scope="row">Ion product, 25 °C</th><td>$K_w = 1.0 \times 10^{-14}$</td></tr>
+      </table>
+    </section>
+
+    <section class="cs-card" id="units" data-title="Units">
+      <h2>Units and prefixes</h2>
+      <p class="cs-links">Learn it in <a data-lesson="measurement"></a></p>
+      <div class="cs-two">
+        <table class="cs-tbl cs-compact">
+          <caption>SI base units</caption>
+          <tr><th scope="row">Length</th><td>meter, m</td></tr>
+          <tr><th scope="row">Mass</th><td>kilogram, kg</td></tr>
+          <tr><th scope="row">Time</th><td>second, s</td></tr>
+          <tr><th scope="row">Temperature</th><td>kelvin, K</td></tr>
+          <tr><th scope="row">Amount</th><td>mole, mol</td></tr>
+          <tr><th scope="row">Current</th><td>ampere, A</td></tr>
+        </table>
+        <table class="cs-tbl cs-compact">
+          <caption>Prefixes</caption>
+          <tr><th scope="row">giga, G</th><td>$10^{9}$</td></tr>
+          <tr><th scope="row">mega, M</th><td>$10^{6}$</td></tr>
+          <tr><th scope="row">kilo, k</th><td>$10^{3}$</td></tr>
+          <tr><th scope="row">deci, d</th><td>$10^{-1}$</td></tr>
+          <tr><th scope="row">centi, c</th><td>$10^{-2}$</td></tr>
+          <tr><th scope="row">milli, m</th><td>$10^{-3}$</td></tr>
+          <tr><th scope="row">micro, µ</th><td>$10^{-6}$</td></tr>
+          <tr><th scope="row">nano, n</th><td>$10^{-9}$</td></tr>
+          <tr><th scope="row">pico, p</th><td>$10^{-12}$</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="cs-card" id="conversions" data-title="Conversions">
+      <h2>Conversions</h2>
+      <p class="cs-links">Learn it in <a data-lesson="conversions"></a></p>
+      <table class="cs-tbl">
+        <tr><th scope="row">Length</th><td>1 in = 2.54 cm (exact); 1 mi = 1.609 km; 1 Å = $10^{-10}$ m = 100 pm</td></tr>
+        <tr><th scope="row">Mass</th><td>1 lb = 453.6 g; 1 kg = 2.205 lb; 1 oz = 28.35 g</td></tr>
+        <tr><th scope="row">Volume</th><td>1 mL = 1 cm³ (exact); 1 L = 1000 mL = 1 dm³; 1 m³ = 1000 L = $10^{6}$ cm³; 1 gal = 3.785 L</td></tr>
+        <tr><th scope="row">Temperature</th><td>$\text{K} = \text{°C} + 273.15$<br>$\text{°F} = 1.8(\text{°C}) + 32$</td></tr>
+        <tr><th scope="row">Pressure</th><td>1 atm = 760 mmHg = 760 torr = 101.325 kPa = 1.01325 bar = 14.7 psi</td></tr>
+        <tr><th scope="row">Energy</th><td>1 cal = 4.184 J (exact); 1 food Cal = 1 kcal = 4184 J; 1 L atm = 101.3 J; 1 eV = $1.602 \times 10^{-19}$ J; 1 eV per atom = 96.49 kJ/mol</td></tr>
+      </table>
+      <p class="cs-tip"><b>Trap:</b> cube the number too. 1 m = 100 cm, so 1 m³ = $(100)^3$ cm³ = $10^{6}$ cm³.</p>
+    </section>
+
+    <section class="cs-card" id="eq-1" data-title="Matter, atoms">
+      <h2>Equations: matter and atoms</h2>
+      <p class="cs-links">Learn it in <a data-lesson="conversions"></a>, <a data-lesson="measurement"></a>, <a data-lesson="isotopes"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Density</span><span>$d = \dfrac{m}{V}$</span></div>
+        <div class="eq"><span>Percent error</span><span>$\dfrac{|\text{measured} - \text{true}|}{\text{true}} \times 100\%$</span></div>
+        <div class="eq"><span>Mass number</span><span>$A = \text{protons} + \text{neutrons}$</span></div>
+        <div class="eq"><span>Ion charge</span><span>$\text{charge} = \text{protons} - \text{electrons}$</span></div>
+        <div class="eq"><span>Average atomic mass</span><span>$\sum (\text{abundance fraction} \times \text{isotope mass})$</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="eq-3" data-title="The mole">
+      <h2>Equations: the mole</h2>
+      <p class="cs-links">Learn it in <a data-lesson="mole"></a>, <a data-lesson="composition"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Grams to moles</span><span>$n = \dfrac{m}{M}$</span></div>
+        <div class="eq"><span>Moles to particles</span><span>$N = n \times N_A$</span></div>
+        <div class="eq"><span>Percent by mass</span><span>$\dfrac{\text{mass of element in 1 mol}}{M} \times 100\%$</span></div>
+        <div class="eq"><span>Molecular formula</span><span>Multiply the empirical formula by $\dfrac{M}{M_\text{empirical}}$</span></div>
+      </div>
+      <p class="cs-tip"><b>Empirical formula:</b> percent to grams (assume 100 g), grams to moles, divide by the smallest. If you get x.5, double. If you get x.33 or x.67, triple.</p>
+    </section>
+
+    <section class="cs-card" id="eq-4" data-title="Stoichiometry">
+      <h2>Equations: stoichiometry</h2>
+      <p class="cs-links">Learn it in <a data-lesson="stoichiometry"></a>, <a data-lesson="limiting"></a></p>
+      <p class="cs-center">$\text{g A} \xrightarrow{\div M_A} \text{mol A} \xrightarrow{\times\ \frac{\text{coef B}}{\text{coef A}}} \text{mol B} \xrightarrow{\times M_B} \text{g B}$</p>
+      <div class="eqs">
+        <div class="eq"><span>Limiting reactant</span><span>Moles of each divided by its coefficient. The smallest runs out first.</span></div>
+        <div class="eq"><span>Percent yield</span><span>$\dfrac{\text{actual yield}}{\text{theoretical yield}} \times 100\%$</span></div>
+      </div>
+      <p class="cs-tip"><b>Trap:</b> coefficients are mole ratios, never gram ratios. The smallest mass is not always limiting.</p>
+    </section>
+
+    <section class="cs-card" id="eq-5" data-title="Solutions">
+      <h2>Equations: reactions in water</h2>
+      <p class="cs-links">Learn it in <a data-lesson="solutions"></a>, <a data-lesson="acid-base"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Molarity</span><span>$M = \dfrac{\text{mol solute}}{\text{L solution}}$, so $\text{mol} = M \times V$</span></div>
+        <div class="eq"><span>Dilution</span><span>$M_1V_1 = M_2V_2$</span></div>
+        <div class="eq"><span>Ion concentration</span><span>$[\text{ion}] = M \times \text{subscript}$. For 0.10 M $\ce{Al2(SO4)3}$: 0.20 M $\ce{Al^3+}$, 0.30 M $\ce{SO4^2-}$</span></div>
+        <div class="eq"><span>Titration, 1 to 1</span><span>$M_aV_a = M_bV_b$. Otherwise use the mole ratio from the equation.</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="eq-6" data-title="Energy">
+      <h2>Equations: energy and heat</h2>
+      <p class="cs-links">Learn it in <a data-lesson="energy"></a>, <a data-lesson="calorimetry"></a>, <a data-lesson="enthalpy"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Heat, no phase change</span><span>$q = mc\Delta T$</span></div>
+        <div class="eq"><span>Calorimeter</span><span>$q = C\Delta T$, with $q_\text{system} = -q_\text{surroundings}$</span></div>
+        <div class="eq"><span>Enthalpy per mole</span><span>$\Delta H = \dfrac{q_\text{rxn}}{n}$ at constant pressure</span></div>
+        <div class="eq"><span>First law</span><span>$\Delta E = q + w$, with $w = -P\Delta V$</span></div>
+        <div class="eq"><span>Hess's law</span><span>Reverse a reaction: flip the sign of $\Delta H$. Multiply it: multiply $\Delta H$. Add them up.</span></div>
+        <div class="eq"><span>From formation</span><span>$\Delta H^\circ = \sum n\Delta H^\circ_f(\text{products}) - \sum n\Delta H^\circ_f(\text{reactants})$</span></div>
+        <div class="eq"><span>From bond energies</span><span>$\Delta H \approx \sum \text{BE}_\text{broken} - \sum \text{BE}_\text{formed}$</span></div>
+      </div>
+      <p class="cs-tip">Exothermic: $\Delta H \lt 0$, heat leaves the system. Endothermic: $\Delta H \gt 0$, heat enters.</p>
+    </section>
+
+    <section class="cs-card" id="eq-7" data-title="Electrons">
+      <h2>Equations: light and electrons</h2>
+      <p class="cs-links">Learn it in <a data-lesson="light"></a>, <a data-lesson="bohr"></a>, <a data-lesson="orbitals"></a>, <a data-lesson="configurations"></a>, <a data-lesson="trends"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Wave</span><span>$c = \lambda\nu$</span></div>
+        <div class="eq"><span>Photon energy</span><span>$E = h\nu = \dfrac{hc}{\lambda}$</span></div>
+        <div class="eq"><span>Photoelectric effect</span><span>$KE = h\nu - \Phi$</span></div>
+        <div class="eq"><span>Bohr levels (H)</span><span>$E_n = -\dfrac{2.18 \times 10^{-18}\ \text{J}}{n^2}$</span></div>
+        <div class="eq"><span>Line wavelength (H)</span><span>$\dfrac{1}{\lambda} = R_H\left(\dfrac{1}{n_\text{low}^2} - \dfrac{1}{n_\text{high}^2}\right)$</span></div>
+        <div class="eq"><span>de Broglie</span><span>$\lambda = \dfrac{h}{mv}$</span></div>
+        <div class="eq"><span>Uncertainty</span><span>$\Delta x\,\Delta p \ge \dfrac{h}{4\pi}$</span></div>
+        <div class="eq"><span>Quantum numbers</span><span>$n = 1, 2, 3...$; $l = 0$ to $n-1$; $m_l = -l$ to $+l$; $m_s = \pm\tfrac12$</span></div>
+        <div class="eq"><span>Capacity</span><span>s 2, p 6, d 10, f 14. Shell $n$ holds $2n^2$ electrons.</span></div>
+      </div>
+      <p class="cs-tip"><b>Filling order:</b> 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s. <b>Exceptions:</b> Cr is [Ar] 4s¹ 3d⁵, Cu is [Ar] 4s¹ 3d¹⁰. <b>Ions:</b> lose from the highest $n$ first, so 4s goes before 3d.</p>
+    </section>
+
+    <section class="cs-card" id="trends" data-title="Trends">
+      <h2>Periodic trends</h2>
+      <p class="cs-links">Learn it in <a data-lesson="trends"></a>. Look it up on the <a href="periodic-table.html">periodic table</a>.</p>
+      <table class="cs-tbl cs-grid">
+        <thead><tr><th scope="col">Property</th><th scope="col">Going right</th><th scope="col">Going down</th></tr></thead>
+        <tr><th scope="row">Atomic radius</th><td>shrinks</td><td>grows</td></tr>
+        <tr><th scope="row">Ionization energy</th><td>rises</td><td>falls</td></tr>
+        <tr><th scope="row">Electronegativity</th><td>rises</td><td>falls</td></tr>
+        <tr><th scope="row">Metallic character</th><td>falls</td><td>rises</td></tr>
+      </table>
+      <p class="cs-tip">Effective nuclear charge explains it: $Z_\text{eff} \approx Z - S$. <b>Exceptions in ionization energy:</b> Be to B and N to O both drop. <b>Ions:</b> cations are smaller than their atoms, anions are larger.</p>
+    </section>
+
+    <section class="cs-card" id="eq-8" data-title="Bonds">
+      <h2>Equations: bonds</h2>
+      <p class="cs-links">Learn it in <a data-lesson="ionic"></a>, <a data-lesson="covalent"></a>, <a data-lesson="lewis"></a>, <a data-lesson="hybrid"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Formal charge</span><span>$\text{valence} - \text{nonbonding} - \tfrac12(\text{bonding})$</span></div>
+        <div class="eq"><span>Bond order (MO)</span><span>$\tfrac12(\text{bonding} - \text{antibonding})$</span></div>
+        <div class="eq"><span>Coulomb's law</span><span>$E \propto \dfrac{Q_1Q_2}{r}$. Bigger charges and smaller ions give a stronger lattice.</span></div>
+        <div class="eq"><span>Bond polarity</span><span>$\Delta\text{EN}$ under about 0.5: nonpolar. Up to about 1.7: polar. Above: ionic. Cutoffs vary by textbook.</span></div>
+        <div class="eq"><span>Bond length</span><span>Triple is shorter and stronger than double, which beats single.</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="vsepr" data-title="VSEPR">
+      <h2>VSEPR shapes</h2>
+      <p class="cs-links">Learn it in <a data-lesson="vsepr"></a>, with hybridization in <a data-lesson="hybrid"></a></p>
+      <div class="tbl-wrap cs-wrap"><table class="cs-tbl cs-vsepr" id="vsepr-table">
+        <thead><tr><th scope="col">Molecular shape</th><th scope="col">Lone pairs</th><th scope="col">Angle</th><th scope="col">Example</th></tr></thead>
+        <tbody data-vsepr></tbody>
+      </table></div>
+      <p class="cs-tip">Lone pairs push harder than bonds, so they squeeze the angles. In the five-group family, lone pairs take the equatorial spots.</p>
+    </section>
+
+    <section class="cs-card" id="eq-9" data-title="Gases">
+      <h2>Equations: gases</h2>
+      <p class="cs-links">Learn it in <a data-lesson="gas-laws"></a>, <a data-lesson="ideal-gas"></a>, <a data-lesson="kmt"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Ideal gas law</span><span>$PV = nRT$ (T in kelvin, always)</span></div>
+        <div class="eq"><span>Boyle</span><span>$P_1V_1 = P_2V_2$</span></div>
+        <div class="eq"><span>Charles</span><span>$\dfrac{V_1}{T_1} = \dfrac{V_2}{T_2}$</span></div>
+        <div class="eq"><span>Gay-Lussac</span><span>$\dfrac{P_1}{T_1} = \dfrac{P_2}{T_2}$</span></div>
+        <div class="eq"><span>Avogadro</span><span>$\dfrac{V_1}{n_1} = \dfrac{V_2}{n_2}$</span></div>
+        <div class="eq"><span>Combined</span><span>$\dfrac{P_1V_1}{T_1} = \dfrac{P_2V_2}{T_2}$</span></div>
+        <div class="eq"><span>Density, molar mass</span><span>$d = \dfrac{PM}{RT}$, so $M = \dfrac{dRT}{P}$</span></div>
+        <div class="eq"><span>Dalton</span><span>$P_\text{total} = P_1 + P_2 + ...$, and $P_i = X_iP_\text{total}$ with $X_i = \dfrac{n_i}{n_\text{total}}$</span></div>
+        <div class="eq"><span>Over water</span><span>$P_\text{gas} = P_\text{total} - P_{\ce{H2O}}$</span></div>
+        <div class="eq"><span>Molecular speed</span><span>$u_\text{rms} = \sqrt{\dfrac{3RT}{M}}$, with $R = 8.314$ and $M$ in kg/mol</span></div>
+        <div class="eq"><span>Kinetic energy</span><span>$KE_\text{avg} = \tfrac32RT$ per mole</span></div>
+        <div class="eq"><span>Graham</span><span>$\dfrac{r_1}{r_2} = \sqrt{\dfrac{M_2}{M_1}}$</span></div>
+        <div class="eq"><span>van der Waals</span><span>$\left(P + \dfrac{an^2}{V^2}\right)(V - nb) = nRT$</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="eq-10" data-title="Liquids, solids">
+      <h2>Equations: liquids and solids</h2>
+      <p class="cs-links">Learn it in <a data-lesson="imf"></a>, <a data-lesson="phases"></a>, <a data-lesson="solids"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Phase change</span><span>$q = n\Delta H_\text{fus}$, $q = n\Delta H_\text{vap}$. Temperature stays flat during it.</span></div>
+        <div class="eq"><span>Clausius-Clapeyron</span><span>$\ln\dfrac{P_2}{P_1} = -\dfrac{\Delta H_\text{vap}}{R}\left(\dfrac{1}{T_2} - \dfrac{1}{T_1}\right)$</span></div>
+        <div class="eq"><span>Unit cell density</span><span>$d = \dfrac{Z\,M}{N_A\,a^3}$, with $Z$ atoms per cell and edge $a$</span></div>
+      </div>
+      <table class="cs-tbl cs-grid">
+        <thead><tr><th scope="col">Cell</th><th scope="col">Atoms per cell</th><th scope="col">Neighbors</th><th scope="col">Edge</th></tr></thead>
+        <tr><th scope="row">Simple cubic</th><td>1</td><td>6</td><td>$a = 2r$</td></tr>
+        <tr><th scope="row">Body-centered</th><td>2</td><td>8</td><td>$a = 4r/\sqrt3$</td></tr>
+        <tr><th scope="row">Face-centered</th><td>4</td><td>12</td><td>$a = 2\sqrt2\,r$</td></tr>
+      </table>
+      <p class="cs-tip">Sharing: corner $\tfrac18$, edge $\tfrac14$, face $\tfrac12$, body 1. <b>Forces, weak to strong:</b> London dispersion, dipole-dipole, hydrogen bond (H on N, O or F), ion-dipole.</p>
+    </section>
+
+    <section class="cs-card" id="eq-11" data-title="Solution properties">
+      <h2>Equations: solution properties</h2>
+      <p class="cs-links">Learn it in <a data-lesson="solution-props"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Molality</span><span>$m = \dfrac{\text{mol solute}}{\text{kg solvent}}$</span></div>
+        <div class="eq"><span>Mass percent, ppm</span><span>$\dfrac{\text{g solute}}{\text{g solution}} \times 100$, and $\times 10^{6}$ for ppm</span></div>
+        <div class="eq"><span>Henry's law</span><span>$C = k_HP$</span></div>
+        <div class="eq"><span>Raoult's law</span><span>$P_\text{solution} = X_\text{solvent}P^\circ_\text{solvent}$</span></div>
+        <div class="eq"><span>Boiling point rises</span><span>$\Delta T_b = iK_bm$</span></div>
+        <div class="eq"><span>Freezing point falls</span><span>$\Delta T_f = iK_fm$</span></div>
+        <div class="eq"><span>Osmotic pressure</span><span>$\Pi = iMRT$</span></div>
+      </div>
+      <p class="cs-tip">$i$ counts the particles per formula unit: $\ce{NaCl}$ about 2, $\ce{CaCl2}$ about 3, sugar 1.</p>
+    </section>
+
+    <section class="cs-card" id="eq-12" data-title="Next-term topics">
+      <h2>Equations: next-term topics</h2>
+      <p class="cs-links">Learn it in <a data-lesson="kinetics"></a>, <a data-lesson="equilibrium"></a>, <a data-lesson="ph"></a>, <a data-lesson="thermo"></a>, <a data-lesson="electrochem"></a>, <a data-lesson="nuclear"></a></p>
+      <div class="eqs">
+        <div class="eq"><span>Rate law</span><span>$\text{rate} = k[A]^x[B]^y$</span></div>
+        <div class="eq"><span>First order</span><span>$\ln[A]_t = -kt + \ln[A]_0$, and $t_{1/2} = \dfrac{0.693}{k}$</span></div>
+        <div class="eq"><span>Arrhenius</span><span>$\ln\dfrac{k_2}{k_1} = \dfrac{E_a}{R}\left(\dfrac{1}{T_1} - \dfrac{1}{T_2}\right)$</span></div>
+        <div class="eq"><span>Equilibrium</span><span>$K = \dfrac{[C]^c[D]^d}{[A]^a[B]^b}$. Leave out pure solids and liquids.</span></div>
+        <div class="eq"><span>pH</span><span>$\text{pH} = -\log[\ce{H3O+}]$; $\text{pH} + \text{pOH} = 14.00$ at 25 °C</span></div>
+        <div class="eq"><span>Conjugate pair</span><span>$K_aK_b = K_w$</span></div>
+        <div class="eq"><span>Buffer</span><span>$\text{pH} = \text{p}K_a + \log\dfrac{[\ce{A-}]}{[\ce{HA}]}$</span></div>
+        <div class="eq"><span>Free energy</span><span>$\Delta G = \Delta H - T\Delta S$; $\Delta G^\circ = -RT\ln K$; negative means spontaneous</span></div>
+        <div class="eq"><span>Cells</span><span>$E^\circ_\text{cell} = E^\circ_\text{cathode} - E^\circ_\text{anode}$; $\Delta G^\circ = -nFE^\circ$</span></div>
+        <div class="eq"><span>Electrolysis</span><span>$\text{mol e}^- = \dfrac{It}{F}$</span></div>
+        <div class="eq"><span>Half-life</span><span>$N = N_0\left(\tfrac12\right)^{t/t_{1/2}}$</span></div>
+        <div class="eq"><span>Mass defect</span><span>$E = mc^2$</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="solubility" data-title="Solubility">
+      <h2>Solubility rules</h2>
+      <p class="cs-links">Learn it in <a data-lesson="solubility"></a>, then use it in <a data-lesson="precipitation"></a></p>
+      <p class="cs-note">Ask in this order. The first rule that fits decides. "Insoluble" means under about 0.01 M dissolves, never exactly zero.</p>
+      <table class="cs-tbl cs-sol">
+        <thead><tr><th scope="col">Rule</th><th scope="col">Compounds with</th><th scope="col">Exceptions</th></tr></thead>
+        <tbody>
+          <tr class="is-always"><td class="cs-tier">1. Always soluble</td><td>Group 1 ions, ammonium $\ce{NH4+}$</td><td>None to memorize. This rule beats every other rule. $\ce{Li3PO4}$ is borderline.</td></tr>
+          <tr class="is-always"><td class="cs-tier">2. Always soluble</td><td>Nitrate $\ce{NO3-}$, acetate $\ce{C2H3O2-}$, chlorate $\ce{ClO3-}$, perchlorate $\ce{ClO4-}$</td><td>None to memorize. Silver and mercury(I) acetate are borderline.</td></tr>
+          <tr class="is-usually"><td class="cs-tier">3. Usually soluble</td><td>Chlorides, bromides, iodides</td><td><b>Insoluble:</b> $\ce{Ag+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$</td></tr>
+          <tr class="is-usually"><td class="cs-tier">4. Usually soluble</td><td>Sulfates $\ce{SO4^2-}$</td><td><b>Insoluble:</b> $\ce{Ba^2+}$, $\ce{Sr^2+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$<br><b>Slightly:</b> $\ce{Ca^2+}$, $\ce{Ag+}$</td></tr>
+          <tr class="is-rarely"><td class="cs-tier">5. Usually insoluble</td><td>Carbonates $\ce{CO3^2-}$, phosphates $\ce{PO4^3-}$, sulfides $\ce{S^2-}$</td><td>Soluble only under rule 1. Tables differ on sulfides of $\ce{Ca^2+}$, $\ce{Sr^2+}$, $\ce{Ba^2+}$.</td></tr>
+          <tr class="is-rarely"><td class="cs-tier">6. Usually insoluble</td><td>Hydroxides $\ce{OH-}$</td><td>Soluble under rule 1. $\ce{Ba(OH)2}$ dissolves well.<br><b>Slightly:</b> $\ce{Ca(OH)2}$, $\ce{Sr(OH)2}$</td></tr>
+        </tbody>
+      </table>
+      <p class="cs-tip">Tables disagree on a few borderline compounds. Use the one your instructor gives you. Colors worth knowing: $\ce{AgCl}$ and $\ce{BaSO4}$ white, $\ce{PbI2}$ yellow, $\ce{Cu(OH)2}$ pale blue, $\ce{Fe(OH)3}$ rust.</p>
+    </section>
+
+    <section class="cs-card" id="polyatomic" data-title="Polyatomic ions">
+      <h2>Polyatomic ions</h2>
+      <p class="cs-links">Learn it in <a data-lesson="compounds"></a>, <a data-lesson="naming"></a></p>
+      <div class="ions">
+        <div class="ion-group"><h3>Charge 1+</h3>
+          <p>$\ce{NH4+}$ <span>ammonium</span></p><p>$\ce{H3O+}$ <span>hydronium</span></p>
+          <h3>Charge 2+</h3><p>$\ce{Hg2^2+}$ <span>mercury(I)</span></p>
+          <h3>Charge 3−</h3>
+          <p>$\ce{PO4^3-}$ <span>phosphate</span></p><p>$\ce{PO3^3-}$ <span>phosphite</span></p>
+        </div>
+        <div class="ion-group"><h3>Charge 1−</h3>
+          <p>$\ce{OH-}$ <span>hydroxide</span></p><p>$\ce{NO3-}$ <span>nitrate</span></p><p>$\ce{NO2-}$ <span>nitrite</span></p>
+          <p>$\ce{C2H3O2-}$ <span>acetate</span></p><p>$\ce{CN-}$ <span>cyanide</span></p><p>$\ce{SCN-}$ <span>thiocyanate</span></p>
+          <p>$\ce{MnO4-}$ <span>permanganate</span></p><p>$\ce{HCO3-}$ <span>hydrogen carbonate (bicarbonate)</span></p><p>$\ce{HSO4-}$ <span>hydrogen sulfate (bisulfate)</span></p>
+          <p>$\ce{H2PO4-}$ <span>dihydrogen phosphate</span></p>
+          <p>$\ce{ClO4-}$ <span>perchlorate</span></p><p>$\ce{ClO3-}$ <span>chlorate</span></p><p>$\ce{ClO2-}$ <span>chlorite</span></p><p>$\ce{ClO-}$ <span>hypochlorite</span></p>
+        </div>
+        <div class="ion-group"><h3>Charge 2−</h3>
+          <p>$\ce{CO3^2-}$ <span>carbonate</span></p><p>$\ce{SO4^2-}$ <span>sulfate</span></p><p>$\ce{SO3^2-}$ <span>sulfite</span></p>
+          <p>$\ce{CrO4^2-}$ <span>chromate</span></p><p>$\ce{Cr2O7^2-}$ <span>dichromate</span></p><p>$\ce{C2O4^2-}$ <span>oxalate</span></p>
+          <p>$\ce{S2O3^2-}$ <span>thiosulfate</span></p><p>$\ce{O2^2-}$ <span>peroxide</span></p><p>$\ce{HPO4^2-}$ <span>hydrogen phosphate</span></p>
+        </div>
+      </div>
+      <p class="cs-tip"><b>Pattern:</b> -ate has more oxygen than -ite. Per- adds one more oxygen, hypo- removes one more. The charge stays the same.</p>
+    </section>
+
+    <section class="cs-card" id="ions" data-title="Ion charges">
+      <h2>Ion charges from the table</h2>
+      <p class="cs-links">Learn it in <a data-lesson="periodic-intro"></a>, <a data-lesson="compounds"></a></p>
+      <table class="cs-tbl cs-grid cs-center-cells">
+        <thead><tr><th scope="col">Group 1</th><th scope="col">Group 2</th><th scope="col">Al</th><th scope="col">Group 15</th><th scope="col">Group 16</th><th scope="col">Group 17</th></tr></thead>
+        <tr><td>+1</td><td>+2</td><td>+3</td><td>−3</td><td>−2</td><td>−1</td></tr>
+      </table>
+      <p class="cs-tip"><b>Fixed:</b> $\ce{Ag+}$, $\ce{Zn^2+}$, $\ce{Cd^2+}$. <b>Several, so use Roman numerals:</b> Fe 2+ or 3+, Cu 1+ or 2+, Sn and Pb 2+ or 4+, and most other transition metals. <b>Diatomic:</b> $\ce{H2}$, $\ce{N2}$, $\ce{O2}$, $\ce{F2}$, $\ce{Cl2}$, $\ce{Br2}$, $\ce{I2}$.</p>
+    </section>
+
+    <section class="cs-card" id="naming" data-title="Naming">
+      <h2>Naming</h2>
+      <p class="cs-links">Learn it in <a data-lesson="naming"></a></p>
+      <table class="cs-tbl cs-grid cs-center-cells cs-prefix">
+        <caption>Molecular compound prefixes</caption>
+        <tr><td>1 mono-</td><td>2 di-</td><td>3 tri-</td><td>4 tetra-</td><td>5 penta-</td></tr>
+        <tr><td>6 hexa-</td><td>7 hepta-</td><td>8 octa-</td><td>9 nona-</td><td>10 deca-</td></tr>
+      </table>
+      <div class="eqs">
+        <div class="eq"><span>Molecular</span><span>Prefixes on both names, second ends in -ide. Skip mono- on the first. $\ce{N2O5}$ is dinitrogen pentoxide.</span></div>
+        <div class="eq"><span>Ionic</span><span>Metal, then nonmetal with -ide or the polyatomic name. No prefixes. Roman numeral gives the metal's charge: $\ce{Fe2O3}$ is iron(III) oxide.</span></div>
+        <div class="eq"><span>Binary acid</span><span>hydro-...-ic acid: $\ce{HCl}$ is hydrochloric acid.</span></div>
+        <div class="eq"><span>Oxyacid</span><span>-ate becomes -ic, -ite becomes -ous: $\ce{H2SO4}$ sulfuric, $\ce{H2SO3}$ sulfurous.</span></div>
+        <div class="eq"><span>Hydrate</span><span>Prefix plus hydrate: $\ce{CuSO4*5H2O}$ is copper(II) sulfate pentahydrate.</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="balancing" data-title="Balancing">
+      <h2>Balancing and combustion</h2>
+      <p class="cs-links">Learn it in <a data-lesson="balancing"></a>, <a data-lesson="reaction-types"></a>, <a data-lesson="combustion"></a></p>
+      <ol class="cs-steps">
+        <li>Write correct formulas. Only change coefficients, never subscripts.</li>
+        <li>Balance a metal or the most complex molecule first.</li>
+        <li>Keep polyatomic ions together as one unit.</li>
+        <li>Leave H and O, and any lone element, for last.</li>
+        <li>Clear fractions, then count every atom on both sides.</li>
+      </ol>
+      <h3>Combustion: C, then H, then O last</h3>
+      <p class="cs-center">$\ce{C_xH_y} + \left(x + \tfrac{y}{4}\right)\ce{O2} \rightarrow x\,\ce{CO2} + \tfrac{y}{2}\,\ce{H2O}$</p>
+      <p class="cs-center">$\ce{C_xH_yO_z} + \left(x + \tfrac{y}{4} - \tfrac{z}{2}\right)\ce{O2} \rightarrow x\,\ce{CO2} + \tfrac{y}{2}\,\ce{H2O}$</p>
+      <p class="cs-center">$\ce{2C2H6 + 7O2} \rightarrow \ce{4CO2 + 6H2O}$</p>
+      <p class="cs-tip">If $\ce{O2}$ needs a fraction ($\tfrac72$), double everything. <b>Not enough oxygen:</b> incomplete combustion makes CO and soot, such as $\ce{2CH4 + 3O2} \rightarrow \ce{2CO + 4H2O}$. <b>Alkanes:</b> $\ce{C_nH_{2n+2}}$.</p>
+      <h3>Reaction types</h3>
+      <div class="eqs">
+        <div class="eq"><span>Combination</span><span>$\ce{A + B} \rightarrow \ce{AB}$</span></div>
+        <div class="eq"><span>Decomposition</span><span>$\ce{AB} \rightarrow \ce{A + B}$</span></div>
+        <div class="eq"><span>Single displacement</span><span>$\ce{A + BC} \rightarrow \ce{AC + B}$</span></div>
+        <div class="eq"><span>Double displacement</span><span>$\ce{AB + CD} \rightarrow \ce{AD + CB}$</span></div>
+        <div class="eq"><span>Combustion</span><span>fuel $+\ \ce{O2} \rightarrow$ oxides, plus heat and light</span></div>
+      </div>
+    </section>
+
+    <section class="cs-card" id="acids" data-title="Acids, bases">
+      <h2>Strong acids and bases</h2>
+      <p class="cs-links">Learn it in <a data-lesson="acid-base"></a></p>
+      <table class="cs-tbl">
+        <tr><th scope="row">Strong acids</th><td>$\ce{HCl}$, $\ce{HBr}$, $\ce{HI}$, $\ce{HNO3}$, $\ce{H2SO4}$ (first H only), $\ce{HClO4}$</td></tr>
+        <tr><th scope="row">Strong bases</th><td>Group 1 hydroxides: $\ce{LiOH}$, $\ce{NaOH}$, $\ce{KOH}$, $\ce{RbOH}$, $\ce{CsOH}$<br>Heavy group 2: $\ce{Ca(OH)2}$, $\ce{Sr(OH)2}$, $\ce{Ba(OH)2}$</td></tr>
+        <tr><th scope="row">Weak, for contrast</th><td>$\ce{HF}$, $\ce{CH3COOH}$, $\ce{H2CO3}$, $\ce{H3PO4}$, base $\ce{NH3}$</td></tr>
+      </table>
+      <p class="cs-tip">Everything else is weak unless told otherwise. <b>Trap:</b> $\ce{HF}$ is weak even though HCl, HBr and HI are strong. Net ionic for strong acid with strong base: $\ce{H+ + OH-} \rightarrow \ce{H2O}$.</p>
+    </section>
+
+    <section class="cs-card" id="activity" data-title="Activity series">
+      <h2>Activity series</h2>
+      <p class="cs-links">Learn it in <a data-lesson="redox"></a></p>
+      <p class="cs-note">A metal displaces any metal ion below it. Most active at the top.</p>
+      <ol class="act">
+        <li class="act-1"><b>Li K Ba Sr Ca Na</b><span>react with cold water</span></li>
+        <li class="act-2"><b>Mg Al Mn Zn Cr Fe Cd</b><span>react with steam or acids</span></li>
+        <li class="act-3"><b>Co Ni Sn Pb</b><span>react with acids</span></li>
+        <li class="act-h"><b>$\ce{H2}$</b><span>the dividing line</span></li>
+        <li class="act-4"><b>Cu Hg Ag Pt Au</b><span>will not displace $\ce{H2}$ from acids</span></li>
+      </ol>
+      <p class="cs-tip"><b>Halogens:</b> $\ce{F2} \gt \ce{Cl2} \gt \ce{Br2} \gt \ce{I2}$. Each one displaces the halide ions below it. Exact order varies a little between textbooks.</p>
+    </section>
+
+    <section class="cs-card" id="oxidation" data-title="Oxidation numbers">
+      <h2>Oxidation number rules</h2>
+      <p class="cs-links">Learn it in <a data-lesson="redox"></a></p>
+      <ol class="cs-steps">
+        <li>A free element is 0: $\ce{Na}$, $\ce{O2}$, $\ce{S8}$.</li>
+        <li>A monatomic ion equals its charge: $\ce{Fe^3+}$ is +3.</li>
+        <li>All the numbers add up to the charge: 0 for a compound, or the ion's charge.</li>
+        <li>Group 1 metals are +1, group 2 metals are +2, and aluminum is +3.</li>
+        <li>Fluorine is −1.</li>
+        <li>Hydrogen is +1 with nonmetals, −1 with metals, as in $\ce{NaH}$.</li>
+        <li>Oxygen is −2, except −1 in peroxides ($\ce{H2O2}$).</li>
+        <li>Other halogens are −1, unless bonded to O or a lighter halogen.</li>
+      </ol>
+      <p class="cs-tip">If rules clash, the higher rule wins. <b>Mn in $\ce{KMnO4}$:</b> $+1 + x + 4(-2) = 0$, so $x = +7$. <b>OIL RIG:</b> oxidation is loss, reduction is gain, of electrons.</p>
+    </section>
+
+    <section class="cs-card" id="sigfigs" data-title="Sig figs">
+      <h2>Significant figures</h2>
+      <p class="cs-links">Learn it in <a data-lesson="measurement"></a></p>
+      <table class="cs-tbl cs-grid">
+        <thead><tr><th scope="col">Rule</th><th scope="col">Example</th><th scope="col">Sig figs</th></tr></thead>
+        <tr><td>Nonzero digits always count</td><td>4.72</td><td>3</td></tr>
+        <tr><td>Zeros between digits count</td><td>1002</td><td>4</td></tr>
+        <tr><td>Leading zeros never count</td><td>0.0050</td><td>2</td></tr>
+        <tr><td>Trailing zeros after a decimal point count</td><td>1.500</td><td>4</td></tr>
+        <tr><td>Trailing zeros with no decimal point do not</td><td>1500</td><td>2</td></tr>
+        <tr><td>A decimal point makes them count</td><td>1500.</td><td>4</td></tr>
+        <tr><td>Scientific notation shows them all</td><td>$1.50 \times 10^{3}$</td><td>3</td></tr>
+        <tr><td>Exact numbers (counted, defined) are unlimited</td><td>12 eggs, 1 in = 2.54 cm</td><td>no limit</td></tr>
+      </table>
+      <div class="eqs">
+        <div class="eq"><span>Multiply, divide</span><span>Keep the fewest <b>sig figs</b>: $2.5 \times 3.42 = 8.6$</span></div>
+        <div class="eq"><span>Add, subtract</span><span>Keep the fewest <b>decimal places</b>: $12.11 + 1.3 = 13.4$</span></div>
+        <div class="eq"><span>Logs</span><span>Decimals in the pH equal sig figs in $[\ce{H3O+}]$.</span></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

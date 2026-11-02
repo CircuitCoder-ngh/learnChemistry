@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Periodic table | The Mole Hole</title>
+<meta name="description" content="An interactive periodic table: color by family, state, block, electronegativity, radius, ionization energy or density, then tap any element for its electrons and properties.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-periodic-table.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/pages/periodic-table.js"></script>
+</head>
+<body data-page="periodic-table">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <h1>The periodic table</h1>
+        <p class="lede">Every element there is, on one page. Color it to see the patterns, then tap any tile to look inside.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <figure class="pt bleed" id="table">
+    <div class="pt-bar">
+      <div class="pt-modes">
+        <span class="pt-bar-label" id="pt-mode-label">Color by</span>
+        <div class="seg" id="pt-mode" role="group" aria-labelledby="pt-mode-label">
+          <button type="button" data-value="family" aria-pressed="true">Family</button>
+          <button type="button" data-value="state" aria-pressed="false">State</button>
+          <button type="button" data-value="block" aria-pressed="false">Block</button>
+          <button type="button" data-value="en" aria-pressed="false">Electronegativity</button>
+          <button type="button" data-value="rcov" aria-pressed="false">Radius</button>
+          <button type="button" data-value="ie" aria-pressed="false">Ionization energy</button>
+          <button type="button" data-value="density" aria-pressed="false">Density</button>
+        </div>
+      </div>
+      <div class="pt-tools">
+        <label class="sr-only" for="pt-find">Find an element by name, symbol or atomic number</label>
+        <input id="pt-find" class="pt-find" type="search" placeholder="Find an element" autocomplete="off" spellcheck="false">
+        <button type="button" class="pt-fit-btn" id="pt-fit" aria-pressed="false">Fit whole table</button>
+      </div>
+    </div>
+    <div class="pt-legend pt-legend-top" id="legend-top"></div>
+    <div class="pt-scroll" id="pt-scroll" data-overflow-ok tabindex="-1">
+      <div class="pt-grid" id="pt-grid"></div>
+    </div>
+    <figcaption class="pt-note" id="pt-note"></figcaption>
+  </figure>
+
+  <p class="pt-under"><span id="pt-under-count"></span> <a href="#collection">See your element collection</a></p>
+
+  <section class="prose">
+    <h2 id="read" data-short="Reading the table">How to read it</h2>
+    <p>Every tile tells you the same few things. The one you will use most on exams is the atomic mass, because it doubles as the molar mass in grams per mole.</p>
+  </section>
+
+  <figure class="tile-anatomy">
+    <svg viewBox="0 0 520 220" role="img" aria-label="A sodium tile. The small number 11 at the top is the atomic number, the count of protons. Na is the symbol. 22.990 at the bottom is the atomic mass, in u per atom or grams per mole.">
+      <rect x="24" y="16" width="168" height="188" rx="20" fill="#F0278F"/>
+      <rect x="24" y="186" width="168" height="18" rx="9" fill="#000" opacity=".16"/>
+      <text x="42" y="50" class="ta-z">11</text>
+      <text x="108" y="118" class="ta-sym" text-anchor="middle">Na</text>
+      <text x="108" y="150" class="ta-name" text-anchor="middle">Sodium</text>
+      <text x="108" y="182" class="ta-mass" text-anchor="middle">22.990</text>
+      <path d="M72 44 H228" class="ta-line"/>
+      <path d="M152 100 H228" class="ta-line"/>
+      <path d="M160 176 H228" class="ta-line"/>
+      <circle cx="72" cy="44" r="4" class="ta-dot"/><circle cx="152" cy="100" r="4" class="ta-dot"/><circle cx="160" cy="176" r="4" class="ta-dot"/>
+      <text x="238" y="40" class="ta-h">Atomic number</text>
+      <text x="238" y="62" class="ta-p">How many protons. It never changes.</text>
+      <text x="238" y="96" class="ta-h">Symbol</text>
+      <text x="238" y="118" class="ta-p">One or two letters, first one capital.</text>
+      <text x="238" y="172" class="ta-h">Atomic mass</text>
+      <text x="238" y="194" class="ta-p">Average mass in u, or grams per mole.</text>
+    </svg>
+  </figure>
+
+  <p class="prose pt-fine">Brackets, as in [222], mean the element has no stable isotopes, so the number is the mass of one long-lived isotope. Masses come from PubChem, so the last digit can differ from your textbook's table.</p>
+
+  <div class="mini-row" id="mini-row"></div>
+
+  <p class="pt-links prose">Want the why behind all this? <a href="periodic-intro.html">Meet the periodic table</a> explains the layout, <a href="configurations.html">Electron configurations</a> explains the blocks, and <a href="trends.html">Periodic trends</a> explains the heat maps.</p>
+
+  <section id="collection" class="coll bleed">
+    <div class="coll-window">
+      <div class="coll-top">
+        <div class="coll-stat">
+          <h2 data-short="Your collection">Your element collection</h2>
+          <p class="coll-count"><b data-coll-count>0</b><span>of 118 discovered</span></p>
+          <div class="meter coll-meter"><span id="coll-bar"></span></div>
+          <p class="coll-next" id="coll-next"></p>
+        </div>
+        <div class="coll-rank">
+          <p class="coll-rank-label">Your lab rank</p>
+          <p class="coll-rank-name" id="coll-rank"></p>
+          <p class="coll-how">Get an answer right in any quiz or practice gym and you discover the next element, in order of atomic number. Finishing a lesson finds three at once.</p>
+        </div>
+      </div>
+      <div class="coll-body">
+        <div class="coll-grid" id="coll-grid"></div>
+        <ol class="ladder" id="ladder" aria-label="Lab ranks, from first to last"></ol>
+      </div>
+      <p class="coll-foot">Dim tiles work just like lit ones. Tap any of them for the full details.</p>
+    </div>
+  </section>
+
+</main>
+</div>
+<aside class="el-panel" id="el-panel" role="dialog" aria-labelledby="el-title" hidden>
+  <div class="el-top" id="el-top">
+    <div class="el-bigtile"><small id="el-z"></small><b id="el-sym"></b></div>
+    <div class="el-head">
+      <h2 id="el-title"></h2>
+      <p id="el-sub"></p>
+    </div>
+    <button class="icon-btn el-close" id="el-close" type="button" aria-label="Close element details"></button>
+  </div>
+  <div class="el-scroll" id="el-scroll">
+    <div class="el-mass" id="el-mass"></div>
+    <div class="el-bohr">
+      <div class="el-bohr-stage"><canvas id="bohr"></canvas></div>
+      <div class="el-shells" id="el-shells"></div>
+    </div>
+    <div id="el-body"></div>
+  </div>
+  <div class="el-nav">
+    <button type="button" class="btn ghost small" id="el-prev"></button>
+    <button type="button" class="btn ghost small" id="el-next"></button>
+  </div>
+</aside>
+<div class="el-scrim" id="el-scrim"></div>
+<footer id="site-footer"></footer>
+</body>
+</html>

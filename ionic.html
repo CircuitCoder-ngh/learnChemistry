@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ionic bonds | The Mole Hole</title>
+<meta name="description" content="Watch electrons jump from metal to nonmetal, use Coulomb's law to compare lattice energies, explore the NaCl crystal in 3D, and shatter a crystal with a hammer.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/vendor/three.min.js"></script>
+<script defer src="assets/js/chem3d.js"></script>
+<script defer src="assets/js/bank/ionic.js"></script>
+<script defer src="assets/js/pages/ionic.js"></script>
+</head>
+<body data-page="ionic">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>Ionic bonds</h1>
+        <p class="lede">A metal hands an electron to a nonmetal. Now one is positive, one is negative, and they stick together hard.</p>
+      </div>
+      <div class="lesson-moe" data-moe="cheer"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Show how electrons move to form ions, in pictures and Lewis dots</li>
+    <li>Write the formula of an ionic compound from its ion charges</li>
+    <li>Use Coulomb's law to rank lattice energies</li>
+    <li>Explain why ionic solids melt hot, shatter, and conduct only when molten</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="transfer" data-short="Give and take">Give and take</h2>
+    <p>Metals hold their outer electrons loosely. Nonmetals pull hard on them. Put the two together and an electron moves all the way across. This is <strong>electron transfer</strong>, and it makes two <strong>ions</strong>.</p>
+  </section>
+
+  <div id="story-transfer"></div>
+
+  <div class="big-idea">An ionic bond is not shared electrons. It is the pull between a positive ion and a negative ion.</div>
+
+  <section class="prose">
+    <h2 id="formulas" data-short="Who gives, who takes">Who gives, who takes</h2>
+    <p>Group number tells you how many electrons each atom gives or takes. Sometimes one atom's electrons are not enough, so more atoms join in until all the electrons have somewhere to go.</p>
+  </section>
+
+  <figure class="bench" id="b-swap">
+    <div class="bench-head">
+      <p class="bench-title">Electron swap meet</p>
+      <p class="bench-hint">Pick a metal and a nonmetal. Can you find a pair that needs five atoms?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-swap"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Metal</span>
+        <div class="seg" id="swap-m">
+          <button type="button" data-value="Li" aria-pressed="false">Li</button>
+          <button type="button" data-value="Na" aria-pressed="true">Na</button>
+          <button type="button" data-value="K" aria-pressed="false">K</button>
+          <button type="button" data-value="Mg" aria-pressed="false">Mg</button>
+          <button type="button" data-value="Ca" aria-pressed="false">Ca</button>
+          <button type="button" data-value="Al" aria-pressed="false">Al</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Nonmetal</span>
+        <div class="seg" id="swap-x">
+          <button type="button" data-value="F" aria-pressed="false">F</button>
+          <button type="button" data-value="Cl" aria-pressed="true">Cl</button>
+          <button type="button" data-value="Br" aria-pressed="false">Br</button>
+          <button type="button" data-value="O" aria-pressed="false">O</button>
+          <button type="button" data-value="S" aria-pressed="false">S</button>
+          <button type="button" data-value="N" aria-pressed="false">N</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Watch it again</span>
+        <button type="button" class="btn sun small" id="swap-replay">Replay the swap</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Formula</div><div class="readout-value" id="swap-f"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Electrons moved</div><div class="readout-value" id="swap-n"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Total charge</div><div class="readout-value" id="swap-q"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="swap-say"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: a formula from charges</h4>
+    <p class="worked-q">What compound forms from aluminum and oxygen?</p>
+    <ol>
+      <li>Al is in group 13, with 3 valence electrons. It loses all 3: $\ce{Al^{3+}}$.</li>
+      <li>O has 6 valence electrons. It gains 2 to reach 8: $\ce{O^{2-}}$.</li>
+      <li>Charges must add to zero. The smallest number both 3 and 2 go into is 6.</li>
+      <li>So 2 Al give $2 \times 3 = 6$ electrons, and 3 O take $3 \times 2 = 6$ electrons.</li>
+      <li>The formula is <span class="answer">$\ce{Al2O3}$</span>, and the charges add to $+6 - 6 = 0$.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="energy" data-short="Who pays?">Who pays for it?</h2>
+    <p>Here is a surprise that many students never hear. Moving an electron from Na to Cl actually <em>costs</em> energy. So why does salt form at all? Follow the energy.</p>
+  </section>
+
+  <div id="story-energy"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: not just because of the octet</h4>
+      <p>"Sodium loses an electron because it wants an octet" is not the whole story. Forming the ions from atoms costs energy overall. The <b>lattice energy</b>, released when the ions pack together, is what makes ionic compounds stable. Also watch the sign: some books list lattice energy as positive, for pulling the crystal apart.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="coulomb" data-short="Coulomb's law">Coulomb's law</h2>
+    <p>How hard do two ions pull on each other? Only two things matter: <strong>how big their charges are</strong> and <strong>how far apart they are</strong>. Try it.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Coulomb's law for two charges</p>
+    <div class="formula-body">$$F \propto \frac{q_1 q_2}{r^2} \qquad E \propto \frac{q_1 q_2}{r}$$</div>
+    <dl>
+      <dt>$F$</dt><dd>Force of attraction between the ions</dd>
+      <dt>$E$</dt><dd>Energy of attraction, which is what lattice energy follows</dd>
+      <dt>$q_1, q_2$</dt><dd>Charges of the two ions</dd>
+      <dt>$r$</dt><dd>Distance between their centers, close to the sum of their radii</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-coulomb">
+    <div class="bench-head">
+      <p class="bench-title">Coulomb's law pull meter</p>
+      <p class="bench-hint">Can you make the force exactly 9 times stronger than where it starts?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-coulomb"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="cl-q1">Positive ion <span class="ctl-value" id="cl-q1-out"></span></label>
+        <input type="range" id="cl-q1" min="1" max="3" step="1" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="cl-q2">Negative ion <span class="ctl-value" id="cl-q2-out"></span></label>
+        <input type="range" id="cl-q2" min="1" max="3" step="1" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="cl-r">Distance between centers <span class="ctl-value" id="cl-r-out"></span></label>
+        <input type="range" id="cl-r" min="150" max="600" step="10" value="300">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Force, compared to the start</div><div class="readout-value" id="cl-f"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Energy, compared to the start</div><div class="readout-value" id="cl-e"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Energy for one pair</div><div class="readout-value" id="cl-k"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="cl-say"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: rank two lattice energies</h4>
+    <p class="worked-q">Which has the larger lattice energy, $\ce{MgO}$ or $\ce{NaCl}$? Use ionic radii $\ce{Mg^{2+}}$ 72 pm, $\ce{O^{2-}}$ 140 pm, $\ce{Na+}$ 102 pm, $\ce{Cl-}$ 181 pm.</p>
+    <ol>
+      <li>Write what energy depends on: $E \propto \dfrac{q_1 q_2}{r}$.</li>
+      <li>$\ce{MgO}$: $\dfrac{(2)(2)}{72 + 140} = \dfrac{4}{212} = 0.0189$.</li>
+      <li>$\ce{NaCl}$: $\dfrac{(1)(1)}{102 + 181} = \dfrac{1}{283} = 0.00353$.</li>
+      <li>Compare: $\dfrac{0.0189}{0.00353} = 5.4$. The answer is <span class="answer">$\ce{MgO}$, about 5 times larger</span>. Measured values agree: about 3800 and 790 kJ/mol.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <p>Try that reasoning in a duel. Always check the charges first. Only look at sizes if the charges tie.</p>
+  </section>
+
+  <figure class="bench" id="b-duel">
+    <div class="bench-head">
+      <p class="bench-title">Lattice energy duel</p>
+      <p class="bench-hint">Which crystal holds together more strongly? Five in a row discovers an element.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-duel"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;align-items:center" id="duel-btns"></div>
+    </div>
+    <div class="bench-foot" id="duel-say" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="lattice" data-short="The crystal">Inside the crystal</h2>
+    <p>Each ion attracts every opposite ion near it. So the ions do not pair up. They build a <strong>lattice</strong>, a huge 3D pattern. There is no such thing as one NaCl molecule in a salt crystal. The formula only gives the ratio.</p>
+  </section>
+
+  <figure class="bench" id="b-lattice">
+    <div class="bench-head">
+      <p class="bench-title">Sodium chloride in 3D</p>
+      <p class="bench-hint">Drag to turn. Why is the formula NaCl and not something else?</p>
+    </div>
+    <div class="bench-stage"><div id="v-lattice"></div></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Show</span>
+        <div class="seg" id="lat-view">
+          <button type="button" data-value="cell" aria-pressed="true">The unit cell</button>
+          <button type="button" data-value="six" aria-pressed="false">Six neighbors</button>
+          <button type="button" data-value="count" aria-pressed="false">Count the ions</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-cyan"><div class="readout-label">Sodium ions in the cell</div><div class="readout-value" id="lat-na"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Chloride ions in the cell</div><div class="readout-value" id="lat-cl"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="lat-say"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wow"></div><div class="bubble"><p>One grain of table salt holds around $10^{18}$ formula units. Every ion in there is pulling on all of its neighbors. No wonder salt melts at 801 °C and my soup never argues.</p></div></div>
+
+  <section class="prose">
+    <h2 id="properties" data-short="Properties">Hard, hot and brittle</h2>
+    <p>Every property of an ionic solid comes from the same fact: strong attractions between ions locked in place. A strong lattice is hard to melt, and $\ce{MgO}$ melts near 2800 °C. But hit it and something strange happens.</p>
+  </section>
+
+  <figure class="bench" id="b-hammer">
+    <div class="bench-head">
+      <p class="bench-title">Crystal and hammer</p>
+      <p class="bench-hint">Slide the top layers by hand, or hit it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-hammer"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="ham-s">Slide the top layers <span class="ctl-value" id="ham-s-out"></span></label>
+        <input type="range" id="ham-s" min="0" max="100" step="1" value="0">
+      </div>
+      <div class="ctl" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" class="btn sun small" id="ham-hit">Hit it with the hammer</button>
+        <button type="button" class="btn ghost small" id="ham-reset">Put it back together</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="ham-say"></div>
+  </figure>
+
+  <figure class="bench" id="b-cond">
+    <div class="bench-head">
+      <p class="bench-title">Does it conduct?</p>
+      <p class="bench-hint">The ions are there all along. What has to change for the bulb to light?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cond"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">State of the sodium chloride</span>
+        <div class="seg" id="cond-state">
+          <button type="button" data-value="solid" aria-pressed="true">Solid</button>
+          <button type="button" data-value="molten" aria-pressed="false">Melted at 801 °C</button>
+          <button type="button" data-value="water" aria-pressed="false">Dissolved in water</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="cond-say"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: what carries the current</h4>
+      <p>In molten or dissolved salt, moving <b>ions</b> carry the current, not free electrons. And solid salt has no shortage of charges: it just cannot move them. The ions are fixed in place until the lattice breaks down.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="ionic"></div>
+  <div data-practice="ionic"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Metals lose electrons to become cations, and nonmetals gain them to become anions. Cations shrink and anions grow.</li>
+      <li>Charges must add to zero: that sets the formula.</li>
+      <li>$F \propto q_1 q_2 / r^2$ and $E \propto q_1 q_2 / r$. Rank lattice energies by charge first, then by size.</li>
+      <li>$\ce{NaCl}$ is a ratio in a lattice, not a molecule. Each ion has 6 neighbors of the other kind.</li>
+      <li>Hard and high-melting, but brittle. Conducts only when molten or dissolved.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

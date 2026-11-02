@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Periodic trends | The Mole Hole</title>
+<meta name="description" content="Atomic radius, ionization energy, electron affinity and electronegativity on a 3D map of real data, all explained by effective nuclear charge and shielding, with the Be to B and N to O exceptions.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/trends.js"></script>
+<script defer src="assets/js/pages/trends.js"></script>
+</head>
+<body data-page="trends">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Periodic trends</h1>
+        <p class="lede">Size, grip on electrons, and hunger for more all change in steady patterns across the table. One tug of war explains nearly all of it.</p>
+      </div>
+      <div class="lesson-moe" data-moe="cheer"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Use effective nuclear charge and shielding to explain any trend</li>
+    <li>Predict how radius, ionization energy, electron affinity and electronegativity change</li>
+    <li>Compare the sizes of atoms and ions, including isoelectronic series</li>
+    <li>Explain the Be to B and N to O dips, and read successive ionization energies</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="tug" data-short="The tug of war">One tug of war explains it all</h2>
+    <p>Every outer electron is in a tug of war. The nucleus pulls it in. The inner electrons get in the way. Once you see that, you can stop memorizing trends and start predicting them.</p>
+  </section>
+
+  <div id="story-tug"></div>
+
+  <div class="formula">
+    <p class="formula-name">Effective nuclear charge, the simple estimate</p>
+    <div class="formula-body">$$Z_{\text{eff}} \approx Z - \text{core electrons}$$</div>
+    <dl>
+      <dt>$Z$</dt><dd>the number of protons</dd>
+      <dt>$Z_{\text{eff}}$</dt><dd>the pull an outer electron actually feels. More careful methods, such as Slater's rules, give somewhat different numbers, but the same trends.</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-zeff">
+    <div class="bench-head">
+      <p class="bench-title">Feel the pull</p>
+      <p class="bench-hint">Tap an element, or walk across a row and down a column.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-zeff"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Move on the table</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn small ghost" id="z-left">Left</button>
+          <button type="button" class="btn small" id="z-right">Right, across a period</button>
+          <button type="button" class="btn small ghost" id="z-up">Up</button>
+          <button type="button" class="btn small cyan" id="z-down">Down, along a group</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="z-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: estimating $Z_{\text{eff}}$</h4>
+    <p class="worked-q">Estimate the effective nuclear charge felt by the valence electrons of sulfur. Then compare with oxygen, in the same group.</p>
+    <ol>
+      <li>Sulfur has $Z = 16$ and the configuration $\mathrm{[Ne]\,3s^{2}\,3p^{4}}$, so it has 10 core electrons.</li>
+      <li>$Z_{\text{eff}} \approx 16 - 10 = +6$.</li>
+      <li>Oxygen has $Z = 8$ and the configuration $\mathrm{[He]\,2s^{2}\,2p^{4}}$, so it has 2 core electrons: $Z_{\text{eff}} \approx 8 - 2 = +6$.</li>
+      <li>The same pull, but oxygen's outer electrons are in $n = 2$, much closer. So <span class="answer">oxygen is smaller and holds its electrons more tightly</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="map" data-short="The trend map">The trend map: real data</h2>
+    <p>Here are the real measured values for the first six periods. Switch properties and watch the whole landscape reshape. Look for the slope across a row and along a column.</p>
+  </section>
+
+  <figure class="bench" id="b-map">
+    <div class="bench-head">
+      <p class="bench-title">Periodic trend map</p>
+      <p class="bench-hint">Pick a property. Tap a bar to read its value.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-map"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Property</span>
+        <div class="seg" id="map-prop">
+          <button type="button" data-value="rcov" aria-pressed="true">Atomic radius</button>
+          <button type="button" data-value="ie" aria-pressed="false">Ionization energy</button>
+          <button type="button" data-value="ea" aria-pressed="false">Electron affinity</button>
+          <button type="button" data-value="en" aria-pressed="false">Electronegativity</button>
+          <button type="button" data-value="metal" aria-pressed="false">Metallic character</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">View</span>
+        <div class="seg" id="map-view">
+          <button type="button" data-value="bars" aria-pressed="true">3D bars</button>
+          <button type="button" data-value="flat" aria-pressed="false">Flat tiles</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="map-yaw">Turn the view <span class="ctl-value" id="map-yaw-out"></span></label>
+        <input type="range" id="map-yaw" min="-12" max="12" step="1" value="-8">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Selected</div><div class="readout-value" id="map-sel">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Highest here</div><div class="readout-value" id="map-hi">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Lowest here</div><div class="readout-value" id="map-lo">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="map-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="big-idea">Across a period, the pull grows at about the same distance. Down a group, the pull stays about the same but the distance grows. Atoms get small and grabby toward the top right, and big and giving toward the bottom left.</div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: more electrons does not mean bigger</h4>
+      <p>Going from sodium to chlorine adds six electrons, yet chlorine is much smaller. Those electrons all go in the same shell, while protons are added too. So $Z_{\text{eff}}$ rises and the whole shell is pulled inward.</p>
+    </div>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p><b>Electronegativity</b> is how hard an atom pulls on shared electrons in a bond. <b>Electron affinity</b> is the energy change when a lone gas atom gains an electron. Similar sounding, different measurements. Fluorine wins electronegativity, but chlorine beats it on electron affinity, because fluorine is so tiny that its electrons crowd each other. Examiners love that one.</p></div></div>
+
+  <section class="prose">
+    <h2 id="ions" data-short="Sizes of ions">The sizes of ions</h2>
+    <p>Atoms change size when they gain or lose electrons, and the change is not small. Here the circles are drawn to scale.</p>
+  </section>
+
+  <div id="story-ions"></div>
+
+  <div class="worked">
+    <h4>Worked example: rank an isoelectronic series</h4>
+    <p class="worked-q">Rank $\ce{S^{2-}}$, $\ce{Cl-}$, $\ce{K+}$ and $\ce{Ca^{2+}}$ from largest to smallest.</p>
+    <ol>
+      <li>Count electrons: $16 + 2 = 18$, $17 + 1 = 18$, $19 - 1 = 18$, $20 - 2 = 18$. All four are isoelectronic.</li>
+      <li>With the same electrons, more protons pull harder. The proton counts are 16, 17, 19 and 20.</li>
+      <li>Fewest protons means largest, so the order is <span class="answer">$\ce{S^{2-}} > \ce{Cl-} > \ce{K+} > \ce{Ca^{2+}}$</span>.</li>
+      <li>Data check: 184, 181, 138 and 100 pm.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="ie" data-short="Ionization energy">Ionization energy, and its two dips</h2>
+    <p><strong>First ionization energy</strong> is the energy needed to remove the outermost electron from a gas atom: $\ce{X(g) -> X+(g) + e-}$. It always costs energy, so it is always positive. The climb across a period is not perfectly smooth, and the two bumps are favorite exam questions.</p>
+  </section>
+
+  <div id="story-ie"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: nitrogen beats oxygen</h4>
+      <p>The trend says oxygen should have the higher ionization energy, but nitrogen does: 14.53 eV against 13.62 eV. Likewise beryllium beats boron. If a question asks you to rank these, use the real order and be ready to explain why.</p>
+    </div>
+  </div>
+
+  <figure class="bench" id="b-succ">
+    <div class="bench-head">
+      <p class="bench-title">Pull them off one by one</p>
+      <p class="bench-hint">Each electron is harder to remove than the last. Find the wall.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-succ"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="succ-el">Element</label>
+        <select id="succ-el"></select>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Electrons</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn small" id="succ-next">Remove the next electron</button>
+          <button type="button" class="btn small ghost" id="succ-reset">Put them all back</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="succ-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: find the group from the wall</h4>
+    <p class="worked-q">An element has successive ionization energies of 578, 1817, 2745, 11 577 and 14 842 kJ/mol. Which group is it in?</p>
+    <ol>
+      <li>Compare neighbors. From 578 to 1817 is about 3 times, and from 1817 to 2745 is about 1.5 times.</li>
+      <li>From 2745 to 11 577 is more than 4 times, and it is by far the largest jump in absolute size. That is the wall.</li>
+      <li>The wall comes after the third electron, so the atom has 3 valence electrons.</li>
+      <li>Three valence electrons means <span class="answer">group 13</span>. These are the real values for aluminum.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="rank" data-short="Rank these">Rank these</h2>
+    <p>Time to use it. Each round uses real values from the table.</p>
+  </section>
+
+  <figure class="bench" id="b-rank">
+    <div class="bench-head">
+      <p class="bench-title">Rank these atoms</p>
+      <p class="bench-hint">Tap them in order. Three in a row discovers an element.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-rank"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">This round</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn small ghost" id="rank-clear">Start this order over</button>
+          <button type="button" class="btn small" id="rank-next">Next round</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-good"><div class="readout-label">In a row</div><div class="readout-value" id="rank-streak">0</div></div>
+        <div class="readout is-sun"><div class="readout-label">Best</div><div class="readout-value" id="rank-best">0</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="rank-foot" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="trends"></div>
+  <div data-practice="trends"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>$Z_{\text{eff}} \approx Z - \text{core}$. Across a period it rises. Down a group it stays about the same, but $n$ grows.</li>
+      <li><strong>Radius</strong>: gets smaller across, bigger down.</li>
+      <li><strong>Ionization energy</strong> and <strong>electronegativity</strong>: rise across a period, fall going down a group.</li>
+      <li><strong>Electron affinity</strong>: generally stronger across, weaker down, with many exceptions. Cl beats F.</li>
+      <li><strong>Metallic character</strong>: falls across a period, rises going down a group.</li>
+      <li>Cations are smaller than their atoms, and anions larger. In an isoelectronic series, more protons means smaller.</li>
+      <li>Dips: Be to B (2p is higher) and N to O (first pair repels). A huge jump in successive IE marks the end of the valence electrons.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,69 @@
+/* Flashcards: one card, big, in a window dug into the dark, with five boxes along the bottom. */
+.fc-filter { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.8rem; }
+.fc-filter small { font-weight: 500; opacity: 0.75; }
+
+.fc { margin: 0 auto 1.6rem; padding: clamp(14px, 2.4vw, 24px); background: radial-gradient(90% 60% at 50% 0, #3A2466, var(--night) 75%); color: var(--night-ink); border-radius: 24px; box-shadow: 0 0 0 4px var(--night), 0 12px 0 -2px rgba(40, 20, 80, 0.2); }
+.lesson section.fc { margin-top: 0; }
+.fc-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.fc-meter { flex: 1 1 180px; margin: 0; background: #120826; box-shadow: inset 0 0 0 2px #3B2763; }
+.fc-progress { margin: 0; color: var(--night-dim); font-weight: 700; font-size: 0.98rem; min-height: 1.4em; }
+
+.fc-player { perspective: 1400px; min-height: 340px; }
+
+/* The card: two faces stacked in one grid cell, so the taller face sets the height. */
+.fc-card { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; font: inherit; text-align: center; transform-style: preserve-3d; border-radius: 22px; }
+.fc-card:focus-visible { outline: 3px solid #FFD23F; outline-offset: 4px; }
+.fc-card.is-in { animation: card-in 300ms cubic-bezier(.2, 1.3, .5, 1); }
+@keyframes card-in { from { opacity: 0; transform: translateY(26px) scale(0.95) rotate(-1deg); } }
+.fc-inner { display: grid; transform-style: preserve-3d; transition: transform 460ms cubic-bezier(.3, 1.3, .5, 1); }
+.fc-card.is-flipped .fc-inner { transform: rotateY(180deg); }
+.fc-face { grid-area: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: clamp(240px, 36vw, 310px); padding: 44px clamp(16px, 4vw, 44px) 40px; border-radius: 22px; backface-visibility: hidden; -webkit-backface-visibility: hidden; position: relative; overflow: hidden; }
+.fc-front { background: #FFFDF6; color: #22123A; box-shadow: 0 10px 0 -2px #D9CFEA, inset 0 8px 0 var(--u, #7B3FF2); }
+.fc-back { background: #2B1A4A; color: #fff; transform: rotateY(180deg); box-shadow: 0 10px 0 -2px #150A27, inset 0 0 0 3px #FFD23F; }
+.fc-tag { position: absolute; left: 18px; top: 16px; right: 18px; text-align: left; font-weight: 700; font-size: 0.92rem; color: #6A5B88; line-height: 1.2; }
+.fc-back .fc-tag { color: #FFD23F; }
+.fc-text { display: block; font-size: clamp(1.28rem, 3vw, 1.86rem); font-weight: 500; line-height: 1.3; max-width: 100%; overflow-x: auto; overflow-y: hidden; text-wrap: balance; padding: 2px; }
+.fc-hint { position: absolute; bottom: 14px; left: 0; right: 0; color: #7A6C95; font-size: 0.92rem; font-weight: 500; }
+.fc-back .katex { color: #fff; }
+
+.fc-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 20px; min-height: 58px; }
+.fc-flip-btn { min-width: 11rem; }
+.fc .btn { color: #fff; }
+.fc .btn.sun { color: #22123A; }
+.fc-again { --b: #CE2239; --bd: #8E1226; min-width: 9.6rem; }
+.fc-knew { --b: #0E8F55; --bd: #0A6B40; min-width: 9.6rem; }
+.fc-keys { margin: 8px 0 0; text-align: center; color: var(--night-dim); font-size: 0.88rem; }
+@media (hover: none) { .fc-keys { display: none; } }
+
+.fc-side { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 22px; margin: 10px 0 12px; }
+.fc-moe-row { display: flex; align-items: center; gap: 10px; min-height: 66px; }
+.fc-moe { width: 58px; flex: none; }
+.fc-moe .moe-svg { width: 100%; overflow: visible; }
+.fc-say { margin: 0; color: #fff; font-weight: 500; font-size: 1.02rem; line-height: 1.26; }
+.fc-earn { display: flex; align-items: center; gap: 9px; margin: 0; color: var(--night-dim); font-size: 0.94rem; font-weight: 500; line-height: 1.2; }
+.fc-pips { display: inline-flex; gap: 4px; flex: none; }
+.fc-pips i { width: 13px; height: 13px; border-radius: 4px; background: #3B2763; }
+.fc-pips i.is-on { background: #FFD23F; box-shadow: 0 0 8px rgba(255, 210, 63, 0.7); }
+
+/* Five cardboard boxes. */
+.fc-boxes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(6px, 1.4vw, 14px); }
+.fc-box { margin: 0; text-align: center; min-width: 0; }
+.fc-box-body { position: relative; display: block; height: clamp(60px, 10vw, 84px); border-radius: 6px 6px 10px 10px; background: linear-gradient(#B9895A, #8E6240); box-shadow: inset 0 3px 0 #D9AE7E, inset 0 -5px 0 rgba(0, 0, 0, 0.2); overflow: hidden; }
+.fc-stack { position: absolute; left: 12%; right: 12%; bottom: 0; background: repeating-linear-gradient(0deg, #FFFDF6 0 3px, #D9CFEA 3px 5px); border-radius: 3px 3px 0 0; transition: height 320ms cubic-bezier(.3, 1.4, .5, 1); opacity: 0.92; }
+.fc-box-body b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.3rem, 3.2vw, 1.9rem); color: #22123A; text-shadow: 0 0 6px #fff, 0 0 2px #fff; }
+.fc-box-name { display: block; margin-top: 4px; font-family: var(--font-display); font-size: 1rem; color: #fff; line-height: 1.1; }
+.fc-box-wait { display: block; font-size: 0.8rem; color: var(--night-dim); line-height: 1.15; }
+.fc-box.is-bump .fc-box-body { animation: box-bump 380ms ease; }
+@keyframes box-bump { 30% { transform: translateY(5px) scaleY(0.93); } 65% { transform: translateY(-4px) scaleY(1.04); } }
+@media (prefers-reduced-motion: reduce) { .fc-card.is-in, .fc-box.is-bump .fc-box-body { animation: none; } .fc-inner { transition: none; } }
+
+.fc-done { display: grid; place-content: center; justify-items: center; gap: 8px; min-height: 300px; padding: 22px 16px; text-align: center; background: rgba(255, 255, 255, 0.05); border-radius: 22px; }
+.fc-done h2 { margin: 0; color: #FFD23F; font-size: clamp(2rem, 5vw, 3rem); }
+.fc-done p { margin: 0; color: #E5DBF7; max-width: 30rem; line-height: 1.36; }
+.fc-done a { color: #2FD6F2; }
+.fc-score { font-size: 1.2rem; }
+.fc-score b { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; color: #fff; }
+.fc-done-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 12px; }
+.fc .ghost-dark { background: transparent; color: #fff; box-shadow: 0 0 0 2.5px #8F76C2, 0 5px 0 2.5px #8F76C2; }
+.fc .ghost-dark:active { box-shadow: 0 0 0 2.5px #8F76C2, 0 1px 0 2.5px #8F76C2; }
+.fc-how { margin-top: 1rem; }

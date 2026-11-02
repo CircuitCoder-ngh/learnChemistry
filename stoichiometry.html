@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stoichiometry | The Mole Hole</title>
+<meta name="description" content="Learn stoichiometry with animations you control: read a balanced equation as a recipe, then walk grams to moles to moles to grams on a map.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-stoichiometry.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/stoichiometry.js"></script>
+<script defer src="assets/js/pages/stoichiometry.js"></script>
+</head>
+<body data-page="stoichiometry">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Stoichiometry</h1>
+        <p class="lede">A balanced equation is a recipe. Stoichiometry is using that recipe to work out how much you need and how much you get.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Read the coefficients of a balanced equation as a mole ratio</li>
+    <li>Walk the map from grams to moles to moles to grams</li>
+    <li>Solve mass, mole and particle problems with the units canceling</li>
+    <li>Say why grams only add up in total, never substance by substance</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="recipe" data-short="It is a recipe">A balanced equation is a recipe</h2>
+    <p>The word looks scary. Say it "stoy-kee-OM-eh-tree". It just means measuring how much of each thing goes into a reaction and how much comes out.</p>
+    <p>You already know how to do it, because you can follow a recipe. Start with a sandwich.</p>
+  </section>
+
+  <div id="story-recipe"></div>
+
+  <div class="big-idea">The coefficients in a balanced equation are a mole ratio. That one idea runs this whole lesson.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="happy"></div><div class="bubble"><p>The number in front of a formula is called a <b>coefficient</b>. A coefficient you cannot see is a 1. Nobody writes it, but it is there, like the bread you forgot to buy.</p></div></div>
+
+  <section class="prose">
+    <h2 id="run" data-short="Run the recipe">Run the recipe yourself</h2>
+    <p>Pick a reaction and choose how much to start with. Every atom on the left has to land somewhere on the right, so you can count them. <strong>Can you find a reaction where the total number of molecules goes down?</strong> Then find one where it goes up.</p>
+  </section>
+
+  <figure class="bench" id="b-run">
+    <div class="bench-head">
+      <p class="bench-title">Reaction visualizer</p>
+      <p class="bench-hint">Slide to change the starting amount.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-run"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="run-rx"></div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="run-n"><span id="run-n-label">Starting amount</span> <span class="ctl-value" id="run-n-out"></span></label>
+        <input type="range" id="run-n" min="1" max="5" step="1" value="2">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Watch it again</span>
+        <button type="button" class="btn small" id="run-again">Replay the reaction</button>
+      </div>
+      <div class="readouts" id="run-readouts" style="grid-column:1/-1"></div>
+    </div>
+    <div class="bench-foot"><p>One picture of a molecule stands for one mole here. That is a drawing choice. A real mole is far too many to draw. The atoms and the ratios are exact.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="why-moles" data-short="Why not grams?">Why you cannot use grams directly</h2>
+    <p>Here is the most common mistake in this whole topic. Students see "2 to 1" in an equation and treat it as 2 grams to 1 gram. Watch what goes wrong.</p>
+  </section>
+
+  <div id="story-grams"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: coefficients are not grams</h4>
+      <p>In $\ce{2H2 + O2 -> 2H2O}$, the mole ratio of $\ce{H2}$ to $\ce{O2}$ is 2 to 1. The mass ratio is about 1 to 8. Coefficients count <b>moles</b>. Only use them on moles. If a problem gives grams, change to moles first, every single time.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <p>Now compare moles and grams side by side. Look at the two rows of bars below and ask which row stays equal from before to after.</p>
+  </section>
+
+  <figure class="bench" id="b-bars">
+    <div class="bench-head">
+      <p class="bench-title">Moles change. Total grams do not.</p>
+      <p class="bench-hint">Pick a reaction, then slide.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-bars"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="bars-rx"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="bars-n">Size of the batch <span class="ctl-value" id="bars-n-out"></span></label>
+        <input type="range" id="bars-n" min="0.25" max="3" step="0.25" value="1">
+      </div>
+    </div>
+    <div class="bench-foot" id="bars-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: what is conserved?</h4>
+      <p><b>Total mass</b> stays the same, because atoms stay the same. <b>Total moles of molecules</b> can change, because atoms regroup into more or fewer molecules. And the grams of any one substance change, of course. That is what a reaction does.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="map" data-short="The map">The map: down, across, up</h2>
+    <p>Almost every stoichiometry problem is the same trip with different numbers. You know grams of one thing and you want grams of another. The recipe only speaks moles, so the only way across is through the mole hole.</p>
+  </section>
+
+  <div id="story-map"></div>
+
+  <div class="formula">
+    <p class="formula-name">The whole trip on one line</p>
+    <div class="formula-body">$$\begin{aligned} \text{g A} &\times \frac{1\text{ mol A}}{\text{molar mass A}} & &\text{down} \\ &\times \frac{b\text{ mol B}}{a\text{ mol A}} & &\text{across} \\ &\times \frac{\text{molar mass B}}{1\text{ mol B}} = \text{g B} & &\text{up} \end{aligned}$$</div>
+    <dl>
+      <dt>$a$, $b$</dt><dd>the coefficients of A and B in the balanced equation</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: grams to grams</h4>
+    <p class="worked-q">Iron is made from its ore by the reaction $\ce{Fe2O3 + 3CO -> 2Fe + 3CO2}$. How many grams of iron can you get from 80.0 g of $\ce{Fe2O3}$?</p>
+    <ol>
+      <li>Check the equation is balanced. Left: 2 Fe, 3 C, 6 O. Right: 2 Fe, 3 C, 6 O. Good.</li>
+      <li>Find the molar masses. $\ce{Fe2O3}$: $2(55.85) + 3(16.00) = 159.70\text{ g/mol}$. $\ce{Fe}$: $55.85\text{ g/mol}$.</li>
+      <li>Go down, from grams to moles. $80.0\ \cancel{\text{g Fe}_2\text{O}_3} \times \dfrac{1\text{ mol Fe}_2\text{O}_3}{159.70\ \cancel{\text{g Fe}_2\text{O}_3}} = 0.501\text{ mol Fe}_2\text{O}_3$.</li>
+      <li>Go across with the mole ratio. The coefficients say 2 Fe for every 1 $\ce{Fe2O3}$. $0.501\ \cancel{\text{mol Fe}_2\text{O}_3} \times \dfrac{2\text{ mol Fe}}{1\ \cancel{\text{mol Fe}_2\text{O}_3}} = 1.002\text{ mol Fe}$.</li>
+      <li>Go up, from moles to grams. $1.002\ \cancel{\text{mol Fe}} \times \dfrac{55.85\text{ g Fe}}{1\ \cancel{\text{mol Fe}}} = $ <span class="answer">$56.0\text{ g Fe}$</span>. Three significant figures, because 80.0 has three.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="walk" data-short="Walk the map">Walk it yourself</h2>
+    <p>Now you drive. At each room, pick the conversion factor that lets the old unit cancel. Moe only moves when you pick the right one. Wrong picks are fine, and you will see why they fail.</p>
+  </section>
+
+  <figure class="bench" id="b-walk">
+    <div class="bench-head">
+      <p class="bench-title">Stoichiometry map walker</p>
+      <p class="bench-hint">Pick the factor that cancels your unit.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-walk"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Kind of trip</span>
+        <div class="seg" id="walk-mode">
+          <button type="button" data-value="gg" aria-pressed="true">Grams to grams</button>
+          <button type="button" data-value="mg" aria-pressed="false">Moles to grams</button>
+          <button type="button" data-value="gm" aria-pressed="false">Grams to moles</button>
+          <button type="button" data-value="gn" aria-pressed="false">Grams to particles</button>
+          <button type="button" data-value="ng" aria-pressed="false">Particles to grams</button>
+        </div>
+      </div>
+      <div class="ctl walk-pick" style="grid-column:1/-1">
+        <span class="ctl-label" id="walk-prompt">Pick a factor</span>
+        <div class="walk-choices" id="walk-choices"></div>
+        <p class="ctl-help" id="walk-msg" aria-live="polite"></p>
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="walk-new">New problem</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="walk-calc" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="other-trips" data-short="Other trips">Shorter and longer trips</h2>
+    <p>Not every problem uses the whole map. If the problem starts in moles, you begin in the tunnel and skip the first leg. If it wants particles, you leave through a side room. The mole ratio in the middle is always there.</p>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: moles to grams</h4>
+    <p class="worked-q">Propane burns by $\ce{C3H8 + 5O2 -> 3CO2 + 4H2O}$. What mass of oxygen does 0.250 mol of propane need?</p>
+    <ol>
+      <li>You are already in the mole tunnel, so skip the first leg.</li>
+      <li>Go across. The coefficients say 5 $\ce{O2}$ for every 1 $\ce{C3H8}$. $0.250\ \cancel{\text{mol C}_3\text{H}_8} \times \dfrac{5\text{ mol O}_2}{1\ \cancel{\text{mol C}_3\text{H}_8}} = 1.25\text{ mol O}_2$.</li>
+      <li>Go up. $1.25\ \cancel{\text{mol O}_2} \times \dfrac{32.00\text{ g O}_2}{1\ \cancel{\text{mol O}_2}} = $ <span class="answer">$40.0\text{ g O}_2$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: grams to molecules</h4>
+    <p class="worked-q">How many molecules of $\ce{CO2}$ form when 5.00 g of propane burns?</p>
+    <ol>
+      <li>Molar mass of $\ce{C3H8}$: $3(12.011) + 8(1.008) = 44.10\text{ g/mol}$.</li>
+      <li>Go down. $5.00\ \cancel{\text{g C}_3\text{H}_8} \times \dfrac{1\text{ mol C}_3\text{H}_8}{44.10\ \cancel{\text{g C}_3\text{H}_8}} = 0.1134\text{ mol C}_3\text{H}_8$.</li>
+      <li>Go across. 3 $\ce{CO2}$ for every 1 $\ce{C3H8}$. $0.1134\ \cancel{\text{mol C}_3\text{H}_8} \times \dfrac{3\text{ mol CO}_2}{1\ \cancel{\text{mol C}_3\text{H}_8}} = 0.3402\text{ mol CO}_2$.</li>
+      <li>Leave through the side room. $0.3402\ \cancel{\text{mol CO}_2} \times \dfrac{6.022 \times 10^{23}\text{ molecules}}{1\ \cancel{\text{mol CO}_2}} = $ <span class="answer">$2.05 \times 10^{23}$ molecules</span>.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Keep a few extra digits in the middle of a problem and round only at the end. Rounding at every step is how right methods get wrong answers. Worse, they get marked wrong by a computer that has no sympathy.</p></div></div>
+
+  <section class="prose">
+    <h2 id="surprise" data-short="A real surprise">A real surprise: fuel that gains weight</h2>
+    <p>Stoichiometry can tell you things that sound impossible. Try this one on a friend.</p>
+  </section>
+
+  <div id="story-octane"></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="stoichiometry"></div>
+  <div data-practice="stoichiometry"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Coefficients are a mole ratio.</strong> They count moles, never grams.</li>
+      <li>Check the equation is <strong>balanced</strong> before you use it.</li>
+      <li>The map: <strong>down</strong> (divide by molar mass of A), <strong>across</strong> (multiply by the mole ratio), <strong>up</strong> (multiply by molar mass of B).</li>
+      <li>Write the mole ratio with what you <strong>want on top</strong> and what you know on the bottom, so the old unit cancels.</li>
+      <li>For particles, leave the mole tunnel by multiplying by $6.022 \times 10^{23}$.</li>
+      <li><strong>Total mass</strong> is conserved. The grams of one substance are not, and total moles need not be.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

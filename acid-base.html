@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acids, bases and titration | The Mole Hole</title>
+<meta name="description" content="Watch protons change hands, learn the strong acids and bases, see neutralization at the particle level, and find an unknown concentration in a full titration simulator.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/acid-base.js"></script>
+<script defer src="assets/js/pages/acid-base.js"></script>
+</head>
+<body data-page="acid-base">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Acids, bases and titration</h1>
+        <p class="lede">An acid hands over a proton and a base takes it. Count those protons, and one drop of color can reveal a concentration you never measured.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Define acids and bases, both Arrhenius and Brønsted-Lowry</li>
+    <li>Name the six strong acids and the strong bases</li>
+    <li>Write neutralization equations, down to the net ionic</li>
+    <li>Find an unknown concentration from titration data</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="proton" data-short="Passing a proton">An acid-base reaction passes a proton</h2>
+    <p>A hydrogen atom is one proton and one electron. Take the electron away and only the proton is left, which is why chemists use $\ce{H+}$ and "proton" as the same word. Acids and bases are all about where that proton goes.</p>
+  </section>
+
+  <div id="story-proton"></div>
+
+  <div class="big-idea">An acid gives a proton. A base takes a proton. Every acid-base reaction is one proton changing hands.</div>
+
+  <div class="formula">
+    <p class="formula-name">Two definitions you need</p>
+    <dl>
+      <dt>Arrhenius</dt><dd>An acid makes $\ce{H+}$ in water. A base makes $\ce{OH-}$ in water.</dd>
+      <dt>Brønsted-Lowry</dt><dd>An acid donates a proton. A base accepts a proton. This one is broader, and it covers $\ce{NH3}$.</dd>
+    </dl>
+  </div>
+
+  <section class="prose">
+    <p>Try it with your own hands. The cyan dots on the base are a <strong>lone pair</strong>: two electrons ready to hold a proton. No lone pair, no catch.</p>
+  </section>
+
+  <figure class="bench" id="b-proton">
+    <div class="bench-head">
+      <p class="bench-title">Hand over the proton</p>
+      <p class="bench-hint">Drag the glowing proton onto the lone pair.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-proton"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="proton-pick">
+          <button type="button" data-value="0" aria-pressed="true">HCl + H₂O</button>
+          <button type="button" data-value="1" aria-pressed="false">HCl + NH₃</button>
+          <button type="button" data-value="2" aria-pressed="false">H₂O + NH₃</button>
+          <button type="button" data-value="3" aria-pressed="false">HNO₃ + H₂O</button>
+          <button type="button" data-value="4" aria-pressed="false">CH₃COOH + H₂O</button>
+          <button type="button" data-value="5" aria-pressed="false">H₃O⁺ + OH⁻</button>
+        </div>
+      </div>
+      <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px">
+        <button type="button" class="btn" id="proton-go">Hand it over for me</button>
+        <button type="button" class="btn ghost" id="proton-reset">Put the proton back</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="proton-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: conjugate pairs differ by exactly one proton</h4>
+      <p>The conjugate base of $\ce{H2SO4}$ is $\ce{HSO4-}$, not $\ce{SO4^2-}$. Take away <b>one</b> $\ce{H+}$: remove one H and drop the charge by 1. To get a conjugate acid, add one H and raise the charge by 1.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="strong" data-short="Strong and weak">Strong and weak</h2>
+    <p>A <strong>strong</strong> acid gives up its proton in water. Every molecule splits. (For $\ce{H2SO4}$, that means the first proton.) A <strong>weak</strong> acid mostly hangs on, so only a small fraction splits at any moment. You must memorize the short list of strong ones. Assume any other acid is weak.</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Strong acids: memorize all six</th><th>Strong bases</th><th>Common weak ones</th></tr></thead>
+      <tbody>
+        <tr><td>$\ce{HCl}$, $\ce{HBr}$, $\ce{HI}$</td><td>Group 1 hydroxides: $\ce{LiOH}$, $\ce{NaOH}$, $\ce{KOH}$</td><td>$\ce{HF}$, $\ce{CH3COOH}$, $\ce{H2CO3}$, $\ce{H3PO4}$</td></tr>
+        <tr><td>$\ce{HNO3}$, $\ce{H2SO4}$, $\ce{HClO4}$</td><td>Heavy group 2 hydroxides: $\ce{Ca(OH)2}$, $\ce{Sr(OH)2}$, $\ce{Ba(OH)2}$</td><td>$\ce{NH3}$, as a weak base</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="bench" id="b-strong">
+    <div class="bench-head">
+      <p class="bench-title">Strong or weak? Ask the light bulb</p>
+      <p class="bench-hint">Ions carry the current. More ions, brighter bulb.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-strong"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="strong-pick">
+          <button type="button" data-value="HCl" aria-pressed="true">HCl</button>
+          <button type="button" data-value="HNO3" aria-pressed="false">HNO₃</button>
+          <button type="button" data-value="HF" aria-pressed="false">HF</button>
+          <button type="button" data-value="CH3COOH" aria-pressed="false">CH₃COOH</button>
+          <button type="button" data-value="NaOH" aria-pressed="false">NaOH</button>
+          <button type="button" data-value="NH3" aria-pressed="false">NH₃</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="strong-n">How much is dissolved <span class="ctl-value" id="strong-n-out"></span></label>
+        <input type="range" id="strong-n" min="4" max="16" step="4" value="12">
+      </div>
+    </div>
+    <div class="bench-foot" id="strong-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: strong does not mean concentrated</h4>
+      <p><b>Strong</b> and <b>weak</b> tell you what fraction splits into ions. <b>Concentrated</b> and <b>dilute</b> tell you how much is dissolved. Vinegar can be concentrated and still weak. A tiny amount of HCl in a lake is dilute and still strong.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="neutral" data-short="Neutralization">Neutralization: acid plus base</h2>
+    <p>When an acid meets a hydroxide base, the protons and hydroxide ions snap together into water. What remains is an ionic compound called a <strong>salt</strong>. Table salt is just one example.</p>
+  </section>
+
+  <div id="story-neutral"></div>
+
+  <div class="formula">
+    <p class="formula-name">Neutralization</p>
+    <div class="formula-body">$$\text{acid} + \text{base} \rightarrow \text{salt} + \text{water}$$ $$\ce{H+(aq) + OH-(aq) -> H2O(l)}$$</div>
+    <dl>
+      <dt>Note</dt><dd>That net ionic equation holds for any strong acid with any strong base, as long as the salt stays dissolved.</dd>
+    </dl>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Count the protons before you balance. $\ce{H2SO4}$ can give two, so it takes two $\ce{NaOH}$. $\ce{Ca(OH)2}$ brings two $\ce{OH-}$, so it takes two $\ce{HCl}$. My whole job is counting, and so is yours.</p></div></div>
+
+  <section class="prose">
+    <h2 id="titration" data-short="Titration">Titration: counting with a color change</h2>
+    <p>Suppose you have an acid but not its concentration. Add a base of known concentration, one drop at a time, until the acid is exactly used up. The point where moles of $\ce{H+}$ equal moles of $\ce{OH-}$ is the <strong>equivalence point</strong>.</p>
+    <p>You cannot see that point by itself, because both solutions are clear. So you add a little <strong>phenolphthalein</strong>, an indicator that is colorless in acid and pink in base. One drop past the equivalence point, the flask turns pink. That color change is the <strong>end point</strong>.</p>
+  </section>
+
+  <figure class="bench" id="b-tit">
+    <div class="bench-head">
+      <p class="bench-title">Titration simulator</p>
+      <p class="bench-hint">Go fast at first, then slow down. Stop at the first lasting pink.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tit"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Mode</span>
+        <div class="seg" id="tit-mode">
+          <button type="button" data-value="known" aria-pressed="true">Known acid</button>
+          <button type="button" data-value="mystery" aria-pressed="false">Mystery acid</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Acid in the flask</span>
+        <div class="seg" id="tit-acid">
+          <button type="button" data-value="HCl" aria-pressed="true">HCl</button>
+          <button type="button" data-value="H2SO4" aria-pressed="false">H₂SO₄</button>
+          <button type="button" data-value="CH3COOH" aria-pressed="false">CH₃COOH</button>
+        </div>
+      </div>
+      <div class="ctl" id="tit-va-ctl">
+        <label class="ctl-label" for="tit-va">Acid volume <span class="ctl-value" id="tit-va-out"></span></label>
+        <input type="range" id="tit-va" min="10" max="40" step="5" value="25">
+      </div>
+      <div class="ctl" id="tit-ma-ctl">
+        <label class="ctl-label" for="tit-ma">Acid concentration <span class="ctl-value" id="tit-ma-out"></span></label>
+        <input type="range" id="tit-ma" min="0.05" max="0.2" step="0.01" value="0.1">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">NaOH in the burette</span>
+        <div class="seg" id="tit-mb">
+          <button type="button" data-value="0.1" aria-pressed="true">0.100 M</button>
+          <button type="button" data-value="0.2" aria-pressed="false">0.200 M</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="tit-rate">Stopcock <span class="ctl-value" id="tit-rate-out"></span></label>
+        <input type="range" id="tit-rate" min="0" max="3" step="1" value="0">
+      </div>
+      <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px">
+        <button type="button" class="btn sun" id="tit-drop">Add one drop</button>
+        <button type="button" class="btn cyan" id="tit-ml">Add 1 mL</button>
+        <button type="button" class="btn" id="tit-record">Record this volume</button>
+        <button type="button" class="btn ghost" id="tit-reset">Start over</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Base added</div><div class="readout-value" id="tit-v">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Moles of OH⁻ added</div><div class="readout-value" id="tit-noh">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Moles of H⁺ left</div><div class="readout-value" id="tit-nh">—</div></div>
+        <div class="readout"><div class="readout-label">Moles of extra OH⁻</div><div class="readout-value" id="tit-extra">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tit-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">At the equivalence point</p>
+    <div class="formula-body">$$\text{moles of } \ce{H+} = \text{moles of } \ce{OH-}$$</div>
+    <dl>
+      <dt>Moles</dt><dd>molarity × volume in liters</dd>
+      <dt>Ratio</dt><dd>Use the balanced equation. It is not always 1 to 1.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a 1 to 1 titration</h4>
+    <p class="worked-q">It takes 31.40 mL of 0.1000 M $\ce{NaOH}$ to reach the end point with 25.00 mL of $\ce{HCl}$. What is the molarity of the $\ce{HCl}$?</p>
+    <ol>
+      <li>Write the equation: $\ce{HCl(aq)}$ + $\ce{NaOH(aq)}$ $\rightarrow$ $\ce{NaCl(aq)}$ + $\ce{H2O(l)}$. The ratio is 1 to 1.</li>
+      <li>Moles of $\ce{NaOH}$: $0.03140\ \cancel{\text{L}} \times \dfrac{0.1000\text{ mol}}{1\ \cancel{\text{L}}} = 3.140 \times 10^{-3}\text{ mol}$.</li>
+      <li>Moles of $\ce{HCl}$: $3.140 \times 10^{-3}\ \cancel{\text{mol NaOH}} \times \dfrac{1\text{ mol HCl}}{1\ \cancel{\text{mol NaOH}}} = 3.140 \times 10^{-3}\text{ mol}$.</li>
+      <li>Molarity of $\ce{HCl}$: $\dfrac{3.140 \times 10^{-3}\text{ mol}}{0.02500\text{ L}} =$ <span class="answer">0.1256 M</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: an acid with two protons</h4>
+    <p class="worked-q">It takes 28.40 mL of 0.1500 M $\ce{NaOH}$ to reach the end point with 20.00 mL of $\ce{H2SO4}$. What is the molarity of the $\ce{H2SO4}$?</p>
+    <ol>
+      <li>Write the equation: $\ce{H2SO4(aq)}$ + $\ce{2NaOH(aq)}$ $\rightarrow$ $\ce{Na2SO4(aq)}$ + $\ce{2H2O(l)}$. The ratio is 1 to 2.</li>
+      <li>Moles of $\ce{NaOH}$: $0.02840\text{ L} \times 0.1500\text{ mol/L} = 4.260 \times 10^{-3}\text{ mol}$.</li>
+      <li>Moles of $\ce{H2SO4}$: $4.260 \times 10^{-3}\ \cancel{\text{mol NaOH}} \times \dfrac{1\text{ mol H}_2\text{SO}_4}{2\ \cancel{\text{mol NaOH}}} = 2.130 \times 10^{-3}\text{ mol}$.</li>
+      <li>Molarity of $\ce{H2SO4}$: $\dfrac{2.130 \times 10^{-3}\text{ mol}}{0.02000\text{ L}} =$ <span class="answer">0.1065 M</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: $M_1V_1 = M_2V_2$ only works for 1 to 1</h4>
+      <p>That shortcut is for dilution and for 1 to 1 reactions. Use it on $\ce{H2SO4}$ with $\ce{NaOH}$ and your answer is off by a factor of 2. In a titration, always go through moles and the balanced equation.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="acid-base"></div>
+  <div data-practice="acid-base"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Brønsted-Lowry</strong>: acids donate $\ce{H+}$, bases accept $\ce{H+}$. <strong>Arrhenius</strong>: acids make $\ce{H+}$ in water, bases make $\ce{OH-}$.</li>
+      <li><strong>Strong acids</strong>: $\ce{HCl}$, $\ce{HBr}$, $\ce{HI}$, $\ce{HNO3}$, $\ce{H2SO4}$, $\ce{HClO4}$. <strong>Strong bases</strong>: group 1 hydroxides, and $\ce{Ca(OH)2}$, $\ce{Sr(OH)2}$, $\ce{Ba(OH)2}$.</li>
+      <li><strong>Neutralization</strong>: acid + base gives salt + water. Net ionic for strong acid and strong base: $\ce{H+ + OH- -> H2O}$.</li>
+      <li><strong>Equivalence point</strong>: moles of $\ce{H+}$ equal moles of $\ce{OH-}$. <strong>End point</strong>: the indicator changes color.</li>
+      <li><strong>Titration path</strong>: volume and molarity of base, to moles of base, to moles of acid through the equation, to molarity of acid.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

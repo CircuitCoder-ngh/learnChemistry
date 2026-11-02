@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intermolecular forces | The Mole Hole</title>
+<meta name="description" content="See the forces between molecules: London dispersion, dipole-dipole, hydrogen bonds and ion-dipole. Rank real boiling points, watch water boil at the particle level, and learn why ice floats.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/imf.js"></script>
+<script defer src="assets/js/pages/imf.js"></script>
+</head>
+<body data-page="imf">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Intermolecular forces</h1>
+        <p class="lede">Molecules are a little bit sticky. That stickiness decides what boils, what floats, and why water climbs a paper towel.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Tell a bond inside a molecule from a force between molecules</li>
+    <li>Find which forces any substance has, and which is strongest</li>
+    <li>Rank boiling points and explain the order</li>
+    <li>Explain surface tension, viscosity, capillary action and floating ice</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="inside" data-short="Inside or between?">Inside or between?</h2>
+    <p>There are two very different kinds of holding together. <strong>Bonds</strong> hold atoms together inside a molecule. <strong>Intermolecular forces</strong> hold whole molecules near each other. Mixing these up is the most common mistake in this whole unit, so let us boil some water and catch it in the act.</p>
+  </section>
+
+  <div id="story-trap"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: boiling does not break bonds</h4>
+      <p>The bubbles in boiling water are water vapor, not hydrogen and oxygen. Every molecule leaves whole. So when a question asks "what must be overcome to boil water?", the answer is <b>hydrogen bonds between molecules</b>, never "O&ndash;H bonds".</p>
+    </div>
+  </div>
+
+  <div class="big-idea">Bonds are inside molecules and strong. Intermolecular forces are between molecules and weak. Melting and boiling only fight the weak ones.</div>
+
+  <section class="prose">
+    <h2 id="forces" data-short="The four forces">The four forces</h2>
+    <p>All intermolecular forces come from the same rule: opposite charges attract. They differ in where the charges come from. Step through them from weakest to strongest.</p>
+  </section>
+
+  <div id="story-forces"></div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Force</th><th>Who has it</th><th>Where the pull comes from</th></tr></thead>
+      <tbody>
+        <tr><td><b>London dispersion</b></td><td>Everything</td><td>Electrons slosh, making a brief dipole. Bigger electron clouds pull harder.</td></tr>
+        <tr><td><b>Dipole-dipole</b></td><td>Polar molecules</td><td>A permanent plus end attracts a neighbor's permanent minus end.</td></tr>
+        <tr><td><b>Hydrogen bonding</b></td><td>H bonded directly to N, O or F</td><td>A very bare H is pulled to a lone pair on the next molecule's N, O or F.</td></tr>
+        <tr><td><b>Ion-dipole</b></td><td>An ion in a polar liquid</td><td>A full charge attracts the opposite end of polar molecules.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="prose">
+    <h3>Three questions find the force</h3>
+    <p>Ask them in this order for any molecule. Every molecule gets London dispersion for free. Then ask whether it is polar, then whether it has an H on N, O or F. Try the tricky ones here: $\ce{CO2}$ has polar bonds but is not polar, and $\ce{CH3F}$ has both H and F but the H is on carbon.</p>
+  </section>
+
+  <figure class="bench" id="b-id">
+    <div class="bench-head">
+      <p class="bench-title">Force finder</p>
+      <p class="bench-hint">Pick a molecule and watch the questions answer themselves.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-id"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Molecule</span>
+        <div class="seg" id="id-mol">
+          <button type="button" data-value="CH4" aria-pressed="false">CH₄</button>
+          <button type="button" data-value="I2" aria-pressed="false">I₂</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+          <button type="button" data-value="HCl" aria-pressed="false">HCl</button>
+          <button type="button" data-value="SO2" aria-pressed="false">SO₂</button>
+          <button type="button" data-value="H2S" aria-pressed="false">H₂S</button>
+          <button type="button" data-value="CH3F" aria-pressed="false">CH₃F</button>
+          <button type="button" data-value="NH3" aria-pressed="false">NH₃</button>
+          <button type="button" data-value="HF" aria-pressed="false">HF</button>
+          <button type="button" data-value="H2O" aria-pressed="true">H₂O</button>
+          <button type="button" data-value="CH3OH" aria-pressed="false">CH₃OH</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="id-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the H has to be on N, O or F</h4>
+      <p>$\ce{CH3F}$ contains hydrogen and fluorine, but every H sits on carbon, so it has no hydrogen bonding. $\ce{CH3OH}$ does, because one H sits on oxygen. Always look at what the H is <b>bonded to</b>.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="boiling" data-short="Boiling points">Stickiness sets the boiling point</h2>
+    <p>Boiling is molecules escaping their neighbors. The stickier the molecules, the more heat it takes before they can break free. Here is a simple simulation where each substance gets stickiness matched to its real boiling point. At 25 °C, can you find one substance that is a gas, one that is a liquid, and one that is a solid?</p>
+  </section>
+
+  <figure class="bench" id="b-sticky">
+    <div class="bench-head">
+      <p class="bench-title">The sticky molecule chamber</p>
+      <p class="bench-hint">Change the temperature, then change the molecule.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sticky"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="stick-sub">
+          <button type="button" data-value="CH4" aria-pressed="false">Methane</button>
+          <button type="button" data-value="HCl" aria-pressed="false">HCl</button>
+          <button type="button" data-value="NH3" aria-pressed="false">Ammonia</button>
+          <button type="button" data-value="H2O" aria-pressed="true">Water</button>
+          <button type="button" data-value="I2" aria-pressed="false">Iodine</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="stick-t">Temperature <span class="ctl-value" id="stick-t-out"></span></label>
+        <input type="range" id="stick-t" min="-200" max="200" step="1" value="25">
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified 2D model. The sun-colored lines show neighbors holding on to each other. Look at iodine: it has <b>no</b> polar bonds at all, yet it is a solid at room temperature, because its huge electron cloud makes London forces strong.</p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>To rank boiling points, first sort by the strongest force. If two substances tie on force, the <b>bigger</b> one wins, because it has a bigger electron cloud. Bigger always helps, and yes, I take this personally.</p></div></div>
+
+  <figure class="bench" id="b-rank">
+    <div class="bench-head">
+      <p class="bench-title">Boiling point ranking game</p>
+      <p class="bench-hint">Tap them in order, lowest boiling point first. These are real boiling points.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-rank"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Your order, lowest first</span>
+        <div class="seg" id="rank-picks"></div>
+      </div>
+      <div class="ctl" style="grid-column:span 2;display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+        <button type="button" class="btn sun" id="rank-check" disabled>Check my order</button>
+        <button type="button" class="btn ghost" id="rank-clear">Clear my order</button>
+        <button type="button" class="btn" id="rank-next" hidden>Next set</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Set</div><div class="readout-value" id="rank-set">1 of 8</div></div>
+        <div class="readout is-good"><div class="readout-label">Perfect sets</div><div class="readout-value" id="rank-score">0</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="rank-why" aria-live="polite"><p>Which force is strongest in each? Tie on force? Then the bigger electron cloud wins.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: ranking three molecules</h4>
+    <p class="worked-q">Put $\ce{H2O}$, $\ce{H2S}$ and $\ce{H2Se}$ in order of boiling point, and explain the surprise.</p>
+    <ol>
+      <li>Find the strongest force in each. $\ce{H2O}$ has H on O, so hydrogen bonding. $\ce{H2S}$ and $\ce{H2Se}$ are polar with no H on N, O or F, so dipole-dipole.</li>
+      <li>Compare the two without hydrogen bonds. Both have dipole-dipole forces, and $\ce{H2Se}$ is bigger, so its London forces are stronger. $\ce{H2Se}$ boils higher than $\ce{H2S}$.</li>
+      <li>Place water. Hydrogen bonding is so much stronger that the lightest molecule boils highest. Real data: $\ce{H2S}$ at $-60\ ^\circ\text{C}$, $\ce{H2Se}$ at $-41\ ^\circ\text{C}$, $\ce{H2O}$ at $100\ ^\circ\text{C}$.</li>
+      <li>The order is <span class="answer">$\ce{H2S} < \ce{H2Se} < \ce{H2O}$</span>. Without hydrogen bonds, water would be expected to boil well below zero.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: the energy to boil versus to break</h4>
+    <p class="worked-q">How much energy does it take to boil 18.0 g of water? How does this compare with breaking its O&ndash;H bonds? Use $\Delta H_\text{vap} = 40.7$ kJ/mol and an O&ndash;H bond enthalpy of 463 kJ/mol.</p>
+    <ol>
+      <li>Find the moles: $18.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{18.02\ \cancel{\text{g}}} = 1.00\text{ mol}$.</li>
+      <li>Boiling: $1.00\ \cancel{\text{mol}} \times 40.7\ \dfrac{\text{kJ}}{\cancel{\text{mol}}} = 40.7\text{ kJ}$.</li>
+      <li>Each molecule has 2 O&ndash;H bonds, so 1.00 mol of water has 2.00 mol of bonds: $2.00\ \cancel{\text{mol}} \times 463\ \dfrac{\text{kJ}}{\cancel{\text{mol}}} = 926\text{ kJ}$.</li>
+      <li>Compare: $926 \div 40.7 \approx 23$. Breaking the bonds takes <span class="answer">about 23 times more energy</span> than boiling.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="ice" data-short="Why ice floats">Why ice floats</h2>
+    <p>Almost every solid sinks in its own liquid. Ice floats. Hydrogen bonds are the reason. Each molecule in ice holds its neighbors at arm's length, in an open pattern with gaps. Melt it and the pattern collapses, so the same molecules fit in less room. Same mass, less volume, higher density.</p>
+  </section>
+
+  <figure class="bench" id="b-ice">
+    <div class="bench-head">
+      <p class="bench-title">Melt the ice pattern</p>
+      <p class="bench-hint">Slide from ice to liquid water. The number of molecules never changes.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ice"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="ice-m">From ice to liquid <span class="ctl-value" id="ice-m-out"></span></label>
+        <input type="range" id="ice-m" min="0" max="100" step="1" value="0">
+      </div>
+      <div class="readouts">
+        <div class="readout is-cyan"><div class="readout-label">Density of ice at 0 °C</div><div class="readout-value">0.917 g/mL</div></div>
+        <div class="readout is-sun"><div class="readout-label">Density of water at 0 °C</div><div class="readout-value">1.000 g/mL</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified 2D model. The gaps look bigger here than in real life: real ice takes up about 9% more room than the same water. That is why a frozen bottle splits, why only about 10% of an iceberg shows above denser seawater, and why lakes freeze from the top, leaving liquid water below for the fish.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="liquids" data-short="Sticky liquids">What stickiness does to a liquid</h2>
+    <p>Three everyday behaviors of liquids all come from intermolecular forces. <strong>Cohesion</strong> means a liquid sticking to itself. <strong>Adhesion</strong> means a liquid sticking to something else, such as glass.</p>
+  </section>
+
+  <div id="story-liquids"></div>
+
+  <figure class="bench" id="b-liquid">
+    <div class="bench-head">
+      <p class="bench-title">Five liquids, three tests</p>
+      <p class="bench-hint">Pick a liquid. All values are at about 20 °C.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-liquid"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Liquid</span>
+        <div class="seg" id="liq-sub">
+          <button type="button" data-value="hexane" aria-pressed="false">Hexane</button>
+          <button type="button" data-value="ethanol" aria-pressed="false">Ethanol</button>
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="glycerol" aria-pressed="false">Glycerol</button>
+          <button type="button" data-value="mercury" aria-pressed="false">Mercury</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="liq-why" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="imf"></div>
+  <div data-practice="imf"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Bonds</strong> are inside molecules. <strong>Intermolecular forces</strong> are between them, and are far weaker.</li>
+      <li>Melting and boiling overcome intermolecular forces. Molecules stay whole.</li>
+      <li>Every molecule has <strong>London dispersion</strong>. Polar molecules add <strong>dipole-dipole</strong>. H on N, O or F adds <strong>hydrogen bonding</strong>. Ions in polar liquids feel <strong>ion-dipole</strong>.</li>
+      <li>Stronger forces mean higher boiling point, viscosity and surface tension, and lower vapor pressure.</li>
+      <li>For a tie on force, the bigger electron cloud wins.</li>
+      <li>Ice floats because hydrogen bonds hold it in an open pattern, so it is less dense than liquid water.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

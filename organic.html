@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A first look at organic chemistry | The Mole Hole</title>
+<meta name="description" content="Meet carbon's four bonds in real 3D: methane, ethane, ethene, ethyne and ethanol. Name alkanes to octane, spot isomers, and learn the functional groups.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/organic.js"></script>
+<script defer src="assets/vendor/three.min.js"></script>
+<script defer src="assets/js/chem3d.js"></script>
+<script defer src="assets/js/pages/organic.js"></script>
+</head>
+<body data-page="organic">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>A first look at organic chemistry</h1>
+        <p class="lede">One atom with four bonds builds fuels, plastics, medicines and you. Organic chemistry is the chemistry of carbon.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say why carbon makes four bonds, and what shapes they take</li>
+    <li>Name straight-chain alkanes from methane to octane</li>
+    <li>Spot isomers, and tell alkanes, alkenes and alkynes apart</li>
+    <li>Recognize the common functional groups</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="carbon" data-short="Carbon's four bonds">Why carbon is special</h2>
+    <p>Most compounds with carbon-hydrogen bonds count as <strong>organic</strong>. There are millions of them, far more than for any other element. It all comes down to two things carbon does well: it makes four bonds, and it bonds happily to itself.</p>
+  </section>
+
+  <div id="story-carbon"></div>
+
+  <div class="big-idea">In stable organic molecules, carbon makes four bonds. Chains give a molecule its skeleton, and functional groups give it its personality.</div>
+
+  <section class="prose">
+    <h2 id="shape" data-short="Real shapes in 3D">The real shapes, in 3D</h2>
+    <p>You already met these shapes in <a href="vsepr.html">VSEPR</a> and <a href="hybrid.html">hybrid orbitals</a>. Single bonds point to the corners of a tetrahedron. A double bond flattens things out, and a triple bond makes a straight line. Turn each molecule, then try to twist it around its carbon-carbon bond.</p>
+  </section>
+
+  <figure class="bench" id="b-mol">
+    <div class="bench-head">
+      <p class="bench-title">Five small molecules</p>
+      <p class="bench-hint">Drag to turn. Which ones can twist?</p>
+    </div>
+    <div class="bench-stage"><div id="v-mol"></div></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Molecule</span>
+        <div class="seg" id="mol-pick">
+          <button type="button" data-value="methane" aria-pressed="true">Methane</button>
+          <button type="button" data-value="ethane" aria-pressed="false">Ethane</button>
+          <button type="button" data-value="ethene" aria-pressed="false">Ethene</button>
+          <button type="button" data-value="ethyne" aria-pressed="false">Ethyne</button>
+          <button type="button" data-value="ethanol" aria-pressed="false">Ethanol</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn small" id="mol-act">Show the flat drawing</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Formula</div><div class="readout-value" id="mol-f">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Family</div><div class="readout-value" id="mol-fam">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Around carbon</div><div class="readout-value" id="mol-geom">—</div></div>
+        <div class="readout"><div class="readout-label">Carbon-carbon bond</div><div class="readout-value" id="mol-bond">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="mol-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: flat drawings are not flat molecules</h4>
+      <p>We draw methane as a cross because paper is flat. That cross seems to say 90° between bonds, but the real angle is <b>109.5°</b>. Whenever an exam asks about a shape or an angle, ignore how the drawing looks and count electron groups around the atom.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="alkanes" data-short="Naming the chains">Climbing the alkane ladder</h2>
+    <p>A <strong>hydrocarbon</strong> holds only carbon and hydrogen. If every bond is single, it is an <strong>alkane</strong>, and it holds as many hydrogens as it can, so we call it <strong>saturated</strong>. The first part of the name counts the carbons, and the ending tells you the family.</p>
+  </section>
+
+  <figure class="bench" id="b-chain">
+    <div class="bench-head">
+      <p class="bench-title">Chain builder</p>
+      <p class="bench-hint">Grow the chain, then switch families. Watch the hydrogens.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-chain"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="chain-n">Carbons in the chain <span class="ctl-value" id="chain-n-out"></span></label>
+        <input type="range" id="chain-n" min="1" max="8" step="1" value="4">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Family</span>
+        <div class="seg" id="chain-fam">
+          <button type="button" data-value="ane" aria-pressed="true">Alkane</button>
+          <button type="button" data-value="ene" aria-pressed="false">Alkene</button>
+          <button type="button" data-value="yne" aria-pressed="false">Alkyne</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Molar mass</div><div class="readout-value" id="chain-M">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Found in</div><div class="readout-value" id="chain-use">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Heat from burning 1 mol</div><div class="readout-value" id="chain-heat">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="chain-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="happy"></div><div class="bubble"><p>For the first four names, try <b>Mice Eat Peanut Butter</b>: methane, ethane, propane, butane. I have tested this advice personally. After that the names follow shapes: <b>pent</b>agon 5, <b>hex</b>agon 6, <b>hept</b>agon 7, <b>oct</b>agon 8.</p></div></div>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Family</th><th>Carbon-carbon bond</th><th>General formula</th><th>Ending</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Alkane</td><td>All single</td><td>$\ce{C_{n}H_{2n+2}}$</td><td>-ane</td><td>Propane, $\ce{C3H8}$</td></tr>
+      <tr><td>Alkene</td><td>One double</td><td>$\ce{C_{n}H_{2n}}$</td><td>-ene</td><td>Propene, $\ce{C3H6}$</td></tr>
+      <tr><td>Alkyne</td><td>One triple</td><td>$\ce{C_{n}H_{2n-2}}$</td><td>-yne</td><td>Propyne, $\ce{C3H4}$</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="prose">
+    <p>Alkenes and alkynes are <strong>unsaturated</strong>. Each extra bond between carbons uses up two spots that hydrogens could have filled. These formulas apply to straight, open chains with one multiple bond. Rings also lose two hydrogens each.</p>
+    <h2 id="burn" data-short="Connect to combustion">Why fuels are hydrocarbons</h2>
+    <p>Natural gas, propane and gasoline are mostly alkanes. Burning one breaks its carbon and hydrogen apart and rebuilds them with oxygen, which is the full subject of <a href="combustion.html">combustion equations</a>. The chain builder shows the balanced equation for whichever fuel you make. Longer chains release more heat per mole, because they hold more bonds to burn.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Complete combustion of any alkane</p>
+    <div class="formula-body">$$\ce{C_{n}H_{2n+2}} + \frac{3n+1}{2}\,\ce{O2} \rightarrow n\,\ce{CO2} + (n+1)\,\ce{H2O}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: burn pentane</h4>
+    <p class="worked-q">Write the balanced equation for the complete combustion of pentane.</p>
+    <ol>
+      <li>Pent means 5 carbons, and -ane means all single bonds. Hydrogens: $2(5) + 2 = 12$, so the formula is $\ce{C5H12}$.</li>
+      <li>Balance carbon first. Five C atoms make $5\ \ce{CO2}$.</li>
+      <li>Balance hydrogen next. Twelve H atoms make $6\ \ce{H2O}$.</li>
+      <li>Balance oxygen last. The right side has $5(2) + 6(1) = 16$ O atoms, so you need $8\ \ce{O2}$.</li>
+      <li>Done: <span class="answer">$\ce{C5H12 + 8O2 -> 5CO2 + 6H2O}$</span>. Each side has 5 C, 12 H and 16 O.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="isomers" data-short="Isomers">Same atoms, different molecule</h2>
+    <p>Atoms can connect in more than one way. Molecules with the same formula but different connections are <strong>isomers</strong>. They are truly different substances, with different boiling points and sometimes wildly different behavior.</p>
+  </section>
+
+  <div id="story-isomers"></div>
+
+  <figure class="bench" id="b-iso">
+    <div class="bench-head">
+      <p class="bench-title">Isomers side by side</p>
+      <p class="bench-hint">Count the atoms in each. Then find what differs.</p>
+    </div>
+    <div class="bench-stage"><div id="v-iso"></div></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Pair</span>
+        <div class="seg" id="iso-pick">
+          <button type="button" data-value="c4" aria-pressed="true">$\ce{C4H10}$</button>
+          <button type="button" data-value="c2o" aria-pressed="false">$\ce{C2H6O}$</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun" id="iso-a-box"><div class="readout-label" id="iso-a-name">—</div><div class="readout-value" id="iso-a">—</div></div>
+        <div class="readout is-cyan" id="iso-b-box"><div class="readout-label" id="iso-b-name">—</div><div class="readout-value" id="iso-b">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="iso-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: a bent drawing is not an isomer</h4>
+      <p>$\ce{CH3CH2CH2CH3}$ drawn with a kink in it is still butane. Trace the connections: if you can follow one unbroken path through all four carbons, it is the same molecule. Isomers need <b>different connections</b>, not different poses.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <p>To name a branched alkane, find the <strong>longest chain</strong>, even if it bends in the drawing. Number from the end nearer the branch. Name the branch by its size: one carbon is <strong>methyl</strong>, and two carbons is <strong>ethyl</strong>.</p>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: name a branched alkane</h4>
+    <p class="worked-q">Name $\ce{CH3CH(CH3)CH2CH3}$.</p>
+    <ol>
+      <li>Find the longest chain, skipping the $\ce{CH3}$ in parentheses: $\ce{CH3-CH-CH2-CH3}$ is 4 carbons, so the parent is <em>butane</em>.</li>
+      <li>Number from the end nearer the branch. The branch sits on carbon 2 from the left, and on carbon 3 from the right, so count from the left.</li>
+      <li>The branch $\ce{CH3}$ has one carbon, so it is <em>methyl</em>.</li>
+      <li>Put it together: <span class="answer">2-methylbutane</span>. Check: 5 carbons and 12 hydrogens, so it is an isomer of pentane.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="groups" data-short="Functional groups">Functional groups</h2>
+    <p>A <strong>functional group</strong> is a small cluster of atoms that sets how a molecule behaves. Think of the carbon chain as a plain phone, and the group as the case and apps that make it yours. A molecule with the same group tends to act the same way, however long its chain is.</p>
+  </section>
+
+  <figure class="bench" id="b-groups">
+    <div class="bench-head">
+      <p class="bench-title">Functional group gallery</p>
+      <p class="bench-hint">The gold bubble marks the group. Drag to turn.</p>
+    </div>
+    <div class="bench-stage"><div id="v-group"></div></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Family</span>
+        <div class="seg" id="group-pick">
+          <button type="button" data-value="alcohol" aria-pressed="true">Alcohol</button>
+          <button type="button" data-value="ether" aria-pressed="false">Ether</button>
+          <button type="button" data-value="aldehyde" aria-pressed="false">Aldehyde</button>
+          <button type="button" data-value="ketone" aria-pressed="false">Ketone</button>
+          <button type="button" data-value="acid" aria-pressed="false">Carboxylic acid</button>
+          <button type="button" data-value="ester" aria-pressed="false">Ester</button>
+          <button type="button" data-value="amine" aria-pressed="false">Amine</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">The group</div><div class="readout-value" id="group-g">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Name ending</div><div class="readout-value" id="group-end">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">This example</div><div class="readout-value" id="group-ex">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="group-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>An easy way to tell the carbonyl groups apart: a C=O at the <b>end</b> of a chain, with an H on it, is an aldehyde. In the <b>middle</b>, it is a ketone. With an extra OH on that same carbon, it is a carboxylic acid.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="organic"></div>
+  <div data-practice="organic"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Carbon makes <strong>4 bonds</strong>. Single bonds point to tetrahedron corners, at 109.5°. Double bonds give about 120°, and triple bonds give 180°.</li>
+      <li>Prefixes: <strong>meth, eth, prop, but, pent, hex, hept, oct</strong> for 1 to 8 carbons.</li>
+      <li>Alkane $\ce{C_{n}H_{2n+2}}$, alkene $\ce{C_{n}H_{2n}}$, alkyne $\ce{C_{n}H_{2n-2}}$. Only alkanes are saturated.</li>
+      <li><strong>Isomers</strong> have the same formula and different connections. A bent drawing is not an isomer.</li>
+      <li>Groups to know: alcohol $\ce{-OH}$, ether $\ce{C-O-C}$, aldehyde $\ce{-CHO}$, ketone $\ce{C=O}$ mid-chain, acid $\ce{-COOH}$, ester $\ce{-COO-}$, amine $\ce{-NH2}$.</li>
+      <li>Burning any hydrocarbon completely gives $\ce{CO2}$ and $\ce{H2O}$. Balance C, then H, then O.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

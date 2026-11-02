@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is stuff made of? | The Mole Hole</title>
+<meta name="description" content="Solids, liquids and gases at the particle level, elements, compounds and mixtures, and how to prove a change is physical or chemical.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/matter.js"></script>
+<script defer src="assets/js/pages/matter.js"></script>
+</head>
+<body data-page="matter">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>What is stuff made of?</h1>
+        <p class="lede">All stuff is particles. What they are, and what they are doing, explains almost everything you can see.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Describe solids, liquids and gases at the particle level</li>
+    <li>Classify any sample as an element, a compound or a mixture</li>
+    <li>Prove whether a change is physical or chemical</li>
+    <li>Sort properties as physical or chemical, intensive or extensive</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="states" data-short="States of matter">Same molecules, three states</h2>
+    <p>Ice, water and steam look like three different things. They are the same molecules, doing three different things. Slide the temperature and watch. These molecules really do attract each other in this simulation, so the states appear on their own.</p>
+  </section>
+
+  <figure class="bench" id="b-states">
+    <div class="bench-head">
+      <p class="bench-title">States of matter lab</p>
+      <p class="bench-hint">Heat it up. Cool it down.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-states"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="st-sub">
+          <button type="button" data-value="H2O" aria-pressed="true">Water</button>
+          <button type="button" data-value="O2" aria-pressed="false">Oxygen</button>
+          <button type="button" data-value="Br2" aria-pressed="false">Bromine</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="st-u">Temperature <span class="ctl-value" id="st-u-out"></span></label>
+        <input type="range" id="st-u" min="-0.6" max="1.6" step="0.01" value="-0.35">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">State right now</div><div class="readout-value" id="st-state">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Melts at</div><div class="readout-value" id="st-mp">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Boils at</div><div class="readout-value" id="st-bp">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A simplified 2D model. Try this: what is the coldest temperature where the molecules slip out of their rows? Now look closely. Does any molecule ever come apart? Real ice is also less dense than liquid water, which this model does not show. We explain that in <a href="imf.html">Intermolecular forces</a>.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>State</th><th>The particles</th><th>Shape</th><th>Volume</th><th>Can you squeeze it?</th></tr></thead>
+      <tbody>
+        <tr><td><b>Solid</b></td><td>Close together, in place, vibrating</td><td>Fixed</td><td>Fixed</td><td>Barely</td></tr>
+        <tr><td><b>Liquid</b></td><td>Close together, sliding past each other</td><td>Takes the shape of its container</td><td>Fixed</td><td>Barely</td></tr>
+        <tr><td><b>Gas</b></td><td>Far apart, flying around freely</td><td>Fills its container</td><td>Fills its container</td><td>Yes, easily</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="big-idea">Heating does not change the particles. It changes how fast they move and how far apart they get.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>There is a fourth state. Heat a gas to thousands of degrees and electrons rip off the atoms, giving a <b>plasma</b>. Lightning and the Sun are plasma. Please do not try it in my kitchen.</p></div></div>
+
+  <section class="prose">
+    <h2 id="kinds" data-short="Kinds of matter">Sorting out matter</h2>
+    <p>Every sample of matter fits into one of four boxes, and you decide by asking what the particles look like. Step through them, then try the game.</p>
+  </section>
+
+  <div id="story-kinds"></div>
+
+  <div class="big-idea">Pure substance: one kind of building block, always in the same ratio. In salt, that block is a matched pair of ions. Mixture: more than one kind, not bonded together.</div>
+
+  <figure class="bench" id="b-classify">
+    <div class="bench-head">
+      <p class="bench-title">Classify the particle picture</p>
+      <p class="bench-hint">Ten pictures. Exams love these.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-classify"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">What is in this picture?</span>
+        <div class="seg" id="cl-answer">
+          <button type="button" data-value="element" aria-pressed="false">Element</button>
+          <button type="button" data-value="compound" aria-pressed="false">Compound</button>
+          <button type="button" data-value="homo" aria-pressed="false">Homogeneous mixture</button>
+          <button type="button" data-value="hetero" aria-pressed="false">Heterogeneous mixture</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn" id="cl-next" disabled>Next picture</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="cl-foot" aria-live="polite"><p>Count the different kinds of particle first. Then look at what each particle is made of.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: two atoms joined does not mean compound</h4>
+      <p>$\ce{O2}$ is an <b>element</b>, even though its atoms come in pairs, because both atoms are oxygen. A compound needs two or more <em>different</em> elements bonded together. A mix of $\ce{O2}$ and $\ce{N2}$ is a mixture of two elements, not a compound.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="changes" data-short="Physical or chemical?">Physical or chemical change?</h2>
+    <p>Here is the one question that decides it: <strong>are the particles the same afterward?</strong> If the same molecules are there, only moved around, it is a physical change. If atoms have changed partners and new substances exist, it is a chemical change.</p>
+  </section>
+
+  <div id="story-change"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the bubbles in boiling water</h4>
+      <p>The bubbles are <b>water vapor</b>, $\ce{H2O(g)}$. They are not hydrogen and oxygen gas. Boiling only pulls whole molecules away from each other. The covalent bonds inside each molecule never break. By the way, you cannot see water vapor. The white cloud above a kettle is tiny droplets of liquid water.</p>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: dissolving is not a chemical change</h4>
+      <p>Sugar seems to vanish in tea, but every sugar molecule is still there, whole. Salt splits into its ions, and yet you still get the same salt back by letting the water evaporate. Courses count both as <b>physical changes</b>.</p>
+    </div>
+  </div>
+
+  <figure class="bench" id="b-sorter">
+    <div class="bench-head">
+      <p class="bench-title">The change sorter</p>
+      <p class="bench-hint">Drag the card to a bin, or tap a bin.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sorter"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn" id="so-next" disabled>Next change</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="so-foot" aria-live="polite"><p>Before you choose, imagine the particles. The right side of the picture stays hidden until you answer.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: use the particle test</h4>
+    <p class="worked-q">A silver spoon turns black in air. Physical or chemical?</p>
+    <ol>
+      <li>Ask what the black stuff is. It is silver sulfide, $\ce{Ag2S}$, and it is not silver.</li>
+      <li>Ask whether the atoms changed partners. Silver atoms were bonded only to silver. Now they are bonded to sulfur.</li>
+      <li>A new substance formed, so this is a <span class="answer">chemical change</span>. The color change was a clue, and the particles are the proof.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="properties" data-short="Properties">Properties: two ways to sort them</h2>
+    <p>A <strong>physical property</strong> can be measured without changing what the substance is: color, density, melting point. A <strong>chemical property</strong> describes how a substance can turn into something else: it burns, it rusts, it reacts with acid.</p>
+    <p>There is a second sorting. An <strong>extensive</strong> property depends on how much you have. An <strong>intensive</strong> property does not. Cut this bar and see which is which.</p>
+  </section>
+
+  <figure class="bench" id="b-gold">
+    <div class="bench-head">
+      <p class="bench-title">Cut the gold bar</p>
+      <p class="bench-hint">Keep slicing. What stays the same?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-gold"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="go-m">How much gold you keep <span class="ctl-value" id="go-m-out"></span></label>
+        <input type="range" id="go-m" min="0.04" max="1" step="0.01" value="1">
+      </div>
+    </div>
+    <div class="bench-foot"><p>One way to remember it: <b>in</b>tensive properties are <b>in</b> the substance itself. A tiny flake of gold is just as dense, and melts at just the same temperature, as a whole bar.</p></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="matter"></div>
+  <div data-practice="matter"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Solid:</strong> close, in place, vibrating. <strong>Liquid:</strong> close, sliding. <strong>Gas:</strong> far apart, flying.</li>
+      <li><strong>Element:</strong> one kind of atom, even in pairs like $\ce{O2}$. <strong>Compound:</strong> different atoms bonded in a fixed ratio.</li>
+      <li><strong>Homogeneous mixture:</strong> the same everywhere. <strong>Heterogeneous mixture:</strong> visibly different regions.</li>
+      <li><strong>Physical change:</strong> same particles. <strong>Chemical change:</strong> atoms change partners, and new substances form.</li>
+      <li>Boiling and dissolving are physical. Bubbles in boiling water are $\ce{H2O(g)}$.</li>
+      <li><strong>Extensive</strong> depends on amount (mass, volume). <strong>Intensive</strong> does not (density, melting point).</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

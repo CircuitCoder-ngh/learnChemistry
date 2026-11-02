@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Balancing equations | The Mole Hole</title>
+<meta name="description" content="Balance chemical equations with an interactive scale that tips and settles. Learn coefficients versus subscripts, a method that always works, and phase labels.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/balancing.js"></script>
+<script defer src="assets/js/pages/balancing.js"></script>
+</head>
+<body data-page="balancing">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Balancing equations</h1>
+        <p class="lede">Atoms are never lost, so both sides of an equation must match. Here is how to make them match, every time.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why an equation has to balance</li>
+    <li>Count the atoms in something like $\ce{3Ca(NO3)2}$</li>
+    <li>Say why you may change coefficients but never subscripts</li>
+    <li>Balance any equation with one reliable method</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="why" data-short="Why balance?">Why equations must balance</h2>
+    <p>An equation is a record of what happened to some atoms. If the record says an atom vanished, the record is wrong. Watch what goes wrong when you write hydrogen burning the quick way.</p>
+  </section>
+
+  <div id="story-why"></div>
+
+  <div class="big-idea">Atoms are not created or destroyed in a reaction. They only change partners. So every atom on the left must appear on the right.</div>
+
+  <div class="formula">
+    <p class="formula-name">Reading a coefficient</p>
+    <div class="formula-body">$$\underbrace{3}_{\text{coefficient}}\ce{Ca(NO3)2} \;\Rightarrow\; 3\,\text{Ca},\quad 3 \times 2 = 6\,\text{N},\quad 3 \times 2 \times 3 = 18\,\text{O}$$</div>
+    <dl><dt>Coefficient</dt><dd>multiplies everything in the formula that follows it.</dd><dt>Subscript</dt><dd>says how many of the one atom or group it follows.</dd></dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="subscripts" data-short="The subscript trap">The subscript trap</h2>
+    <p>There is one rule you must never break, and it is the single most common mistake on balancing questions. Here is the temptation, and why it fails.</p>
+  </section>
+
+  <div id="story-sub"></div>
+
+  <section class="prose">
+    <p>Now you try. Add coefficients and see more copies of the same molecule. Then press the subscript button and see what really happens to the substance.</p>
+  </section>
+
+  <figure class="bench" id="b-sub">
+    <div class="bench-head">
+      <p class="bench-title">Coefficient or subscript?</p>
+      <p class="bench-hint">Which one keeps the substance the same?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sub"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Start with</span>
+        <div class="seg" id="sub-pick">
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="carbon" aria-pressed="false">Carbon dioxide</button>
+          <button type="button" data-value="oxygen" aria-pressed="false">Oxygen gas</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="sub-c">Coefficient <span class="ctl-value" id="sub-c-out"></span></label>
+        <input type="range" id="sub-c" min="1" max="4" step="1" value="1">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Subscript on O</span>
+        <button type="button" class="btn sun small" id="sub-flip">Change the subscript</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="sub-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: never touch a subscript</h4>
+      <p>$\ce{H2O}$ and $\ce{H2O2}$ are different substances. If you change a subscript, your equation may count correctly, but it describes a reaction that did not happen. To balance, change <b>only the big numbers in front</b>.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="balancer" data-short="The balancer">The balancer</h2>
+    <p>Your turn. Tap the top half of a coefficient to raise it and the bottom half to lower it. The scale really weighs each side, atom by atom. When every element matches, it settles. There are 18 equations, and they get harder.</p>
+  </section>
+
+  <figure class="bench" id="b-balancer">
+    <div class="bench-head">
+      <p class="bench-title">Settle the scale</p>
+      <p class="bench-hint" id="bal-hint-line"></p>
+    </div>
+    <div class="bench-stage"><canvas id="c-balancer"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Coefficients</span>
+        <div id="bal-steppers" style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Level</span>
+        <div class="seg" id="bal-level">
+          <button type="button" data-value="1" aria-pressed="true">Warm up</button>
+          <button type="button" data-value="2" aria-pressed="false">Trickier</button>
+          <button type="button" data-value="3" aria-pressed="false">Polyatomic ions</button>
+          <button type="button" data-value="4" aria-pressed="false">Expert</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button type="button" class="btn cyan small" id="bal-hint">Give me a hint</button>
+          <button type="button" class="btn ghost small" id="bal-reset">Reset to all 1s</button>
+          <button type="button" class="btn ghost small" id="bal-prev">Previous equation</button>
+          <button type="button" class="btn small" id="bal-next">Next equation</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="bal-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="method" data-short="A method">A method that always works</h2>
+    <p>Trial and error works on easy equations and burns your exam time on hard ones. This order makes each number forced, so you rarely have to go back.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">The balancing order</p>
+    <div class="formula-body">$\text{biggest formula} \;\Rightarrow\; \text{rare elements} \;\Rightarrow\; \text{polyatomic ions} \;\Rightarrow\; \text{H} \;\Rightarrow\; \text{O}$</div>
+    <dl><dt>Start</dt><dd>Set the most complicated formula to 1.</dd><dt>Units</dt><dd>If $\ce{SO4}$ or $\ce{PO4}$ appears unchanged on both sides, count it as one thing.</dd><dt>Last</dt><dd>Leave H and O for the end. They usually appear in many places.</dd><dt>Fractions</dt><dd>Allowed on the way, then multiply everything to clear them.</dd></dl>
+  </div>
+
+  <div id="story-method"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Notice the phosphate never got taken apart. Why count 8 oxygens when you can count 2 phosphates? I am lazy, and in chemistry that is called good technique.</p></div></div>
+
+  <div class="worked">
+    <h4>Worked example: a fraction on the way</h4>
+    <p class="worked-q">Balance $\ce{Al + O2}$ $\rightarrow$ $\ce{Al2O3}$.</p>
+    <ol>
+      <li>Set the biggest formula to 1: one $\ce{Al2O3}$.</li>
+      <li><b>Aluminum.</b> The right has 2 Al, so write $\ce{2Al}$ on the left.</li>
+      <li><b>Oxygen.</b> The right has 3 O. $\ce{O2}$ comes in pairs, so $3 \div 2 = \tfrac{3}{2}$. That gives $\ce{2Al} + \tfrac{3}{2}\ce{O2}$ $\rightarrow$ $\ce{Al2O3}$.</li>
+      <li><b>Clear the fraction.</b> Multiply every coefficient by 2: <span class="answer">$\ce{4Al + 3O2}$ $\rightarrow$ $\ce{2Al2O3}$</span>.</li>
+      <li><b>Check.</b> Al: 4 and $2 \times 2 = 4$. O: $3 \times 2 = 6$ and $2 \times 3 = 6$. Balanced.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: keep the phosphate whole</h4>
+    <p class="worked-q">Balance $\ce{Ca(OH)2 + H3PO4}$ $\rightarrow$ $\ce{Ca3(PO4)2 + H2O}$.</p>
+    <ol>
+      <li>Set the biggest formula to 1: one $\ce{Ca3(PO4)2}$.</li>
+      <li><b>Calcium.</b> The right has 3 Ca, so write $\ce{3Ca(OH)2}$.</li>
+      <li><b>Phosphate, as a unit.</b> The right has 2 $\ce{PO4}$, so write $\ce{2H3PO4}$.</li>
+      <li><b>Hydrogen.</b> The left has $3 \times 2 + 2 \times 3 = 12$ H, so write $\ce{6H2O}$.</li>
+      <li><b>Oxygen.</b> Outside the phosphate, the left has $3 \times 2 = 6$ O and the right has $6 \times 1 = 6$ O. It works.</li>
+      <li>Answer: <span class="answer">$\ce{3Ca(OH)2 + 2H3PO4}$ $\rightarrow$ $\ce{Ca3(PO4)2 + 6H2O}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the smallest whole numbers</h4>
+      <p>$\ce{4H2 + 2O2}$ $\rightarrow$ $\ce{4H2O}$ counts correctly, but every number shares a factor of 2. Exams want $\ce{2H2 + O2}$ $\rightarrow$ $\ce{2H2O}$. Also remember a coefficient of 1 is left unwritten.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="phases" data-short="Phase labels">Phase labels</h2>
+    <p>Equations often carry small tags that say what state each substance is in. They do not affect the balancing, but exams expect you to read them. The tag $\text{(aq)}$ stands for aqueous, which means dissolved in water.</p>
+  </section>
+
+  <figure class="bench" id="b-phase">
+    <div class="bench-head">
+      <p class="bench-title">What the tags mean</p>
+      <p class="bench-hint">Tap a tag to see its particles.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-phase"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Tag</span>
+        <div class="seg" id="ph-pick">
+          <button type="button" data-value="s" aria-pressed="true">(s) solid</button>
+          <button type="button" data-value="l" aria-pressed="false">(l) liquid</button>
+          <button type="button" data-value="g" aria-pressed="false">(g) gas</button>
+          <button type="button" data-value="aq" aria-pressed="false">(aq) dissolved</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="ph-foot" aria-live="polite"></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="balancing"></div>
+  <div data-practice="balancing"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Atoms are conserved, so <strong>each element must match</strong> on both sides.</li>
+      <li>Change <strong>coefficients only</strong>. Changing a subscript makes a different substance.</li>
+      <li>A coefficient multiplies the whole formula: $\ce{3Ca(NO3)2}$ has 3 Ca, 6 N and 18 O.</li>
+      <li>Order: biggest formula, rare elements, polyatomic ions as units, then <strong>H and O last</strong>.</li>
+      <li>Clear fractions by multiplying every term. Finish with the <strong>smallest whole numbers</strong>.</li>
+      <li>Tags: (s) solid, (l) liquid, (g) gas, (aq) dissolved in water.</li>
+    </ul>
+  </div>
+
+  <p class="prose">Next, see how these equations fall into five patterns in <a href="reaction-types.html">the five reaction types</a>, and put the method to work on fuels in <a href="combustion.html">combustion equations</a>.</p>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build an atom | The Mole Hole</title>
+<meta name="description" content="Snap protons, neutrons and electrons together. Learn atomic number, mass number, isotopes, ions, and how to calculate average atomic mass.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/isotopes.js"></script>
+<script defer src="assets/js/pages/isotopes.js"></script>
+</head>
+<body data-page="isotopes">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Build an atom</h1>
+        <p class="lede">Three counts tell you everything about an atom. Snap some particles together and see what each one does.</p>
+      </div>
+      <div class="lesson-moe" data-moe="cheer"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Read and write an isotope symbol with its mass number, atomic number and charge</li>
+    <li>Find the protons, neutrons and electrons in any atom or ion</li>
+    <li>Explain what isotopes are, and why atomic masses are not whole numbers</li>
+    <li>Calculate average atomic mass, and work backward to find abundance</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="dials" data-short="Three counts">Three particles, three jobs</h2>
+    <p>Each particle has exactly one job. Protons decide the element. Neutrons change the mass. Electrons change the charge. The story shows how, then you take over.</p>
+  </section>
+
+  <div id="story-dials"></div>
+
+  <div class="formula">
+    <p class="formula-name">The two sums you need</p>
+    <div class="formula-body">$$\begin{gathered} A = Z + N \\ \text{charge} = \text{protons} - \text{electrons} \end{gathered}$$</div>
+    <dl>
+      <dt>$A$</dt><dd>Mass number: protons plus neutrons</dd>
+      <dt>$Z$</dt><dd>Atomic number: protons</dd>
+      <dt>$N$</dt><dd>Number of neutrons</dd>
+    </dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="build" data-short="Atom builder">Your turn: the atom builder</h2>
+    <p>Drag particles from the bins into the atom. Drag them back out to remove them. <strong>What happens if you add a proton? What if you add a neutron instead?</strong> Then try the build challenges.</p>
+  </section>
+
+  <figure class="bench" id="b-build">
+    <div class="bench-head">
+      <p class="bench-title">Atom builder</p>
+      <p class="bench-hint">Drag from a bin, or use the buttons below.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-build"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Protons, which set the element</span>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" class="btn small ghost" id="p-minus" aria-label="Remove a proton">−</button>
+          <span class="ctl-value" id="p-val" style="min-width:2ch;text-align:center">6</span>
+          <button type="button" class="btn small" id="p-plus" aria-label="Add a proton">+</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Neutrons, which set the isotope</span>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" class="btn small ghost" id="n-minus" aria-label="Remove a neutron">−</button>
+          <span class="ctl-value" id="n-val" style="min-width:2ch;text-align:center">6</span>
+          <button type="button" class="btn small" id="n-plus" aria-label="Add a neutron">+</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Electrons, which set the charge</span>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" class="btn small ghost" id="e-minus" aria-label="Remove an electron">−</button>
+          <span class="ctl-value" id="e-val" style="min-width:2ch;text-align:center">6</span>
+          <button type="button" class="btn small" id="e-plus" aria-label="Add an electron">+</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">What to do</span>
+        <div class="seg" id="build-mode">
+          <button type="button" data-value="free" aria-pressed="true">Free play</button>
+          <button type="button" data-value="goal" aria-pressed="false">Build challenges</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;gap:10px;align-items:end;flex-wrap:wrap">
+        <button type="button" class="btn small sun" id="build-skip" hidden>Skip this one</button>
+        <button type="button" class="btn small ghost" id="build-reset">Start with one proton</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="build-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: losing electrons makes it positive</h4>
+      <p>It sounds backward. A <b>cation</b> is positive because it has <b>lost</b> electrons, and the protons now outnumber them. An <b>anion</b> is negative because it has <b>gained</b> electrons. $\ce{Na+}$ has 11 protons and 10 electrons. $\ce{O^2-}$ has 8 protons and 10 electrons. Changing electrons never changes the element.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: particles in an ion</h4>
+    <p class="worked-q">How many protons, neutrons and electrons are in $\ce{^{56}_{26}Fe^3+}$?</p>
+    <ol>
+      <li>Protons are the atomic number, the bottom number: <b>26 protons</b>.</li>
+      <li>Neutrons are mass number minus atomic number: $N = A - Z = 56 - 26 =$ <b>30 neutrons</b>.</li>
+      <li>Charge is protons minus electrons, so $+3 = 26 - e$. Rearrange: $e = 26 - 3 =$ <b>23 electrons</b>.</li>
+      <li>The answer is <span class="answer">26 protons, 30 neutrons, 23 electrons</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="isotopes" data-short="Isotopes">Isotopes: same element, different mass</h2>
+    <p>Atoms of one element always have the same number of protons, but they can have different numbers of neutrons. These versions are called <strong>isotopes</strong>. They are twins that weigh differently.</p>
+  </section>
+
+  <div id="story-iso"></div>
+
+  <div class="big-idea">Same protons, different neutrons: that is an isotope. Same chemistry, different mass.</div>
+
+  <section class="prose">
+    <h2 id="spec" data-short="Mass spectrometer">Weighing atoms one at a time</h2>
+    <p>How do we know the isotopes of an element and how common each one is? A <strong>mass spectrometer</strong> does it. It turns atoms into ions, speeds them up, and lets a magnet bend them. Lighter ions bend more, so each isotope lands in its own spot.</p>
+  </section>
+
+  <figure class="bench" id="b-spec">
+    <div class="bench-head">
+      <p class="bench-title">Mass spectrometer</p>
+      <p class="bench-hint">Pick an element. Watch the stacks settle into the real percentages.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-spec"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Sample</span>
+        <div class="seg" id="spec-el">
+          <button type="button" data-value="Cl" aria-pressed="true">Chlorine</button>
+          <button type="button" data-value="Mg" aria-pressed="false">Magnesium</button>
+          <button type="button" data-value="B" aria-pressed="false">Boron</button>
+          <button type="button" data-value="Ne" aria-pressed="false">Neon</button>
+          <button type="button" data-value="Cu" aria-pressed="false">Copper</button>
+          <button type="button" data-value="Si" aria-pressed="false">Silicon</button>
+          <button type="button" data-value="Br" aria-pressed="false">Bromine</button>
+          <button type="button" data-value="Ag" aria-pressed="false">Silver</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="spec-rate">Ions per second <span class="ctl-value" id="spec-rate-out"></span></label>
+        <input type="range" id="spec-rate" min="4" max="80" step="1" value="24">
+      </div>
+      <div class="ctl" style="display:flex;align-items:end;gap:10px;flex-wrap:wrap">
+        <button type="button" class="btn small ghost" id="spec-clear">Clear the detector</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="spec-foot" aria-live="off"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="average" data-short="Average mass">Why chlorine is 35.45</h2>
+    <p>The number on the periodic table is not the mass of any one atom. It is the <strong>weighted average</strong> of all the isotopes, counted by how common they are. Think of the isotopes as weights on a see-saw. The average is where it balances.</p>
+  </section>
+
+  <figure class="bench" id="b-saw">
+    <div class="bench-head">
+      <p class="bench-title">The balance point is the average mass</p>
+      <p class="bench-hint">Slide the abundance. Then try balancing it by hand.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-saw"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Element</span>
+        <div class="seg" id="saw-el">
+          <button type="button" data-value="Cl" aria-pressed="true">Chlorine</button>
+          <button type="button" data-value="B" aria-pressed="false">Boron</button>
+          <button type="button" data-value="Cu" aria-pressed="false">Copper</button>
+          <button type="button" data-value="Br" aria-pressed="false">Bromine</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="saw-a"><span id="saw-a-label">Heavier isotope</span> <span class="ctl-value" id="saw-a-out"></span></label>
+        <input type="range" id="saw-a" min="0" max="100" step="0.5" value="24">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Balance point</span>
+        <div class="seg" id="saw-mode">
+          <button type="button" data-value="auto" aria-pressed="true">Finds itself</button>
+          <button type="button" data-value="hand" aria-pressed="false">You drag it</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;align-items:end;gap:10px;flex-wrap:wrap">
+        <button type="button" class="btn small cyan" id="saw-real">Use nature's percentages</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="saw-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Average atomic mass</p>
+    <div class="formula-body">$$\begin{gathered} \text{average mass} = \\ \sum (\text{fraction} \times \text{isotope mass}) \end{gathered}$$</div>
+    <dl>
+      <dt>Fraction</dt><dd>The percent abundance divided by 100, such as 75.76% becoming 0.7576</dd>
+      <dt>Isotope mass</dt><dd>The mass of that isotope in u</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: average mass of chlorine</h4>
+    <p class="worked-q">Chlorine is 75.76% chlorine-35 (mass 34.97 u) and 24.24% chlorine-37 (mass 36.97 u). What is its average atomic mass?</p>
+    <ol>
+      <li>Turn percents into fractions: $75.76\% \to 0.7576$ and $24.24\% \to 0.2424$. Check they add to 1.</li>
+      <li>Multiply each fraction by its mass: $(0.7576)(34.97\text{ u}) = 26.49\text{ u}$ and $(0.2424)(36.97\text{ u}) = 8.96\text{ u}$.</li>
+      <li>Add them: $26.49\text{ u} + 8.96\text{ u} =$ <span class="answer">$35.45$ u</span>.</li>
+      <li>Check it makes sense. It is closer to 35 than to 37, because chlorine-35 is the common one.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: find the abundance</h4>
+    <p class="worked-q">Copper has two isotopes, copper-63 (62.93 u) and copper-65 (64.93 u). Its average mass is 63.55 u. What percent is copper-63?</p>
+    <ol>
+      <li>Call the fraction of copper-63 $x$. The two fractions add to 1, so the fraction of copper-65 is $1 - x$.</li>
+      <li>Write the average mass equation: $62.93x + 64.93(1 - x) = 63.55$.</li>
+      <li>Multiply out: $62.93x + 64.93 - 64.93x = 63.55$.</li>
+      <li>Combine the $x$ terms: $64.93 - 2.00x = 63.55$.</li>
+      <li>Subtract 64.93 from both sides: $-2.00x = -1.38$.</li>
+      <li>Divide by $-2.00$: $x = 0.69$, so copper-63 is <span class="answer">$69\%$</span> and copper-65 is 31%.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: mass number is not atomic mass</h4>
+      <p><b>Mass number</b> is a count of particles, so it is always a whole number and belongs to one isotope, such as 35. <b>Atomic mass</b> is an average for the whole element, such as 35.45 u. And <b>no chlorine atom has a mass of 35.45 u</b>. Every atom is either about 35 or about 37. In the same way, no family has 2.3 children.</p>
+    </div>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Use the see-saw to sanity check any answer. The average must land between the isotopes, and it must lean toward the common one. If your boron average is 12, something went wrong. Boron has been nowhere near 12.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="isotopes"></div>
+  <div data-practice="isotopes"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Atomic number</strong> $Z$ is the protons, and it sets the element. <strong>Mass number</strong> $A$ is protons plus neutrons.</li>
+      <li>Neutrons: $N = A - Z$. Electrons in an ion: protons minus charge.</li>
+      <li><strong>Isotopes</strong> have the same protons and different neutrons. <strong>Cations</strong> lost electrons. <strong>Anions</strong> gained them.</li>
+      <li>Average atomic mass: add up (fraction × isotope mass). It always lands between the isotopes.</li>
+      <li>Finding abundance: use $x$ and $1 - x$ as the two fractions, then solve.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

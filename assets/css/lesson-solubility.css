@@ -1,0 +1,117 @@
+/* Lesson 5.2: the three rule tiers, the giant grid, its rule highlighter and its dock. */
+
+/* ---------- The three tiers ---------- */
+.sol-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 1.5rem auto; }
+.sol-tier { border-radius: 20px; padding: 12px 14px 14px; color: #fff; background: #1A0F2E; box-shadow: inset 0 0 0 3px var(--tier); }
+.sol-tier h3 { margin: 0 0 8px; color: var(--tier); font-size: 1.32rem; }
+.sol-tier.is-always { --tier: #2FD6F2; }
+.sol-tier.is-usually { --tier: #3DDC84; }
+.sol-tier.is-rarely { --tier: #FF8A2B; }
+.sol-rule-card { background: #2B1A4A; border-radius: 13px; padding: 8px 12px 9px; margin-top: 8px; }
+.sol-rule-name { margin: 0 0 5px; font-weight: 700; line-height: 1.25; }
+.sol-rule-name b { font-family: var(--font-display); font-weight: 400; color: var(--tier); margin-right: 4px; }
+.sol-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 6px; }
+.sol-chips > span { background: #1A0F2E; border-radius: 9px; padding: 1px 8px; font-size: 1.04rem; color: #fff; }
+.sol-small { margin: 0; font-size: 0.98rem; line-height: 1.34; color: #E5DBF7; }
+.sol-small b { color: #FFD23F; }
+
+/* ---------- The bench holding the grid ----------
+   overflow: clip keeps the rounded corners without making the bench a scroll container, so the dock can stick. */
+.sol-bench { overflow: clip; }
+.sol-rulebar { padding: 2px 14px 12px; background: var(--night-2); display: grid; gap: 8px; }
+.sol-rulebtns { display: flex; flex-wrap: wrap; gap: 6px; }
+.sol-rulebtn { border: 2.5px solid var(--tier); border-radius: 11px; background: #1A0F2E; color: #fff; font: inherit; font-weight: 700; font-size: 0.92rem; line-height: 1.18; padding: 0.32em 0.62em; cursor: pointer; text-align: left; }
+.sol-rulebtn b { font-family: var(--font-display); font-weight: 400; color: var(--tier); margin-right: 3px; }
+.sol-rulebtn:hover { background: #3B2763; }
+.sol-rulebtn[aria-pressed="true"] { background: var(--tier); color: #1A0F2E; }
+.sol-rulebtn[aria-pressed="true"] b { color: #1A0F2E; }
+.sol-grid-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.sol-rule-say { margin: 0; color: #fff; font-size: 1.03rem; line-height: 1.38; font-weight: 500; }
+.sol-rule-say:empty { display: none; }
+.sol-rule-say b { color: #FFD23F; }
+
+/* ---------- The grid ---------- */
+.sol-wrap { max-width: none; margin: 0; padding: 8px 8px 4px 0; background: var(--night); }
+.sol-wrap:focus-visible { outline: 3px solid #FFD23F; outline-offset: -3px; }
+.sol-grid { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 780px; table-layout: fixed; }
+.sol-grid th { background: #1A0F2E; color: #EDE4FB; font-weight: 700; padding: 0; line-height: 1.1; }
+.sol-grid thead th { position: sticky; top: 0; z-index: 3; height: 50px; vertical-align: bottom; padding-bottom: 3px; }
+.sol-grid tbody th { position: sticky; left: 0; z-index: 2; text-align: left; padding-left: 10px; padding-right: 4px; }
+.sol-grid .sol-corner { position: sticky; left: 0; top: 0; z-index: 4; width: 102px; padding-left: 10px; font-size: 0.74rem; color: #BFB2DA; text-align: left; font-weight: 500; }
+.sol-grid th b { display: block; font-size: 0.98rem; color: #fff; font-weight: 700; }
+.sol-grid th small { display: block; font-size: 0.68rem; font-weight: 500; color: #BFB2DA; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sol-grid thead th b, .sol-grid thead th small { text-align: center; }
+.sol-grid th sup, .sol-grid th sub, .sol-cell sup, .sol-cell sub { font-size: 0.72em; line-height: 0; }
+.sol-grid th.is-lit b { color: #FFD23F; }
+.sol-grid th.is-lit { box-shadow: inset 0 -3px 0 #FFD23F; }
+.sol-grid tbody th.is-lit { box-shadow: inset 3px 0 0 #FFD23F; }
+.sol-grid tr.sep th, .sol-grid tr.sep td { border-top: 5px solid transparent; background-clip: padding-box; }
+.sol-grid td { padding: 0; }
+.sol-grid td.sep-col, .sol-grid th.sep-col { border-left: 5px solid #1A0F2E; }
+.sol-grid td.sep-col { border-left-color: transparent; }
+
+.sol-cell {
+  --c: #fff; display: flex; align-items: center; justify-content: center; text-align: center; width: 100%; height: 37px; padding: 0 1px;
+  border: 0; border-radius: 7px; font: inherit; font-size: 0.72rem; line-height: 1.02; font-weight: 700; cursor: pointer; position: relative; word-break: normal; white-space: normal;
+  transition: opacity 180ms ease, transform 120ms ease;
+}
+.sol-cell.is-soluble { background: linear-gradient(180deg, #1F5DA0, #154278); color: #D6EEFF; }
+.sol-cell.is-soluble.has-tint { background: linear-gradient(180deg, color-mix(in srgb, var(--sol) 62%, #154278), color-mix(in srgb, var(--sol) 38%, #154278)); color: #fff; }
+.sol-cell.is-insoluble { background-color: var(--c); background-image: radial-gradient(rgba(30, 15, 50, 0.2) 1px, transparent 1.3px); background-size: 5px 5px; color: #1A0F2E; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22); }
+.sol-cell.is-insoluble.is-dark-solid { color: #F4EEFF; box-shadow: inset 0 0 0 1.5px #6E6880; }
+.sol-cell.is-slight { background: linear-gradient(135deg, #1F5DA0 0 50%, var(--c) 50% 100%); color: #fff; text-shadow: 0 0 3px #1A0F2E, 0 0 3px #1A0F2E, 0 0 1px #1A0F2E; }
+.sol-cell.has-note::after { content: ""; position: absolute; top: 3px; right: 3px; width: 6px; height: 6px; border-radius: 50%; background: #FF4FA3; box-shadow: 0 0 0 1px #1A0F2E; }
+.sol-cell:hover { transform: scale(1.1); z-index: 2; }
+.sol-cell:focus-visible { outline: 3px solid #FFD23F; outline-offset: 1px; z-index: 3; }
+.sol-cell.is-picked { outline: 3px solid #FFD23F; outline-offset: 1px; transform: scale(1.1); z-index: 3; }
+
+/* Rule highlighter */
+.sol-grid.has-rule .sol-cell { opacity: 0.14; filter: saturate(0.3); }
+.sol-grid.has-rule .sol-cell.is-ruled { opacity: 1; filter: none; animation: sol-pop 420ms cubic-bezier(.2, 1.5, .5, 1) both; animation-delay: var(--d, 0ms); }
+.sol-grid.has-rule .sol-cell.is-exc { box-shadow: 0 0 0 2.5px #FF4FA3, 0 0 11px 2px rgba(255, 79, 163, 0.75); z-index: 1; }
+@keyframes sol-pop { from { transform: scale(0.55); opacity: 0.1; } }
+
+/* Hidden answers and painting */
+.sol-grid .sol-cell.is-blank { background: #33214F !important; background-image: none !important; color: #A998C9; box-shadow: none; text-shadow: none; }
+.sol-grid .sol-cell.is-blank.has-note::after { display: none; }
+.sol-grid .sol-cell.is-blank:hover { color: #fff; }
+.sol-cell.just-painted { animation: sol-pop 380ms cubic-bezier(.2, 1.5, .5, 1) both; animation-delay: var(--d, 0ms); }
+@media (prefers-reduced-motion: reduce) {
+  .sol-grid.has-rule .sol-cell.is-ruled, .sol-cell.just-painted { animation: none; }
+}
+
+/* Key */
+.sol-key { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 7px 14px 9px; background: var(--night); color: #E5DBF7; font-size: 0.92rem; font-weight: 500; }
+.sol-key > span { display: inline-flex; gap: 6px; align-items: center; }
+.sol-key i { display: inline-block; width: 18px; height: 18px; border-radius: 5px; }
+.k-water { background: linear-gradient(180deg, #1F5DA0, #154278); }
+.k-solid { background-color: #F2DC55; background-image: radial-gradient(rgba(30, 15, 50, 0.25) 1px, transparent 1.3px); background-size: 5px 5px; }
+.k-slight { background: linear-gradient(135deg, #1F5DA0 0 50%, #F4F2EC 50% 100%); }
+.sol-key i.k-note { width: 9px; height: 9px; border-radius: 50%; background: #FF4FA3; }
+
+/* Dock: stays on screen while you scroll the grid. */
+.sol-dock { position: sticky; bottom: 0; z-index: 6; display: grid; grid-template-columns: minmax(0, 47%) minmax(0, 1fr); background: #150A27; border-top: 3px solid #FFD23F; }
+.sol-dock-stage { line-height: 0; background: #170C29; min-width: 0; }
+.sol-dock-text { padding: 9px 14px 11px; min-width: 0; color: #E5DBF7; font-size: 1rem; line-height: 1.36; overflow-y: auto; max-height: 268px; }
+.sol-dock-f { margin: 0; font-family: var(--font-display); font-size: 1.5rem; color: #fff; font-weight: 400; line-height: 1.15; }
+.sol-dock-name { margin: 0 0 5px; color: #BFB2DA; font-weight: 500; }
+.sol-verdict { display: inline-block; margin: 0 0 6px; padding: 0.06em 0.65em; border-radius: 99px; font-weight: 700; color: #1A0F2E; }
+.sol-verdict.is-soluble { background: #2FD6F2; }
+.sol-verdict.is-slight { background: #FFD23F; }
+.sol-verdict.is-insoluble { background: #FF8A2B; }
+.sol-reason { margin: 0 0 5px; color: #fff; }
+.sol-note { margin: 0; padding: 5px 9px; background: #2B1A4A; border-radius: 10px; font-size: 0.96rem; }
+.sol-note b { color: #FF7DBE; }
+@media (max-width: 720px) {
+  .sol-dock { grid-template-columns: minmax(0, 1fr); }
+  .sol-dock-text { max-height: 148px; padding: 6px 12px 9px; font-size: 0.95rem; }
+  .sol-dock-f { display: inline; font-size: 1.24rem; }
+  .sol-dock-name { display: inline; margin-left: 6px; }
+  .sol-wrap { max-height: 54vh; overflow: auto; }
+  .sol-grid .sol-corner { width: 82px; }
+}
+
+/* ---------- Game buttons ---------- */
+.sol-game-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.sol-game-btns .btn { flex: 1 1 150px; max-width: 280px; }
+.sol-game-btns .btn[hidden] { display: none; }

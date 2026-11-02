@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solubility rules | The Mole Hole</title>
+<meta name="description" content="Learn the solubility rules with a tug of war between water and crystals, a giant tappable grid of 216 compounds with real precipitate colors, and a speed game.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-solubility.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/solubility.js"></script>
+<script defer src="assets/js/pages/solubility.js"></script>
+</head>
+<body data-page="solubility">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Solubility rules</h1>
+        <p class="lede">Some salts dissolve away in water and some refuse. A short list of rules tells you which, before you ever touch a beaker.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what soluble and insoluble really mean, down at the particles</li>
+    <li>Predict whether any common ionic compound dissolves</li>
+    <li>Name the exceptions: silver, lead, mercury(I) and friends</li>
+    <li>Back up every answer by naming the rule behind it</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="tug" data-short="A tug of war">Dissolving is a tug of war</h2>
+    <p>An ionic solid is a crowd of positive and negative ions holding on to each other. Water pulls on those same ions. So every ion on the edge of a crystal feels two pulls at once. Watch who wins.</p>
+  </section>
+
+  <div id="story-tug"></div>
+
+  <div class="big-idea">If water's pull beats the crystal's grip, the compound dissolves. If the crystal wins, it stays solid.</div>
+
+  <section class="prose">
+    <p>Try it with six compounds. Some of them surprise people, because high charges alone do not settle it. That is exactly why chemists keep a list of rules instead of a formula.</p>
+  </section>
+
+  <figure class="bench" id="b-tug">
+    <div class="bench-head">
+      <p class="bench-title">Run the tug of war</p>
+      <p class="bench-hint">Pick a compound and watch the rope.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tug"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Compound</span>
+        <div class="seg" id="tug-pick">
+          <button type="button" data-value="NaCl" aria-pressed="true">NaCl</button>
+          <button type="button" data-value="KNO3" aria-pressed="false">KNO₃</button>
+          <button type="button" data-value="CuSO4" aria-pressed="false">CuSO₄</button>
+          <button type="button" data-value="AgCl" aria-pressed="false">AgCl</button>
+          <button type="button" data-value="CaCO3" aria-pressed="false">CaCO₃</button>
+          <button type="button" data-value="BaSO4" aria-pressed="false">BaSO₄</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tug-say" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="not-zero" data-short="Insoluble is not zero">Insoluble does not mean zero</h2>
+    <p>Here is the honest version. Every ionic compound dissolves a little. We call something <strong>soluble</strong> when more than about 0.01 mol dissolves per liter, and <strong>insoluble</strong> when less does. The line is a rule of thumb, not a wall.</p>
+  </section>
+
+  <figure class="bench" id="b-ruler">
+    <div class="bench-head">
+      <p class="bench-title">Drop 1 gram into 100 mL of water</p>
+      <p class="bench-hint">Pick a compound. Each tick on the ruler is ten times more than the last.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ruler"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Compound</span>
+        <div class="seg" id="ruler-pick">
+          <button type="button" data-value="BaSO4" aria-pressed="false">BaSO₄</button>
+          <button type="button" data-value="AgCl" aria-pressed="true">AgCl</button>
+          <button type="button" data-value="CaCO3" aria-pressed="false">CaCO₃</button>
+          <button type="button" data-value="PbI2" aria-pressed="false">PbI₂</button>
+          <button type="button" data-value="CaSO4" aria-pressed="false">CaSO₄</button>
+          <button type="button" data-value="Ca(OH)2" aria-pressed="false">Ca(OH)₂</button>
+          <button type="button" data-value="PbCl2" aria-pressed="false">PbCl₂</button>
+          <button type="button" data-value="KNO3" aria-pressed="false">KNO₃</button>
+          <button type="button" data-value="NaCl" aria-pressed="false">NaCl</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Dissolves</div><div class="readout-value" id="ruler-dis">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Left as solid</div><div class="readout-value" id="ruler-left">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Most that dissolves</div><div class="readout-value" id="ruler-m">—</div></div>
+        <div class="readout"><div class="readout-label">Water molecules per formula unit</div><div class="readout-value" id="ruler-w">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Rounded values near room temperature, and handbooks vary a little. <b>Saturated</b> means the water holds all it can. Notice how $\ce{CaSO4}$, $\ce{Ca(OH)2}$ and $\ce{PbCl2}$ sit just past the line. Those are the ones tables argue about.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: dissolving is not breaking into atoms</h4>
+      <p>$\ce{Na2SO4}$ dissolves into $\ce{2Na+}$ and one whole $\ce{SO4^2-}$. Polyatomic ions stay in one piece. Sulfate does not fall apart into sulfur and oxygen, and the sodium ions do not stay paired.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="rules" data-short="The six rules">The rules, in an order that sticks</h2>
+    <p>Six rules cover everything on a first-year exam. They come in three tiers. Learn the top tier first, because it wins every argument.</p>
+  </section>
+
+  <div class="sol-tiers">
+    <div class="sol-tier is-always">
+      <h3>Always soluble</h3>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 1</b> Check the cation</p>
+        <p class="sol-chips"><span>$\ce{Li+}$</span><span>$\ce{Na+}$</span><span>$\ce{K+}$</span><span>$\ce{NH4+}$</span></p>
+        <p class="sol-small">All of group 1, plus ammonium. Beats every other rule.</p>
+      </div>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 2</b> Check the anion</p>
+        <p class="sol-chips"><span>$\ce{NO3-}$</span><span>$\ce{C2H3O2-}$</span><span>$\ce{ClO3-}$</span><span>$\ce{ClO4-}$</span></p>
+        <p class="sol-small">Nitrate, acetate, chlorate, perchlorate.</p>
+      </div>
+    </div>
+    <div class="sol-tier is-usually">
+      <h3>Usually soluble</h3>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 3</b> Halides</p>
+        <p class="sol-chips"><span>$\ce{Cl-}$</span><span>$\ce{Br-}$</span><span>$\ce{I-}$</span></p>
+        <p class="sol-small"><b>Except</b> $\ce{Ag+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$.</p>
+      </div>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 4</b> Sulfate</p>
+        <p class="sol-chips"><span>$\ce{SO4^2-}$</span></p>
+        <p class="sol-small"><b>Except</b> $\ce{Ba^2+}$, $\ce{Sr^2+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$. Only slightly soluble with $\ce{Ca^2+}$, $\ce{Ag+}$.</p>
+      </div>
+    </div>
+    <div class="sol-tier is-rarely">
+      <h3>Usually insoluble</h3>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 5</b> The stubborn three</p>
+        <p class="sol-chips"><span>$\ce{CO3^2-}$</span><span>$\ce{PO4^3-}$</span><span>$\ce{S^2-}$</span></p>
+        <p class="sol-small"><b>Except</b> with group 1 and ammonium.</p>
+      </div>
+      <div class="sol-rule-card">
+        <p class="sol-rule-name"><b>Rule 6</b> Hydroxide</p>
+        <p class="sol-chips"><span>$\ce{OH-}$</span></p>
+        <p class="sol-small"><b>Except</b> with group 1 and ammonium. $\ce{Ba^2+}$ dissolves well. $\ce{Ca^2+}$ and $\ce{Sr^2+}$ only slightly.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Four memory hooks. <b>NAG SAG</b>: Nitrates, Acetates, Group 1, Sulfates, Ammonium, group 17 (chloride, bromide, iodide) all dissolve. <b>The grumpy three</b> ruin the party: silver, lead, mercury(I). <b>CaStroBear</b> (calcium, strontium, barium) trouble sulfates too. And <b>COPS say OH</b>: carbonate, oxide, phosphate, sulfide, hydroxide stay solid.</p></div></div>
+
+  <section class="prose">
+    <p>Knowing the rules is half of it. The other half is asking in the right order, because an early rule can overrule a later one.</p>
+  </section>
+
+  <div id="story-rules"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: judging by the anion alone</h4>
+      <p>"Carbonates are insoluble, so $\ce{Na2CO3}$ is insoluble." Wrong, and tests love it. Always look at the cation first. If it is group 1 or ammonium, you are done: it dissolves. The same goes for $\ce{NaOH}$, $\ce{K3PO4}$ and $\ce{(NH4)2S}$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="grid" data-short="The giant grid">Every compound on one giant grid</h2>
+    <p>This is 18 cations times 12 anions: 216 compounds. <strong>Blue squares dissolve.</strong> <strong>Solid squares stay solid</strong>, painted in the real color of the solid where it is well known. Split squares are borderline. Tap any square. Tap a rule to see which squares it controls.</p>
+  </section>
+
+  <figure class="bench sol-bench" id="b-grid">
+    <div class="bench-head">
+      <p class="bench-title">The solubility grid</p>
+      <p class="bench-hint" id="grid-hint">Tap a rule, then tap a square.</p>
+    </div>
+    <div class="sol-rulebar" role="group" aria-label="Highlight a rule">
+      <div class="sol-rulebtns" id="rule-btns"></div>
+      <div class="sol-grid-actions">
+        <button type="button" class="btn sun small" id="grid-paint">Paint the grid, rule by rule</button>
+        <button type="button" class="btn ghost small" id="grid-hide" aria-pressed="false">Hide the answers</button>
+      </div>
+      <p class="sol-rule-say" id="rule-say" aria-live="polite"></p>
+    </div>
+    <div class="tbl-wrap sol-wrap" tabindex="0" aria-label="Solubility grid, scrolls sideways on small screens"><table class="sol-grid" id="sol-grid"></table></div>
+    <div class="sol-key" aria-hidden="true">
+      <span><i class="k-water"></i>Dissolves</span>
+      <span><i class="k-slight"></i>Borderline</span>
+      <span><i class="k-solid"></i>Stays solid</span>
+      <span><i class="k-note"></i>Tap for a real-life twist</span>
+    </div>
+    <div class="sol-dock" id="sol-dock">
+      <div class="sol-dock-stage"><canvas id="c-cell"></canvas></div>
+      <div class="sol-dock-text" id="cell-text" aria-live="polite"></div>
+    </div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="honest" data-short="Where tables disagree">Where tables disagree</h2>
+    <p>Different textbooks print slightly different solubility tables. They are not lying to you. A few compounds sit right next to the 0.01 M line, so the choice of word is a judgment call. Here is what we use on this site, and why.</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Compound</th><th>Dissolves, about</th><th>This site says</th><th>You may also see</th></tr></thead>
+      <tbody>
+        <tr><td>$\ce{CaSO4}$</td><td>0.015 M</td><td>Slightly soluble</td><td>Insoluble</td></tr>
+        <tr><td>$\ce{Ag2SO4}$</td><td>0.03 M</td><td>Slightly soluble</td><td>Insoluble</td></tr>
+        <tr><td>$\ce{Ca(OH)2}$</td><td>0.02 M</td><td>Slightly soluble</td><td>Moderately soluble, insoluble</td></tr>
+        <tr><td>$\ce{Sr(OH)2}$</td><td>0.1 M</td><td>Slightly soluble</td><td>Moderately soluble, soluble</td></tr>
+        <tr><td>$\ce{Ba(OH)2}$</td><td>0.2 M</td><td>Soluble</td><td>Moderately soluble</td></tr>
+        <tr><td>$\ce{PbCl2}$</td><td>0.04 M</td><td>Insoluble, because every table lists it</td><td>Slightly soluble</td></tr>
+        <tr><td>$\ce{AgC2H3O2}$</td><td>0.06 M</td><td>Slightly soluble</td><td>Soluble</td></tr>
+        <tr><td>$\ce{Li3PO4}$</td><td>0.003 M</td><td>Slightly soluble</td><td>Soluble, by rule 1</td></tr>
+        <tr><td>$\ce{CaS}$, $\ce{SrS}$, $\ce{BaS}$</td><td>They react with water</td><td>Marked as borderline</td><td>Soluble or insoluble</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="wave"></div><div class="bubble"><p><b>Use the table your instructor gives you.</b> If it disagrees with mine, yours wins on the test. I am a mole. Your instructor writes the grade.</p></div></div>
+
+  <section class="prose">
+    <h2 id="work" data-short="Walk it through">Walk a compound through the rules</h2>
+    <p>On an exam, give the answer and the reason. Each check below takes about two seconds once you are used to it.</p>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: a tricky mix of ions</h4>
+    <p class="worked-q">Is $\ce{Pb(NO3)2}$ soluble? Lead is one of the grumpy three.</p>
+    <ol>
+      <li>Split it into its ions: $\ce{Pb^2+}$ and $\ce{NO3-}$.</li>
+      <li>Rule 1: is the cation group 1 or ammonium? No, it is lead. Keep going.</li>
+      <li>Rule 2: is the anion nitrate, acetate, chlorate or perchlorate? Yes, nitrate.</li>
+      <li>Stop there. <span class="answer">It is soluble.</span> Lead only spoils halides and sulfates, not nitrates.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a real exception</h4>
+    <p class="worked-q">Is $\ce{SrSO4}$ soluble?</p>
+    <ol>
+      <li>Split it into its ions: $\ce{Sr^2+}$ and $\ce{SO4^2-}$.</li>
+      <li>Rule 1: strontium is in group 2, not group 1. Keep going.</li>
+      <li>Rule 2: sulfate is not on the always list. Keep going.</li>
+      <li>Rule 3: not a halide. Keep going.</li>
+      <li>Rule 4: sulfate usually dissolves, but strontium is an exception (CaStroBear). <span class="answer">It is insoluble.</span></li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="game" data-short="Speed game">Will it dissolve?</h2>
+    <p>Now do it fast. Formulas fall toward the beaker. Decide before they land. Get three wrong and the round ends. Every answer tells you the rule, so wrong answers teach too.</p>
+  </section>
+
+  <figure class="bench" id="b-game">
+    <div class="bench-head">
+      <p class="bench-title">Will it dissolve?</p>
+      <p class="bench-hint">Buttons, or the left and right arrow keys.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-game"></canvas></div>
+    <div class="bench-controls sol-game-btns">
+      <button type="button" class="btn cyan" id="game-yes">It dissolves</button>
+      <button type="button" class="btn sun" id="game-no">It stays solid</button>
+      <button type="button" class="btn" id="game-start">Start the game</button>
+    </div>
+    <div class="bench-foot" id="game-say" aria-live="polite"><p>Solids that fall out are painted in their real color. <b>Reach 10</b> and you discover a new element.</p></div>
+  </figure>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="solubility"></div>
+  <div data-practice="solubility"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Soluble</strong> means more than about 0.01 M dissolves. <strong>Insoluble</strong> means less. Neither means zero.</li>
+      <li>Ask the <strong>cation first</strong>: group 1 or ammonium dissolves with everything.</li>
+      <li><strong>Nitrate, acetate, chlorate, perchlorate</strong> always dissolve.</li>
+      <li><strong>Halides</strong> dissolve, except with $\ce{Ag+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$.</li>
+      <li><strong>Sulfates</strong> dissolve, except with $\ce{Ba^2+}$, $\ce{Sr^2+}$, $\ce{Pb^2+}$, $\ce{Hg2^2+}$, and only slightly with $\ce{Ca^2+}$, $\ce{Ag+}$.</li>
+      <li><strong>Carbonates, phosphates, sulfides, hydroxides</strong> stay solid, unless rule 1 rescues them. $\ce{Ba(OH)2}$ dissolves. $\ce{Ca(OH)2}$ and $\ce{Sr(OH)2}$ only slightly.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

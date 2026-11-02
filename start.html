@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to see chemistry | The Mole Hole</title>
+<meta name="description" content="Start here. See any chemical event three ways at once, and zoom from a person down to an atomic nucleus at true scale.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/start.js"></script>
+<script defer src="assets/js/pages/start.js"></script>
+</head>
+<body data-page="start">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span></p>
+        <h1>How to see chemistry</h1>
+        <p class="lede">Everything around you is made of parts far too small to see. This lesson teaches you how to see them anyway.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what chemistry is, in one sentence</li>
+    <li>Describe any event three ways: what you see, the particles, and the symbols</li>
+    <li>Feel how small an atom and a nucleus really are</li>
+    <li>Check that you have the math you will need</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="what" data-short="What is chemistry?">What is chemistry?</h2>
+    <p>Welcome to the hole. My name is Moe. I am a mole, I am a chemist, and I have heard all the jokes. Press Next whenever you are ready.</p>
+  </section>
+
+  <div id="story-what"></div>
+
+  <div class="big-idea">Chemistry is the science of what matter is made of and how it changes.</div>
+
+  <section class="prose">
+    <h2 id="views" data-short="Three views">Three ways of seeing</h2>
+    <p>Here is the secret skill of every good chemist. They look at one thing and see it three ways at once. Beginners get lost because nobody tells them which view they are in. You will always know.</p>
+  </section>
+
+  <div id="story-views"></div>
+
+  <section class="prose">
+    <h2 id="explorer" data-short="Explorer">Now you drive</h2>
+    <p>Pick an event. Drag the slider and all three views change together. Then choose something to follow and watch it light up in the particles and in the symbols. Ask yourself: can you see a single atom from the left side of the picture?</p>
+  </section>
+
+  <figure class="bench" id="b-views">
+    <div class="bench-head">
+      <p class="bench-title">Three-view explorer</p>
+      <p class="bench-hint">One event, shown three ways.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-views"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Event</span>
+        <div class="seg" id="v-event">
+          <button type="button" data-value="glass" aria-pressed="true">A glass of water</button>
+          <button type="button" data-value="boil" aria-pressed="false">Boiling water</button>
+          <button type="button" data-value="burn" aria-pressed="false">Burning methane</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="v-s"><span id="v-s-label">How full</span> <span class="ctl-value" id="v-s-out"></span></label>
+        <input type="range" id="v-s" min="0" max="1" step="0.005" value="0.6">
+        <button type="button" class="btn ghost small" id="v-play">Pause</button>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Follow this through the views</span>
+        <div class="seg" id="v-follow"></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="v-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="big-idea">Every fact in chemistry lives at three levels at once: what you can see, what the particles do, and how we write it.</div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: particles are not tiny pieces of the big stuff</h4>
+      <p>One water molecule is not wet. One copper atom is not orange. When a gas warms up, its molecules do not swell. They move faster. Properties like color, wetness and boiling belong to huge crowds of particles, not to one particle. Do not mix up the views.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="reading" data-short="Reading symbols">Reading the symbols</h2>
+    <p>The symbolic view is a tiny language, and you already know most of it. Each part of a formula tells you something about the particles.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">How to read a formula</p>
+    <div class="formula-body">$$\textcolor{#D9127F}{3}\,\mathrm{H}_{\textcolor{#0E7FC0}{2}}\mathrm{O}\,\textcolor{#1E9E6A}{(l)}$$</div>
+    <dl>
+      <dt style="color:#D9127F">Coefficient 3</dt><dd>How many whole molecules: 3 of them.</dd>
+      <dt style="color:#0E7FC0">Subscript 2</dt><dd>How many of that atom in one molecule: 2 H. No number means 1, so 1 O.</dd>
+      <dt style="color:#1E9E6A">State $(l)$</dt><dd>$(s)$ solid, $(l)$ liquid, $(g)$ gas, $(aq)$ dissolved in water.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: count the atoms</h4>
+    <p class="worked-q">How many hydrogen atoms are in $\ce{3H2O}$?</p>
+    <ol>
+      <li>Read the subscript. One $\ce{H2O}$ molecule has 2 H atoms.</li>
+      <li>Read the coefficient. There are 3 molecules.</li>
+      <li>Multiply: $3 \text{ molecules} \times \dfrac{2 \text{ H atoms}}{1 \text{ molecule}} = $ <span class="answer">6 H atoms</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="zoom" data-short="Powers of ten">How small is small?</h2>
+    <p>"Small" stops meaning anything down here, so let us measure it. This zoom is drawn at true scale. Every step of ten on the slider makes everything <strong>ten times bigger</strong>. Check the scale bar in the corner as you go.</p>
+  </section>
+
+  <figure class="bench" id="b-zoom">
+    <div class="bench-head">
+      <p class="bench-title">Powers of ten zoom</p>
+      <p class="bench-hint">Drag the slider, or tap a stop.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-zoom"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="z-s">Zoom in <span class="ctl-value" id="z-s-out"></span></label>
+        <input type="range" id="z-s" min="0" max="1000" step="1" value="0">
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Jump to</span>
+        <div class="seg" id="z-stop">
+          <button type="button" data-value="person" aria-pressed="true">Person</button>
+          <button type="button" data-value="hair" aria-pressed="false">Hair</button>
+          <button type="button" data-value="cell" aria-pressed="false">Cell</button>
+          <button type="button" data-value="protein" aria-pressed="false">Big molecule</button>
+          <button type="button" data-value="water" aria-pressed="false">Water molecule</button>
+          <button type="button" data-value="atom" aria-pressed="false">Atom</button>
+          <button type="button" data-value="nucleus" aria-pressed="false">Nucleus</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Width of this picture</div><div class="readout-value" id="z-width">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">In meters</div><div class="readout-value" id="z-sci">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Bigger than at the start</div><div class="readout-value" id="z-mag">—</div></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn" id="z-tour">Play the whole zoom</button>
+      </div>
+    </div>
+    <div class="bench-foot"><p>The hair width and cell size are typical values, and real ones vary. The water molecule and atom are simplified, and the hemoglobin is drawn with far fewer atoms than it really has.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Thing</th><th>Rough width</th><th>In meters</th></tr></thead>
+      <tbody>
+        <tr><td>A person (height)</td><td>1.7 m</td><td>$1.7 \times 10^{0}$ m</td></tr>
+        <tr><td>A human hair</td><td>about 70 micrometers</td><td>$7 \times 10^{-5}$ m</td></tr>
+        <tr><td>A red blood cell</td><td>about 7.5 micrometers</td><td>$7.5 \times 10^{-6}$ m</td></tr>
+        <tr><td>Hemoglobin, a big molecule</td><td>about 5.5 nanometers</td><td>$5.5 \times 10^{-9}$ m</td></tr>
+        <tr><td>A water molecule or an atom</td><td>about 0.3 nanometers</td><td>$3 \times 10^{-10}$ m</td></tr>
+        <tr><td>An oxygen nucleus</td><td>about 5 femtometers</td><td>$5 \times 10^{-15}$ m</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wow"></div><div class="bubble"><p>The atom is <b>tens of thousands of times</b> wider than its nucleus, yet nearly all the mass is in that speck. All of chemistry happens out in the electron cloud. The nucleus just sits there, being heavy. I respect that.</p></div></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: each power of ten is a multiply, not a step</h4>
+      <p>$10^{-9}$ m is not "a bit smaller" than $10^{-6}$ m. It is <b>1,000 times</b> smaller, because $10^{-6} \div 10^{-9} = 10^{3}$. To compare two powers of ten, subtract the exponents.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="tour" data-short="How this site works">How this site works</h2>
+    <p>Every lesson here is built the same way, with four kinds of thing to do.</p>
+  </section>
+
+  <div id="story-tour"></div>
+
+  <section class="prose">
+    <h2 id="math" data-short="Math check">The math you will need</h2>
+    <p>Math is one of the most common reasons people struggle in Chemistry 101. The good news: there is not much of it, and we show every step. Try these. If one trips you up, the answer explains it and links to the lesson where we teach it.</p>
+  </section>
+
+  <div id="math-check"></div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Skill</th><th>Where it is taught</th></tr></thead>
+      <tbody>
+        <tr><td>Scientific notation</td><td><a href="measurement.html">Measuring and significant figures</a></td></tr>
+        <tr><td>Rearranging an equation</td><td><a href="conversions.html">Unit conversions and density</a></td></tr>
+        <tr><td>Ratios</td><td><a href="stoichiometry.html">Stoichiometry</a></td></tr>
+        <tr><td>Percentages</td><td><a href="composition.html">Formulas from data</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="start"></div>
+  <div data-practice="start"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Chemistry</strong> is the science of what matter is made of and how it changes.</li>
+      <li><strong>Matter</strong> is anything with mass that takes up space.</li>
+      <li>Three views: <strong>macroscopic</strong> (what you see), <strong>particle</strong> or submicroscopic (what atoms do), <strong>symbolic</strong> (how we write it).</li>
+      <li>In $\ce{3H2O(l)}$, the coefficient 3 counts molecules, the subscript 2 counts H atoms per molecule, and $(l)$ gives the state.</li>
+      <li>An atom is about $10^{-10}$ m wide. Its nucleus is about $10^{-15}$ m.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measuring and significant figures | The Mole Hole</title>
+<meta name="description" content="SI units, prefixes, scientific notation, accuracy versus precision, reading a meniscus, and the significant figure rules, all hands on.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/measurement.js"></script>
+<script defer src="assets/js/pages/measurement.js"></script>
+</head>
+<body data-page="measurement">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Measuring and significant figures</h1>
+        <p class="lede">A measurement is a number, a unit, and an honest statement of how sure you are.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Use SI units and the prefixes from nano to mega</li>
+    <li>Write any number in scientific notation</li>
+    <li>Tell accuracy from precision, and read a scale to one extra digit</li>
+    <li>Count significant figures, and use the right rule for adding and for multiplying</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="units" data-short="Units and prefixes">Units and prefixes</h2>
+    <p>"Five" means nothing by itself. Five what? Scientists everywhere agreed on one set of units, called <strong>SI units</strong>. You will use these five constantly.</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Quantity</th><th>SI base unit</th><th>Symbol</th></tr></thead>
+      <tbody>
+        <tr><td>Length</td><td>meter</td><td>m</td></tr>
+        <tr><td>Mass</td><td>kilogram</td><td>kg</td></tr>
+        <tr><td>Time</td><td>second</td><td>s</td></tr>
+        <tr><td>Temperature</td><td>kelvin</td><td>K</td></tr>
+        <tr><td>Amount of substance</td><td>mole</td><td>mol</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="oops"></div><div class="bubble"><p>Yes, the base unit of mass is the <b>kilo</b>gram, which already has a prefix. Nobody is happy about this. Volume uses the liter, which is not strictly SI but is everywhere in chemistry.</p></div></div>
+
+  <section class="prose">
+    <p>Prefixes are nicknames for powers of ten, so you never have to write 0.000000001 m. Climb the ladder. Each rung has its real size, and these prefixes work on any unit: 1 mg = 0.001 g, and 1 mL = 0.001 L.</p>
+  </section>
+
+  <figure class="bench" id="b-ladder">
+    <div class="bench-head">
+      <p class="bench-title">The prefix ladder</p>
+      <p class="bench-hint">Tap a rung, or use the buttons.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ladder"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Prefix</span>
+        <div class="seg" id="la-pick">
+          <button type="button" data-value="0" aria-pressed="false">mega</button>
+          <button type="button" data-value="1" aria-pressed="true">kilo</button>
+          <button type="button" data-value="2" aria-pressed="false">no prefix</button>
+          <button type="button" data-value="3" aria-pressed="false">deci</button>
+          <button type="button" data-value="4" aria-pressed="false">centi</button>
+          <button type="button" data-value="5" aria-pressed="false">milli</button>
+          <button type="button" data-value="6" aria-pressed="false">micro</button>
+          <button type="button" data-value="7" aria-pressed="false">nano</button>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="sci" data-short="Scientific notation">Scientific notation</h2>
+    <p>Chemistry numbers are often huge or tiny. <strong>Scientific notation</strong> writes them as a number from 1 to 10, times a power of ten. The power of ten just records how far the decimal point moved. Slide the point below. The value never changes.</p>
+  </section>
+
+  <figure class="bench" id="b-sci">
+    <div class="bench-head">
+      <p class="bench-title">Move the decimal point</p>
+      <p class="bench-hint">Land on one digit before the point.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sci"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Number</span>
+        <div class="seg" id="sc-num">
+          <button type="button" data-value="0" aria-pressed="true">56,000</button>
+          <button type="button" data-value="1" aria-pressed="false">6,022</button>
+          <button type="button" data-value="2" aria-pressed="false">299,792,458</button>
+          <button type="button" data-value="3" aria-pressed="false">0.00042</button>
+          <button type="button" data-value="4" aria-pressed="false">0.000000052</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="sc-s">Decimal point <span class="ctl-value" id="sc-s-out"></span></label>
+        <input type="range" id="sc-s" min="0" max="5" step="1" value="5">
+      </div>
+    </div>
+    <div class="bench-foot"><p>The rule: moving the point <b>left</b> makes the front number smaller, so the exponent goes <b>up</b> to balance it. Moving it <b>right</b> makes the exponent go <b>down</b>.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Scientific notation</p>
+    <div class="formula-body">$$a \times 10^{n} \qquad 1 \le a &lt; 10$$</div>
+    <dl>
+      <dt>$a$</dt><dd>The front number, with exactly one nonzero digit before the point.</dd>
+      <dt>$n$</dt><dd>A whole number. Positive for big numbers, negative for numbers below 1.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: write it, then multiply</h4>
+    <p class="worked-q">Write 0.00042 in scientific notation, then multiply it by $2.0 \times 10^{6}$.</p>
+    <ol>
+      <li>Move the point right 4 places to get 4.2. Moving right makes the exponent negative: $0.00042 = 4.2 \times 10^{-4}$.</li>
+      <li>Multiply the front numbers: $4.2 \times 2.0 = 8.4$.</li>
+      <li>Add the exponents: $10^{-4} \times 10^{6} = 10^{-4 + 6} = 10^{2}$.</li>
+      <li>The answer is <span class="answer">$8.4 \times 10^{2}$</span>, which is 840.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="accuracy" data-short="Accuracy and precision">Accuracy and precision</h2>
+    <p>People use these words as if they meant the same thing. In chemistry they do not. <strong>Accuracy</strong> is how close you get to the true value. <strong>Precision</strong> is how close your repeated tries are to each other. Throw some darts. Can you be very precise and still be wrong?</p>
+  </section>
+
+  <figure class="bench" id="b-dart">
+    <div class="bench-head">
+      <p class="bench-title">Throw some darts</p>
+      <p class="bench-hint">Tap the board to throw.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-dart"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Try a thrower</span>
+        <div class="seg" id="da-preset">
+          <button type="button" data-value="ap" aria-pressed="true">Accurate and precise</button>
+          <button type="button" data-value="p" aria-pressed="false">Precise only</button>
+          <button type="button" data-value="a" aria-pressed="false">Accurate only</button>
+          <button type="button" data-value="n" aria-pressed="false">Neither</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="da-bias">Aim is off by <span class="ctl-value" id="da-bias-out"></span></label>
+        <input type="range" id="da-bias" min="0" max="120" step="2" value="0">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="da-wob">Hand wobble <span class="ctl-value" id="da-wob-out"></span></label>
+        <input type="range" id="da-wob" min="3" max="70" step="1" value="10">
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px">
+        <button type="button" class="btn" id="da-one">Throw a dart</button>
+        <button type="button" class="btn cyan" id="da-five">Throw five</button>
+        <button type="button" class="btn ghost" id="da-clear">Clear the board</button>
+      </div>
+    </div>
+    <div class="bench-foot"><p>In the lab: the true mass is 10.00 g, and you measure 10.52, 10.49 and 10.51 g. Those are <b>precise</b> but not accurate, like a tight cluster of darts away from the bullseye. Usually that means a badly set balance. Repeating the measurement cannot fix it.</p></div>
+  </figure>
+
+  <div class="big-idea">Precise means repeatable. Accurate means right. You can have either one without the other.</div>
+
+  <section class="prose">
+    <h2 id="reading" data-short="Reading a scale">Reading a scale</h2>
+    <p>Every measuring tool has a limit, and that limit decides how many digits you are allowed to write down. Here is how to read one properly.</p>
+  </section>
+
+  <div id="story-read"></div>
+
+  <figure class="bench" id="b-menisc">
+    <div class="bench-head">
+      <p class="bench-title">Meniscus reader</p>
+      <p class="bench-hint">Drag the red line to the bottom of the curve.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-menisc"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Lines on this glassware</span>
+        <div class="seg" id="me-div">
+          <button type="button" data-value="10" aria-pressed="false">Every 10 mL</button>
+          <button type="button" data-value="1" aria-pressed="true">Every 1 mL</button>
+          <button type="button" data-value="0.1" aria-pressed="false">Every 0.1 mL</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="me-s">Your reading <span class="ctl-value" id="me-s-out"></span></label>
+        <input type="range" id="me-s" min="0" max="40" step="1" value="30">
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px">
+        <button type="button" class="btn" id="me-check">Check my reading</button>
+        <button type="button" class="btn ghost" id="me-new">New sample</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="me-foot" aria-live="polite"><p>Write down every digit the lines give you, then estimate exactly one more.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="sigfigs" data-short="Significant figures">Significant figures</h2>
+    <p>The digits you measured, including that one estimate, are called <strong>significant figures</strong>, or sig figs. Zeros are the tricky part, because sometimes a zero was measured and sometimes it only holds a place.</p>
+  </section>
+
+  <div id="story-rules"></div>
+
+  <figure class="bench" id="b-sf">
+    <div class="bench-head">
+      <p class="bench-title">Tap to count sig figs</p>
+      <p class="bench-hint">Tap every digit that counts, then check.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-sf"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="sf-own">Or type your own number</label>
+        <input type="text" id="sf-own" placeholder="Try 0.00520 or 1.00e2" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="ctl" style="display:flex;flex-wrap:wrap;gap:12px;align-items:end">
+        <button type="button" class="btn" id="sf-check">Check my taps</button>
+        <button type="button" class="btn ghost" id="sf-new">New number</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="sf-foot" aria-live="polite"><p>Start with the zeros. Ask of each one: was this measured, or is it only holding a place?</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: 100, 100. and 1.00 × 10²</h4>
+      <p>These can all mean the same amount but say different things about how well it was measured. $100$ has <b>1</b> sig fig by the usual rule, though some teachers call it ambiguous. $100.$ with a decimal point has <b>3</b>. $1.00 \times 10^{2}$ also has <b>3</b>. Scientific notation is the way to be unmistakable.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="math" data-short="Sig figs in math">Sig figs in calculations</h2>
+    <p>A calculator happily gives you nine digits, but your answer can never be more certain than your worst measurement. There are two rules, and exams love to mix them up. Pick an operation and watch which digits survive.</p>
+  </section>
+
+  <figure class="bench" id="b-ops">
+    <div class="bench-head">
+      <p class="bench-title">The operation rule animator</p>
+      <p class="bench-hint">Choose an operation. New numbers every time.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ops"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Operation</span>
+        <div class="seg" id="op-kind">
+          <button type="button" data-value="add" aria-pressed="true">Add</button>
+          <button type="button" data-value="sub" aria-pressed="false">Subtract</button>
+          <button type="button" data-value="mul" aria-pressed="false">Multiply</button>
+          <button type="button" data-value="div" aria-pressed="false">Divide</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;flex-wrap:wrap;gap:12px;align-items:end">
+        <button type="button" class="btn" id="op-new">New numbers</button>
+        <button type="button" class="btn ghost" id="op-replay">Replay</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="op-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The two rules</p>
+    <dl>
+      <dt>Add, subtract</dt><dd>Line up the decimal points. Keep the fewest <b>decimal places</b> of any number.</dd>
+      <dt>Multiply, divide</dt><dd>Count sig figs. Keep the fewest <b>significant figures</b> of any number.</dd>
+    </dl>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: using the wrong rule</h4>
+      <p>$12.11 + 1.0$ keeps one <em>decimal place</em>, giving $13.1$, which has 3 sig figs even though $1.0$ has only 2. Adding looks at place, not at count. Also, exact numbers never limit you: the 2 in "2 mol of $\ce{H2O}$ per reaction" and the 1000 in "1 km = 1000 m" have unlimited sig figs.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: adding</h4>
+    <p class="worked-q">What is $12.11 + 18.0 + 1.013$?</p>
+    <ol>
+      <li>Line up the points and add: $12.11 + 18.0 + 1.013 = 31.123$.</li>
+      <li>Find the fewest decimal places. $18.0$ has only 1, so the answer may keep only 1.</li>
+      <li>Round to one decimal place: <span class="answer">$31.1$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: multiplying</h4>
+    <p class="worked-q">A block is 4.56 cm long and 1.4 cm wide. What is its area?</p>
+    <ol>
+      <li>Multiply: $4.56\text{ cm} \times 1.4\text{ cm} = 6.384\text{ cm}^2$.</li>
+      <li>Count sig figs. $4.56$ has 3 and $1.4$ has 2, so the answer may keep only 2.</li>
+      <li>Round to 2 sig figs: <span class="answer">$6.4\text{ cm}^2$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>In a long calculation, keep extra digits all the way through and <b>round only once, at the very end</b>. Rounding at every step quietly adds error.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="measurement"></div>
+  <div data-practice="measurement"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>mega $10^{6}$, kilo $10^{3}$, deci $10^{-1}$, centi $10^{-2}$, milli $10^{-3}$, micro $10^{-6}$, nano $10^{-9}$.</li>
+      <li><strong>Scientific notation:</strong> $a \times 10^{n}$ with $1 \le a &lt; 10$. Point moves left, exponent goes up.</li>
+      <li><strong>Accuracy</strong> is closeness to the true value. <strong>Precision</strong> is closeness to each other.</li>
+      <li>Read the <strong>bottom of the meniscus</strong> at eye level, and estimate one digit past the lines.</li>
+      <li>Nonzero digits and zeros between them count. Leading zeros never count. Trailing zeros count only with a decimal point.</li>
+      <li><strong>Add or subtract:</strong> fewest decimal places. <strong>Multiply or divide:</strong> fewest sig figs. Exact numbers never limit.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

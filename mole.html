@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The mole | The Mole Hole</title>
+<meta name="description" content="Learn the mole with animations you control: Avogadro's number, molar mass, and converting between grams, moles and particles.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/mole.js"></script>
+<script defer src="assets/js/pages/mole.js"></script>
+</head>
+<body data-page="mole">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>The mole</h1>
+        <p class="lede">A mole is just a counting word, like dozen. It lets you count atoms by weighing them.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say what a mole is, in plain words</li>
+    <li>Find the molar mass of any compound</li>
+    <li>Convert between grams, moles and particles</li>
+    <li>Count the atoms inside a molecule</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="what" data-short="What is a mole?">What is a mole?</h2>
+    <p>Atoms are far too small to count one at a time, and too small to weigh one at a time. So chemists invented a giant counting word. Step through the story below.</p>
+  </section>
+
+  <div id="story-mole"></div>
+
+  <div class="big-idea">One mole of anything is $6.022 \times 10^{23}$ of that thing. That number is called Avogadro's number.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>A dozen eggs and a dozen elephants have the same <b>count</b> but very different <b>weights</b>. Moles work the same way. Yes, I am named after one. No, I have not counted to it.</p></div></div>
+
+  <section class="prose">
+    <h2 id="weigh" data-short="Weighing a mole">Same count, different weight</h2>
+    <p>Here is the part that makes moles useful. Every substance has a <strong>molar mass</strong>: how many grams one mole of it weighs. Change the substance and the number of particles stays the same, but the scale moves.</p>
+  </section>
+
+  <figure class="bench" id="b-scale">
+    <div class="bench-head">
+      <p class="bench-title">Weigh out some moles</p>
+      <p class="bench-hint">Pick a substance, then slide.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-scale"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="scale-sub">
+          <button type="button" data-value="C" aria-pressed="true">Carbon</button>
+          <button type="button" data-value="H2O" aria-pressed="false">Water</button>
+          <button type="button" data-value="NaCl" aria-pressed="false">Salt</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Iron</button>
+          <button type="button" data-value="Au" aria-pressed="false">Gold</button>
+          <button type="button" data-value="C2H5OH" aria-pressed="false">Ethanol</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="scale-n">How many moles <span class="ctl-value" id="scale-n-out"></span></label>
+        <input type="range" id="scale-n" min="0.25" max="3" step="0.25" value="1">
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun"><div class="readout-label">Mass on the scale</div><div class="readout-value" id="scale-mass">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label" id="scale-count-label">Particles</div><div class="readout-value" id="scale-count">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Look at the difference between iron and ethanol. One mole of each holds <b>exactly the same number</b> of particles. Ethanol molecules are just lighter, and they take up far more room.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="molar-mass" data-short="Molar mass">Finding molar mass</h2>
+    <p>You never need to memorize molar masses. Add up the atomic masses from the periodic table, one for every atom in the formula. The number on the table in atomic mass units is the same number in grams per mole.</p>
+  </section>
+
+  <figure class="bench" id="b-molar">
+    <div class="bench-head">
+      <p class="bench-title">Molar mass builder</p>
+      <p class="bench-hint">Pick a formula and watch it add up.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-molar"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Formula</span>
+        <div class="seg" id="molar-f">
+          <button type="button" data-value="H2O" aria-pressed="true">H₂O</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+          <button type="button" data-value="NaCl" aria-pressed="false">NaCl</button>
+          <button type="button" data-value="CaCO3" aria-pressed="false">CaCO₃</button>
+          <button type="button" data-value="Ca(OH)2" aria-pressed="false">Ca(OH)₂</button>
+          <button type="button" data-value="C6H12O6" aria-pressed="false">C₆H₁₂O₆</button>
+          <button type="button" data-value="Al2(SO4)3" aria-pressed="false">Al₂(SO₄)₃</button>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: parentheses</h4>
+      <p>A number after parentheses multiplies everything inside them. $\ce{Ca(OH)2}$ has <b>2 O</b> and <b>2 H</b>, not 1 O and 2 H. The molar mass is $40.08 + 2(16.00) + 2(1.008) = 74.10\text{ g/mol}$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="bridge" data-short="The mole bridge">The mole bridge</h2>
+    <p>Almost every stoichiometry problem starts by moving between three islands. <strong>Moles</strong> sit in the middle. There is no direct bridge between grams and particles, so you always have to pass through moles.</p>
+  </section>
+
+  <figure class="bench" id="b-bridge">
+    <div class="bench-head">
+      <p class="bench-title">Walk the mole bridge</p>
+      <p class="bench-hint">Tap the island you start on, then the one you want to reach.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-bridge"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="bridge-sub">
+          <button type="button" data-value="H2O" aria-pressed="true">H₂O</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+          <button type="button" data-value="NaCl" aria-pressed="false">NaCl</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Fe</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="bridge-v">Starting amount <span class="ctl-value" id="bridge-v-out"></span></label>
+        <input type="range" id="bridge-v" min="0" max="100" step="1" value="20">
+      </div>
+    </div>
+    <div class="bench-foot" id="bridge-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The two conversions you need</p>
+    <div class="formula-body">$$\text{moles} = \frac{\text{grams}}{\text{molar mass}} \qquad \text{particles} = \text{moles} \times 6.022 \times 10^{23}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: grams to molecules</h4>
+    <p class="worked-q">How many molecules are in 36.0 g of water?</p>
+    <ol>
+      <li>Find the molar mass. $\ce{H2O}$: $2(1.008) + 16.00 = 18.02\text{ g/mol}$.</li>
+      <li>Cross the first bridge, grams to moles. Write it so grams cancel: $36.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{18.02\ \cancel{\text{g}}} = 2.00\text{ mol}$.</li>
+      <li>Cross the second bridge, moles to molecules: $2.00\ \cancel{\text{mol}} \times \dfrac{6.022 \times 10^{23}\text{ molecules}}{1\ \cancel{\text{mol}}}$.</li>
+      <li>The answer is <span class="answer">$1.20 \times 10^{24}$ molecules</span>. Three significant figures, because 36.0 has three.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="atoms-inside" data-short="Atoms inside">Counting atoms inside molecules</h2>
+    <p>A favorite exam twist: asking for atoms when you have molecules. One molecule of $\ce{H2O}$ holds 2 hydrogen atoms and 1 oxygen atom. So one <em>mole</em> of $\ce{H2O}$ holds 2 moles of hydrogen atoms and 1 mole of oxygen atoms. The subscript is a ratio that works at every scale.</p>
+  </section>
+
+  <div id="story-inside"></div>
+
+  <div class="worked">
+    <h4>Worked example: atoms in a compound</h4>
+    <p class="worked-q">How many oxygen atoms are in 0.500 mol of $\ce{CO2}$?</p>
+    <ol>
+      <li>Read the subscript: each $\ce{CO2}$ holds 2 O atoms, so 1 mol of $\ce{CO2}$ holds 2 mol of O atoms.</li>
+      <li>Find the moles of O: $0.500\text{ mol CO}_2 \times \dfrac{2\text{ mol O}}{1\text{ mol CO}_2} = 1.00\text{ mol O}$.</li>
+      <li>Convert to atoms: $1.00\text{ mol} \times 6.022 \times 10^{23} = $ <span class="answer">$6.02 \times 10^{23}$ O atoms</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: more grams does not mean more stuff</h4>
+      <p>Which has more atoms, 10 g of hydrogen or 10 g of gold? Students often call it a tie. It is not close. Hydrogen is about 195 times lighter per atom, so 10 g of hydrogen holds about 195 times as many atoms. To compare amounts, <b>always convert to moles first</b>.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="mole"></div>
+  <div data-practice="mole"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>A <strong>mole</strong> is a count: $6.022 \times 10^{23}$ of anything.</li>
+      <li><strong>Molar mass</strong> is grams per mole. Add up the atomic masses in the formula.</li>
+      <li>Grams to moles: divide by molar mass. Moles to particles: multiply by Avogadro's number.</li>
+      <li>You cannot jump from grams to particles without passing through moles.</li>
+      <li>Subscripts tell you how many moles of each atom are in one mole of compound.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

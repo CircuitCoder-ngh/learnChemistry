@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The ideal gas law | The Mole Hole</title>
+<meta name="description" content="Learn PV = nRT with a solve-for-anything calculator, the combined gas law, STP and molar volume, gas density, airbag stoichiometry, Dalton's law of partial pressures, and collecting a gas over water.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/ideal-gas.js"></script>
+<script defer src="assets/js/pages/ideal-gas.js"></script>
+</head>
+<body data-page="ideal-gas">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>The ideal gas law</h1>
+        <p class="lede">Four numbers describe a gas. Know any three and one short equation hands you the fourth.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Solve $PV = nRT$ for any variable, with the right $R$ and units</li>
+    <li>Use the combined gas law, STP and molar volume</li>
+    <li>Find gas density, molar mass, and do gas stoichiometry</li>
+    <li>Use partial pressures, mole fractions and gas collected over water</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="one-equation" data-short="One equation">Four laws become one equation</h2>
+    <p>In the last lesson each gas law held two things still. Real problems do not always do that. So we stack the laws together into one equation that covers everything at once.</p>
+  </section>
+
+  <div id="story-merge"></div>
+
+  <div class="big-idea">$PV = nRT$ links pressure, volume, moles and Kelvin temperature. It is the only gas equation you truly have to memorize.</div>
+
+  <div class="formula">
+    <p class="formula-name">The ideal gas law</p>
+    <div class="formula-body">$$PV = nRT$$</div>
+    <div class="formula-body">$$R = 0.08206\ \frac{\text{L atm}}{\text{mol K}} = 8.314\ \frac{\text{J}}{\text{mol K}}$$</div>
+  </div>
+
+  <section class="prose">
+    <h2 id="calculator" data-short="Solve for anything">Solve for anything</h2>
+    <p>Pick the unknown, type what you know, and read the full working underneath. It converts your units first, exactly the way you should on paper.</p>
+  </section>
+
+  <figure class="bench" id="b-calc">
+    <div class="bench-head">
+      <p class="bench-title">The $PV = nRT$ machine</p>
+      <p class="bench-hint">Type your own homework numbers.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-calc"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Solve for</span>
+        <div class="seg" id="calc-solve">
+          <button type="button" data-value="P" aria-pressed="false">Pressure $P$</button>
+          <button type="button" data-value="V" aria-pressed="true">Volume $V$</button>
+          <button type="button" data-value="n" aria-pressed="false">Moles $n$</button>
+          <button type="button" data-value="T" aria-pressed="false">Temperature $T$</button>
+        </div>
+      </div>
+      <div class="ctl" id="ctl-p">
+        <label class="ctl-label" for="calc-p">Pressure</label>
+        <input type="number" id="calc-p" value="1.00" min="0" step="any" inputmode="decimal">
+        <div class="seg" id="calc-pu" style="margin-top:6px">
+          <button type="button" data-value="atm" aria-pressed="true">atm</button>
+          <button type="button" data-value="mmHg" aria-pressed="false">mmHg</button>
+          <button type="button" data-value="torr" aria-pressed="false">torr</button>
+          <button type="button" data-value="kPa" aria-pressed="false">kPa</button>
+        </div>
+      </div>
+      <div class="ctl" id="ctl-v">
+        <label class="ctl-label" for="calc-v">Volume</label>
+        <input type="number" id="calc-v" value="24.5" min="0" step="any" inputmode="decimal">
+        <div class="seg" id="calc-vu" style="margin-top:6px">
+          <button type="button" data-value="L" aria-pressed="true">L</button>
+          <button type="button" data-value="mL" aria-pressed="false">mL</button>
+        </div>
+      </div>
+      <div class="ctl" id="ctl-n">
+        <label class="ctl-label" for="calc-n">Amount in moles</label>
+        <input type="number" id="calc-n" value="1.00" min="0" step="any" inputmode="decimal">
+      </div>
+      <div class="ctl" id="ctl-t">
+        <label class="ctl-label" for="calc-t">Temperature</label>
+        <input type="number" id="calc-t" value="25" step="any" inputmode="decimal">
+        <div class="seg" id="calc-tu" style="margin-top:6px">
+          <button type="button" data-value="C" aria-pressed="true">°C</button>
+          <button type="button" data-value="K" aria-pressed="false">K</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="calc-steps" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>The numbers are exact. The drawing is a simplified 2D sketch: very large or very small values get capped so they stay on screen.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: finding pressure</h4>
+    <p class="worked-q">What pressure does 0.500 mol of $\ce{N2}$ exert in a 10.0 L tank at 27 °C?</p>
+    <ol>
+      <li>Convert to Kelvin: $T = 27 + 273 = 300\text{ K}$.</li>
+      <li>Rearrange by dividing both sides by $V$: $P = \dfrac{nRT}{V}$.</li>
+      <li>Put in the numbers: $P = \dfrac{(0.500\ \cancel{\text{mol}})\left(0.08206\ \dfrac{\cancel{\text{L}}\text{ atm}}{\cancel{\text{mol}}\ \cancel{\text{K}}}\right)(300\ \cancel{\text{K}})}{10.0\ \cancel{\text{L}}}$.</li>
+      <li>The answer is <span class="answer">$1.23$ atm</span>. Every unit cancels except atm, which is how you know the setup is right.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: finding moles, with unit conversions</h4>
+    <p class="worked-q">How many moles of gas are in a 2.50 L flask at 745 mmHg and 22 °C?</p>
+    <ol>
+      <li>Pressure to atm: $745\ \cancel{\text{mmHg}} \times \dfrac{1\text{ atm}}{760\ \cancel{\text{mmHg}}} = 0.980\text{ atm}$.</li>
+      <li>Temperature to Kelvin: $T = 22 + 273 = 295\text{ K}$.</li>
+      <li>Rearrange by dividing both sides by $RT$: $n = \dfrac{PV}{RT}$.</li>
+      <li>Put in the numbers: $n = \dfrac{(0.980\ \cancel{\text{atm}})(2.50\ \cancel{\text{L}})}{\left(0.08206\ \dfrac{\cancel{\text{L}}\ \cancel{\text{atm}}}{\text{mol}\ \cancel{\text{K}}}\right)(295\ \cancel{\text{K}})} = $ <span class="answer">$0.101$ mol</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: three unit mistakes</h4>
+      <p>With $R = 0.08206$, pressure <b>must</b> be in atm, volume <b>must</b> be in liters, and temperature <b>must</b> be in Kelvin. Using mL gives an answer 1000 times off. Using °C can even give a negative volume, which should set off alarm bells.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="combined" data-short="Combined gas law">Before and after: the combined gas law</h2>
+    <p>When the same sample of gas changes, $n$ and $R$ stay fixed. So $PV/T$ must stay fixed too. That gives a shortcut that works when two things change at once.</p>
+  </section>
+
+  <div id="story-combined"></div>
+
+  <div class="formula">
+    <p class="formula-name">The combined gas law (fixed amount of gas)</p>
+    <div class="formula-body">$$\frac{P_1V_1}{T_1} = \frac{P_2V_2}{T_2}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: the weather balloon</h4>
+    <p class="worked-q">A weather balloon holds 5.00 L at 1.00 atm and 20 °C. It rises to where the pressure is 0.300 atm and the temperature is $-40$ °C. What is its volume there?</p>
+    <ol>
+      <li>Convert to Kelvin: $T_1 = 20 + 273 = 293\text{ K}$ and $T_2 = -40 + 273 = 233\text{ K}$.</li>
+      <li>Solve for $V_2$. Multiply both sides by $T_2$, then divide by $P_2$: $V_2 = V_1 \times \dfrac{P_1}{P_2} \times \dfrac{T_2}{T_1}$.</li>
+      <li>Put in the numbers: $V_2 = 5.00\text{ L} \times \dfrac{1.00\ \cancel{\text{atm}}}{0.300\ \cancel{\text{atm}}} \times \dfrac{233\ \cancel{\text{K}}}{293\ \cancel{\text{K}}}$.</li>
+      <li>The answer is <span class="answer">$13.3$ L</span>. Lower pressure makes it grow, cooling makes it shrink a bit, and pressure wins.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="stp" data-short="STP and 22.4 L">STP and the molar volume</h2>
+    <p>Chemists agreed on a reference condition called <strong>standard temperature and pressure</strong>, or <strong>STP</strong>. In most general chemistry courses that means 0 °C and 1 atm. Here is the surprise: at STP, one mole of any gas fills the same space.</p>
+  </section>
+
+  <div id="story-stp"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: 22.4 L is only for STP</h4>
+      <p>Use 22.4 L/mol only at 0 °C and 1 atm, and only for gases. At room temperature, or for liquid water, it is simply wrong. When in doubt, use $PV = nRT$, which always works. The newer IUPAC standard uses 1 bar, which gives 22.7 L/mol. Most exams still use 22.4, but follow your own course.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="density" data-short="Gas density">Gas density and molar mass</h2>
+    <p>Why does a helium balloon float while a carbon dioxide balloon sinks? Because at the same temperature and pressure, every gas packs the same number of particles into each liter. So a heavier particle means a denser gas.</p>
+    <p>Start with $PV = nRT$. Moles are mass over molar mass, so swap in $n = m/M$, then gather $m/V$ on one side. That is density.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Gas density and molar mass</p>
+    <div class="formula-body">$$PV = \frac{m}{M}RT \quad\Longrightarrow\quad d = \frac{m}{V} = \frac{PM}{RT} \qquad M = \frac{dRT}{P}$$</div>
+  </div>
+
+  <figure class="bench" id="b-density">
+    <div class="bench-head">
+      <p class="bench-title">Will the balloon float?</p>
+      <p class="bench-hint">Change the gas, then heat it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-density"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Gas inside the balloon</span>
+        <div class="seg" id="den-gas">
+          <button type="button" data-value="He" aria-pressed="true">He</button>
+          <button type="button" data-value="CH4" aria-pressed="false">CH₄</button>
+          <button type="button" data-value="Air" aria-pressed="false">Air</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+          <button type="button" data-value="Xe" aria-pressed="false">Xe</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="den-t">Temperature inside <span class="ctl-value" id="den-t-out"></span></label>
+        <input type="range" id="den-t" min="253" max="503" step="5" value="293">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Density of the gas inside</div><div class="readout-value" id="den-d">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Room air at 20 °C</div><div class="readout-value" id="den-air">—</div></div>
+        <div class="readout" id="den-verdict-box"><div class="readout-label">The balloon</div><div class="readout-value" id="den-verdict">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Density comes from $d = PM/RT$ at 1 atm, and air is treated as $M = 28.97$ g/mol. This ignores the weight of the balloon itself. Can you make plain <b>air</b> float? That is how a hot air balloon works.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: density of a gas</h4>
+    <p class="worked-q">What is the density of $\ce{O2}$ at 25 °C and 1.00 atm?</p>
+    <ol>
+      <li>Convert to Kelvin: $T = 25 + 273 = 298\text{ K}$. Molar mass of $\ce{O2}$ is $2(16.00) = 32.00$ g/mol.</li>
+      <li>Use $d = \dfrac{PM}{RT}$.</li>
+      <li>Put in the numbers: $d = \dfrac{(1.00\ \cancel{\text{atm}})(32.00\text{ g}/\cancel{\text{mol}})}{\left(0.08206\ \dfrac{\text{L}\ \cancel{\text{atm}}}{\cancel{\text{mol}}\ \cancel{\text{K}}}\right)(298\ \cancel{\text{K}})} = $ <span class="answer">$1.31$ g/L</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: naming a mystery gas</h4>
+    <p class="worked-q">A gas has a density of 1.96 g/L at STP. What is its molar mass? Which gas could it be?</p>
+    <ol>
+      <li>Use $M = \dfrac{dRT}{P}$ with STP values: $T = 273\text{ K}$ and $P = 1.00$ atm.</li>
+      <li>Put in the numbers: $M = \dfrac{(1.96\text{ g/L})(0.08206\text{ L atm/mol K})(273\text{ K})}{1.00\text{ atm}} = $ <span class="answer">$43.9$ g/mol</span>.</li>
+      <li>That is very close to $\ce{CO2}$, at 44.01 g/mol.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="stoich" data-short="Gas stoichiometry">Gas stoichiometry: the airbag</h2>
+    <p>Reaction problems work exactly as before. The mole is still the bridge. The only new step is that $PV = nRT$ lets you cross between liters of gas and moles of gas.</p>
+  </section>
+
+  <div id="story-airbag"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>The recipe never changes. Gas data to moles with $PV = nRT$. Moles to moles with the balanced equation. Moles to whatever you need. I keep it on my burrow wall.</p></div></div>
+
+  <div class="worked">
+    <h4>Worked example: gas made from a solid</h4>
+    <p class="worked-q">Heating 10.0 g of $\ce{CaCO3}$ gives $\ce{CaCO3(s) -> CaO(s) + CO2(g)}$. What volume of $\ce{CO2}$ forms at STP?</p>
+    <ol>
+      <li>Grams to moles: $10.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{100.09\ \cancel{\text{g}}} = 0.0999\text{ mol CaCO}_3$.</li>
+      <li>Mole ratio from the equation, 1 to 1: $0.0999\text{ mol CaCO}_3 \times \dfrac{1\text{ mol CO}_2}{1\text{ mol CaCO}_3} = 0.0999\text{ mol CO}_2$.</li>
+      <li>Moles to liters at STP: $0.0999\ \cancel{\text{mol}} \times \dfrac{22.4\text{ L}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$2.24$ L</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="dalton" data-short="Partial pressures">Mixtures: Dalton's law of partial pressures</h2>
+    <p>Air is a mix of gases. How do they share the pressure? In an ideal gas, the particles do not care who else is in the room. Each gas pushes on the walls as if it were there alone.</p>
+  </section>
+
+  <div id="story-dalton"></div>
+
+  <div class="formula">
+    <p class="formula-name">Dalton's law and mole fractions</p>
+    <div class="formula-body">$$P_\text{total} = P_1 + P_2 + P_3 + \dots \qquad X_i = \frac{n_i}{n_\text{total}} \qquad P_i = X_i\, P_\text{total}$$</div>
+  </div>
+
+  <figure class="bench" id="b-dalton">
+    <div class="bench-head">
+      <p class="bench-title">Mix your own gas</p>
+      <p class="bench-hint">Add each gas, then spotlight one.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-dalton"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="dal-n2">Nitrogen $\ce{N2}$ <span class="ctl-value" id="dal-n2-out"></span></label>
+        <input type="range" id="dal-n2" min="0" max="1" step="0.05" value="0.6">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dal-o2">Oxygen $\ce{O2}$ <span class="ctl-value" id="dal-o2-out"></span></label>
+        <input type="range" id="dal-o2" min="0" max="1" step="0.05" value="0.3">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dal-he">Helium $\ce{He}$ <span class="ctl-value" id="dal-he-out"></span></label>
+        <input type="range" id="dal-he" min="0" max="1" step="0.05" value="0.1">
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center">
+        <div class="seg" id="dal-spot">
+          <button type="button" data-value="all" aria-pressed="true">Show all</button>
+          <button type="button" data-value="N2" aria-pressed="false">Only N₂</button>
+          <button type="button" data-value="O2" aria-pressed="false">Only O₂</button>
+          <button type="button" data-value="He" aria-pressed="false">Only He</button>
+        </div>
+        <button type="button" class="btn ghost small" id="dal-air">Make it like air</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="dal-foot" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>A simplified 2D model at 300 K in 24.6 L. The left tower is calculated from $P_i = n_iRT/V$. The right tower is measured from the actual ball hits, so it shivers. Helium moves fastest yet pushes no harder per mole, because each hit is softer.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: partial pressure from a mole fraction</h4>
+    <p class="worked-q">A tank holds 2.00 mol of $\ce{N2}$ and 0.500 mol of $\ce{O2}$ at a total pressure of 5.00 atm. What is the partial pressure of $\ce{O2}$?</p>
+    <ol>
+      <li>Total moles: $2.00 + 0.500 = 2.50$ mol.</li>
+      <li>Mole fraction of oxygen: $X_{\ce{O2}} = \dfrac{0.500\ \cancel{\text{mol}}}{2.50\ \cancel{\text{mol}}} = 0.200$. It has no unit.</li>
+      <li>Partial pressure: $P_{\ce{O2}} = (0.200)(5.00\text{ atm}) = $ <span class="answer">$1.00$ atm</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="over-water" data-short="Collecting over water">Collecting a gas over water</h2>
+    <p>A classic lab method: bubble a gas into an upside-down tube of water, and read the volume off the side. There is a catch that shows up on nearly every exam. Water evaporates, so the gas you collect is never pure.</p>
+  </section>
+
+  <div id="story-water"></div>
+
+  <div class="big-idea">Gas collected over water is always a mixture. Subtract the vapor pressure of water before you use $PV = nRT$.</div>
+
+  <figure class="bench" id="b-water">
+    <div class="bench-head">
+      <p class="bench-title">Collect hydrogen over water</p>
+      <p class="bench-hint">Add magnesium and watch the water fall.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-water"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="wat-m">Magnesium used <span class="ctl-value" id="wat-m-out"></span></label>
+        <input type="range" id="wat-m" min="0.02" max="0.2" step="0.01" value="0.1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="wat-t">Water temperature <span class="ctl-value" id="wat-t-out"></span></label>
+        <input type="range" id="wat-t" min="15" max="35" step="1" value="25">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="wat-p">Air pressure in the room <span class="ctl-value" id="wat-p-out"></span></label>
+        <input type="range" id="wat-p" min="720" max="780" step="1" value="757">
+      </div>
+    </div>
+    <div class="bench-foot" id="wat-foot" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>Water vapor pressures come from standard tables. The water level is shown evened up inside and out, so the gas inside is at room pressure.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Temperature</th><th>15 °C</th><th>20 °C</th><th>25 °C</th><th>30 °C</th><th>35 °C</th></tr></thead>
+      <tbody>
+        <tr><td><b>Water vapor pressure</b></td><td>12.8 torr</td><td>17.5 torr</td><td>23.8 torr</td><td>31.8 torr</td><td>42.2 torr</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: hydrogen over water</h4>
+    <p class="worked-q">Hydrogen collected over water at 25 °C fills 125 mL when the air pressure is 757 torr. How many moles of $\ce{H2}$ were collected?</p>
+    <ol>
+      <li>Remove the water vapor. At 25 °C it is 23.8 torr: $P_{\ce{H2}} = 757 - 23.8 = 733.2\text{ torr}$.</li>
+      <li>Pressure to atm: $733.2\ \cancel{\text{torr}} \times \dfrac{1\text{ atm}}{760\ \cancel{\text{torr}}} = 0.9647\text{ atm}$.</li>
+      <li>Volume to liters and temperature to Kelvin: $V = 0.125\text{ L}$ and $T = 298\text{ K}$.</li>
+      <li>Use $n = \dfrac{PV}{RT}$: $n = \dfrac{(0.9647\ \cancel{\text{atm}})(0.125\ \cancel{\text{L}})}{\left(0.08206\ \dfrac{\cancel{\text{L}}\ \cancel{\text{atm}}}{\text{mol}\ \cancel{\text{K}}}\right)(298\ \cancel{\text{K}})} = $ <span class="answer">$4.93 \times 10^{-3}$ mol</span>.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="ideal-gas"></div>
+  <div data-practice="ideal-gas"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>$PV = nRT$, with $R = 0.08206$ L atm/(mol K). Use atm, L, mol and K. The other value, $8.314$ J/(mol K), goes with energy and SI units.</li>
+      <li>Same gas changing: $\dfrac{P_1V_1}{T_1} = \dfrac{P_2V_2}{T_2}$.</li>
+      <li>STP is 0 °C and 1 atm, where 1 mol of gas fills 22.4 L. With 1 bar it is 22.7 L.</li>
+      <li>Density: $d = \dfrac{PM}{RT}$. Molar mass: $M = \dfrac{dRT}{P}$.</li>
+      <li>Mixtures: $P_\text{total} = P_1 + P_2 + \dots$ and $P_i = X_i P_\text{total}$.</li>
+      <li>Over water: $P_\text{gas} = P_\text{atm} - P_{\ce{H2O}}$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

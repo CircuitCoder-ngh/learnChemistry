@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The movie | The Mole Hole</title>
+<meta name="description" content="The whole of Chemistry 101 in one sitting. An animated film narrated by Moe the mole, digging from the grass down to the final exam, with chapters, captions and a transcript.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-movie.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/pages/movie.js"></script>
+</head>
+<body data-page="movie">
+<header id="site-header"></header>
+<main id="main" class="lesson movie-page">
+
+  <section class="theater" aria-labelledby="film-title">
+    <div class="theater-head">
+      <h1 id="film-title">The whole course in one sitting</h1>
+      <p class="lede">Moe digs from the grass down to the final exam, and finds one big idea in every layer of the earth. <span id="film-length">About 7 minutes.</span></p>
+    </div>
+
+    <div class="film-player" id="film">
+      <div class="film-stage" id="film-stage" tabindex="0" aria-label="Movie player. Press Space to play or pause, left and right arrows to skip, C for captions, V for voice, F for full screen.">
+        <canvas id="film-canvas" role="img" aria-label="An animated film of Moe the mole digging through the layers of the earth and meeting each idea in Chemistry 101. The full narration is in the transcript below the player."></canvas>
+        <button class="film-big" id="film-big" type="button">
+          <span class="film-big-disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.8v14.4l11.5-7.2z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+          <span class="film-big-label">Play the movie</span>
+        </button>
+        <div class="film-end" id="film-end" hidden>
+          <p class="film-end-title">Pick a layer and start digging</p>
+          <div class="film-end-links" id="film-end-links"></div>
+          <button class="btn small" id="film-replay" type="button">Watch again</button>
+        </div>
+      </div>
+      <div class="film-caption" id="film-caption-band">
+        <span class="film-cap-ghost" id="film-cap-ghost" aria-hidden="true"></span>
+        <span class="film-cap" id="film-cap"></span>
+      </div>
+      <div class="film-bar">
+        <button class="film-btn" id="film-play" type="button" aria-label="Play"></button>
+        <span class="film-time"><span id="film-now">0:00</span> / <span id="film-total">0:00</span></span>
+        <div class="film-scrub">
+          <div class="film-track" id="film-track"></div>
+          <div class="film-fill" id="film-fill"></div>
+          <input class="film-range" id="film-range" type="range" min="0" max="400" step="0.1" value="0" aria-label="Position in the movie">
+        </div>
+        <button class="film-btn" id="film-voice" type="button" aria-pressed="true" aria-label="Voice"></button>
+        <button class="film-btn" id="film-cc" type="button" aria-pressed="true" aria-label="Captions">CC</button>
+        <button class="film-btn" id="film-fs" type="button" aria-label="Full screen"></button>
+      </div>
+    </div>
+
+    <p class="film-now-chapter" id="film-now-chapter"></p>
+    <p class="film-note"><span id="film-voice-note">The voice comes from your browser's built-in speech, so it varies by device. If Moe needs longer to finish a line, the picture waits.</span> <span id="film-motion-note" hidden>Your device asks for less motion, so the fast digging shots become simple fades.</span> Keys: Space plays and pauses, left and right arrows skip 5 seconds, C toggles captions, V toggles the voice, F goes full screen.</p>
+  </section>
+
+  <section class="film-more">
+    <h2 id="chapters">Chapters</h2>
+    <p>Press a chapter to jump to it in the film. The links below each one go to the full lessons.</p>
+    <ol class="film-chapters" id="film-chapters"></ol>
+
+    <h2 id="transcript">Transcript</h2>
+    <details class="film-transcript">
+      <summary>Read everything Moe says</summary>
+      <div id="film-transcript"></div>
+    </details>
+  </section>
+</main>
+<footer id="site-footer"></footer>
+</body>
+</html>

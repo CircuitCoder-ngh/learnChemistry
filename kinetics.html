@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reaction rates | The Mole Hole</title>
+<meta name="description" content="Learn reaction rates with a real collision simulator: activation energy, catalysts, rate laws, the method of initial rates, first-order decay and half-life.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/kinetics.js"></script>
+<script defer src="assets/js/pages/kinetics.js"></script>
+</head>
+<body data-page="kinetics">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>Reaction rates</h1>
+        <p class="lede">Molecules have to crash hard enough and the right way round. Almost everything about reaction speed follows from that.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain rate with collisions and activation energy</li>
+    <li>Say what temperature, concentration and a catalyst each change</li>
+    <li>Find a rate law from initial-rate data</li>
+    <li>Solve first-order and half-life problems</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="collisions" data-short="Collision theory">What it takes to react</h2>
+    <p>Chemistry gives you what a reaction makes. <strong>Kinetics</strong> tells you how fast it gets there. The story starts with one real reaction in the air around you.</p>
+  </section>
+
+  <div id="story-collide"></div>
+
+  <div class="big-idea">Only some collisions count. A reaction speeds up when more collisions per second clear the energy bar.</div>
+
+  <section class="prose">
+    <h2 id="reactor" data-short="The reactor">Run the reactor</h2>
+    <p>Every collision in this box is real. The code works out how hard each hit is, and only hits above the bar react. Change one thing at a time.</p>
+  </section>
+
+  <figure class="bench" id="b-reactor">
+    <div class="bench-head">
+      <p class="bench-title">Collision reactor</p>
+      <p class="bench-hint">Can you make it run ten times faster?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-reactor"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="rx-t">Temperature <span class="ctl-value" id="rx-t-out"></span></label>
+        <input type="range" id="rx-t" min="200" max="800" step="10" value="300">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="rx-n">Molecules of each reactant <span class="ctl-value" id="rx-n-out"></span></label>
+        <input type="range" id="rx-n" min="6" max="20" step="1" value="14">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Catalyst</span>
+        <div class="seg" id="rx-cat">
+          <button type="button" data-value="no" aria-pressed="true">No catalyst</button>
+          <button type="button" data-value="yes" aria-pressed="false">Add catalyst</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Start again</span>
+        <button type="button" class="btn small" id="rx-refill">Refill the box</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Collisions per second</div><div class="readout-value" id="rx-hits">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Reactions per second</div><div class="readout-value" id="rx-rate">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Hits above the bar</div><div class="readout-value" id="rx-frac">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Heat it from 300 K to 600 K. Speeds rise by only about <b>1.4 times</b>, yet reactions jump far more, because many more hits clear the bar. Green glows mark products. A simplified 2D model: all molecules have the same mass, and it skips the orientation rule.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: why heat speeds things up</h4>
+      <p>"Molecules collide more often" is only the small part. The main reason is that a much larger <b>fraction</b> of collisions now has at least the activation energy. Watch the second readout rise faster than the first.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="hill" data-short="Activation energy">The energy hill</h2>
+    <p>Why is there a bar at all? Old bonds must start breaking before new ones can form, and that costs energy up front. On a graph, the cost looks like a hill.</p>
+  </section>
+
+  <div id="story-hill"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>A catalyst is a tunnel through the hill. It costs nothing to use, and it comes out at the same place. I am personally in favor of tunnels.</p></div></div>
+
+  <div class="formula">
+    <p class="formula-name">The Arrhenius equation: temperature and $E_a$ set $k$</p>
+    <div class="formula-body">$$k = A\,e^{-E_a/RT}$$ $$\ln\frac{k_2}{k_1} = \frac{E_a}{R}\left(\frac{1}{T_1} - \frac{1}{T_2}\right)$$</div>
+    <dl><dt>$R$</dt><dd>$8.314\text{ J/(mol K)}$, so write $E_a$ in joules per mole</dd><dt>$T$</dt><dd>Always in kelvin</dd></dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="rate-law" data-short="Rate laws">Rate laws</h2>
+    <p>A <strong>rate law</strong> is the rule connecting concentration to speed. Its exponents are the <strong>orders</strong>. They answer one question: if I double this reactant, what happens to the rate?</p>
+  </section>
+
+  <div id="story-order"></div>
+
+  <div class="formula">
+    <p class="formula-name">The rate law</p>
+    <div class="formula-body">$$\text{rate} = k\,[\text{A}]^m[\text{B}]^n$$</div>
+    <dl><dt>$k$</dt><dd>The rate constant. It changes with temperature and catalysts, not with concentration.</dd><dt>$m,\ n$</dt><dd>The orders, found by experiment. The overall order is $m + n$.</dd></dl>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: orders are not coefficients</h4>
+      <p>In $\ce{2N2O5 -> 4NO2 + O2}$ the coefficient is 2, yet the measured rate law is $\text{rate} = k[\ce{N2O5}]$, which is first order. Unless a question says the step is <b>elementary</b>, get orders from data, never from the balanced equation.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: the method of initial rates</h4>
+    <p class="worked-q">Find the rate law and $k$ for $\ce{2NO + O2 -> 2NO2}$ from these runs.</p>
+    <div class="tbl-wrap" style="position:relative"><table class="tbl">
+      <thead><tr><th>Run</th><th>$[\ce{NO}]$ (M)</th><th>$[\ce{O2}]$ (M)</th><th>Initial rate (M/s)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>0.010</td><td>0.010</td><td>$2.5 \times 10^{-5}$</td></tr>
+        <tr><td>2</td><td>0.020</td><td>0.010</td><td>$1.0 \times 10^{-4}$</td></tr>
+        <tr><td>3</td><td>0.010</td><td>0.020</td><td>$5.0 \times 10^{-5}$</td></tr>
+      </tbody>
+    </table></div>
+    <ol>
+      <li>Compare runs 1 and 2. Only $\ce{NO}$ changes. It doubles, and the rate goes up by $\dfrac{1.0 \times 10^{-4}}{2.5 \times 10^{-5}} = 4$ times. Since $2^m = 4$, the order in $\ce{NO}$ is $m = 2$.</li>
+      <li>Compare runs 1 and 3. Only $\ce{O2}$ changes. It doubles, and the rate goes up by $\dfrac{5.0 \times 10^{-5}}{2.5 \times 10^{-5}} = 2$ times. Since $2^n = 2$, the order in $\ce{O2}$ is $n = 1$.</li>
+      <li>Write the law: $\text{rate} = k[\ce{NO}]^2[\ce{O2}]$. The overall order is 3.</li>
+      <li>Put run 1 in and solve for $k$: $k = \dfrac{2.5 \times 10^{-5}\text{ M/s}}{(0.010\text{ M})^2(0.010\text{ M})} = $ <span class="answer">$25\text{ M}^{-2}\text{s}^{-1}$</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="half-life" data-short="Half-life">First order and half-life</h2>
+    <p>In a first-order reaction, the rate depends on how much is left, so it slows as it goes. The amount falls by the same <em>fraction</em> in each equal stretch of time. Half gone, then half of what is left, and so on.</p>
+  </section>
+
+  <figure class="bench" id="b-decay">
+    <div class="bench-head">
+      <p class="bench-title">First-order clock</p>
+      <p class="bench-hint">Does starting with more change the half-life?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-decay"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="dk-k"><span>Rate constant $k$</span> <span class="ctl-value" id="dk-k-out"></span></label>
+        <input type="range" id="dk-k" min="0.02" max="0.2" step="0.01" value="0.06">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dk-a"><span>Starting $[\text{A}]_0$</span> <span class="ctl-value" id="dk-a-out"></span></label>
+        <input type="range" id="dk-a" min="0.2" max="1" step="0.05" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="dk-t">Time <span class="ctl-value" id="dk-t-out"></span></label>
+        <input type="range" id="dk-t" min="0" max="100" step="0.5" value="0">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Clock</span>
+        <button type="button" class="btn small" id="dk-play">Run the clock</button>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Graph</span>
+        <div class="seg" id="dk-view">
+          <button type="button" data-value="a" aria-pressed="true">Plot [A]</button>
+          <button type="button" data-value="ln" aria-pressed="false">Plot ln[A]</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun"><div class="readout-label">Half-life</div><div class="readout-value" id="dk-half">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">[A] right now</div><div class="readout-value" id="dk-now">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="dk-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">First-order reactions</p>
+    <div class="formula-body">$$\ln[\text{A}]_t = -kt + \ln[\text{A}]_0$$ $$t_{1/2} = \frac{\ln 2}{k} = \frac{0.693}{k}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: how much is left?</h4>
+    <p class="worked-q">$\ce{N2O5}$ decomposes by first-order kinetics with $k = 5.0 \times 10^{-4}\text{ s}^{-1}$ at some temperature. If $[\ce{N2O5}]_0 = 0.200$ M, find the half-life and the concentration after 1000 s.</p>
+    <ol>
+      <li>Half-life: $t_{1/2} = \dfrac{0.693}{5.0 \times 10^{-4}\ \text{s}^{-1}} = $ <span class="answer">$1.4 \times 10^{3}$ s</span>, about 23 minutes.</li>
+      <li>Write the first-order equation: $\ln[\ce{N2O5}]_t = -kt + \ln[\ce{N2O5}]_0$.</li>
+      <li>Work out $kt$. Seconds cancel: $(5.0 \times 10^{-4}\ \cancel{\text{s}^{-1}})(1000\ \cancel{\text{s}}) = 0.50$.</li>
+      <li>Substitute: $\ln[\ce{N2O5}]_t = -0.50 + \ln(0.200) = -0.50 - 1.609 = -2.109$.</li>
+      <li>Undo the log with $e^x$: $[\ce{N2O5}]_t = e^{-2.109} = $ <span class="answer">$0.12$ M</span>.</li>
+    </ol>
+  </div>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Order</th><th>Rate law</th><th>Straight-line plot</th><th>Half-life</th><th>Units of $k$</th></tr></thead>
+    <tbody>
+      <tr><td>Zero</td><td>$k$</td><td>$[\text{A}]$ against $t$</td><td>$\dfrac{[\text{A}]_0}{2k}$</td><td>M/s</td></tr>
+      <tr><td>First</td><td>$k[\text{A}]$</td><td>$\ln[\text{A}]$ against $t$</td><td>$\dfrac{0.693}{k}$</td><td>1/s</td></tr>
+      <tr><td>Second</td><td>$k[\text{A}]^2$</td><td>$\dfrac{1}{[\text{A}]}$ against $t$</td><td>$\dfrac{1}{k[\text{A}]_0}$</td><td>1/(M·s)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: half-lives do not add up to zero</h4>
+      <p>After two half-lives, you have <b>one quarter</b> left, not nothing. And only first-order half-lives ignore the starting amount. Zero-order and second-order half-lives both change as the concentration changes.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="kinetics"></div>
+  <div data-practice="kinetics"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>To react, molecules must collide, with at least $E_a$, in the right orientation.</li>
+      <li>Heat raises $k$, mostly because more collisions clear $E_a$. Higher concentration means more collisions but leaves $k$ alone.</li>
+      <li>A <strong>catalyst</strong> gives a lower-$E_a$ path. It is not used up, and $\Delta H$ stays the same.</li>
+      <li>$\text{rate} = k[\text{A}]^m[\text{B}]^n$. Orders come from data, not coefficients.</li>
+      <li>First order: $\ln[\text{A}]_t = -kt + \ln[\text{A}]_0$ and $t_{1/2} = 0.693/k$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

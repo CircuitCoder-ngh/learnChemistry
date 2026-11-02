@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuclear chemistry | The Mole Hole</title>
+<meta name="description" content="Learn alpha, beta and gamma decay, balancing nuclear equations, half-life, the band of stability, fission, fusion and mass defect, with simulations you control.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/nuclear.js"></script>
+<script defer src="assets/js/pages/nuclear.js"></script>
+</head>
+<body data-page="nuclear">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>Nuclear chemistry</h1>
+        <p class="lede">Ordinary chemistry never touches the nucleus. Here the nucleus itself changes, and one element really can become another.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Tell alpha, beta, positron and gamma decay apart</li>
+    <li>Balance a nuclear equation by counting mass and charge</li>
+    <li>Use half-life to find how much is left, or how old something is</li>
+    <li>Explain fission, fusion and where the energy comes from</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="decay" data-short="Kinds of decay">How an unstable nucleus changes</h2>
+    <p>Some nuclei are unstable. Sooner or later they throw something out, or change a particle inside, and end up as a more stable nucleus. This is <strong>radioactive decay</strong>. Before you start, it helps to know two numbers from <a href="isotopes.html">Build an atom</a>: the mass number and the atomic number.</p>
+  </section>
+
+  <div id="story-decay"></div>
+
+  <div class="big-idea">In every nuclear equation, the top numbers add up on both sides, and so do the bottom numbers.</div>
+
+  <div class="formula">
+    <p class="formula-name">The two conservation checks</p>
+    <div class="formula-body">$\sum A_{\text{left}} = \sum A_{\text{right}}$ $\sum Z_{\text{left}} = \sum Z_{\text{right}}$</div>
+  </div>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Decay</th><th>Symbol</th><th>What it is</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td>Alpha</td><td>$\ce{^{4}_{2}He}$ or $\alpha$</td><td>A helium nucleus: 2 protons and 2 neutrons</td><td>$A - 4$, $Z - 2$</td></tr>
+      <tr><td>Beta</td><td>$\ce{^{0}_{-1}e}$ or $\beta^-$</td><td>An electron made in the nucleus as a neutron becomes a proton</td><td>$A$ same, $Z + 1$</td></tr>
+      <tr><td>Positron</td><td>$\ce{^{0}_{+1}e}$ or $\beta^+$</td><td>A positive electron made as a proton becomes a neutron</td><td>$A$ same, $Z - 1$</td></tr>
+      <tr><td>Electron capture</td><td>$\ce{^{0}_{-1}e}$ on the left side</td><td>The nucleus pulls in an inner electron, and a proton becomes a neutron</td><td>$A$ same, $Z - 1$</td></tr>
+      <tr><td>Gamma</td><td>$\ce{^{0}_{0}\gamma}$</td><td>High-energy light from an excited nucleus</td><td>No change</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="prose">
+    <h2 id="builder" data-short="Decay equation builder">Build a decay equation</h2>
+    <p>Pick a nucleus and a kind of decay. The product comes from the two conservation checks: work out the new $Z$, then look up which element has that many protons. Math alone can balance an equation that nature never runs, so the builder also tells you which decays are real.</p>
+  </section>
+
+  <figure class="bench" id="b-builder">
+    <div class="bench-head">
+      <p class="bench-title">Decay equation builder</p>
+      <p class="bench-hint">Can you find the real decay for each nucleus?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-builder"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Starting nucleus</span>
+        <div class="seg" id="b-iso">
+          <button type="button" data-value="U-238" aria-pressed="true">U-238</button>
+          <button type="button" data-value="Ra-226" aria-pressed="false">Ra-226</button>
+          <button type="button" data-value="Rn-222" aria-pressed="false">Rn-222</button>
+          <button type="button" data-value="Po-210" aria-pressed="false">Po-210</button>
+          <button type="button" data-value="Am-241" aria-pressed="false">Am-241</button>
+          <button type="button" data-value="C-14" aria-pressed="false">C-14</button>
+          <button type="button" data-value="H-3" aria-pressed="false">H-3</button>
+          <button type="button" data-value="Co-60" aria-pressed="false">Co-60</button>
+          <button type="button" data-value="Sr-90" aria-pressed="false">Sr-90</button>
+          <button type="button" data-value="I-131" aria-pressed="false">I-131</button>
+          <button type="button" data-value="Cs-137" aria-pressed="false">Cs-137</button>
+          <button type="button" data-value="K-40" aria-pressed="false">K-40</button>
+          <button type="button" data-value="F-18" aria-pressed="false">F-18</button>
+          <button type="button" data-value="C-11" aria-pressed="false">C-11</button>
+          <button type="button" data-value="Be-7" aria-pressed="false">Be-7</button>
+          <button type="button" data-value="Tc-99m" aria-pressed="false">Tc-99m</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Kind of decay</span>
+        <div class="seg" id="b-mode">
+          <button type="button" data-value="alpha" aria-pressed="true">Alpha</button>
+          <button type="button" data-value="beta" aria-pressed="false">Beta</button>
+          <button type="button" data-value="positron" aria-pressed="false">Positron</button>
+          <button type="button" data-value="ec" aria-pressed="false">Electron capture</button>
+          <button type="button" data-value="gamma" aria-pressed="false">Gamma</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Product</div><div class="readout-value" id="b-prod">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Half-life of the start nucleus</div><div class="readout-value" id="b-hl">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="b-note" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: find the missing piece</h4>
+    <p class="worked-q">Fill in the blank: $\ce{^{131}_{53}I} \rightarrow \ce{^{131}_{54}Xe} + \text{?}$</p>
+    <ol>
+      <li>Top numbers: $131 = 131 + A$, so $A = 0$.</li>
+      <li>Bottom numbers: $53 = 54 + Z$, so $Z = 53 - 54 = -1$.</li>
+      <li>A particle with $A = 0$ and $Z = -1$ is an electron from the nucleus. The answer is a <span class="answer">beta particle, $\ce{^{0}_{-1}e}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: a beta particle does not come from the electron cloud</h4>
+      <p>An atom that loses an ordinary electron just becomes an ion, and it stays the same element. A beta particle is <b>brand new</b>: it is made inside the nucleus when a neutron becomes a proton. That is why $Z$ goes <b>up</b> by 1 even though something left. The $-1$ on the electron is how the numbers balance.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="stability" data-short="Band of stability">Which way will it decay?</h2>
+    <p>Plot every stable nucleus by its protons and neutrons, and they fall in a narrow strip called the <strong>band of stability</strong>. Light stable nuclei have about one neutron for each proton. Heavy ones need around 1.5 neutrons per proton, since the extra neutrons help hold all those repelling protons together. A nucleus off the band decays in the direction that brings it closer.</p>
+  </section>
+
+  <figure class="bench" id="b-band">
+    <div class="bench-head">
+      <p class="bench-title">The band of stability</p>
+      <p class="bench-hint">Predict each decay, then watch where one step lands it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-band"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Nucleus</span>
+        <div class="seg" id="band-iso">
+          <button type="button" data-value="C-14" aria-pressed="false">C-14</button>
+          <button type="button" data-value="I-131" aria-pressed="true">I-131</button>
+          <button type="button" data-value="C-11" aria-pressed="false">C-11</button>
+          <button type="button" data-value="I-123" aria-pressed="false">I-123</button>
+          <button type="button" data-value="U-238" aria-pressed="false">U-238</button>
+          <button type="button" data-value="Ra-226" aria-pressed="false">Ra-226</button>
+          <button type="button" data-value="Fe-56" aria-pressed="false">Fe-56</button>
+          <button type="button" data-value="Pb-208" aria-pressed="false">Pb-208</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Protons and neutrons</div><div class="readout-value" id="band-pn">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Neutrons per proton</div><div class="readout-value" id="band-ratio">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">Prediction</div><div class="readout-value" id="band-pred">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="band-note" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="half-life" data-short="Half-life">Half-life: decay is a dice roll</h2>
+    <p>No one can say when one nucleus will decay. It is like rolling a die over and over, and the die has no memory. But with a huge crowd, the total is very predictable. The <strong>half-life</strong>, $t_{1/2}$, is the time for half of the nuclei present to decay. Each nucleus has a 50 percent chance of lasting each half-life, however long it has already been around.</p>
+  </section>
+
+  <figure class="bench" id="b-hl-sim">
+    <div class="bench-head">
+      <p class="bench-title">Half-life simulator</p>
+      <p class="bench-hint">Tap one nucleus to follow it. Then try 25 nuclei, then 1600.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-hl"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">How many nuclei</span>
+        <div class="seg" id="hl-n">
+          <button type="button" data-value="25" aria-pressed="false">25</button>
+          <button type="button" data-value="100" aria-pressed="false">100</button>
+          <button type="button" data-value="400" aria-pressed="true">400</button>
+          <button type="button" data-value="1600" aria-pressed="false">1600</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Isotope</span>
+        <div class="seg" id="hl-iso">
+          <button type="button" data-value="I-131" aria-pressed="true">I-131</button>
+          <button type="button" data-value="C-14" aria-pressed="false">C-14</button>
+          <button type="button" data-value="F-18" aria-pressed="false">F-18</button>
+          <button type="button" data-value="Ra-226" aria-pressed="false">Ra-226</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="hl-speed">Simulation speed <span class="ctl-value" id="hl-speed-out"></span></label>
+        <input type="range" id="hl-speed" min="0.5" max="3" step="0.5" value="1">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Controls</span>
+        <button type="button" class="btn small" id="hl-go">Pause</button>
+        <button type="button" class="btn small ghost" id="hl-reset">Start over</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Nuclei left</div><div class="readout-value" id="hl-left">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">The ideal curve says</div><div class="readout-value" id="hl-ideal">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Time passed</div><div class="readout-value" id="hl-time">—</div></div>
+        <div class="readout"><div class="readout-label">The nucleus you follow</div><div class="readout-value" id="hl-bet">None yet</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Each nucleus rolls its own dice every instant, with nothing to steer the total. With 25 nuclei the line is jumpy. With 1600 it hugs the ideal curve. The red dashed line is a <b>myth</b>: half gone after one half-life does not mean all gone after two.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">How much is left after time $t$</p>
+    <div class="formula-body">$$N = N_0\left(\tfrac{1}{2}\right)^{t/t_{1/2}}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a whole number of half-lives</h4>
+    <p class="worked-q">Iodine-131 has a half-life of 8.02 days. A hospital sample starts with 80.0 mg. How much is left after 24.06 days?</p>
+    <ol>
+      <li>Count half-lives: $\dfrac{24.06\ \cancel{\text{days}}}{8.02\ \cancel{\text{days}}} = 3$ half-lives.</li>
+      <li>Halve it three times: $80.0 \text{ mg}$ becomes $40.0$, then $20.0$, then $10.0 \text{ mg}$.</li>
+      <li>Check with the formula: $80.0 \times \left(\tfrac{1}{2}\right)^3 = 80.0 \times 0.125 = $ <span class="answer">$10.0$ mg</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: carbon dating</h4>
+    <p class="worked-q">A piece of old wood has 40.0% of the carbon-14 that living wood has. The half-life is 5730 years. How old is it?</p>
+    <ol>
+      <li>Write the formula as a fraction left: $\dfrac{N}{N_0} = 0.400 = \left(\tfrac{1}{2}\right)^{t/5730}$.</li>
+      <li>Take the log of both sides: $\log(0.400) = \dfrac{t}{5730}\,\log(0.5)$.</li>
+      <li>Solve for $t$: $t = 5730 \times \dfrac{\log(0.400)}{\log(0.5)} = 5730 \times \dfrac{-0.3979}{-0.3010}$.</li>
+      <li>Multiply: $t = 5730 \times 1.322 = $ <span class="answer">$7.57 \times 10^{3}$ years</span>. Between one and two half-lives, which makes sense for 40% left.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: two half-lives does not mean zero</h4>
+      <p>After one half-life, 50% is left. After two, <b>25%</b> is left, not 0%. Each half-life halves whatever is there at that moment. Decay is <strong>first order</strong>, so how much you start with does not change the half-life. And since it happens inside the nucleus, temperature, pressure and bonding make no real difference either.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="safety" data-short="Radiation and safety">Radiation and safety</h2>
+    <p>Decay products carry enough energy to knock electrons off atoms, so this is called <strong>ionizing radiation</strong>. In living cells, that can damage DNA, which can kill cells or lead to cancer. How much harm depends on the dose, the type of radiation, and whether the source is outside or inside the body.</p>
+  </section>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Type</th><th>Stopped by</th><th>When it is most dangerous</th></tr></thead>
+    <tbody>
+      <tr><td>Alpha</td><td>A sheet of paper or the outer layer of skin</td><td>Inside the body, if breathed in or swallowed. It dumps all its energy in a tiny region. Radon gas and polonium-210 are examples.</td></tr>
+      <tr><td>Beta</td><td>A few millimeters of aluminum or plastic</td><td>On the skin or inside the body.</td></tr>
+      <tr><td>Gamma</td><td>Thick lead or concrete, which reduce it but do not fully stop it</td><td>Outside or inside the body, since it passes straight through tissue.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>I joke about most things. Not this one. Workers protect themselves with <b>time, distance and shielding</b>: less time near the source, more distance from it, and the right barrier in between. Radioactive materials are only for trained people with the right licenses and equipment. If you are ever worried about a source, keep away and report it.</p></div></div>
+
+  <section class="prose">
+    <p>Used carefully, radiation also saves lives. Fluorine-18 lights up tumors in PET scans, and iodine-131 treats thyroid disease because the thyroid collects iodine. Half-life matters here too. A short half-life means a strong signal that fades quickly, and a long half-life means contamination can last for a very long time. Radon is a real everyday concern: it is the second-leading cause of lung cancer in the United States, and home test kits can check for it.</p>
+  </section>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: easy to stop does not mean safe</h4>
+      <p>"Which is most penetrating?" and "Which is most dangerous?" are different questions. Gamma penetrates most. But an alpha emitter <b>inside the lungs</b> can do far more damage per unit of energy absorbed than a gamma source, because it deposits everything in a small space. Always ask where the source is.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="energy" data-short="Fission and fusion">Where nuclear energy comes from</h2>
+    <p>A nucleus weighs a little less than the protons and neutrons that built it. That missing mass is the source of the enormous energy in fission, fusion and the sun.</p>
+  </section>
+
+  <div id="story-energy"></div>
+
+  <div class="formula">
+    <p class="formula-name">Mass and energy ($c = 3.00 \times 10^{8}$ m/s, $m$ in kg, $E$ in J)</p>
+    <div class="formula-body">$$E = mc^2$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: the binding energy of helium-4</h4>
+    <p class="worked-q">A proton is 1.00728 u, a neutron is 1.00866 u, and a helium-4 nucleus is 4.00151 u. Find the energy released in forming one nucleus. Use 1 u = $1.6605 \times 10^{-27}$ kg.</p>
+    <ol>
+      <li>Add up the parts: $2(1.00728) + 2(1.00866) = 4.03188$ u.</li>
+      <li>Find the <strong>mass defect</strong>: $4.03188 - 4.00151 = 0.03037$ u.</li>
+      <li>Convert to kilograms: $0.03037\ \cancel{\text{u}} \times \dfrac{1.6605 \times 10^{-27}\text{ kg}}{1\ \cancel{\text{u}}} = 5.043 \times 10^{-29}\text{ kg}$.</li>
+      <li>Use $E = mc^2$: $(5.043 \times 10^{-29}\text{ kg})(3.00 \times 10^{8}\text{ m/s})^2 = $ <span class="answer">$4.54 \times 10^{-12}$ J</span> for each nucleus.</li>
+      <li>That is tiny, until you multiply by Avogadro's number: about $2.7 \times 10^{12}$ J per mole. Burning a mole of methane gives only $8.9 \times 10^{5}$ J.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="nuclear"></div>
+  <div data-practice="nuclear"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Balance nuclear equations by making <strong>top numbers ($A$)</strong> and <strong>bottom numbers ($Z$)</strong> add up on both sides.</li>
+      <li><strong>Alpha</strong>: $A - 4$, $Z - 2$. <strong>Beta</strong>: $Z + 1$. <strong>Positron or capture</strong>: $Z - 1$. <strong>Gamma</strong>: no change in either.</li>
+      <li>Too many neutrons: beta. Too few: positron or capture. Past $Z = 83$: usually alpha.</li>
+      <li>$N = N_0(\tfrac{1}{2})^{t/t_{1/2}}$. Each half-life halves what is left. It never hits zero on schedule.</li>
+      <li>Penetration: gamma beats beta beats alpha. But alpha is very dangerous if inhaled or swallowed.</li>
+      <li>Fission splits heavy nuclei, fusion joins light ones, and both release energy because the products are closer to iron. $E = mc^2$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

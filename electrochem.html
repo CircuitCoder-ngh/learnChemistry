@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batteries and electrochemistry | The Mole Hole</title>
+<meta name="description" content="See how a battery turns redox into electricity: anode, cathode, salt bridge, standard potentials, electrolysis, and Faraday calculations, with animations you control.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/electrochem.js"></script>
+<script defer src="assets/js/pages/electrochem.js"></script>
+</head>
+<body data-page="electrochem">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>Batteries and electrochemistry</h1>
+        <p class="lede">A battery is a redox reaction with one trick: the electrons have to take the long way, through a wire.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Name the parts of a galvanic cell and say which way everything moves</li>
+    <li>Find a cell's voltage from standard reduction potentials</li>
+    <li>Say how electrolysis differs from a battery</li>
+    <li>Use Faraday's constant to find how much metal plates out</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="cell" data-short="Building a battery">From redox to electricity</h2>
+    <p>You met this reaction in <a href="redox.html">oxidation and reduction</a>: zinc hands electrons to copper ions. Here is how to make those electrons do some work on the way.</p>
+  </section>
+
+  <div id="story-cell"></div>
+
+  <div class="big-idea">Electrons flow through the wire from the anode to the cathode. Ions flow through the salt bridge to keep each side neutral.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Remember <b>An Ox, Red Cat</b>: anode is oxidation, reduction is at the cathode. Those two facts hold for every cell ever built, so they are worth more than my whole burrow.</p></div></div>
+
+  <section class="prose">
+    <h2 id="potentials" data-short="Where voltage comes from">Where the voltage comes from</h2>
+    <p>Every metal ion has a <strong>standard reduction potential</strong>, $E^\circ$. It measures how hard that ion pulls electrons in, compared with hydrogen ions at exactly 0 volts. The higher one wins and gets reduced. The lower one is forced to give up its electrons.</p>
+    <p>Think of a tug of war. The <strong>cell potential</strong>, $E^\circ_{\text{cell}}$, is the gap between the two players. A bigger gap means a bigger push on the electrons.</p>
+  </section>
+
+  <figure class="bench" id="b-cell">
+    <div class="bench-head">
+      <p class="bench-title">Build any cell</p>
+      <p class="bench-hint">Pick a metal for each beaker. Can you beat 1.10 V?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cell"></canvas><canvas id="c-ladder"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Left beaker</span>
+        <div class="seg" id="cell-left">
+          <button type="button" data-value="Mg" aria-pressed="false">Mg</button>
+          <button type="button" data-value="Al" aria-pressed="false">Al</button>
+          <button type="button" data-value="Zn" aria-pressed="true">Zn</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Fe</button>
+          <button type="button" data-value="Ni" aria-pressed="false">Ni</button>
+          <button type="button" data-value="Pb" aria-pressed="false">Pb</button>
+          <button type="button" data-value="Cu" aria-pressed="false">Cu</button>
+          <button type="button" data-value="Ag" aria-pressed="false">Ag</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Right beaker</span>
+        <div class="seg" id="cell-right">
+          <button type="button" data-value="Mg" aria-pressed="false">Mg</button>
+          <button type="button" data-value="Al" aria-pressed="false">Al</button>
+          <button type="button" data-value="Zn" aria-pressed="false">Zn</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Fe</button>
+          <button type="button" data-value="Ni" aria-pressed="false">Ni</button>
+          <button type="button" data-value="Pb" aria-pressed="false">Pb</button>
+          <button type="button" data-value="Cu" aria-pressed="true">Cu</button>
+          <button type="button" data-value="Ag" aria-pressed="false">Ag</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Salt bridge</span>
+        <div class="seg" id="cell-bridge">
+          <button type="button" data-value="in" aria-pressed="true">In place</button>
+          <button type="button" data-value="out" aria-pressed="false">Pull it out</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun"><div class="readout-label">Cell potential</div><div class="readout-value" id="cell-E">1.10 V</div></div>
+        <div class="readout is-pink"><div class="readout-label">Anode</div><div class="readout-value" id="cell-an">Zn</div></div>
+        <div class="readout is-good"><div class="readout-label">Cathode</div><div class="readout-value" id="cell-cat">Cu</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="cell-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Cell potential</p>
+    <div class="formula-body">$$E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$$</div>
+  </div>
+
+  <section class="prose">
+    <p>Both numbers go in as <em>reduction</em> potentials, exactly as the table lists them. The subtraction does the flipping for you. These values are for standard conditions: 1 M ions, 1 atm gases, 25 °C. Tables can differ by a few hundredths of a volt.</p>
+  </section>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Half-reaction, written as a reduction</th><th>$E^\circ$ (V)</th></tr></thead>
+    <tbody>
+      <tr><td>$\ce{F2 + 2e- -> 2F-}$ (strongest oxidizing agent here)</td><td>+2.87</td></tr>
+      <tr><td>$\ce{Cl2 + 2e- -> 2Cl-}$</td><td>+1.36</td></tr>
+      <tr><td>$\ce{Ag+ + e- -> Ag}$</td><td>+0.80</td></tr>
+      <tr><td>$\ce{Cu^2+ + 2e- -> Cu}$</td><td>+0.34</td></tr>
+      <tr><td>$\ce{2H+ + 2e- -> H2}$ (the reference)</td><td>0.00</td></tr>
+      <tr><td>$\ce{Pb^2+ + 2e- -> Pb}$</td><td>−0.13</td></tr>
+      <tr><td>$\ce{Ni^2+ + 2e- -> Ni}$</td><td>−0.25</td></tr>
+      <tr><td>$\ce{Fe^2+ + 2e- -> Fe}$</td><td>−0.44</td></tr>
+      <tr><td>$\ce{Zn^2+ + 2e- -> Zn}$</td><td>−0.76</td></tr>
+      <tr><td>$\ce{Al^3+ + 3e- -> Al}$</td><td>−1.66</td></tr>
+      <tr><td>$\ce{Mg^2+ + 2e- -> Mg}$</td><td>−2.37</td></tr>
+      <tr><td>$\ce{Li+ + e- -> Li}$ (Li metal is the strongest reducing agent here)</td><td>−3.04</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Worked example: find the voltage</h4>
+    <p class="worked-q">A cell uses zinc and silver electrodes. Find $E^\circ_{\text{cell}}$. Use $E^\circ(\ce{Zn^2+}) = -0.76$ V and $E^\circ(\ce{Ag+}) = +0.80$ V.</p>
+    <ol>
+      <li>Find the cathode. Silver has the higher $E^\circ$, so $\ce{Ag+}$ is reduced. Silver is the cathode and zinc is the anode.</li>
+      <li>Write the formula: $E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$.</li>
+      <li>Put the numbers in: $E^\circ_{\text{cell}} = (+0.80\text{ V}) - (-0.76\text{ V})$.</li>
+      <li>Subtracting a negative adds: <span class="answer">$E^\circ_{\text{cell}} = +1.56\text{ V}$</span>. It is positive, so the cell runs on its own.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: never multiply a potential</h4>
+      <p>Balancing $\ce{Zn + 2Ag+ -> Zn^2+ + 2Ag}$ means doubling the silver half-reaction. Many students double its 0.80 V as well and get 2.36 V. <b>Do not.</b> Voltage is push per electron, like pressure. Twice as many electrons get the same push. The answer stays 1.56 V.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="spontaneous" data-short="Will it run?">Will it run on its own?</h2>
+    <p>A positive $E^\circ_{\text{cell}}$ means the reaction is <strong>spontaneous</strong>. To connect voltage with energy, multiply it by the charge moved. Here $n$ is the moles of electrons transferred, and $F$ is <strong>Faraday's constant</strong>, the charge on one mole of electrons: 96,485 C/mol.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Voltage and free energy (one volt is one joule per coulomb)</p>
+    <div class="formula-body">$$\Delta G^\circ = -nFE^\circ_{\text{cell}}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: free energy of the zinc and copper cell</h4>
+    <p class="worked-q">Find $\Delta G^\circ$ for $\ce{Zn + Cu^2+ -> Zn^2+ + Cu}$, with $E^\circ_{\text{cell}} = 1.10$ V.</p>
+    <ol>
+      <li>Count the electrons moved: each zinc gives up 2, so $n = 2$ mol.</li>
+      <li>Set it up: $\Delta G^\circ = -(2\ \text{mol})\left(96{,}485\ \dfrac{\text{C}}{\text{mol}}\right)\left(1.10\ \dfrac{\text{J}}{\text{C}}\right)$.</li>
+      <li>Moles and coulombs cancel: $\Delta G^\circ = -2.12 \times 10^{5}\text{ J}$.</li>
+      <li>Convert to kilojoules: <span class="answer">$\Delta G^\circ = -212\text{ kJ}$</span>. Negative, so it is spontaneous, which matches the positive voltage.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="real" data-short="Real batteries">Real batteries</h2>
+    <p>Real batteries replace the beakers with pastes and thin layers, but they run on exactly these parts. Stack cells in series and their voltages add up. A battery dies when its reaction has run down and the push reaches zero. A rechargeable one can be pushed back the other way.</p>
+  </section>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Battery</th><th>Voltage</th><th>Worth knowing</th></tr></thead>
+    <tbody>
+      <tr><td>Alkaline (AA)</td><td>About 1.5 V</td><td>Zinc is oxidized, manganese dioxide is reduced. Single use.</td></tr>
+      <tr><td>Lead-acid (car)</td><td>About 12 V</td><td>Six cells of about 2 V in series. Rechargeable.</td></tr>
+      <tr><td>Lithium-ion (phone)</td><td>About 3.7 V</td><td>Lithium's very low $E^\circ$ gives a big push for its weight. Rechargeable.</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="prose">
+    <h2 id="electrolysis" data-short="Electrolysis">Running it backward</h2>
+    <p>A battery lets a reaction run downhill and collects the energy. <strong>Electrolysis</strong> does the opposite: a power supply forces a reaction uphill. It is how we get sodium metal, aluminum, and a silver coat on a spoon.</p>
+  </section>
+
+  <div id="story-electrolysis"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the signs flip, the jobs do not</h4>
+      <p>"The anode is negative" is only true in a battery. In electrolysis the anode is <b>positive</b>, because the power supply pulls electrons out of it. Go by the job instead. Oxidation is always at the anode, and reduction is always at the cathode.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="faraday" data-short="How much metal?">How much metal do you get?</h2>
+    <p>Electrons are the reactant you are paying for, so count them. Current in amperes is coulombs per second. Multiply by time for charge, divide by Faraday's constant for moles of electrons, and then use the half-reaction's mole ratio, just as in <a href="stoichiometry.html">stoichiometry</a>.</p>
+  </section>
+
+  <figure class="bench" id="b-plate">
+    <div class="bench-head">
+      <p class="bench-title">Plate a spoon</p>
+      <p class="bench-hint">Change the current and time. What does doubling each do?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-plate"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Metal</span>
+        <div class="seg" id="plate-metal">
+          <button type="button" data-value="Cu" aria-pressed="true">Copper, from Cu²⁺</button>
+          <button type="button" data-value="Ag" aria-pressed="false">Silver, from Ag⁺</button>
+          <button type="button" data-value="Ni" aria-pressed="false">Nickel, from Ni²⁺</button>
+          <button type="button" data-value="Zn" aria-pressed="false">Zinc, from Zn²⁺</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="plate-i">Current <span class="ctl-value" id="plate-i-out"></span></label>
+        <input type="range" id="plate-i" min="0.1" max="10" step="0.1" value="2">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="plate-t">Time <span class="ctl-value" id="plate-t-out"></span></label>
+        <input type="range" id="plate-t" min="1" max="120" step="1" value="30">
+      </div>
+    </div>
+    <div class="bench-foot" id="plate-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The electrolysis chain</p>
+    <div class="formula-body">$Q = I \times t$ $\text{mol } e^- = \frac{Q}{F}, \quad F = 96{,}485\ \text{C/mol}$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: silver plating</h4>
+    <p class="worked-q">A current of 1.50 A runs through a silver nitrate solution for 25.0 minutes. What mass of silver plates out?</p>
+    <ol>
+      <li>Change time to seconds: $25.0\ \cancel{\text{min}} \times \dfrac{60\text{ s}}{1\ \cancel{\text{min}}} = 1500\text{ s}$.</li>
+      <li>Find the charge: $Q = I \times t = \left(1.50\ \dfrac{\text{C}}{\cancel{\text{s}}}\right)(1500\ \cancel{\text{s}}) = 2250\text{ C}$.</li>
+      <li>Find moles of electrons: $2250\ \cancel{\text{C}} \times \dfrac{1\text{ mol } e^-}{96{,}485\ \cancel{\text{C}}} = 0.02332\text{ mol } e^-$.</li>
+      <li>Use the half-reaction $\ce{Ag+ + e- -> Ag}$, which is 1 electron per atom: $0.02332\text{ mol Ag}$.</li>
+      <li>Change to grams: $0.02332\ \cancel{\text{mol}} \times \dfrac{107.87\text{ g}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$2.52\text{ g Ag}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>The same current plates less copper than silver, mole for mole. Copper needs <b>2</b> electrons per atom and silver needs only <b>1</b>. Check the half-reaction before you touch your calculator.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="electrochem"></div>
+  <div data-practice="electrochem"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>An Ox, Red Cat:</strong> oxidation at the anode, reduction at the cathode, always.</li>
+      <li>Electrons go through the <strong>wire</strong>, anode to cathode. Ions go through the <strong>salt bridge</strong>: anions toward the anode, cations toward the cathode.</li>
+      <li>$E^\circ_{\text{cell}} = E^\circ_{\text{cathode}} - E^\circ_{\text{anode}}$. Never multiply $E^\circ$ when you balance.</li>
+      <li>Positive $E^\circ_{\text{cell}}$ means spontaneous, and $\Delta G^\circ = -nFE^\circ_{\text{cell}}$ comes out negative.</li>
+      <li>Battery: anode negative. Electrolysis: anode positive and a power supply does the pushing.</li>
+      <li>Metal plated: amps × seconds, then ÷ 96,485, then the electron ratio, then × molar mass.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

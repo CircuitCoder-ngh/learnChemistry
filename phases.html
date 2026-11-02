@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phase changes | The Mole Hole</title>
+<meta name="description" content="Heat ice all the way to steam with real numbers, watch the particles, and see why the temperature stops. Vapor pressure, boiling at altitude, and draggable phase diagrams for water and carbon dioxide.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/phases.js"></script>
+<script defer src="assets/js/pages/phases.js"></script>
+</head>
+<body data-page="phases">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>Phase changes</h1>
+        <p class="lede">Heat ice and its temperature climbs, then stops dead, even with the burner still on. Find out where that heat goes.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wow"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Read a heating curve and say what the particles are doing at each part</li>
+    <li>Calculate the total heat for any path, using $q = mc\Delta T$ and $q = m\Delta H$</li>
+    <li>Explain vapor pressure, boiling and why altitude changes the boiling point</li>
+    <li>Read a phase diagram, including the triple and critical points</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="plateau" data-short="Why it stops">Why the temperature stops</h2>
+    <p>Temperature measures how fast particles are moving. So here is a puzzle: during melting and boiling you keep adding heat, yet the temperature does not budge. Follow 100 g of ice from $-20\ ^\circ\text{C}$ to steam.</p>
+  </section>
+
+  <div id="story-curve"></div>
+
+  <div class="big-idea">On a slope, heat makes particles move faster, so temperature rises. On a flat part, heat pulls particles away from each other, so temperature stays put.</div>
+
+  <section class="prose">
+    <h2 id="lab" data-short="Heating curve lab">The heating curve lab</h2>
+    <p>This lab computes the real numbers for water. Turn on the burner or drag the slider. Watch the particles while the temperature is flat. Which flat part is longer, and by how much?</p>
+  </section>
+
+  <figure class="bench" id="b-curve">
+    <div class="bench-head">
+      <p class="bench-title">Heat water from ice to steam</p>
+      <p class="bench-hint">Run the burner, or drag the heat slider.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-curve"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Burner</span>
+        <div class="seg" id="curve-burner">
+          <button type="button" data-value="off" aria-pressed="true">Off</button>
+          <button type="button" data-value="heat" aria-pressed="false">Add heat</button>
+          <button type="button" data-value="cool" aria-pressed="false">Remove heat</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Mass of water</span>
+        <div class="seg" id="curve-m">
+          <button type="button" data-value="18" aria-pressed="false">18 g</button>
+          <button type="button" data-value="50" aria-pressed="false">50 g</button>
+          <button type="button" data-value="100" aria-pressed="true">100 g</button>
+          <button type="button" data-value="250" aria-pressed="false">250 g</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="curve-q">Heat added <span class="ctl-value" id="curve-q-out"></span></label>
+        <input type="range" id="curve-q" min="0" max="1000" step="1" value="0">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Temperature</div><div class="readout-value" id="curve-T"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">What is here</div><div class="readout-value" id="curve-mix"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Where the heat goes</div><div class="readout-value" id="curve-goes"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="curve-calc" aria-live="off"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">On a slope: one phase changing temperature</p>
+    <div class="formula-body">$$q = m\,c\,\Delta T$$</div>
+  </div>
+  <div class="formula">
+    <p class="formula-name">On a flat part: a phase change at constant temperature</p>
+    <div class="formula-body">$$q = m\,\Delta H \quad\text{(using J/g)} \qquad\text{or}\qquad q = n\,\Delta H \quad\text{(using kJ/mol)}$$</div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Number for water</th><th>Per gram</th><th>Per mole</th></tr></thead>
+      <tbody>
+        <tr><td>Specific heat of ice</td><td>about 2.09 J/(g °C)</td><td></td></tr>
+        <tr><td>Specific heat of liquid water</td><td>4.18 J/(g °C)</td><td></td></tr>
+        <tr><td>Specific heat of steam</td><td>about 2.0 J/(g °C)</td><td></td></tr>
+        <tr><td>Heat of fusion, $\Delta H_\text{fus}$</td><td>334 J/g</td><td>6.01 kJ/mol</td></tr>
+        <tr><td>Heat of vaporization, $\Delta H_\text{vap}$</td><td>2260 J/g</td><td>40.7 kJ/mol</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Boiling takes almost <b>7 times</b> the heat of melting. Melting only loosens molecules. Boiling has to free them completely. Also, textbooks differ a little on the specific heats of ice and steam, so use the numbers your exam gives you.</p></div></div>
+
+  <section class="prose">
+    <h3>Add up the whole trip</h3>
+    <p>A heating curve problem is a shopping list. Cut the trip into pieces at $0\ ^\circ\text{C}$ and $100\ ^\circ\text{C}$, price each piece with the right formula, and add. Set any start and end here.</p>
+  </section>
+
+  <figure class="bench" id="b-path">
+    <div class="bench-head">
+      <p class="bench-title">Heat bill calculator</p>
+      <p class="bench-hint">Exactly 0 °C counts as ice, and exactly 100 °C counts as liquid.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-path"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="path-m">Mass <span class="ctl-value" id="path-m-out"></span></label>
+        <input type="range" id="path-m" min="5" max="200" step="5" value="25">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="path-a">Start <span class="ctl-value" id="path-a-out"></span></label>
+        <input type="range" id="path-a" min="-40" max="140" step="5" value="-10">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="path-b">End <span class="ctl-value" id="path-b-out"></span></label>
+        <input type="range" id="path-b" min="-40" max="140" step="5" value="110">
+      </div>
+    </div>
+    <div class="bench-foot" id="path-calc" aria-live="off"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: ice to steam</h4>
+    <p class="worked-q">How much heat does it take to turn 25.0 g of ice at $-10.0\ ^\circ\text{C}$ into steam at $110.0\ ^\circ\text{C}$?</p>
+    <ol>
+      <li>Warm the ice to $0\ ^\circ\text{C}$: $25.0\ \cancel{\text{g}} \times 2.09\ \dfrac{\text{J}}{\cancel{\text{g}}\ \cancel{^\circ\text{C}}} \times 10.0\ \cancel{^\circ\text{C}} = 523\text{ J}$.</li>
+      <li>Melt it: $25.0\ \cancel{\text{g}} \times 334\ \dfrac{\text{J}}{\cancel{\text{g}}} = 8350\text{ J}$.</li>
+      <li>Warm the water to $100\ ^\circ\text{C}$: $25.0\ \cancel{\text{g}} \times 4.18\ \dfrac{\text{J}}{\cancel{\text{g}}\ \cancel{^\circ\text{C}}} \times 100.0\ \cancel{^\circ\text{C}} = 10450\text{ J}$.</li>
+      <li>Boil it: $25.0\ \cancel{\text{g}} \times 2260\ \dfrac{\text{J}}{\cancel{\text{g}}} = 56500\text{ J}$.</li>
+      <li>Warm the steam to $110\ ^\circ\text{C}$: $25.0\ \cancel{\text{g}} \times 2.0\ \dfrac{\text{J}}{\cancel{\text{g}}\ \cancel{^\circ\text{C}}} \times 10.0\ \cancel{^\circ\text{C}} = 500\text{ J}$.</li>
+      <li>Add them: $523 + 8350 + 10450 + 56500 + 500 = 76323\text{ J}$, which is <span class="answer">about 76.3 kJ</span>. Notice that boiling alone is almost three quarters of the bill.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: using moles</h4>
+    <p class="worked-q">How much heat is released when 36.0 g of steam at $100\ ^\circ\text{C}$ condenses to liquid at $100\ ^\circ\text{C}$? Use $\Delta H_\text{vap} = 40.7$ kJ/mol.</p>
+    <ol>
+      <li>Convert to moles: $36.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{18.02\ \cancel{\text{g}}} = 2.00\text{ mol}$.</li>
+      <li>Condensing is boiling in reverse, so the size is the same and the sign flips: $\Delta H_\text{cond} = -40.7$ kJ/mol.</li>
+      <li>Multiply: $2.00\ \cancel{\text{mol}} \times \left(-40.7\ \dfrac{\text{kJ}}{\cancel{\text{mol}}}\right) = -81.4\text{ kJ}$.</li>
+      <li>So <span class="answer">81.4 kJ of heat is released</span>. This is why a steam burn is worse than a burn from boiling water at the same temperature.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: never use $q = mc\Delta T$ across a phase change</h4>
+      <p>Going from ice at $-10\ ^\circ\text{C}$ to water at $20\ ^\circ\text{C}$ is not one $\Delta T$ of 30 degrees. It is three pieces: warm the ice, melt it, warm the water. Each piece has its own number. Also watch your units: $c$ and $\Delta H$ per gram use J, while $\Delta H$ per mole uses kJ.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="vapor" data-short="Vapor pressure">Vapor pressure and boiling</h2>
+    <p>A puddle dries up well below $100\ ^\circ\text{C}$, so molecules must be able to escape at any temperature. Close the lid and something interesting happens.</p>
+  </section>
+
+  <div id="story-vapor"></div>
+
+  <figure class="bench" id="b-jar">
+    <div class="bench-head">
+      <p class="bench-title">The bell jar</p>
+      <p class="bench-hint">Set the temperature and the air pressure. Can you boil water at room temperature?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-jar"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Liquid</span>
+        <div class="seg" id="jar-liq">
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="ethanol" aria-pressed="false">Ethanol</button>
+          <button type="button" data-value="ether" aria-pressed="false">Diethyl ether</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="jar-T">Temperature <span class="ctl-value" id="jar-T-out"></span></label>
+        <input type="range" id="jar-T" min="0" max="130" step="1" value="25">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Air pressure in the jar</span>
+        <div class="seg" id="jar-P">
+          <button type="button" data-value="1520" aria-pressed="false">Pressure cooker</button>
+          <button type="button" data-value="760" aria-pressed="true">Sea level</button>
+          <button type="button" data-value="630" aria-pressed="false">Denver</button>
+          <button type="button" data-value="253" aria-pressed="false">Everest</button>
+          <button type="button" data-value="20" aria-pressed="false">Vacuum pump</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Graph</span>
+        <div class="seg" id="jar-view">
+          <button type="button" data-value="curve" aria-pressed="true">Pressure against temperature</button>
+          <button type="button" data-value="line" aria-pressed="false">ln P against 1/T</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Vapor pressure</div><div class="readout-value" id="jar-vp"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Air pressure</div><div class="readout-value" id="jar-air"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Boils at this pressure at</div><div class="readout-value" id="jar-bp"></div></div>
+        <div class="readout"><div class="readout-label">Right now</div><div class="readout-value" id="jar-state"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Vapor pressures come from the Antoine equation with published constants. The number of molecules in the jar is not to scale. Try water at 25 °C with the vacuum pump: it boils, because the vapor pressure of 24 torr beats the 20 torr of air.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Clausius-Clapeyron: how vapor pressure depends on temperature</p>
+    <div class="formula-body">$$\ln\frac{P_2}{P_1} = -\frac{\Delta H_\text{vap}}{R}\left(\frac{1}{T_2} - \frac{1}{T_1}\right)$$</div>
+  </div>
+
+  <section class="prose">
+    <p>The idea: vapor pressure grows very quickly with temperature, because each small warming lets many more molecules escape. Plot $\ln P$ against $1/T$ and the curve straightens into a line whose slope is $-\Delta H_\text{vap}/R$. Stickier liquids have steeper lines. Switch the graph above to see it. $T$ must be in kelvin, and $R$ is $8.314$ J/(mol K).</p>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: vapor pressure at a new temperature</h4>
+    <p class="worked-q">Water has a vapor pressure of 760 torr at $100\ ^\circ\text{C}$. Estimate its vapor pressure at $80\ ^\circ\text{C}$, using $\Delta H_\text{vap} = 40.7$ kJ/mol.</p>
+    <ol>
+      <li>Change to kelvin: $T_1 = 373.15$ K and $T_2 = 353.15$ K. Change to joules: $\Delta H_\text{vap} = 40700$ J/mol.</li>
+      <li>Find the bracket: $\dfrac{1}{353.15} - \dfrac{1}{373.15} = 0.00283166 - 0.00267989 = 0.00015177\text{ K}^{-1}$.</li>
+      <li>Multiply: $-\dfrac{40700}{8.314} \times 0.00015177 = -0.7430$, so $\ln\dfrac{P_2}{760} = -0.7430$.</li>
+      <li>Undo the log: $\dfrac{P_2}{760} = e^{-0.7430} = 0.4757$, so $P_2 = 0.4757 \times 760 =$ <span class="answer">about 362 torr</span>. The measured value is 355 torr, so this is a good estimate.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: more liquid does not mean more vapor pressure</h4>
+      <p>Vapor pressure depends only on the <b>substance</b> and the <b>temperature</b>. A bigger jar or more liquid does not change it. The <b>normal</b> boiling point is the temperature where vapor pressure equals exactly 1 atm, which is 760 torr. A stronger flame also does not make water hotter: at 1 atm it stays at $100\ ^\circ\text{C}$ and just boils faster.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="diagram" data-short="Phase diagrams">Phase diagrams</h2>
+    <p>A <strong>phase diagram</strong> is a map. Give it a temperature and a pressure, and it tells you which phase you get. Learn the parts first, then drive around on it yourself.</p>
+  </section>
+
+  <div id="story-map"></div>
+
+  <figure class="bench" id="b-diagram">
+    <div class="bench-head">
+      <p class="bench-title">Drive around a phase diagram</p>
+      <p class="bench-hint">Drag the pink dot anywhere on the map.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-diagram"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="pd-sub">
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="co2" aria-pressed="false">Carbon dioxide</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Try this</span>
+        <div class="seg" id="pd-try"></div>
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn sun" id="pd-walk">Walk across at 1 atm</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Temperature</div><div class="readout-value" id="pd-T"></div></div>
+        <div class="readout is-cyan"><div class="readout-label">Pressure</div><div class="readout-value" id="pd-P"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Phase</div><div class="readout-value" id="pd-phase"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><div id="pd-note" aria-live="polite"></div><p>Schematic: both axes are stretched unevenly, so every feature fits on one map. The real lines are correct in position, but the lean of water's melting line would be far too small to see at a true scale.</p></div>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Substance</th><th>Triple point</th><th>Critical point</th><th>Solid-liquid line</th></tr></thead>
+      <tbody>
+        <tr><td>Water</td><td>0.01 °C, 0.006 atm</td><td>374 °C, 218 atm</td><td>Leans backward (ice is less dense)</td></tr>
+        <tr><td>Carbon dioxide</td><td>&minus;56.6 °C, 5.1 atm</td><td>31 °C, 73 atm</td><td>Leans forward (solid is denser)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: which way does the line lean?</h4>
+      <p>For almost everything, the solid-liquid line leans to the right, because squeezing favors the denser solid. Water is the odd one: its line leans to the <b>left</b>, because liquid water is denser than ice, so squeezing ice can melt it. To get a liquid, the pressure must be above the triple point pressure. That is why $\ce{CO2}$ at 1 atm goes straight from solid to gas.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="phases"></div>
+  <div data-practice="phases"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>On a slope use $q = mc\Delta T$. On a flat part use $q = m\Delta H$ or $q = n\Delta H$. Temperature is constant during a phase change.</li>
+      <li>Water: $c$ is 2.09 (ice), 4.18 (liquid), 2.0 (steam) J/(g °C). $\Delta H_\text{fus}$ is 334 J/g, and $\Delta H_\text{vap}$ is 2260 J/g.</li>
+      <li><strong>Vapor pressure</strong> is the pressure of vapor in equilibrium with its liquid. It rises with temperature and falls with stronger forces.</li>
+      <li>A liquid <strong>boils</strong> when its vapor pressure equals the outside pressure.</li>
+      <li>$\ln(P_2/P_1) = -\frac{\Delta H_\text{vap}}{R}\left(\frac{1}{T_2}-\frac{1}{T_1}\right)$, with $T$ in kelvin.</li>
+      <li><strong>Triple point</strong>: all three phases together. <strong>Critical point</strong>: past it, liquid and gas become one supercritical fluid.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

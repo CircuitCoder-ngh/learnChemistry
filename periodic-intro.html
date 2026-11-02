@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet the periodic table | The Mole Hole</title>
+<meta name="description" content="Why the periodic table is arranged the way it is: groups, periods, metals and nonmetals, the element families, ion charges, and the diatomic elements.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/periodic-intro.js"></script>
+<script defer src="assets/js/pages/periodic-intro.js"></script>
+</head>
+<body data-page="periodic-intro">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Meet the periodic table</h1>
+        <p class="lede">It is a seating chart. Elements in the same column behave alike, so one spot tells you a lot.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Read a tile, and find any element's group and period</li>
+    <li>Sort elements into metals, nonmetals and metalloids</li>
+    <li>Name the main families and say how each one behaves</li>
+    <li>Predict an ion's charge from its group, and list the diatomic elements</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="why" data-short="Why this shape?">Why does it have this odd shape?</h2>
+    <p>In 1869 Dmitri Mendeleev was writing a textbook and wanted a way to organize the elements. He wrote them on cards and started sorting. What he found turned a list into a map.</p>
+  </section>
+
+  <div id="story-why"></div>
+
+  <div class="big-idea">Properties repeat in a pattern. That is what "periodic" means, and it is why each column is a family.</div>
+
+  <section class="prose">
+    <h2 id="tile" data-short="Reading a tile">Reading a tile</h2>
+    <p>Every square holds the same few facts. Learn to read one, and you can read all 118.</p>
+  </section>
+
+  <div id="story-tile"></div>
+
+  <section class="prose">
+    <h2 id="explore" data-short="Table explorer">Explore the table</h2>
+    <p>Tap any element to inspect it. Then switch views. <strong>Can you find the only two elements that are liquid at room temperature?</strong> Can you spot the shape made by the diatomic elements?</p>
+  </section>
+
+  <figure class="bench" id="b-table">
+    <div class="bench-head">
+      <p class="bench-title">The periodic table</p>
+      <p class="bench-hint">Tap a tile. Pick a view below.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-table"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Show me</span>
+        <div class="seg" id="tb-mode">
+          <button type="button" data-value="groups" aria-pressed="true">Groups and periods</button>
+          <button type="button" data-value="number" aria-pressed="false">Atomic numbers</button>
+          <button type="button" data-value="metal" aria-pressed="false">Metal or not</button>
+          <button type="button" data-value="family" aria-pressed="false">Families</button>
+          <button type="button" data-value="state" aria-pressed="false">Solid, liquid, gas</button>
+          <button type="button" data-value="charge" aria-pressed="false">Ion charges</button>
+          <button type="button" data-value="diatomic" aria-pressed="false">Diatomics</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tb-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: hydrogen is not an alkali metal</h4>
+      <p>Hydrogen sits at the top of group 1 because it has one outer electron, but it is a <b>nonmetal</b> gas. It is not a member of the alkali metal family. Also: helium sits in group 18 with the noble gases, even though it has only 2 outer electrons.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="metals" data-short="Metals and nonmetals">Metals, nonmetals, and the ones in between</h2>
+    <p>Most elements are <strong>metals</strong>: shiny, bendable, and good at carrying electricity. <strong>Nonmetals</strong>, in the upper right, are usually dull, brittle and poor conductors. <strong>Metalloids</strong> sit on the staircase between them, with properties of both. Test some samples and decide for yourself.</p>
+  </section>
+
+  <figure class="bench" id="b-hammer">
+    <div class="bench-head">
+      <p class="bench-title">The hammer and bulb test</p>
+      <p class="bench-hint">Hit it. Wire it up. What is it?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-hammer"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Sample</span>
+        <div class="seg" id="hb-el">
+          <button type="button" data-value="Cu" aria-pressed="true">Copper</button>
+          <button type="button" data-value="Al" aria-pressed="false">Aluminum</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Iron</button>
+          <button type="button" data-value="S" aria-pressed="false">Sulfur</button>
+          <button type="button" data-value="I" aria-pressed="false">Iodine</button>
+          <button type="button" data-value="C" aria-pressed="false">Graphite</button>
+          <button type="button" data-value="Si" aria-pressed="false">Silicon</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap">
+        <button type="button" class="btn small" id="hb-hit">Hit it with the hammer</button>
+        <button type="button" class="btn small cyan" id="hb-wire">Connect the circuit</button>
+        <button type="button" class="btn small ghost" id="hb-new">Get a fresh sample</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="hb-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="families" data-short="The families">Meet the families</h2>
+    <p>Columns are families, and families have personalities. Pick a family, pick a member, and set it off. Watch how the behavior changes as you go down a column.</p>
+  </section>
+
+  <figure class="bench" id="b-family">
+    <div class="bench-head">
+      <p class="bench-title">Family album</p>
+      <p class="bench-hint">Choose, then press the button. Please do not try these at home.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-family"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Family</span>
+        <div class="seg" id="fm-fam">
+          <button type="button" data-value="alkali" aria-pressed="true">Alkali metals</button>
+          <button type="button" data-value="earth" aria-pressed="false">Alkaline earths</button>
+          <button type="button" data-value="halogen" aria-pressed="false">Halogens</button>
+          <button type="button" data-value="noble" aria-pressed="false">Noble gases</button>
+          <button type="button" data-value="trans" aria-pressed="false">Transition metals</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Member</span>
+        <div class="seg" id="fm-el"></div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn" id="fm-go"></button>
+      </div>
+    </div>
+    <div class="bench-foot" id="fm-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Family</th><th>Group</th><th>Ion</th><th>Personality</th></tr></thead>
+    <tbody>
+      <tr><td><b>Alkali metals</b></td><td>1 (not H)</td><td>$+1$</td><td>Soft, very reactive, fizz or explode in water</td></tr>
+      <tr><td><b>Alkaline earth metals</b></td><td>2</td><td>$+2$</td><td>Reactive, but calmer than group 1</td></tr>
+      <tr><td><b>Transition metals</b></td><td>3 to 12</td><td>Varies</td><td>Hard metals, often several charges, colorful ions</td></tr>
+      <tr><td><b>Halogens</b></td><td>17</td><td>$-1$</td><td>Reactive nonmetals, diatomic, make salts with metals</td></tr>
+      <tr><td><b>Noble gases</b></td><td>18</td><td>None</td><td>Unreactive gases with full outer shells</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="prose">
+    <h2 id="charges" data-short="Predicting charges">Your group predicts your charge</h2>
+    <p>Noble gases have full outer shells and rarely react. Atoms nearby lose or gain electrons to match them. So the group number tells you the charge of the ion, and you do not need to memorize it.</p>
+  </section>
+
+  <div id="story-ions"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Quick rule for main group elements. <b>Metals on the left:</b> the charge matches the group, so group 1 is $+1$, group 2 is $+2$, group 13 is $+3$. <b>Nonmetals on the right:</b> count back from 18, so group 17 is $-1$, 16 is $-2$, 15 is $-3$.</p></div></div>
+
+  <section class="prose">
+    <h2 id="diatomic" data-short="Diatomic elements">Seven elements that never go out alone</h2>
+    <p>Most elements are written as single atoms: $\ce{Fe}$, $\ce{C}$, $\ce{He}$. But seven of them always travel in pairs when they are on their own.</p>
+  </section>
+
+  <div id="story-pairs"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: oxygen gas is $\ce{O2}$, never $\ce{O}$</h4>
+      <p>Whenever one of these seven elements appears on its own in an equation, write the pair: $\ce{H2}$, $\ce{N2}$, $\ce{O2}$, $\ce{F2}$, $\ce{Cl2}$, $\ce{Br2}$, $\ce{I2}$. In a compound, the 2 disappears: $\ce{H2O}$ has only one O. Remember them as <b>HONClBrIF</b>, said "honkle-brif".</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="periodic-intro"></div>
+  <div data-practice="periodic-intro"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>The table runs in order of <strong>atomic number</strong>. Columns are <strong>groups</strong>, rows are <strong>periods</strong>.</li>
+      <li>Elements in a group behave alike, because they have the same number of outer electrons.</li>
+      <li><strong>Metals</strong> are on the left, <strong>nonmetals</strong> on the upper right, <strong>metalloids</strong> on the staircase.</li>
+      <li>Group 1 alkali metals, group 2 alkaline earths, group 17 halogens, group 18 noble gases.</li>
+      <li>Ion charges: groups 1, 2, 13, 15, 16, 17 give $+1, +2, +3, -3, -2, -1$. Transition metals vary.</li>
+      <li>Diatomics: <strong>HONClBrIF</strong>.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

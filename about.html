@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources and how this was made | The Mole Hole</title>
+<meta name="description" content="What The Mole Hole covers and why, the research behind it, where its data comes from, and what it is not.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+</head>
+<body data-page="about">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <h1>Sources and how this was made</h1>
+        <p class="lede">What is on this site, why it is there, and where the numbers come from.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <section class="prose">
+    <h2 id="covers">What is covered, and why</h2>
+    <p>The lessons follow the order of <a href="https://openstax.org/details/books/chemistry-2e">OpenStax Chemistry 2e</a>, a free textbook many first-year courses use. Chapters 1 to 11 are the core. Chapters 12 to 17, 20 and 21 are shorter next-term lessons, since some Chem 101 courses get that far.</p>
+    <p>To check nothing is missing, we compared the list against the <a href="https://uwm.edu/acs-exams/?p=53758">ACS General Chemistry First Term exam topics</a>:</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th scope="col">ACS exam topic</th><th scope="col">Where it lives here</th></tr></thead>
+      <tbody>
+        <tr><td>Formulas and nomenclature</td><td><a href="compounds.html">Ions and compounds</a>, <a href="naming.html">Naming compounds</a></td></tr>
+        <tr><td>Atoms, isotopes and molecules</td><td><a href="atoms.html">Inside the atom</a>, <a href="isotopes.html">Build an atom</a></td></tr>
+        <tr><td>Reactions and equations</td><td><a href="balancing.html">Balancing</a>, <a href="reaction-types.html">Reaction types</a>, <a href="combustion.html">Combustion</a></td></tr>
+        <tr><td>Moles and stoichiometry</td><td><a href="mole.html">The mole</a>, <a href="stoichiometry.html">Stoichiometry</a>, <a href="limiting.html">Limiting reactants</a>, <a href="solutions.html">Solutions</a></td></tr>
+        <tr><td>Thermochemistry</td><td><a href="energy.html">Energy and heat</a>, <a href="calorimetry.html">Calorimetry</a>, <a href="enthalpy.html">Enthalpy</a></td></tr>
+        <tr><td>Quantum model and periodicity</td><td><a href="light.html">Light</a>, <a href="bohr.html">Bohr atom</a>, <a href="orbitals.html">Orbitals</a>, <a href="configurations.html">Configurations</a>, <a href="trends.html">Trends</a></td></tr>
+        <tr><td>Bonding and molecular properties</td><td><a href="ionic.html">Ionic</a>, <a href="covalent.html">Covalent</a>, <a href="lewis.html">Lewis</a>, <a href="vsepr.html">VSEPR</a>, <a href="imf.html">Intermolecular forces</a></td></tr>
+        <tr><td>Gases</td><td><a href="gas-laws.html">Gas laws</a>, <a href="ideal-gas.html">Ideal gas law</a>, <a href="kmt.html">Kinetic theory</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="prose">
+    <p><a href="combustion.html">Combustion equations</a> and <a href="solubility.html">solubility rules</a> each get a full lesson by request. The most animation went to <a href="mole.html">the mole</a> and <a href="stoichiometry.html">stoichiometry</a>, because <a href="https://par.nsf.gov/biblio/10095452">Ralph and Lewis (2018)</a> found at-risk students struggle most with exactly those topics.</p>
+
+    <h2 id="teaching">How it teaches</h2>
+    <p>The design comes from chemistry education research. Johnstone's three views link what you see, the particles, and the symbols. Animations advance when you press Next, following Mayer's work on segmenting and signaling. Every lesson gives you something to change, as PhET's simulations do, and ends with questions that make you produce the answer.</p>
+
+    <h2 id="data">Data</h2>
+    <p>Element data comes from the <a href="https://pubchem.ncbi.nlm.nih.gov/periodic-table/">PubChem periodic table</a>, which is public domain, with atomic masses set to the IUPAC abridged values textbooks print. Covalent radii are from Cordero et al., <em>Dalton Transactions</em>, 2008. PubChem rounds some atomic masses, so the last digit can differ from your textbook's table. We corrected a few discovery years and one set of oxidation states on the <a href="periodic-table.html">periodic table page</a>, where they conflicted with the standard account.</p>
+
+    <h2 id="libraries">Libraries and type</h2>
+    <p><a href="https://katex.org/">KaTeX</a> sets the math and its mhchem extension sets the chemistry. <a href="https://threejs.org/">three.js</a> draws the 3D models. Headlines are in Lilita One, and body text is in Atkinson Hyperlegible Next, chosen because it keeps 1, l and I, and 0 and O, clearly apart.</p>
+  </section>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Please read this</h4>
+      <p>This is a study aid, not a course. If your instructor's rules, tables or definitions differ from what you see here, <b>your instructor's rules win</b>. The models here are simplified on purpose, and they say so where it matters.</p>
+    </div>
+  </div>
+
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

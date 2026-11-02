@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entropy and free energy | The Mole Hole</title>
+<meta name="description" content="Why things happen on their own: microstates and entropy with a live spreading sim, the second law, and a four-quadrant chart for delta G equals delta H minus T delta S.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/thermo.js"></script>
+<script defer src="assets/js/pages/thermo.js"></script>
+</head>
+<body data-page="thermo">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>Entropy and free energy</h1>
+        <p class="lede">Why do some things happen on their own? Energy is only half the story. The other half is spreading out.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain entropy by counting arrangements</li>
+    <li>Predict the sign of $\Delta S$ and calculate $\Delta S^\circ$</li>
+    <li>Use $\Delta G = \Delta H - T\Delta S$ at any temperature</li>
+    <li>Explain why spontaneous does not mean fast</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="why" data-short="Why things happen">What happens on its own?</h2>
+    <p>Hot coffee cools. Nobody has ever seen cold coffee heat itself up in a cool room. Chemistry has a word for the direction things naturally go, and a number that predicts it.</p>
+  </section>
+
+  <div id="story-spread"></div>
+
+  <div class="big-idea">Things spread out because spread-out arrangements are overwhelmingly more common. Entropy counts those arrangements.</div>
+
+  <section class="prose">
+    <h2 id="spreading" data-short="Spreading sim">Watch it spread</h2>
+    <p>These particles have no idea where they are going. They bounce at random. Remove the wall, and see where they end up.</p>
+  </section>
+
+  <figure class="bench" id="b-spread">
+    <div class="bench-head">
+      <p class="bench-title">The spreading box</p>
+      <p class="bench-hint">Can you catch them all back on the left?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-spread"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="ms-n">How many particles <span class="ctl-value" id="ms-n-out"></span></label>
+        <input type="range" id="ms-n" min="2" max="24" step="1" value="8">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">The wall</span>
+        <button type="button" class="btn small" id="ms-wall">Remove the wall</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Ways to have this split</div><div class="readout-value" id="ms-ways">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">All arrangements</div><div class="readout-value" id="ms-total">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Times all came back left</div><div class="readout-value" id="ms-back">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="ms-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Nothing is pushing the particles to the right. They just have far more ways to be spread out. My sock drawer works on the same principle.</p></div></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the system's entropy can go down</h4>
+      <p>Water freezes on its own in a freezer, and ice has less entropy than liquid water. That does not break any law. The second law is about the <b>universe</b>: the heat released into the surroundings raises their entropy by more than the water lost.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>Entropy goes up when</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>A solid melts, or a liquid boils</td><td>$\ce{H2O(l) -> H2O(g)}$</td></tr>
+      <tr><td>A reaction makes more gas molecules</td><td>$\ce{CaCO3(s) -> CaO(s) + CO2(g)}$</td></tr>
+      <tr><td>A solid dissolves</td><td>$\ce{NaCl(s) -> Na+(aq) + Cl-(aq)}$</td></tr>
+      <tr><td>A substance is heated</td><td>Faster particles have more ways to share energy</td></tr>
+      <tr><td>A gas expands into more space</td><td>The box you just watched</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="formula">
+    <p class="formula-name">Entropy, by counting and by table</p>
+    <div class="formula-body">$$S = k \ln W$$ $$\Delta S^\circ = \sum n S^\circ(\text{products}) - \sum n S^\circ(\text{reactants})$$</div>
+    <dl><dt>$W$</dt><dd>The number of microstates, or arrangements</dd><dt>$S^\circ$</dt><dd>Standard entropy, in J/(mol K). A perfect crystal at 0 K has $S = 0$: this is the <b>third law</b>.</dd></dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: $\Delta S^\circ$ from a table</h4>
+    <p class="worked-q">Find $\Delta S^\circ$ for $\ce{N2(g) + 3H2(g) -> 2NH3(g)}$. Use $S^\circ$ values of 191.6 for $\ce{N2}$, 130.7 for $\ce{H2}$ and 192.5 for $\ce{NH3}$, all in J/(mol K).</p>
+    <ol>
+      <li>Predict the sign. Four gas molecules become two, so expect a negative answer.</li>
+      <li>Add up the products: $2(192.5) = 385.0$ J/K.</li>
+      <li>Add up the reactants: $191.6 + 3(130.7) = 191.6 + 392.1 = 583.7$ J/K.</li>
+      <li>Products minus reactants: $385.0 - 583.7 = $ <span class="answer">$-198.7$ J/K</span>. The sign matches the prediction.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: elements have entropy</h4>
+      <p>$\Delta H^\circ_f$ and $\Delta G^\circ_f$ of an element in its standard state are zero. $S^\circ$ is <b>not</b>. $\ce{O2(g)}$ has $S^\circ = 205.1$ J/(mol K), so never leave it out of the sum.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="free-energy" data-short="Free energy">Free energy: energy against spreading</h2>
+    <p>Two things decide what happens: lowering energy and spreading out. Sometimes they agree. When they disagree, temperature settles the argument, and one equation captures all of it.</p>
+  </section>
+
+  <div id="story-gibbs"></div>
+
+  <div class="formula">
+    <p class="formula-name">Gibbs free energy</p>
+    <div class="formula-body">$$\Delta G = \Delta H - T\Delta S$$</div>
+    <dl><dt>$T$</dt><dd>Always in kelvin</dd><dt>Units</dt><dd>$\Delta H$ is usually in kJ and $\Delta S$ in J/K. Convert one so they match.</dd></dl>
+  </div>
+
+  <figure class="bench" id="b-quad">
+    <div class="bench-head">
+      <p class="bench-title">The four-quadrant chart</p>
+      <p class="bench-hint">Slide the temperature, or drag the dot.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-quad"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Real processes</span>
+        <div class="seg" id="q-pre">
+          <button type="button" data-value="ice" aria-pressed="true">Ice melts</button>
+          <button type="button" data-value="boil" aria-pressed="false">Water boils</button>
+          <button type="button" data-value="lime" aria-pressed="false">Limestone breaks down</button>
+          <button type="button" data-value="nh3" aria-pressed="false">Making ammonia</button>
+          <button type="button" data-value="h2o2" aria-pressed="false">Peroxide falls apart</button>
+          <button type="button" data-value="o3" aria-pressed="false">Oxygen to ozone</button>
+          <button type="button" data-value="dia" aria-pressed="false">Diamond to graphite</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="q-t">Temperature <span class="ctl-value" id="q-t-out"></span></label>
+        <input type="range" id="q-t" min="100" max="2000" step="1" value="298">
+      </div>
+    </div>
+    <div class="bench-foot" id="q-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>$\Delta H$</th><th>$\Delta S$</th><th>$\Delta G$</th><th>Spontaneous?</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>$-$</td><td>$+$</td><td>Always $-$</td><td>At every temperature</td><td>Peroxide falls apart</td></tr>
+      <tr><td>$+$</td><td>$-$</td><td>Always $+$</td><td>Never, forward</td><td>Oxygen to ozone</td></tr>
+      <tr><td>$-$</td><td>$-$</td><td>$-$ when cold</td><td>Only at low temperature</td><td>Water freezing</td></tr>
+      <tr><td>$+$</td><td>$+$</td><td>$-$ when hot</td><td>Only at high temperature</td><td>Ice melting</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Worked example: making ammonia</h4>
+    <p class="worked-q">For $\ce{N2(g) + 3H2(g) -> 2NH3(g)}$, $\Delta H^\circ = -92.2$ kJ and $\Delta S^\circ = -198.7$ J/K. Is it spontaneous at 298 K? At what temperature does that change?</p>
+    <ol>
+      <li>Convert $\Delta S$ to match: $-198.7\ \cancel{\text{J}}/\text{K} \times \dfrac{1\text{ kJ}}{1000\ \cancel{\text{J}}} = -0.1987$ kJ/K.</li>
+      <li>Substitute: $\Delta G = -92.2\text{ kJ} - (298\ \cancel{\text{K}})(-0.1987\text{ kJ}/\cancel{\text{K}})$.</li>
+      <li>Watch the two minus signs: $\Delta G = -92.2 + 59.2 = $ <span class="answer">$-33.0$ kJ</span>. It is negative, so it is spontaneous at 298 K.</li>
+      <li>Both $\Delta H$ and $\Delta S$ are negative, so heating makes it worse. The flip happens where $\Delta G = 0$, so $T = \dfrac{\Delta H}{\Delta S} = \dfrac{-92.2\text{ kJ}}{-0.1987\text{ kJ/K}} = $ <span class="answer">$464$ K</span>. Above that, it is not spontaneous.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: kilojoules against joules</h4>
+      <p>This is the most common error on the topic. Tables give $\Delta H$ in kJ and $\Delta S$ in J/K. If you forget to convert, the $T\Delta S$ term comes out 1000 times too big and your answer is nonsense. Also use kelvin: 25 °C is 298 K.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="not-fast" data-short="Not the same as fast">Spontaneous does not mean fast</h2>
+    <p>This one trips up nearly everyone, because in everyday English "spontaneous" means sudden. In chemistry, it has nothing to do with speed.</p>
+  </section>
+
+  <div id="story-slow"></div>
+
+  <div class="big-idea">$\Delta G$ tells you whether a reaction can go. It says nothing about how fast. Speed belongs to kinetics and the activation energy.</div>
+
+  <div class="formula">
+    <p class="formula-name">Two more uses of $\Delta G^\circ$</p>
+    <div class="formula-body">$$\Delta G^\circ = \sum n\Delta G^\circ_f(\text{products}) - \sum n\Delta G^\circ_f(\text{reactants})$$ $$\Delta G^\circ = -RT\ln K$$</div>
+    <dl><dt>$R$</dt><dd>$8.314$ J/(mol K), so use $\Delta G^\circ$ in joules here</dd><dt>Signs</dt><dd>$\Delta G^\circ < 0$ means $K > 1$. $\Delta G^\circ > 0$ means $K < 1$. $\Delta G^\circ = 0$ means $K = 1$.</dd></dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: from $\Delta G^\circ$ to $K$</h4>
+    <p class="worked-q">Making ammonia has $\Delta G^\circ = -33.0$ kJ at 298 K. Find $K$.</p>
+    <ol>
+      <li>Rearrange $\Delta G^\circ = -RT\ln K$ to get $\ln K = \dfrac{-\Delta G^\circ}{RT}$.</li>
+      <li>Convert to joules, so the units cancel with $R$: $\ln K = \dfrac{33{,}000\ \cancel{\text{J/mol}}}{(8.314\ \cancel{\text{J/(mol K)}})(298\ \cancel{\text{K}})} = 13.32$.</li>
+      <li>Undo the log: $K = e^{13.32} = $ <span class="answer">$6.1 \times 10^{5}$</span>. A big $K$ fits a negative $\Delta G^\circ$.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="thermo"></div>
+  <div data-practice="thermo"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Spontaneous</strong> means it can happen without continued outside help. It says nothing about speed.</li>
+      <li><strong>Entropy</strong> counts arrangements: $S = k\ln W$. Gas beats liquid beats solid, and more gas molecules means more entropy.</li>
+      <li>Second law: every spontaneous process raises the entropy of the universe.</li>
+      <li>$\Delta G = \Delta H - T\Delta S$. Negative is spontaneous, zero is equilibrium. Convert J to kJ, and use kelvin.</li>
+      <li>The flip temperature is $T = \Delta H / \Delta S$, when both have the same sign.</li>
+      <li>$\Delta G^\circ = -RT\ln K$. Negative $\Delta G^\circ$ means $K > 1$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

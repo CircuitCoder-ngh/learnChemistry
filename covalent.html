@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Covalent bonds and polarity | The Mole Hole</title>
+<meta name="description" content="Drag two hydrogen atoms across a real energy well, compare single, double and triple bonds, and run an electronegativity tug of war from nonpolar to ionic.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/covalent.js"></script>
+<script defer src="assets/js/pages/covalent.js"></script>
+</head>
+<body data-page="covalent">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Covalent bonds and polarity</h1>
+        <p class="lede">Two nonmetals both want electrons, so neither gives any up. They share instead, and the sharing is not always fair.</p>
+      </div>
+      <div class="lesson-moe" data-moe="happy"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why two atoms bond at a particular distance</li>
+    <li>Read bond length and bond energy from an energy curve</li>
+    <li>Compare single, double and triple bonds</li>
+    <li>Use electronegativity to classify a bond and draw its dipole</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="share" data-short="Why share?">Why share?</h2>
+    <p>A hydrogen atom has one electron and would like two. So would its neighbor. Neither one is giving, so they share. Watch what pulls them together, and what stops them from getting too close.</p>
+  </section>
+
+  <div id="story-share"></div>
+
+  <div class="big-idea">A covalent bond is a shared pair of electrons, pulled on by two nuclei at once.</div>
+
+  <section class="prose">
+    <h2 id="well" data-short="The energy well">The energy well</h2>
+    <p>This is the most important graph in bonding. It shows the energy of two hydrogen atoms at any distance. Lower energy means more stable. Drag the right atom and watch its dot ride the curve. Then let go.</p>
+  </section>
+
+  <figure class="bench" id="b-well">
+    <div class="bench-head">
+      <p class="bench-title">The H₂ energy well</p>
+      <p class="bench-hint">Drag the atom left and right. Where is the energy lowest?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-well"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">When you let go</span>
+        <div class="seg" id="well-mode">
+          <button type="button" data-value="roll" aria-pressed="true">Roll into the well</button>
+          <button type="button" data-value="stay" aria-pressed="false">Stay put</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" class="btn sun small" id="well-pull">Pull them apart</button>
+        <button type="button" class="btn ghost small" id="well-push">Squeeze them</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Distance between nuclei</div><div class="readout-value" id="well-r"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Energy</div><div class="readout-value" id="well-e"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Net push or pull</div><div class="readout-value" id="well-f"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p id="well-say"></p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Notice that a real bond never sits perfectly still. It keeps vibrating around the bottom of the well, like a marble in a bowl. I would know: I once dropped a marble into my lab bowl and lost a whole afternoon.</p></div></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: breaking bonds costs energy</h4>
+      <p>To break a bond you have to climb out of the well, so it always <b>takes in</b> energy. Forming a bond releases energy. "Energy stored in the bond" makes students think breaking releases it. It never does.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: using bond energy</h4>
+    <p class="worked-q">How much energy does it take to break all the H-H bonds in 3.00 g of $\ce{H2}$? The bond energy is 436 kJ/mol.</p>
+    <ol>
+      <li>Find moles of $\ce{H2}$. Its molar mass is $2(1.008) = 2.016$ g/mol: $3.00\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{2.016\ \cancel{\text{g}}} = 1.488\text{ mol}$, keeping one extra digit for now.</li>
+      <li>Each mole of $\ce{H2}$ holds one mole of H-H bonds, so use the bond energy directly.</li>
+      <li>$1.488\ \cancel{\text{mol}} \times \dfrac{436\text{ kJ}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$649$ kJ</span>, to three significant figures.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="orders" data-short="Single, double, triple">Single, double, triple</h2>
+    <p>Atoms can share more than one pair. Two shared pairs make a double bond, and three make a triple bond. The number of pairs is the <strong>bond order</strong>. More shared electrons between the nuclei pull them closer and hold them tighter. Turn up the energy below and see what snaps first.</p>
+  </section>
+
+  <figure class="bench" id="b-orders">
+    <div class="bench-head">
+      <p class="bench-title">Bond strength tester</p>
+      <p class="bench-hint">How much energy does it take to snap a triple bond?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-orders"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Atoms</span>
+        <div class="seg" id="ord-fam">
+          <button type="button" data-value="C-C" aria-pressed="true">Carbon, carbon</button>
+          <button type="button" data-value="N-N" aria-pressed="false">Nitrogen, nitrogen</button>
+          <button type="button" data-value="O-O" aria-pressed="false">Oxygen, oxygen</button>
+          <button type="button" data-value="C-O" aria-pressed="false">Carbon, oxygen</button>
+          <button type="button" data-value="C-N" aria-pressed="false">Carbon, nitrogen</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="ord-e">Energy you put in <span class="ctl-value" id="ord-e-out"></span></label>
+        <input type="range" id="ord-e" min="0" max="1100" step="10" value="0">
+      </div>
+    </div>
+    <div class="bench-foot"><p id="ord-say"></p></div>
+  </figure>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Bond</th><th>Length (pm)</th><th>Energy (kJ/mol)</th></tr></thead>
+    <tbody id="hx-table"></tbody>
+  </table></div>
+
+  <section class="prose"><p>These bonds to hydrogen show a second trend. Going down the halogens, atoms get bigger, the bond gets longer, and it gets weaker. Values here and in the tester are typical, and they vary a little between sources.</p></section>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: a double bond is not simply twice as strong</h4>
+      <p>C-C is 347 kJ/mol, and C=C is 614 kJ/mol. Two singles would be $2 \times 347 = 694$. The second pair sits in a weaker kind of overlap, as the next lessons will show. The exact ratio depends on the atoms: N-N and O-O have unusually weak single bonds, so theirs come out above 2. Also, the shorter bond is the stronger one, in the same pair of atoms.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="polar" data-short="Tug of war">A tug of war for electrons</h2>
+    <p>Two identical atoms share perfectly. But different atoms pull with different strength. That pulling strength is <strong>electronegativity</strong>, and it rises toward fluorine at the top right of the periodic table. Sharing turns unequal, then one-sided.</p>
+  </section>
+
+  <div id="story-polar"></div>
+
+  <figure class="bench" id="b-tug">
+    <div class="bench-head">
+      <p class="bench-title">Electronegativity tug of war</p>
+      <p class="bench-hint">Pick any two atoms. Can you find a pair that is just barely polar?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tug"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Left atom</span>
+        <div class="seg" id="tug-a"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Right atom</span>
+        <div class="seg" id="tug-b"></div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-cyan"><div class="readout-label">Electronegativity</div><div class="readout-value" id="tug-en"></div></div>
+        <div class="readout is-sun"><div class="readout-label">Difference</div><div class="readout-value" id="tug-d"></div></div>
+        <div class="readout is-pink"><div class="readout-label">Bond type</div><div class="readout-value" id="tug-k"></div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tug-say"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Classifying a bond by electronegativity difference</p>
+    <div class="formula-body">$$\Delta\text{EN} = |\text{EN}_1 - \text{EN}_2|$$</div>
+    <dl>
+      <dt>Under 0.4</dt><dd>Nonpolar covalent: about equal sharing</dd>
+      <dt>0.4 to 1.8</dt><dd>Polar covalent: unequal sharing, partial charges</dd>
+      <dt>Over 1.8</dt><dd>Ionic: electrons effectively transferred</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: classify and draw a dipole</h4>
+    <p class="worked-q">Classify the C-O bond and draw its dipole. Electronegativities: C = 2.55, O = 3.44.</p>
+    <ol>
+      <li>Difference: $|3.44 - 2.55| = 0.89$.</li>
+      <li>This is between 0.4 and 1.8, so it is <b>polar covalent</b>.</li>
+      <li>O is more electronegative, so O is $\delta-$ and C is $\delta+$.</li>
+      <li>The dipole arrow points from C to O, with its cross at C: <span class="answer">polar covalent, $\overset{\delta+}{\text{C}} - \overset{\delta-}{\text{O}}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: cutoffs are not sharp lines</h4>
+      <p>Bonds run along a smooth scale from equal sharing to full transfer, and textbooks disagree on the exact cutoffs. Some use 0.5 and 2.0. H-F has a difference of 1.78 and is usually called polar covalent, while metal and nonmetal pairs are usually called ionic regardless. Use your instructor's numbers.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="covalent"></div>
+  <div data-practice="covalent"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Covalent bond: a shared pair pulled on by both nuclei.</li>
+      <li>Bond length: the distance at the energy minimum. Bond energy: the depth of the well. For $\ce{H2}$, 74 pm and 436 kJ/mol.</li>
+      <li>Single to double to triple: shorter and stronger, but the strength does not simply double or triple.</li>
+      <li>Breaking bonds takes in energy. Forming bonds releases it.</li>
+      <li>$\Delta$EN under 0.4 nonpolar, 0.4 to 1.8 polar, over 1.8 ionic. The dipole arrow points to the negative end.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

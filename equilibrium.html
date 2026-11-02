@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemical equilibrium | The Mole Hole</title>
+<meta name="description" content="Watch a reversible reaction settle into dynamic balance. Learn K and Q, solve ICE tables, and push a live reaction with Le Chatelier stresses.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/equilibrium.js"></script>
+<script defer src="assets/js/pages/equilibrium.js"></script>
+</head>
+<body data-page="equilibrium">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Bonus topic</span></p>
+        <h1>Chemical equilibrium</h1>
+        <p class="lede">Many reactions run both ways. They settle when the two directions match speed, and then they keep on running.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why equilibrium is dynamic</li>
+    <li>Write K, and use Q to predict the direction</li>
+    <li>Solve ICE tables, including the quadratic kind</li>
+    <li>Predict shifts with Le Chatelier's principle</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="balance" data-short="Dynamic balance">Two directions at once</h2>
+    <p>So far, reactions have gone one way and stopped. Many do not. Products can turn back into reactants, and the double arrow $\ce{<=>}$ says so.</p>
+  </section>
+
+  <div id="story-balance"></div>
+
+  <div class="big-idea">At equilibrium, the forward rate equals the reverse rate. The amounts stop changing. The molecules do not stop.</div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: equal rates, not equal amounts</h4>
+      <p>"At equilibrium, reactants and products are equal" is the most common wrong answer on this topic. The <b>rates</b> are equal. The amounts can be 99 to 1 and still be at equilibrium.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="lab" data-short="Equilibrium lab">Push it and watch</h2>
+    <p>Every particle below decides for itself, moment by moment, whether to flip. Nobody tells the system to balance. It balances anyway. Let it settle, then disturb it.</p>
+  </section>
+
+  <figure class="bench" id="b-lab">
+    <div class="bench-head">
+      <p class="bench-title">Equilibrium lab</p>
+      <p class="bench-hint">Can you make it run backward?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-lab"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Disturb the amounts</span>
+        <div class="btn-row" style="display:flex;flex-wrap:wrap;gap:12px 10px">
+          <button type="button" class="btn small" id="le-add-a">Add reactant A</button>
+          <button type="button" class="btn small cyan" id="le-rem-b">Remove product B</button>
+          <button type="button" class="btn small cyan" id="le-add-b">Add product B</button>
+          <button type="button" class="btn small" id="le-rem-a">Remove reactant A</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="le-t">Temperature <span class="ctl-value" id="le-t-out"></span></label>
+        <input type="range" id="le-t" min="250" max="450" step="5" value="300">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Forward reaction is</span>
+        <div class="seg" id="le-type">
+          <button type="button" data-value="exo" aria-pressed="true">Exothermic</button>
+          <button type="button" data-value="endo" aria-pressed="false">Endothermic</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Graph</span>
+        <div class="seg" id="le-plot">
+          <button type="button" data-value="rates" aria-pressed="true">Rates</button>
+          <button type="button" data-value="amounts" aria-pressed="false">Amounts</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Start again</span>
+        <button type="button" class="btn small ghost" id="le-reset">Reset to all A</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="le-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Notice nothing in the code says "stop at this ratio". Each particle only knows its own odds of flipping. The balance is what happens when you add up thousands of tiny decisions, a bit like a crowd in my tunnels.</p></div></div>
+
+  <section class="prose">
+    <h2 id="k-and-q" data-short="K and Q">K and Q</h2>
+    <p>Where does a reaction settle? One number says so: the <strong>equilibrium constant</strong>, $K$. A second number, $Q$, says where things stand right now. Comparing them tells you which way the reaction will go.</p>
+  </section>
+
+  <div id="story-k"></div>
+
+  <div class="formula">
+    <p class="formula-name">The equilibrium constant, for $a\text{A} + b\text{B} \rightleftharpoons c\text{C} + d\text{D}$</p>
+    <div class="formula-body">$$K = \frac{[\text{C}]^c[\text{D}]^d}{[\text{A}]^a[\text{B}]^b}$$</div>
+    <dl><dt>Use</dt><dd>Equilibrium concentrations. Gases and dissolved species only: pure solids and liquids are left out.</dd><dt>$Q$</dt><dd>The same fraction, using the concentrations at any moment.</dd></dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: which way will it go?</h4>
+    <p class="worked-q">For $\ce{N2(g) + 3H2(g) <=> 2NH3(g)}$, $K = 0.500$ at some temperature. A flask holds $[\ce{N2}] = 1.00$ M, $[\ce{H2}] = 1.00$ M and $[\ce{NH3}] = 2.00$ M. Which way does it run?</p>
+    <ol>
+      <li>Write $Q$. Coefficients become exponents: $Q = \dfrac{[\ce{NH3}]^2}{[\ce{N2}][\ce{H2}]^3}$.</li>
+      <li>Substitute the numbers: $Q = \dfrac{(2.00)^2}{(1.00)(1.00)^3} = 4.00$.</li>
+      <li>Compare: $Q = 4.00$ is bigger than $K = 0.500$. There is too much product for equilibrium.</li>
+      <li>So <span class="answer">it runs in reverse</span>, using up $\ce{NH3}$ until $Q$ falls to 0.500.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="ice" data-short="ICE tables">ICE tables</h2>
+    <p>Most equilibrium problems give you starting amounts and $K$, then ask where it ends up. An <strong>ICE table</strong> keeps it tidy: <b>I</b>nitial, <b>C</b>hange, <b>E</b>quilibrium. The unknown amount that reacts is called $x$.</p>
+  </section>
+
+  <figure class="bench" id="b-ice">
+    <div class="bench-head">
+      <p class="bench-title">ICE table solver</p>
+      <p class="bench-hint">Slide $K$. What happens when it is huge or tiny?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ice"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="ice-type">
+          <button type="button" data-value="ab" aria-pressed="true">A ⇌ B</button>
+          <button type="button" data-value="a2b" aria-pressed="false">A ⇌ 2B</button>
+          <button type="button" data-value="abc" aria-pressed="false">A + B ⇌ 2C</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="ice-a"><span>Starting amount</span> <span class="ctl-value" id="ice-a-out"></span></label>
+        <input type="range" id="ice-a" min="0.1" max="2" step="0.05" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="ice-k"><span>Equilibrium constant $K$</span> <span class="ctl-value" id="ice-k-out"></span></label>
+        <input type="range" id="ice-k" min="-2" max="2" step="0.1" value="0.3">
+      </div>
+    </div>
+    <div class="bench-foot" id="ice-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: a perfect square</h4>
+    <p class="worked-q">$\ce{H2(g) + I2(g) <=> 2HI(g)}$ has $K = 50.0$ near 450 °C. You start with 1.00 M of $\ce{H2}$ and 1.00 M of $\ce{I2}$. Find the concentration of $\ce{HI}$ at equilibrium.</p>
+    <div class="tbl-wrap" style="position:relative"><table class="tbl">
+      <thead><tr><th></th><th>$\ce{H2}$</th><th>$\ce{I2}$</th><th>$\ce{HI}$</th></tr></thead>
+      <tbody>
+        <tr><td>Initial</td><td>1.00</td><td>1.00</td><td>0</td></tr>
+        <tr><td>Change</td><td>$-x$</td><td>$-x$</td><td>$+2x$</td></tr>
+        <tr><td>Equilibrium</td><td>$1.00 - x$</td><td>$1.00 - x$</td><td>$2x$</td></tr>
+      </tbody>
+    </table></div>
+    <ol>
+      <li>Fill the Change row from the coefficients. One $\ce{H2}$ and one $\ce{I2}$ make two $\ce{HI}$, so the changes are $-x$, $-x$ and $+2x$.</li>
+      <li>Put the bottom row into $K$: $50.0 = \dfrac{(2x)^2}{(1.00 - x)(1.00 - x)} = \left(\dfrac{2x}{1.00 - x}\right)^2$.</li>
+      <li>It is a perfect square, so take the root of both sides: $7.07 = \dfrac{2x}{1.00 - x}$.</li>
+      <li>Solve for $x$: $7.07 - 7.07x = 2x$, so $x = \dfrac{7.07}{9.07} = 0.780$ M.</li>
+      <li>Read the bottom row: $[\ce{HI}] = 2x = $ <span class="answer">$1.56$ M</span>, and $[\ce{H2}] = [\ce{I2}] = 0.220$ M.</li>
+      <li>Check: $\dfrac{(1.56)^2}{(0.220)(0.220)} \approx 50$. It works.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: when you need the quadratic formula</h4>
+    <p class="worked-q">$\ce{N2O4(g) <=> 2NO2(g)}$ has $K = 0.20$ at some temperature. You start with 0.50 M of $\ce{N2O4}$ and no $\ce{NO2}$. Find both equilibrium concentrations.</p>
+    <ol>
+      <li>The table's bottom row is $[\ce{N2O4}] = 0.50 - x$ and $[\ce{NO2}] = 2x$.</li>
+      <li>Put them into $K$: $0.20 = \dfrac{(2x)^2}{0.50 - x}$.</li>
+      <li>Multiply out and collect terms: $0.10 - 0.20x = 4x^2$, so $4x^2 + 0.20x - 0.10 = 0$.</li>
+      <li>Use the quadratic formula: $x = \dfrac{-0.20 + \sqrt{(0.20)^2 + 4(4)(0.10)}}{2(4)} = \dfrac{-0.20 + 1.281}{8} = 0.1351$ M. The minus root gives a negative $x$, so drop it.</li>
+      <li>Read the bottom row: <span class="answer">$[\ce{NO2}] = 0.27$ M and $[\ce{N2O4}] = 0.36$ M</span>, to two significant figures.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="le-chatelier" data-short="Le Chatelier">Le Chatelier's principle</h2>
+    <p>Disturb a system at equilibrium and it shifts in the direction that eases the disturbance. You saw that in the lab. Here it is with a real gas that changes color, so you can see the shift without a graph.</p>
+  </section>
+
+  <div id="story-gas"></div>
+
+  <div class="tbl-wrap" style="position:relative"><table class="tbl">
+    <thead><tr><th>You do this</th><th>It shifts</th><th>Does $K$ change?</th></tr></thead>
+    <tbody>
+      <tr><td>Add a reactant, or remove a product</td><td>Forward</td><td>No</td></tr>
+      <tr><td>Add a product, or remove a reactant</td><td>Reverse</td><td>No</td></tr>
+      <tr><td>Squeeze a gas into less volume</td><td>Toward fewer gas molecules</td><td>No</td></tr>
+      <tr><td>Heat an exothermic reaction</td><td>Reverse, since heat acts as a product</td><td>Yes, $K$ falls</td></tr>
+      <tr><td>Heat an endothermic reaction</td><td>Forward, since heat acts as a reactant</td><td>Yes, $K$ rises</td></tr>
+      <tr><td>Add a catalyst</td><td>No shift. It only arrives sooner.</td><td>No</td></tr>
+      <tr><td>Add an unreactive gas at fixed volume</td><td>No shift</td><td>No</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: only temperature changes K</h4>
+      <p>Adding $\ce{A}$ shifts the amounts, but $K$ stays put. $Q$ is what moved, and the reaction runs until $Q$ matches the same old $K$. A catalyst speeds up both directions equally, so it changes neither $K$ nor the final amounts.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="equilibrium"></div>
+  <div data-practice="equilibrium"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>At <strong>equilibrium</strong>, forward rate equals reverse rate. Amounts are constant, but rarely equal.</li>
+      <li>$K$ is products over reactants, with coefficients as exponents. Leave out pure solids and liquids.</li>
+      <li>$Q < K$ runs forward. $Q > K$ runs in reverse. $Q = K$ is at equilibrium.</li>
+      <li>ICE table: Initial, Change from coefficients, Equilibrium. Put the bottom row into $K$.</li>
+      <li><strong>Le Chatelier</strong>: a system eases any stress. Only temperature changes $K$.</li>
+      <li>Reverse a reaction: $K$ becomes $1/K$. Multiply it by $n$: $K$ becomes $K^n$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

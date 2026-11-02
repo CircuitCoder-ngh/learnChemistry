@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oxidation and reduction | The Mole Hole</title>
+<meta name="description" content="Watch electrons jump from zinc to copper, assign oxidation numbers with a tap-any-atom tool, and predict reactions with an activity series lab.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/redox.js"></script>
+<script defer src="assets/js/pages/redox.js"></script>
+</head>
+<body data-page="redox">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Oxidation and reduction</h1>
+        <p class="lede">Some reactions are electrons changing owners. A short set of number rules lets you follow them through any reaction, from rust to a burning flame.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wow"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Say which species is oxidized and which is reduced</li>
+    <li>Assign oxidation numbers using the rules in order</li>
+    <li>Name the oxidizing agent and the reducing agent</li>
+    <li>Predict reactions with the activity series, and balance electrons</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="transfer" data-short="Electrons change owners">Electrons change owners</h2>
+    <p>Put a strip of zinc into blue copper sulfate solution. Within minutes the strip grows a rusty brown coat and the blue begins to fade. The picture below shows why.</p>
+  </section>
+
+  <div id="story-zinc"></div>
+
+  <div class="big-idea">Oxidation is losing electrons. Reduction is gaining electrons. One never happens without the other.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Two ways to remember it. <b>OIL RIG</b>: Oxidation Is Loss, Reduction Is Gain. Or <b>LEO says GER</b>: Lose Electrons Oxidation, Gain Electrons Reduction. I prefer the lion. I am told that moles should not, for safety reasons.</p></div></div>
+
+  <div class="formula">
+    <p class="formula-name">Half-reactions show each side of the trade</p>
+    <div class="formula-body">$$\text{Oxidation: }\ce{Zn -> Zn^2+ + 2e-}$$ $$\text{Reduction: }\ce{Cu^2+ + 2e- -> Cu}$$ $$\text{Overall: }\ce{Zn + Cu^2+ -> Zn^2+ + Cu}$$</div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the agent is named for what it does to the other one</h4>
+      <p>The <b>oxidizing agent</b> causes oxidation, so it takes the electrons, and it <b>gets reduced</b>. The <b>reducing agent</b> causes reduction, so it gives the electrons, and it <b>gets oxidized</b>. In this reaction, $\ce{Cu^2+}$ is the oxidizing agent and $\ce{Zn}$ is the reducing agent.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="numbers" data-short="Oxidation numbers">Oxidation numbers: tracking the electrons</h2>
+    <p>Sometimes you cannot see electrons move, because the atoms share them. So chemists use a bookkeeping number called the <strong>oxidation number</strong>. It says how many electrons an atom has lost or gained, assuming the more electronegative partner takes them all.</p>
+    <p>If an atom's number <strong>goes up</strong>, it was oxidized. If it <strong>goes down</strong>, it was reduced. Use these rules, and when two rules disagree, the higher one wins.</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Priority</th><th>Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>A free element is 0</td><td>$\ce{Fe}$, $\ce{O2}$, $\ce{S8}$ are all 0</td></tr>
+        <tr><td>2</td><td>A one-atom ion equals its charge</td><td>$\ce{Na+}$ is +1, $\ce{S^2-}$ is −2</td></tr>
+        <tr><td>3</td><td>Group 1 is +1. Group 2 is +2. Aluminum is +3</td><td>Na in $\ce{NaCl}$ is +1</td></tr>
+        <tr><td>4</td><td>Fluorine is −1</td><td>F in $\ce{OF2}$ is −1</td></tr>
+        <tr><td>5</td><td>Hydrogen is +1, but −1 with a metal</td><td>H in $\ce{H2O}$ is +1, in $\ce{NaH}$ is −1</td></tr>
+        <tr><td>6</td><td>Oxygen is −2, but −1 in peroxides</td><td>O in $\ce{CO2}$ is −2, in $\ce{H2O2}$ is −1</td></tr>
+        <tr><td>7</td><td>Cl, Br, I are −1, unless with O or a lighter halogen</td><td>Cl in $\ce{HCl}$ is −1, in $\ce{ClO4-}$ is +7</td></tr>
+        <tr><td>8</td><td>All the numbers add up to the total charge</td><td>$\ce{SO4^2-}$: S + 4(−2) = −2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="bench" id="b-ox">
+    <div class="bench-head">
+      <p class="bench-title">Tap any atom</p>
+      <p class="bench-hint">Tap an atom to see its number and the rule behind it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ox"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Mode</span>
+        <div class="seg" id="ox-mode">
+          <button type="button" data-value="explore" aria-pressed="true">Explore</button>
+          <button type="button" data-value="test" aria-pressed="false">Test me</button>
+        </div>
+      </div>
+      <div class="ctl" id="ox-pick-ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Species</span>
+        <div class="seg" id="ox-pick"></div>
+      </div>
+      <div id="ox-explore-btns" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px">
+        <button type="button" class="btn" id="ox-next">Reveal the next atom</button>
+      </div>
+      <form id="ox-form" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center" hidden>
+        <label for="ox-ans" class="ctl-label" id="ox-q" style="margin:0"></label>
+        <input id="ox-ans" type="text" autocomplete="off" placeholder="+6" style="max-width:110px">
+        <button type="submit" class="btn">Check my number</button>
+        <button type="button" class="btn ghost" id="ox-skip">Give me a new one</button>
+      </form>
+    </div>
+    <div class="bench-foot" id="ox-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: a plain polyatomic ion</h4>
+    <p class="worked-q">What is the oxidation number of Cr in $\ce{Cr2O7^2-}$?</p>
+    <ol>
+      <li>Rule 6: each oxygen is −2.</li>
+      <li>Rule 8: the numbers must add up to the charge of the ion, which is −2.</li>
+      <li>Write it with $x$ for chromium: $2x + 7(-2) = -2$.</li>
+      <li>Simplify: $2x - 14 = -2$, so $2x = 12$.</li>
+      <li>So <span class="answer">$x = +6$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: spot the change</h4>
+    <p class="worked-q">In $\ce{2Fe^2+ + Cl2 -> 2Fe^3+ + 2Cl-}$, what is oxidized and what is reduced?</p>
+    <ol>
+      <li>Iron goes from +2 to +3. The number went up, so $\ce{Fe^2+}$ lost an electron and was <b>oxidized</b>.</li>
+      <li>Chlorine goes from 0 in $\ce{Cl2}$ to −1 in $\ce{Cl-}$. The number went down, so $\ce{Cl2}$ gained electrons and was <b>reduced</b>.</li>
+      <li>$\ce{Cl2}$ took electrons, so it is the oxidizing agent. $\ce{Fe^2+}$ gave them, so it is the reducing agent.</li>
+      <li>Check the electrons: 2 Fe each lose 1, and 2 Cl each gain 1. <span class="answer">2 electrons lost, 2 electrons gained.</span></li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: sign first, and the number can exceed an ion's charge</h4>
+      <p>Write oxidation numbers with the sign in front, such as +6, to tell them apart from ionic charges, which go 6+. And $\ce{S}$ in $\ce{SO4^2-}$ being +6 does not mean a real $\ce{S^6+}$ ion exists. It is bookkeeping, not a measurement.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="activity" data-short="Activity series">The activity series: who wins the electrons?</h2>
+    <p>Metals differ in how readily they give up electrons. Rank them and you have the <strong>activity series</strong>. A metal gives electrons to the ion of any metal <strong>below</strong> it on the ladder. It cannot take over from a metal above it.</p>
+    <p>So zinc hands its electrons to copper ions, and copper metal forms. Put copper in zinc sulfate and nothing happens at all. Hydrogen is on the ladder too, so you can tell which metals dissolve in acid.</p>
+  </section>
+
+  <figure class="bench" id="b-activity">
+    <div class="bench-head">
+      <p class="bench-title">Activity series lab</p>
+      <p class="bench-hint">Pick a metal strip and a solution. Green is your metal. Cyan is the ion.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-activity"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Metal strip</span>
+        <div class="seg" id="act-metal"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Solution</span>
+        <div class="seg" id="act-ion"></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="act-say" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="everywhere" data-short="Redox everywhere">Redox is everywhere</h2>
+    <p>Rust, fire, batteries, and bleach are all redox. And nothing has to look ionic. Oxidation numbers follow the electrons, even in a flame.</p>
+  </section>
+
+  <div id="story-everywhere"></div>
+
+  <section class="prose">
+    <p>Here is the half-reaction method for a harder case, a reaction in acid. Exams at this level often ask for this one. Balance each half on its own, then match the electrons.</p>
+  </section>
+
+  <div class="worked">
+    <h4>Worked example: half-reactions in acid</h4>
+    <p class="worked-q">Balance $\ce{MnO4-}$ + $\ce{Fe^2+}$ $\rightarrow$ $\ce{Mn^2+}$ + $\ce{Fe^3+}$ in acid.</p>
+    <ol>
+      <li>Oxidation half: $\ce{Fe^2+ -> Fe^3+ + e-}$.</li>
+      <li>Reduction half, atoms other than O and H first: $\ce{MnO4- -> Mn^2+}$.</li>
+      <li>Add $\ce{H2O}$ to balance O: $\ce{MnO4- -> Mn^2+ + 4H2O}$.</li>
+      <li>Add $\ce{H+}$ to balance H: $\ce{MnO4- + 8H+ -> Mn^2+ + 4H2O}$.</li>
+      <li>Add electrons to balance charge. The left is +7 and the right is +2, so add 5 to the left: $\ce{MnO4-}$ + $\ce{8H+}$ + $\ce{5e-}$ $\rightarrow$ $\ce{Mn^2+}$ + $\ce{4H2O}$.</li>
+      <li>Match electrons: multiply the iron half by 5, then add them up. The electrons cancel.</li>
+      <li>Result: <span class="answer">$\ce{MnO4-}$ + $\ce{8H+}$ + $\ce{5Fe^2+}$ $\rightarrow$ $\ce{Mn^2+}$ + $\ce{4H2O}$ + $\ce{5Fe^3+}$</span>. Check the charge: $-1 + 8 + 10 = +17$ on the left, and $2 + 15 = +17$ on the right.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="redox"></div>
+  <div data-practice="redox"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>OIL RIG</strong>: Oxidation Is Loss of electrons, Reduction Is Gain.</li>
+      <li>If an oxidation number <strong>goes up</strong>, it was oxidized. If it <strong>goes down</strong>, it was reduced.</li>
+      <li>The <strong>oxidizing agent</strong> takes electrons and is reduced. The <strong>reducing agent</strong> gives electrons and is oxidized.</li>
+      <li>Oxidation numbers always add up to the total charge.</li>
+      <li>A metal displaces the ion of any metal <strong>below it</strong> in the activity series.</li>
+      <li>Electrons lost must equal electrons gained. Multiply the half-reactions until they match.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

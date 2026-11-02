@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ions and compounds | The Mole Hole</title>
+<meta name="description" content="Cations and anions, ionic versus molecular compounds, writing formulas by balancing charges, the criss-cross method, and the polyatomic ions you must know.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/compounds.js"></script>
+<script defer src="assets/js/pages/compounds.js"></script>
+</head>
+<body data-page="compounds">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Ions and compounds</h1>
+        <p class="lede">Some atoms trade electrons and stack into crystals. Others share and form separate molecules. Formulas mean something different for each.</p>
+      </div>
+      <div class="lesson-moe" data-moe="happy"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Tell cations from anions, and ionic compounds from molecular ones</li>
+    <li>Explain why an ionic formula is a ratio and a molecular formula is a real count</li>
+    <li>Write the formula of any ionic compound by balancing charges</li>
+    <li>Recognize the common polyatomic ions</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="two-ways" data-short="Two kinds of compound">Two kinds of compound</h2>
+    <p>A compound is two or more elements bonded together. There are two main ways to do that. Atoms can hand electrons over, or they can share them. The story shows both.</p>
+  </section>
+
+  <div id="story-kinds"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wave"></div><div class="bubble"><p>Remember which ion is which: a <b>cat-ion</b> has paws, so it is <b>paws-itive</b>. Yes, I know. An <b>an-ion</b> is <b>a negative ion</b>. Moles have paws too, but nobody made a word for us.</p></div></div>
+
+  <div class="big-idea">Metal plus nonmetal usually means ionic. Only nonmetals usually means molecular.</div>
+
+  <section class="prose">
+    <h2 id="tug" data-short="Pull them apart">Pull on them and see the difference</h2>
+    <p>Grab a particle and pull. <strong>In salt, can you find the chloride that belongs to one sodium?</strong> Then switch to water and try again.</p>
+  </section>
+
+  <figure class="bench" id="b-tug">
+    <div class="bench-head">
+      <p class="bench-title">The pull test</p>
+      <p class="bench-hint">Drag any particle.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tug"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Substance</span>
+        <div class="seg" id="tug-mode">
+          <button type="button" data-value="ionic" aria-pressed="true">Salt, NaCl (ionic)</button>
+          <button type="button" data-value="molecular" aria-pressed="false">Water, H₂O (molecular)</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="tug-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: formula unit or molecule?</h4>
+      <p>$\ce{NaCl}$ is a <b>formula unit</b>: the smallest ratio of ions in the crystal, not a thing you can pick up. $\ce{H2O}$ is a <b>molecule</b>: a real, separate particle. So never call it "a molecule of salt." One exception to the shortcut: compounds with ammonium, such as $\ce{NH4Cl}$, are ionic even though they contain only nonmetals.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="balance" data-short="Balancing charges">Writing ionic formulas: charges must cancel</h2>
+    <p>Crystals are neutral, so the positive and negative charges must add to zero. That single rule gives you every ionic formula. Try it. Add ions until every plus has a matching minus.</p>
+  </section>
+
+  <figure class="bench" id="b-charge">
+    <div class="bench-head">
+      <p class="bench-title">Charge balancer</p>
+      <p class="bench-hint">Tap a bin to add an ion. Tap an ion in the tray to remove it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-charge"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="cb-cat">Cation</label>
+        <select id="cb-cat"></select>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="cb-an">Anion</label>
+        <select id="cb-an"></select>
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap">
+        <button type="button" class="btn small" id="cb-add-cat"></button>
+        <button type="button" class="btn small cyan" id="cb-add-an"></button>
+        <button type="button" class="btn small sun" id="cb-new">Pick a new pair for me</button>
+        <button type="button" class="btn small ghost" id="cb-clear">Empty the tray</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="cb-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h3 id="crisscross">The shortcut: criss-cross</h3>
+    <p>Balancing by hand always works, and it shows why. Once you get it, there is a faster way. The charge of each ion becomes the subscript of the other. Then simplify if you can. Pick any pair.</p>
+  </section>
+
+  <figure class="bench" id="b-cross">
+    <div class="bench-head">
+      <p class="bench-title">Criss-cross animator</p>
+      <p class="bench-hint">Pick two ions, then watch the charges swap places.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cross"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="cc-cat">Cation</label>
+        <select id="cc-cat"></select>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="cc-an">Anion</label>
+        <select id="cc-an"></select>
+      </div>
+      <div class="ctl" style="display:flex;align-items:end;gap:12px;flex-wrap:wrap">
+        <button type="button" class="btn small" id="cc-play">Play it again</button>
+      </div>
+    </div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">The rule behind every ionic formula</p>
+    <div class="formula-body">$$\begin{gathered} (\text{cations})(\text{cation charge}) \\ +\ (\text{anions})(\text{anion charge}) = 0 \end{gathered}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: write a formula from charges</h4>
+    <p class="worked-q">What is the formula of the compound of aluminum ions and sulfate ions?</p>
+    <ol>
+      <li>Write the ions with their charges: $\ce{Al^3+}$ and $\ce{SO4^2-}$.</li>
+      <li>Find the smallest total charge both can reach. The lowest common multiple of 3 and 2 is 6.</li>
+      <li>You need $+6$: that takes 2 aluminum ions, since $2 \times (+3) = +6$.</li>
+      <li>You need $-6$: that takes 3 sulfate ions, since $3 \times (-2) = -6$.</li>
+      <li>More than one sulfate means parentheses: <span class="answer">$\ce{Al2(SO4)3}$</span>. Check: $+6 - 6 = 0$.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: find a charge from a formula</h4>
+    <p class="worked-q">What is the charge on iron in $\ce{Fe2O3}$?</p>
+    <ol>
+      <li>Oxide is always $-2$. Three of them total $3 \times (-2) = -6$.</li>
+      <li>The whole formula is neutral, so the two irons must total $+6$.</li>
+      <li>Divide among the irons: $\dfrac{+6}{2} = +3$. Each iron is <span class="answer">$\ce{Fe^3+}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: three formula mistakes</h4>
+      <ul>
+        <li><b>Forgetting parentheses.</b> $\ce{Ca(OH)2}$ has two hydroxides. Writing $\ce{CaOH2}$ means something else entirely.</li>
+        <li><b>Not simplifying.</b> Criss-crossing $\ce{Ca^2+}$ and $\ce{O^2-}$ gives $\ce{Ca2O2}$, which must reduce to $\ce{CaO}$. But never reduce inside a polyatomic ion, and never reduce a molecular formula: $\ce{H2O2}$ stays $\ce{H2O2}$.</li>
+        <li><b>Seeing a bond that is not there.</b> The $\ce{Cl2}$ in $\ce{MgCl2}$ is not a chlorine molecule. It means two separate $\ce{Cl-}$ ions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="poly" data-short="Polyatomic ions">Polyatomic ions: teams with a charge</h2>
+    <p>Some ions are groups of atoms that are bonded together and carry a charge as a team. They behave like one single ion. Their names follow a pattern, which makes memorizing them much easier.</p>
+  </section>
+
+  <div id="story-poly"></div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Charge</th><th>Ions to memorize</th></tr></thead>
+    <tbody>
+      <tr><td><b>$1+$</b></td><td>$\ce{NH4+}$ ammonium</td></tr>
+      <tr><td><b>$1-$</b></td><td>$\ce{OH-}$ hydroxide, $\ce{NO3-}$ nitrate, $\ce{NO2-}$ nitrite, $\ce{C2H3O2-}$ acetate, $\ce{CN-}$ cyanide, $\ce{MnO4-}$ permanganate, $\ce{HCO3-}$ hydrogen carbonate (bicarbonate), $\ce{ClO4-}$ perchlorate, $\ce{ClO3-}$ chlorate, $\ce{ClO2-}$ chlorite, $\ce{ClO-}$ hypochlorite, $\ce{HSO4-}$ hydrogen sulfate, $\ce{H2PO4-}$ dihydrogen phosphate</td></tr>
+      <tr><td><b>$2-$</b></td><td>$\ce{SO4^2-}$ sulfate, $\ce{SO3^2-}$ sulfite, $\ce{CO3^2-}$ carbonate, $\ce{CrO4^2-}$ chromate, $\ce{Cr2O7^2-}$ dichromate, $\ce{HPO4^2-}$ hydrogen phosphate, $\ce{O2^2-}$ peroxide</td></tr>
+      <tr><td><b>$3-$</b></td><td>$\ce{PO4^3-}$ phosphate</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="bench" id="b-drill">
+    <div class="bench-head">
+      <p class="bench-title">Polyatomic flash drill</p>
+      <p class="bench-hint">Ten cards a round. Get 8 or more to discover an element.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-drill"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1" id="dr-answers" aria-live="polite"></div>
+      <div class="ctl">
+        <span class="ctl-label">Which ions</span>
+        <div class="seg" id="dr-set">
+          <button type="button" data-value="core" aria-pressed="true">The core 10</button>
+          <button type="button" data-value="all" aria-pressed="false">All of them</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Show me the</span>
+        <div class="seg" id="dr-dir">
+          <button type="button" data-value="mix" aria-pressed="true">Mix</button>
+          <button type="button" data-value="name" aria-pressed="false">Name</button>
+          <button type="button" data-value="formula" aria-pressed="false">Formula</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;align-items:end">
+        <button type="button" class="btn small sun" id="dr-next" hidden>Next card</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="dr-foot" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="empirical" data-short="Empirical formulas">First look: empirical and molecular formulas</h2>
+    <p>A <strong>molecular formula</strong> gives the real count of atoms in one molecule. An <strong>empirical formula</strong> gives the simplest whole-number ratio. You will calculate these from lab data in a later lesson, so for now just see what they mean.</p>
+  </section>
+
+  <div id="story-emp"></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="compounds"></div>
+  <section class="prose"><p>The gym below mixes in some pairs purely for formula practice. Not every combination is a stable compound you could keep in a bottle.</p></section>
+  <div data-practice="compounds"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Cations</strong> are positive and <strong>anions</strong> are negative. Metals make cations, and nonmetals make anions.</li>
+      <li><strong>Ionic</strong>: metal plus nonmetal, or anything with ammonium. A crystal lattice, and the formula is a ratio.</li>
+      <li><strong>Molecular</strong>: nonmetals only. Separate molecules, and the formula is a real count.</li>
+      <li>Ionic formulas: charges must add to zero, using the smallest whole-number ratio.</li>
+      <li>Use parentheses when more than one polyatomic ion appears: $\ce{Ca(NO3)2}$.</li>
+      <li>-ate has one more oxygen than -ite. <strong>Per-</strong> adds one more, <strong>hypo-</strong> takes one more away.</li>
+      <li><strong>Empirical formula</strong>: simplest ratio. <strong>Molecular formula</strong>: actual count.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

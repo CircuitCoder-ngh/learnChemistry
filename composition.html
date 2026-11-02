@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulas from data | The Mole Hole</title>
+<meta name="description" content="Percent composition, empirical and molecular formulas, and combustion analysis, with a pie builder, a formula pipeline for your own data, and a working absorber train.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/composition.js"></script>
+<script defer src="assets/js/pages/composition.js"></script>
+</head>
+<body data-page="composition">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Formulas from data</h1>
+        <p class="lede">A formula tells you the percentages. Run it backward, and percentages tell you the formula. That is how chemists identify an unknown.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Find the percent by mass of each element in a compound</li>
+    <li>Turn percentages into an empirical formula</li>
+    <li>Find a molecular formula from a molar mass</li>
+    <li>Work out a formula from a combustion analysis</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="percent" data-short="Percent composition">Percent composition</h2>
+    <p>What is water mostly made of? It depends on how you measure. Count the atoms and you get one answer. Weigh them and you get a very different one, and chemistry nearly always means the weight.</p>
+  </section>
+
+  <div id="story-percent"></div>
+
+  <div class="formula">
+    <p class="formula-name">Percent by mass</p>
+    <div class="formula-body">$$\%\text{ of element} = \frac{n \times \text{atomic mass}}{\text{molar mass of compound}} \times 100\%$$</div>
+    <dl><dt>$n$</dt><dd>how many atoms of that element are in the formula</dd></dl>
+  </div>
+
+  <section class="prose">
+    <p>Now build your own. Tap atoms to add them, or start from a real compound. Watch how one heavy atom takes over the pie. Can you make a compound where hydrogen gets more than half of the mass?</p>
+  </section>
+
+  <figure class="bench" id="b-pie">
+    <div class="bench-head">
+      <p class="bench-title">Percent pie builder</p>
+      <p class="bench-hint">Every slice is a mass, not a count.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-pie"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Start from</span>
+        <div class="seg" id="pie-pick">
+          <button type="button" data-value="H2O" aria-pressed="true">H₂O</button>
+          <button type="button" data-value="CO2" aria-pressed="false">CO₂</button>
+          <button type="button" data-value="NH3" aria-pressed="false">NH₃</button>
+          <button type="button" data-value="CH4" aria-pressed="false">CH₄</button>
+          <button type="button" data-value="CaCO3" aria-pressed="false">CaCO₃</button>
+          <button type="button" data-value="Fe2O3" aria-pressed="false">Fe₂O₃</button>
+          <button type="button" data-value="C6H12O6" aria-pressed="false">C₆H₁₂O₆</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Add an atom</span>
+        <div id="pie-add" style="display:flex;flex-wrap:wrap;gap:8px">
+          <button type="button" class="btn ghost small" data-add="H">H</button>
+          <button type="button" class="btn ghost small" data-add="C">C</button>
+          <button type="button" class="btn ghost small" data-add="N">N</button>
+          <button type="button" class="btn ghost small" data-add="O">O</button>
+          <button type="button" class="btn ghost small" data-add="Na">Na</button>
+          <button type="button" class="btn ghost small" data-add="S">S</button>
+          <button type="button" class="btn ghost small" data-add="Cl">Cl</button>
+          <button type="button" class="btn ghost small" data-add="Fe">Fe</button>
+          <button type="button" class="btn small" id="pie-clear">Clear it all</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="pie-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: mass, not count</h4>
+      <p>Water is two thirds hydrogen by <em>count</em>, but only 11.2% hydrogen by <em>mass</em>. And use the whole formula: in $\ce{Fe2O3}$, the top of the fraction for iron is $2 \times 55.85$, not $55.85$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="empirical" data-short="Empirical formula">From percentages to a formula</h2>
+    <p>Labs do not hand you formulas. They hand you percentages. An <strong>empirical formula</strong> is the smallest whole-number ratio of atoms, and getting from one to the other is always the same four moves. A little rhyme helps: percent to mass, mass to mole, divide by small, multiply till whole.</p>
+  </section>
+
+  <div id="story-pipe"></div>
+
+  <div class="big-idea">Subscripts count atoms, and moles count atoms. So the mole ratio is the subscript ratio. Grams will never give you a formula directly.</div>
+
+  <section class="prose">
+    <p>Your data, your pipeline. Type in any percentages, or load a set. Press the run button and follow your numbers through every stage.</p>
+  </section>
+
+  <figure class="bench" id="b-pipe">
+    <div class="bench-head">
+      <p class="bench-title">The formula pipeline</p>
+      <p class="bench-hint">Enter data, then run it.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-pipe"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Load a data set</span>
+        <div class="seg" id="pipe-pick">
+          <button type="button" data-value="a" aria-pressed="true">Sugar-like</button>
+          <button type="button" data-value="b" aria-pressed="false">Rust</button>
+          <button type="button" data-value="c" aria-pressed="false">Propane</button>
+          <button type="button" data-value="d" aria-pressed="false">Permanganate</button>
+          <button type="button" data-value="e" aria-pressed="false">Vitamin C</button>
+        </div>
+      </div>
+      <div class="ctl" id="pipe-rows" style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px"></div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn" id="pipe-run">Run the pipeline</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="pipe-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: never round 1.5 to 2</h4>
+      <p>After dividing, a value like 1.50 is telling you to multiply, not round. Multiply <b>all</b> the numbers by the same whole number until they are all whole. Numbers within about 0.05 of a whole number can be rounded, since lab data has some error.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>If a ratio ends in</th><th>Multiply everything by</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>.50</td><td>2</td><td>$1 : 1.50$ becomes $2 : 3$</td></tr>
+      <tr><td>.33 or .67</td><td>3</td><td>$1 : 1.33$ becomes $3 : 4$</td></tr>
+      <tr><td>.25 or .75</td><td>4</td><td>$1 : 1.25$ becomes $4 : 5$</td></tr>
+      <tr><td>.20, .40, .60 or .80</td><td>5</td><td>$1 : 1.40$ becomes $5 : 7$</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Worked example: when you must multiply</h4>
+    <p class="worked-q">An iron oxide is 69.94% Fe and 30.06% O by mass. Find its empirical formula.</p>
+    <ol>
+      <li><b>Percent to mass.</b> Assume 100 g, so you have 69.94 g Fe and 30.06 g O.</li>
+      <li><b>Mass to mole.</b> Fe: $69.94\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{55.85\ \cancel{\text{g}}} = 1.252\text{ mol}$. O: $30.06\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{16.00\ \cancel{\text{g}}} = 1.879\text{ mol}$.</li>
+      <li><b>Divide by small.</b> Fe: $1.252 \div 1.252 = 1$. O: $1.879 \div 1.252 = 1.50$.</li>
+      <li><b>Multiply till whole.</b> 1.50 is not whole, so multiply both by 2. That gives $2 : 3$, so the formula is <span class="answer">$\ce{Fe2O3}$</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="molecular" data-short="Molecular formula">From empirical to molecular</h2>
+    <p>$\ce{CH2O}$ is an empirical formula, but it could describe formaldehyde, vinegar's acetic acid, or glucose. They all share the 1:2:1 ratio. To tell which one you have, you need one more fact: the <strong>molar mass</strong>. Then count how many empirical units it takes.</p>
+  </section>
+
+  <figure class="bench" id="b-stack">
+    <div class="bench-head">
+      <p class="bench-title">Stack up the units</p>
+      <p class="bench-hint">Add units until the scale hits the target.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-stack"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Mystery compound</span>
+        <div class="seg" id="stack-pick">
+          <button type="button" data-value="0" aria-pressed="true">CH₂O</button>
+          <button type="button" data-value="1" aria-pressed="false">CH</button>
+          <button type="button" data-value="2" aria-pressed="false">NO₂</button>
+          <button type="button" data-value="3" aria-pressed="false">P₂O₅</button>
+          <button type="button" data-value="4" aria-pressed="false">C₂H₅</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+          <button type="button" class="btn ghost small" id="stack-minus">Take one away</button>
+          <button type="button" class="btn small" id="stack-plus">Add one unit</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="stack-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">How many empirical units?</p>
+    <div class="formula-body">$$n = \frac{\text{molar mass of the compound}}{\text{mass of one empirical formula unit}}$$</div>
+    <dl><dt>Then</dt><dd>multiply every subscript in the empirical formula by $n$.</dd></dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="analysis" data-short="Combustion analysis">Combustion analysis</h2>
+    <p>Here is how an unknown compound of C, H and maybe O gets identified. Burn a weighed sample in pure oxygen. All its carbon ends up as $\ce{CO2}$ and all its hydrogen as $\ce{H2O}$, as you saw in <a href="combustion.html">combustion equations</a>. Trap each gas in its own tube, and weigh the tubes.</p>
+  </section>
+
+  <figure class="bench" id="b-train">
+    <div class="bench-head">
+      <p class="bench-title">The combustion train</p>
+      <p class="bench-hint">Burn a mystery, then work back to its formula.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-train"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Unknown</span>
+        <div class="seg" id="train-pick">
+          <button type="button" data-value="0" aria-pressed="true">A</button>
+          <button type="button" data-value="1" aria-pressed="false">B</button>
+          <button type="button" data-value="2" aria-pressed="false">C</button>
+          <button type="button" data-value="3" aria-pressed="false">D</button>
+          <button type="button" data-value="4" aria-pressed="false">E</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="train-m">Sample mass <span class="ctl-value" id="train-m-out"></span></label>
+        <input type="range" id="train-m" min="0.5" max="3" step="0.1" value="1">
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <button type="button" class="btn" id="train-burn">Burn the sample</button>
+          <button type="button" class="btn ghost" id="train-show" disabled>Show the working</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="train-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Why is water trapped first? The $\ce{CO2}$ absorber is a base that also soaks up water. Put it first and you could not tell which gas added which grams. The order is the whole trick.</p></div></div>
+
+  <div class="worked">
+    <h4>Worked example: carbon, hydrogen and oxygen</h4>
+    <p class="worked-q">Burning 1.000 g of a compound of C, H and O gives 1.911 g of $\ce{CO2}$ and 1.173 g of $\ce{H2O}$. Find its empirical formula.</p>
+    <ol>
+      <li><b>Carbon.</b> All of it is in the $\ce{CO2}$: $1.911\ \cancel{\text{g CO}_2} \times \dfrac{1\text{ mol CO}_2}{44.01\ \cancel{\text{g}}} = 0.04342\text{ mol}$, and each $\ce{CO2}$ has 1 C, so 0.04342 mol C. Mass: $0.04342 \times 12.01 = 0.5215\text{ g C}$.</li>
+      <li><b>Hydrogen.</b> $1.173\ \cancel{\text{g H}_2\text{O}} \times \dfrac{1\text{ mol H}_2\text{O}}{18.02\ \cancel{\text{g}}} = 0.06509\text{ mol H}_2\text{O}$. Each water has <b>2 H</b>, so 0.1302 mol H. Mass: $0.1302 \times 1.008 = 0.1312\text{ g H}$.</li>
+      <li><b>Oxygen, by subtraction.</b> $1.000 - 0.5215 - 0.1312 = 0.3473\text{ g O}$, and $0.3473 \div 16.00 = 0.02171\text{ mol O}$.</li>
+      <li><b>Divide by small.</b> C: $0.04342 \div 0.02171 = 2.00$. H: $0.1302 \div 0.02171 = 6.00$. O: 1.</li>
+      <li>The empirical formula is <span class="answer">$\ce{C2H6O}$</span>, which happens to match ethanol.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: two hydrogens per water, and oxygen by difference</h4>
+      <p>Forgetting the 2 is the classic error: moles of H is <b>twice</b> moles of $\ce{H2O}$. And you can never read the sample's oxygen from the $\ce{CO2}$ and $\ce{H2O}$, because most of that oxygen came from the $\ce{O2}$ supply. Find it by subtracting C and H from the sample's mass.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="composition"></div>
+  <div data-practice="composition"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Percent by mass</strong> = $n \times$ atomic mass $\div$ molar mass $\times$ 100.</li>
+      <li><strong>Empirical formula</strong>: percent to mass, mass to mole, divide by small, multiply till whole.</li>
+      <li>Never round 1.5, 1.33 or 1.25. <strong>Multiply everything</strong> by 2, 3 or 4.</li>
+      <li><strong>Molecular formula</strong>: $n$ = molar mass $\div$ empirical mass, then multiply the subscripts by $n$.</li>
+      <li><strong>Combustion analysis</strong>: mol C = mol $\ce{CO2}$. Mol H = 2 $\times$ mol $\ce{H2O}$. O comes from subtracting.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

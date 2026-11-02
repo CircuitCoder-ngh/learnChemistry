@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Line spectra and the Bohr atom | The Mole Hole</title>
+<meta name="description" content="Why each element glows its own colors: flame tests, the hydrogen spectrum, a Bohr atom you can make jump, the Rydberg equation, de Broglie waves and Heisenberg uncertainty.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/bohr.js"></script>
+<script defer src="assets/js/pages/bohr.js"></script>
+</head>
+<body data-page="bohr">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>Line spectra and the Bohr atom</h1>
+        <p class="lede">Every element glows with its own set of colors, like a fingerprint. The reason is that electrons can only stand on certain energy steps.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why an element gives sharp lines instead of a rainbow</li>
+    <li>Calculate the energy and wavelength of any hydrogen jump</li>
+    <li>Tell emission from absorption</li>
+    <li>Say what Bohr got right and wrong, and what de Broglie and Heisenberg added</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="fingerprint" data-short="Flame tests">Every element has a fingerprint</h2>
+    <p>Sprinkle a sodium salt in a flame and the flame turns bright yellow. Copper turns it blue-green. Fireworks use exactly this trick. Now look at the glow through a <strong>prism</strong>, which spreads light out by wavelength. You do not get a rainbow. You get a few sharp lines called a <strong>line spectrum</strong>.</p>
+  </section>
+
+  <figure class="bench" id="b-flame">
+    <div class="bench-head">
+      <p class="bench-title">Flame test and gas tube lab</p>
+      <p class="bench-hint">Pick a sample. Watch the flame and the lines.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-flame"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Salts in a flame</span>
+        <div class="seg" id="flame-salt">
+          <button type="button" data-value="Li" aria-pressed="false">Li</button>
+          <button type="button" data-value="Na" aria-pressed="true">Na</button>
+          <button type="button" data-value="K" aria-pressed="false">K</button>
+          <button type="button" data-value="Ca" aria-pressed="false">Ca</button>
+          <button type="button" data-value="Sr" aria-pressed="false">Sr</button>
+          <button type="button" data-value="Ba" aria-pressed="false">Ba</button>
+          <button type="button" data-value="Cu" aria-pressed="false">Cu</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Gases in a glowing tube</span>
+        <div class="seg" id="flame-gas">
+          <button type="button" data-value="H" aria-pressed="false">H</button>
+          <button type="button" data-value="He" aria-pressed="false">He</button>
+          <button type="button" data-value="Ne" aria-pressed="false">Ne</button>
+          <button type="button" data-value="Hg" aria-pressed="false">Hg</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Play detective</span>
+        <button type="button" class="btn small sun" id="flame-mystery">Give me a mystery sample</button>
+      </div>
+      <div class="ctl" id="flame-quest" hidden style="grid-column:1/-1">
+        <span class="ctl-label">Which element made these lines?</span>
+        <div class="seg" id="flame-guess"></div>
+        <p class="ctl-help" id="flame-msg" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="bench-foot" id="flame-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="big-idea">Atoms give off only certain wavelengths. Each element has its own set, so a line spectrum identifies an element, just as a fingerprint identifies a person.</div>
+
+  <section class="prose">
+    <h2 id="bohr-idea" data-short="Bohr's idea">Bohr's idea: energy steps</h2>
+    <p>Why only certain colors? In 1913, Niels Bohr made a bold guess about hydrogen, the simplest atom. Step through it.</p>
+  </section>
+
+  <div id="story-bohr"></div>
+
+  <div class="formula">
+    <p class="formula-name">Energy of level $n$ in hydrogen</p>
+    <div class="formula-body">$$E_n = -\frac{2.18 \times 10^{-18}\text{ J}}{n^2}$$</div>
+    <dl>
+      <dt>$n$</dt><dd>the level number: 1, 2, 3, and so on. Whole numbers only.</dd>
+      <dt>$E_n$</dt><dd>negative because the electron is held. $E = 0$ means it has just broken free.</dd>
+    </dl>
+  </div>
+
+  <div class="formula">
+    <p class="formula-name">The Rydberg equation: the wavelength of a jump</p>
+    <div class="formula-body">$$\frac{1}{\lambda} = R\left(\frac{1}{n_{\text{low}}^2} - \frac{1}{n_{\text{high}}^2}\right)$$</div>
+    <dl>
+      <dt>$R$</dt><dd>Rydberg constant, $1.097 \times 10^{7}\text{ m}^{-1}$</dd>
+      <dt>$\Delta E$</dt><dd>photon energy: $\Delta E = 2.18 \times 10^{-18}\text{ J}\left(\dfrac{1}{n_{\text{low}}^2} - \dfrac{1}{n_{\text{high}}^2}\right) = \dfrac{hc}{\lambda}$</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-jump">
+    <div class="bench-head">
+      <p class="bench-title">Hydrogen jump simulator</p>
+      <p class="bench-hint">Tap a ring or a level. Can you find all 4 visible lines?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-jump"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Send the electron to</span>
+        <div class="seg" id="jump-n">
+          <button type="button" data-value="1" aria-pressed="true">n = 1</button>
+          <button type="button" data-value="2" aria-pressed="false">n = 2</button>
+          <button type="button" data-value="3" aria-pressed="false">n = 3</button>
+          <button type="button" data-value="4" aria-pressed="false">n = 4</button>
+          <button type="button" data-value="5" aria-pressed="false">n = 5</button>
+          <button type="button" data-value="6" aria-pressed="false">n = 6</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Heat the gas</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn small sun" id="jump-spark">Spark it 10 times</button>
+          <button type="button" class="btn small ghost" id="jump-clear">Clear the lines</button>
+        </div>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-pink"><div class="readout-label">Photon energy</div><div class="readout-value" id="jump-e">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Wavelength</div><div class="readout-value" id="jump-l">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Lines found</div><div class="readout-value" id="jump-c">0 of 15</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="jump-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: the red line of hydrogen</h4>
+    <p class="worked-q">An electron falls from $n = 3$ to $n = 2$. What wavelength of light comes out?</p>
+    <ol>
+      <li>The low level is 2 and the high level is 3: $\dfrac{1}{\lambda} = R\left(\dfrac{1}{2^2} - \dfrac{1}{3^2}\right)$.</li>
+      <li>Do the bracket: $\dfrac{1}{4} - \dfrac{1}{9} = 0.2500 - 0.1111 = 0.1389$.</li>
+      <li>Multiply by $R$: $\dfrac{1}{\lambda} = (1.097 \times 10^{7}\text{ m}^{-1})(0.1389) = 1.524 \times 10^{6}\text{ m}^{-1}$.</li>
+      <li>Flip it. This is the step people forget: $\lambda = \dfrac{1}{1.524 \times 10^{6}\text{ m}^{-1}} = 6.56 \times 10^{-7}\text{ m}$.</li>
+      <li>Convert to nanometers: <span class="answer">$656$ nm</span>. That is red, and it matches the red line in the tube.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: how much energy to remove the electron?</h4>
+    <p class="worked-q">How much energy does it take to pull the electron out of a hydrogen atom in its ground state? Give J per atom and kJ per mole.</p>
+    <ol>
+      <li>Removing it means going from $n = 1$ to $n = \infty$, where $E = 0$.</li>
+      <li>$\Delta E = E_{\text{final}} - E_{\text{initial}} = 0 - (-2.18 \times 10^{-18}\text{ J}) = 2.18 \times 10^{-18}\text{ J}$ per atom.</li>
+      <li>Per mole: $2.18 \times 10^{-18}\text{ J} \times 6.022 \times 10^{23}\text{ mol}^{-1} = 1.31 \times 10^{6}\text{ J/mol}$.</li>
+      <li>The answer is <span class="answer">$1310$ kJ/mol</span>. This is the ionization energy of hydrogen, and it matches experiment.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the rungs are not evenly spaced</h4>
+      <p>The levels crowd together as $n$ grows. So 1 to 2 is a far bigger jump than 2 to 3, and 5 to 6 is tiny. "Falls by one level" says nothing about energy. Always use the formula.</p>
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the sign of $\Delta E$</h4>
+      <p>$\Delta E = E_{\text{final}} - E_{\text{initial}}$. A fall gives a <b>negative</b> $\Delta E$, because the atom lost energy. A climb gives a <b>positive</b> one. The photon's energy is always positive, so it equals the size of $\Delta E$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="absorb" data-short="Absorption">Emission and absorption</h2>
+    <p>A fall gives light out. A climb takes light in. So the same gaps can show up two ways, as bright lines or as dark ones.</p>
+  </section>
+
+  <div id="story-absorb"></div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Astronomers read the dark lines in starlight to learn what stars are made of. Nobody has been to a star. I have barely been to the surface.</p></div></div>
+
+  <section class="prose">
+    <h2 id="limits" data-short="Limits of Bohr">Where Bohr breaks, and what came next</h2>
+    <p>Bohr's model nails hydrogen, but it is not the final story. Two more ideas push us from neat orbits to something stranger.</p>
+  </section>
+
+  <div id="story-limits"></div>
+
+  <figure class="bench" id="b-ring">
+    <div class="bench-head">
+      <p class="bench-title">Fit a wave around the ring</p>
+      <p class="bench-hint">Slide until the wave meets its own tail.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-ring"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="ring-k">Waves around the ring <span class="ctl-value" id="ring-k-out"></span></label>
+        <input type="range" id="ring-k" min="1" max="6" step="0.05" value="2.4">
+      </div>
+    </div>
+    <div class="bench-foot"><p>Only <b>whole numbers</b> of waves close into a smooth loop. Anything else collides with its own tail and cancels out. A simplified 2D model, but it gives a real reason why $n$ must be a whole number.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Matter waves, and the limit on knowing</p>
+    <div class="formula-body">$$\lambda = \frac{h}{mv}$$</div>
+    <div class="formula-body">$$\Delta x \cdot \Delta p \geq \frac{h}{4\pi}$$</div>
+    <dl>
+      <dt>$m, v$</dt><dd>mass in kg and speed in m/s. With $h$ in J·s, $\lambda$ comes out in meters.</dd>
+      <dt>$\Delta x, \Delta p$</dt><dd>the uncertainty in position and in momentum, where momentum $p = mv$</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: the wavelength of an electron</h4>
+    <p class="worked-q">An electron with a mass of $9.109 \times 10^{-31}$ kg moves at $2.19 \times 10^{6}$ m/s. What is its wavelength?</p>
+    <ol>
+      <li>Remember that $1\text{ J} = 1\text{ kg}\cdot\text{m}^2/\text{s}^2$. So $h = 6.626 \times 10^{-34}\text{ kg}\cdot\text{m}^2/\text{s}$.</li>
+      <li>Multiply the bottom: $mv = (9.109 \times 10^{-31}\text{ kg})(2.19 \times 10^{6}\text{ m/s}) = 1.995 \times 10^{-24}\text{ kg}\cdot\text{m/s}$.</li>
+      <li>Divide: $\lambda = \dfrac{6.626 \times 10^{-34}}{1.995 \times 10^{-24}} = 3.32 \times 10^{-10}\text{ m}$.</li>
+      <li>The answer is <span class="answer">$332$ pm</span>, about the size of an atom. That is why wave behavior matters for electrons but not for baseballs.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="bohr"></div>
+  <div data-practice="bohr"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>Atoms give <strong>line spectra</strong>, because electrons have only certain energy levels.</li>
+      <li>$E_n = -2.18 \times 10^{-18}\text{ J}/n^2$. Levels crowd together as $n$ rises. $n = 1$ is the ground state.</li>
+      <li>Fall: photon emitted. Climb: photon absorbed. $|\Delta E| = hc/\lambda$.</li>
+      <li>$1/\lambda = R(1/n_{\text{low}}^2 - 1/n_{\text{high}}^2)$, with $R = 1.097 \times 10^{7}\text{ m}^{-1}$. Do not forget to flip.</li>
+      <li>Hydrogen: falls to $n = 1$ are UV, falls to $n = 2$ are visible (656, 486, 434, 410 nm), falls to $n = 3$ are infrared.</li>
+      <li>de Broglie: $\lambda = h/mv$. Heisenberg: you cannot know exact position and momentum together. Orbits give way to orbitals.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

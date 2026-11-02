@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcards | The Mole Hole</title>
+<meta name="description" content="Flashcards for all of Chem 101, with spaced repetition in five boxes. The cards you know wait longer. The ones you miss come right back.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-flashcards.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/pages/flashcards.js"></script>
+</head>
+<body data-page="flashcards">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <h1>Flashcards</h1>
+        <p class="lede">Flip a card, answer honestly, and let the boxes decide what you see next. Cards you know wait longer. Cards you miss come right back.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <div class="fc-filter" id="fc-units" role="group" aria-label="Choose a unit"></div>
+
+  <section class="fc" id="fc" aria-label="Flashcard player">
+    <div class="fc-top">
+      <div class="meter fc-meter"><span id="fc-bar"></span></div>
+      <p class="fc-progress" id="fc-progress" aria-live="polite"></p>
+    </div>
+    <div class="fc-player" id="fc-player" aria-live="polite"></div>
+    <div class="fc-side">
+      <div class="fc-moe-row">
+        <div class="fc-moe" id="fc-moe"></div>
+        <p class="fc-say" id="fc-say" aria-live="polite"></p>
+      </div>
+      <p class="fc-earn" id="fc-earn"></p>
+    </div>
+    <ol class="fc-boxes" id="fc-boxes" aria-label="Your five study boxes, and how many cards are in each"></ol>
+  </section>
+
+  <section class="prose fc-how">
+    <h2 id="how" data-short="How the boxes work">How the boxes work</h2>
+    <p>This is the <strong>Leitner system</strong>, an old trick that still beats rereading. Pulling an answer out of your head is what makes it stick, and waiting a little longer each time makes it stick harder.</p>
+    <p>Your boxes live in this browser. Nothing is sent anywhere, and clearing your browser data clears them.</p>
+    <p><button type="button" class="linkish" id="fc-reset">Put every card back in box 1</button></p>
+  </section>
+
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

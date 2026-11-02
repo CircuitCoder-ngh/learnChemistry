@@ -1,0 +1,20 @@
+/* Lesson 4.5: the reactor's live table and myth checks. Dark on the bench in both themes. */
+.rc-go { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; align-self: end; }
+#rc-verdict { font-weight: 700; font-size: 1.12rem; margin: 0 0 8px; color: #fff; min-height: 1.4em; }
+.rc-table-wrap { overflow-x: auto; margin: 0 0 12px; }
+.rc-table { border-collapse: separate; border-spacing: 3px; width: 100%; color: #fff; font-size: 1.04rem; }
+.rc-table th, .rc-table td { background: #241539; padding: 0.3em 0.6em; text-align: center; border-radius: 8px; white-space: nowrap; }
+.rc-table th { background: #3B2763; font-weight: 700; }
+.rc-table td:first-child, .rc-table th:first-child { text-align: left; font-weight: 700; color: #D9CFF0; }
+.rc-table .is-zero { color: #FF8A94; font-weight: 700; }
+.rc-table .is-left { color: #FFD23F; font-weight: 700; }
+.myths { list-style: none; padding: 0; margin: 0 0 10px; display: grid; gap: 6px; }
+.myths li { background: #241539; border-left: 6px solid #4A3772; border-radius: 8px; padding: 6px 10px; line-height: 1.34; }
+.myths li.is-bust { border-left-color: #FF5A6B; }
+.myths li.is-luck { border-left-color: #FFD23F; }
+.myths .myth { display: block; font-weight: 700; color: #fff; }
+.myths .res { display: block; color: #D9CFF0; }
+.myths .is-bust-word { color: #FF8A94; font-weight: 700; }
+.rc-note { color: var(--night-dim); font-size: 0.95rem; }
+#ms-calc .katex-display { margin: 0.2em 0; }
+#ms-calc h5 { margin: 8px 0 2px; color: #fff; font-size: 1.04rem; }

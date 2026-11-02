@@ -1,0 +1,29 @@
+/* Glossary: a sticky search bar, then letters styled like element tiles. */
+.gl-tools { position: sticky; top: var(--topbar-h); z-index: 20; margin-bottom: 1rem; padding: 10px 0 8px; background: var(--page); box-shadow: 0 6px 8px -8px rgba(30, 10, 60, 0.4); }
+.gl-searchrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.gl-search { flex: 1 1 260px; min-width: 0; padding: 0.5em 0.9em; background: var(--panel); color: var(--ink); border: 3px solid var(--rule-strong); border-radius: 14px; font: inherit; font-weight: 500; }
+.gl-search::placeholder { color: var(--ink-3); }
+.gl-count { margin: 0; color: var(--ink-2); font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+.gl-index { display: flex; gap: 3px; margin-top: 8px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
+.gl-index a, .gl-index span { flex: 1 0 auto; min-width: 25px; padding: 2px 3px; border-radius: 7px; text-align: center; font-family: var(--font-display); font-size: 1rem; line-height: 1.34; text-decoration: none; }
+.gl-index a { background: var(--ink); color: var(--page); }
+.gl-index a:hover { background: var(--pink); color: #fff; }
+.gl-index a.is-dim { opacity: 0.25; }
+.gl-index .is-off { color: var(--ink-3); opacity: 0.45; background: var(--well); }
+.gl-group { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 18px; margin: 0 0 1.5rem; scroll-margin-top: calc(var(--topbar-h) + 118px); align-items: start; }
+.lesson .gl-group { margin-top: 0; }
+.gl-letter { position: sticky; top: calc(var(--topbar-h) + 112px); display: grid; place-items: center; width: 64px; height: 72px; margin: 0; background: var(--unit); color: #fff; border-radius: 14px; font-size: 2.3rem; box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.22); }
+.gl-entries { margin: 0; display: grid; gap: 8px; }
+.gl-entry { padding: 9px 15px 10px; background: var(--panel); border-radius: 14px; border: 2px solid var(--rule); scroll-margin-top: calc(var(--topbar-h) + 118px); }
+.gl-entry:target { border-color: var(--pink); box-shadow: 0 0 0 3px var(--pink-soft); }
+.gl-term { font-family: var(--font-display); font-size: 1.24rem; line-height: 1.15; margin-bottom: 2px; }
+.gl-def { margin: 0; line-height: 1.38; }
+.gl-src { margin: 3px 0 0; color: var(--ink-3); font-size: 0.88rem; line-height: 1.3; }
+.gl-src a { font-weight: 700; }
+.gl-empty { margin-top: 1rem; }
+@media (max-width: 560px) {
+  .gl-group { grid-template-columns: minmax(0, 1fr); }
+  .gl-letter { position: static; width: 52px; height: 56px; font-size: 1.8rem; margin-bottom: 6px; }
+  .gl-index { flex-wrap: nowrap; }
+  .gl-index a, .gl-index span { min-width: 30px; }
+}

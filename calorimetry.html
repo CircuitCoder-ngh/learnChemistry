@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calorimetry | The Mole Hole</title>
+<meta name="description" content="Learn calorimetry with a coffee cup lab and an animated bomb calorimeter: heat lost equals heat gained, final temperature, and turning q into ΔH per mole with the right sign.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/calorimetry.js"></script>
+<script defer src="assets/js/pages/calorimetry.js"></script>
+</head>
+<body data-page="calorimetry">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Calorimetry</h1>
+        <p class="lede">You cannot see heat, but you can catch it in water and read a thermometer. That is all a calorimeter is.</p>
+      </div>
+      <div class="lesson-moe" data-moe="point"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain why heat lost equals heat gained</li>
+    <li>Find the final temperature when hot metal meets cool water</li>
+    <li>Turn a coffee cup measurement into $\Delta H$ per mole, with the right sign</li>
+    <li>Use a bomb calorimeter and say what it measures</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="balance" data-short="Heat lost, heat gained">Heat lost equals heat gained</h2>
+    <p>Pour hot coffee into cold milk and you get warm coffee. No one has to tell the heat where to go. It flows from hot to cold until they match. A <strong>calorimeter</strong> is a container that keeps this heat from escaping, so you can measure it. The simplest one is two foam cups.</p>
+  </section>
+
+  <div id="story-drop"></div>
+
+  <div class="big-idea">Nothing gets out of a good calorimeter, so the heat the hot thing loses is exactly the heat the cold thing gains.</div>
+
+  <div class="formula">
+    <p class="formula-name">Heat balance</p>
+    <div class="formula-body">$$\begin{gathered}q_{\text{lost}} + q_{\text{gained}} = 0 \\ m_1 c_1 \Delta T_1 = -\,m_2 c_2 \Delta T_2\end{gathered}$$</div>
+    <dl>
+      <dt>$\Delta T$</dt><dd>$T_{\text{final}} - T_{\text{initial}}$ for that object. The hot object gets a negative $\Delta T$.</dd>
+      <dt>$T_{\text{final}}$</dt><dd>the same for both objects. That is what "reach equilibrium" means.</dd>
+    </dl>
+  </div>
+
+  <section class="prose">
+    <h2 id="lab" data-short="Coffee cup lab">The coffee cup lab</h2>
+    <p>Try it. Drop a hot metal into water, or run a reaction right in the water. The whole experiment lasts seconds, and the live graph shows why the numbers come out the way they do.</p>
+  </section>
+
+  <figure class="bench" id="b-cup">
+    <div class="bench-head">
+      <p class="bench-title">Coffee cup calorimeter</p>
+      <p class="bench-hint">Can you get the water to rise by more than 20 °C?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cup"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">What goes in the cup?</span>
+        <div class="seg" id="cup-mode">
+          <button type="button" data-value="metal" aria-pressed="true">Hot metal</button>
+          <button type="button" data-value="rx" aria-pressed="false">A reaction</button>
+        </div>
+      </div>
+      <div class="ctl" id="cup-metal-pick">
+        <span class="ctl-label">Metal</span>
+        <div class="seg" id="cup-metal">
+          <button type="button" data-value="Al" aria-pressed="false">Aluminum</button>
+          <button type="button" data-value="Fe" aria-pressed="true">Iron</button>
+          <button type="button" data-value="Cu" aria-pressed="false">Copper</button>
+          <button type="button" data-value="Au" aria-pressed="false">Gold</button>
+        </div>
+      </div>
+      <div class="ctl" id="cup-rx-pick" style="grid-column:1/-1" hidden>
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="cup-rx">
+          <button type="button" data-value="NaOH" aria-pressed="true">Dissolve NaOH</button>
+          <button type="button" data-value="NH4NO3" aria-pressed="false">Dissolve NH₄NO₃</button>
+          <button type="button" data-value="KCl" aria-pressed="false">Dissolve KCl</button>
+          <button type="button" data-value="HCl" aria-pressed="false">HCl + NaOH</button>
+        </div>
+      </div>
+      <div class="ctl" id="cup-m1-wrap">
+        <label class="ctl-label" for="cup-m1"><span id="cup-m1-label">Mass of metal</span> <span class="ctl-value" id="cup-m1-out"></span></label>
+        <input type="range" id="cup-m1" min="10" max="300" step="10" value="50">
+      </div>
+      <div class="ctl" id="cup-tm-wrap">
+        <label class="ctl-label" for="cup-tm">Metal starts at <span class="ctl-value" id="cup-tm-out"></span></label>
+        <input type="range" id="cup-tm" min="40" max="150" step="5" value="100">
+      </div>
+      <div class="ctl" id="cup-mw-wrap">
+        <label class="ctl-label" for="cup-mw">Mass of water <span class="ctl-value" id="cup-mw-out"></span></label>
+        <input type="range" id="cup-mw" min="50" max="250" step="10" value="100">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="cup-tw">Water starts at <span class="ctl-value" id="cup-tw-out"></span></label>
+        <input type="range" id="cup-tw" min="10" max="35" step="1" value="20">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Run it</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="cup-go">Drop the metal in</button>
+          <button type="button" class="btn small ghost" id="cup-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="cup-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>Yes, real chemists really use foam coffee cups. They are cheap and they insulate well. No coffee is involved. I checked, sadly.</p></div></div>
+
+  <section class="prose">
+    <h2 id="final" data-short="Final temperature">Finding the final temperature</h2>
+    <p>Think of each object's heat as a block. Its height is $mc$, which says how hard it is to warm. Its width is the temperature change. Area is heat, so the two blocks must have the <b>same area</b>. Water is a tall block, so it needs very little width. That is why the final temperature lands near the water's.</p>
+  </section>
+
+  <figure class="bench" id="b-blocks">
+    <div class="bench-head">
+      <p class="bench-title">Balance the heat</p>
+      <p class="bench-hint">Drag the line until the beam levels out.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-blocks"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="blocks-t">Your guess at the final temperature <span class="ctl-value" id="blocks-t-out"></span></label>
+        <input type="range" id="blocks-t" min="0" max="100" step="0.1" value="50">
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="blocks-new">New problem</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="blocks-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: final temperature</h4>
+    <p class="worked-q">A 50.0 g iron block at 100.0 °C goes into 100.0 g of water at 20.0 °C. What is the final temperature? For iron, $c = 0.45$ J/g·°C.</p>
+    <ol>
+      <li>Write the balance: $q_{\text{iron}} + q_{\text{water}} = 0$.</li>
+      <li>Fill in $q = mc\Delta T$. Both objects end at the same unknown $T_f$: $(50.0)(0.45)(T_f - 100.0) + (100.0)(4.184)(T_f - 20.0) = 0$.</li>
+      <li>Multiply out: $22.5\,T_f - 2250 + 418.4\,T_f - 8368 = 0$.</li>
+      <li>Collect the $T_f$ terms on one side and the numbers on the other: $440.9\,T_f = 10618$.</li>
+      <li>Divide both sides by 440.9: <span class="answer">$T_f = 24.1\ ^\circ\text{C}$</span>. Check: it lies between 20 and 100, and it is close to the water's starting temperature. Good.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: identify a metal</h4>
+    <p class="worked-q">A 60.0 g metal at 95.0 °C goes into 100.0 g of water at 20.0 °C. The final temperature is 28.6 °C. Find the specific heat of the metal.</p>
+    <ol>
+      <li>Start with the water: $q_{\text{water}} = (100.0\ \text{g})(4.184\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}})(28.6 - 20.0\ {}^\circ\text{C}) = +3598\ \text{J}$.</li>
+      <li>The metal lost that much heat, so $q_{\text{metal}} = -3598\ \text{J}$.</li>
+      <li>Find the metal's change: $\Delta T = 28.6 - 95.0 = -66.4\ ^\circ\text{C}$.</li>
+      <li>Solve for $c$. Both minus signs cancel: $c = \dfrac{q}{m\Delta T} = \dfrac{-3598\ \text{J}}{(60.0\ \text{g})(-66.4\ {}^\circ\text{C})} = $ <span class="answer">$0.90\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}}$</span>. That is aluminum.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="rxn" data-short="From q to ΔH">Reactions: from $q$ to $\Delta H$ per mole</h2>
+    <p>Now run a reaction in the cup. The reacting chemicals are the <strong>system</strong>, and the water is the <strong>surroundings</strong>. The thermometer sits in the water, so it tells you about the water directly. To talk about the reaction, you have to flip the sign. Since the cup stays open to the air, pressure stays constant, and the heat of the reaction is its <strong>enthalpy change</strong>, $\Delta H$.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Coffee cup: three lines, always in this order</p>
+    <div class="formula-body">$$\begin{gathered}q_{\text{water}} = m\,c\,\Delta T \\ q_{\text{rxn}} = -\,q_{\text{water}} \\ \Delta H = \frac{q_{\text{rxn}}}{n}\end{gathered}$$</div>
+    <dl>
+      <dt>$m$</dt><dd>mass of the whole solution: water plus whatever you added.</dd>
+      <dt>$c$</dt><dd>usually taken as 4.184 J/g·°C, the same as water, for a dilute solution.</dd>
+      <dt>$n$</dt><dd>moles of the substance reacted. $\Delta H$ comes out in kJ/mol.</dd>
+    </dl>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the temperature went up, so $\Delta H$ is negative</h4>
+      <p>This is the most common sign mistake in the unit. A rising thermometer means the <b>water gained</b> heat, so $q_{\text{water}}$ is positive. That heat came <b>from the reaction</b>, so $q_{\text{rxn}}$ and $\Delta H$ are negative. Hot water means exothermic. Cold water means endothermic, and a positive $\Delta H$.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: $\Delta H$ from a coffee cup</h4>
+    <p class="worked-q">Dissolving 5.00 g of NaOH in 100.0 g of water raises the temperature from 22.0 °C to 34.7 °C. Find $\Delta H$ per mole of NaOH.</p>
+    <ol>
+      <li>Find the total mass and the change: $m = 100.0 + 5.00 = 105.0$ g, and $\Delta T = 34.7 - 22.0 = +12.7\ ^\circ\text{C}$.</li>
+      <li>Heat gained by the solution: $q_{\text{water}} = (105.0\ \text{g})(4.184\ \tfrac{\text{J}}{\text{g}\cdot{}^\circ\text{C}})(12.7\ {}^\circ\text{C}) = +5580\ \text{J} = +5.58\ \text{kJ}$.</li>
+      <li>Flip the sign for the reaction: $q_{\text{rxn}} = -5.58\ \text{kJ}$. The water got hotter, so the reaction is exothermic.</li>
+      <li>Find the moles: $n = 5.00\ \text{g} \div 40.00\ \text{g/mol} = 0.125\ \text{mol}$.</li>
+      <li>Divide: $\Delta H = \dfrac{-5.58\ \text{kJ}}{0.125\ \text{mol}} = $ <span class="answer">$-44.6$ kJ/mol</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="bomb" data-short="Bomb calorimeter">The bomb calorimeter</h2>
+    <p>A foam cup would melt if you tried to burn something in it. For combustion, chemists use a <strong>bomb calorimeter</strong>: a thick steel can filled with oxygen and sunk in water. It is called a bomb because it is sealed tight, and it does not actually blow up.</p>
+  </section>
+
+  <div id="story-bomb"></div>
+
+  <figure class="bench" id="b-bomb">
+    <div class="bench-head">
+      <p class="bench-title">Fire the bomb</p>
+      <p class="bench-hint">Change the sample and see how far the water climbs.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-bomb"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Sample</span>
+        <div class="seg" id="bomb-fuel">
+          <button type="button" data-value="C" aria-pressed="true">Carbon</button>
+          <button type="button" data-value="glucose" aria-pressed="false">Glucose</button>
+          <button type="button" data-value="sucrose" aria-pressed="false">Table sugar</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="bomb-m">Mass of sample <span class="ctl-value" id="bomb-m-out"></span></label>
+        <input type="range" id="bomb-m" min="0.2" max="3" step="0.1" value="1">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="bomb-c">Heat capacity of the calorimeter <span class="ctl-value" id="bomb-c-out"></span></label>
+        <input type="range" id="bomb-c" min="6" max="16" step="0.5" value="10">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Run it</span>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button type="button" class="btn small" id="bomb-go">Ignite</button>
+          <button type="button" class="btn small ghost" id="bomb-reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="bomb-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Bomb calorimeter</p>
+    <div class="formula-body">$$\begin{gathered}q_{\text{cal}} = C_{\text{cal}}\,\Delta T \\ q_{\text{rxn}} = -\,q_{\text{cal}}\end{gathered}$$</div>
+    <dl>
+      <dt>$C_{\text{cal}}$</dt><dd>heat capacity of the whole calorimeter, in kJ/°C. It is found by burning something with a known heat. No mass here: it is for the whole apparatus.</dd>
+    </dl>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th></th><th>Coffee cup</th><th>Bomb</th></tr></thead>
+      <tbody>
+        <tr><td><b>What stays fixed</b></td><td>Pressure (open to the air)</td><td>Volume (sealed steel)</td></tr>
+        <tr><td><b>What $q$ measures</b></td><td>Enthalpy change, $\Delta H$</td><td>Internal energy change, $\Delta E$ (some books write $\Delta U$)</td></tr>
+        <tr><td><b>Equation</b></td><td>$q = mc\Delta T$</td><td>$q = C_{\text{cal}}\Delta T$</td></tr>
+        <tr><td><b>Good for</b></td><td>Reactions in solution, dissolving, hot metal</td><td>Burning fuels and food</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a bomb calorimeter</h4>
+    <p class="worked-q">Burning 1.50 g of glucose ($\ce{C6H12O6}$, 180.16 g/mol) in a bomb with $C_{\text{cal}} = 10.0$ kJ/°C raises the temperature by 2.33 °C. Find the heat of combustion per mole.</p>
+    <ol>
+      <li>Heat gained by the calorimeter: $q_{\text{cal}} = (10.0\ \tfrac{\text{kJ}}{{}^\circ\text{C}})(2.33\ {}^\circ\text{C}) = +23.3\ \text{kJ}$. The °C cancels.</li>
+      <li>Flip the sign for the reaction: $q_{\text{rxn}} = -23.3\ \text{kJ}$.</li>
+      <li>Find the moles: $n = 1.50\ \text{g} \div 180.16\ \text{g/mol} = 0.00833\ \text{mol}$.</li>
+      <li>Divide: $\dfrac{-23.3\ \text{kJ}}{0.00833\ \text{mol}} = $ <span class="answer">$-2.80 \times 10^3$ kJ/mol</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: two kinds of bomb problems</h4>
+      <p>Some problems give one $C_{\text{cal}}$ for the whole calorimeter. Then $q = C_{\text{cal}}\Delta T$, and you do not use the water's mass. Others give the steel's heat capacity <b>and</b> the mass of water. Then you add the two: $q_{\text{cal}} = C_{\text{bomb}}\Delta T + m_{\text{water}}\,c\,\Delta T$. Read carefully to see which you have.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="calorimetry"></div>
+  <div data-practice="calorimetry"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>In a sealed calorimeter, $q_{\text{hot}} + q_{\text{cold}} = 0$. Both objects end at the same $T_f$.</li>
+      <li>Final temperature: write $m_1c_1(T_f - T_1) + m_2c_2(T_f - T_2) = 0$ and solve for $T_f$.</li>
+      <li>In a reaction, the <strong>water is the surroundings</strong>: $q_{\text{rxn}} = -q_{\text{water}}$.</li>
+      <li><strong>Water gets hotter</strong> means exothermic, $\Delta H &lt; 0$. <strong>Water gets colder</strong> means endothermic, $\Delta H &gt; 0$.</li>
+      <li>$\Delta H$ per mole: divide $q_{\text{rxn}}$ by the moles reacted.</li>
+      <li>Coffee cup: constant pressure, measures $\Delta H$. Bomb: constant volume, measures $\Delta E$, with $q = C_{\text{cal}}\Delta T$.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

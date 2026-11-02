@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Precipitation and net ionic equations | The Mole Hole</title>
+<meta name="description" content="Mix any two solutions in a virtual lab, watch ions swap partners and crash out, and learn to write molecular, complete ionic and net ionic equations.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-precipitation.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/solubility.js"></script>
+<script defer src="assets/js/bank/precipitation.js"></script>
+<script defer src="assets/js/pages/precipitation.js"></script>
+</head>
+<body data-page="precipitation">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Precipitation and net ionic equations</h1>
+        <p class="lede">Mix two clear liquids and a solid appears out of nowhere. Learn to predict it, and to write down what really happened.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wow"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Predict whether two solutions will form a precipitate</li>
+    <li>Write molecular, complete ionic and net ionic equations</li>
+    <li>Pick out the spectator ions</li>
+    <li>Work out how many grams of solid you will get</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="swap" data-short="Ions swap partners">Ions swap partners</h2>
+    <p>This reaction looks like magic, but nothing new arrives. The ions were all there already, floating around in the two solutions. Mixing just lets them meet someone new. This uses the <a href="solubility.html">solubility rules</a> from the last lesson.</p>
+  </section>
+
+  <div id="story-swap"></div>
+
+  <div class="big-idea">A precipitate forms when two ions from different solutions meet and cannot stay dissolved together.</div>
+
+  <section class="prose">
+    <h2 id="lab" data-short="Mix any two">Mix any two solutions</h2>
+    <p>Here is a shelf with 18 solutions. Each one dissolves on its own. Choose any two and pour. The rules decide what happens, and the equations below the stage are worked out from the charges. Colors are the real colors of these solids.</p>
+  </section>
+
+  <figure class="bench" id="b-mix">
+    <div class="bench-head">
+      <p class="bench-title">Mix any two</p>
+      <p class="bench-hint">Choose one solution for each beaker, then pour.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-mix"></canvas></div>
+    <div class="bench-controls pr-mix-controls">
+      <div class="ctl"><span class="ctl-label">Beaker A</span><div class="seg pr-seg" id="mix-a"></div></div>
+      <div class="ctl"><span class="ctl-label">Beaker B</span><div class="seg pr-seg" id="mix-b"></div></div>
+      <div class="pr-mix-actions">
+        <button type="button" class="btn" id="mix-pour">Pour them together</button>
+        <button type="button" class="btn ghost" id="mix-random">Choose two for me</button>
+      </div>
+    </div>
+    <div class="bench-foot pr-eqs" id="mix-eqs" aria-live="polite"></div>
+    <div class="bench-foot pr-hunt">
+      <p><b>Color hunt.</b> Can you make a solid of every color? <span id="hunt-count"></span></p>
+      <div class="pr-swatches" id="hunt"></div>
+    </div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Try $\ce{KNO3}$ with anything. Nothing ever happens. Potassium and nitrate are the two most easygoing ions in chemistry, which also makes them very dull at parties.</p></div></div>
+
+  <section class="prose">
+    <h2 id="three" data-short="Three equations">Three ways to write the same event</h2>
+    <p>Chemists write this reaction three ways. Each one tells you something different.</p>
+    <p>The <strong>molecular equation</strong> shows whole compounds, which is what you would measure out of bottles. The <strong>complete ionic equation</strong> splits everything that is really split up in water. The <strong>net ionic equation</strong> drops the ions that did nothing, called <strong>spectators</strong>, leaving only what changed.</p>
+  </section>
+
+  <div id="story-three"></div>
+
+  <section class="prose">
+    <p>Now step through it yourself. Pick a reaction, and watch each move on its own.</p>
+  </section>
+
+  <figure class="bench" id="b-step">
+    <div class="bench-head">
+      <p class="bench-title">Net ionic stepper</p>
+      <p class="bench-hint">Pick a reaction, then press Next step.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-step"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg pr-seg" id="step-pick"></div>
+      </div>
+      <div class="pr-mix-actions" style="grid-column:1/-1">
+        <button type="button" class="btn ghost" id="step-back">Back a step</button>
+        <button type="button" class="btn" id="step-next">Next step</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="step-say" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Example: all three forms</p>
+    <div class="formula-body">
+      $$\ce{AgNO3(aq) + NaCl(aq) -> AgCl(s) + NaNO3(aq)}$$
+      $$\ce{Ag+(aq) + NO3^-(aq) + Na+(aq) + Cl^-(aq) -> AgCl(s) + Na+(aq) + NO3^-(aq)}$$
+      $$\ce{Ag+(aq) + Cl^-(aq) -> AgCl(s)}$$
+    </div>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the subscript does not stay attached</h4>
+      <p>When $\ce{Pb(NO3)2}$ splits, it makes one $\ce{Pb^2+}$ and <b>two</b> $\ce{NO3-}$, not one $\ce{(NO3)2^2-}$. The subscript becomes a coefficient. Likewise $\ce{Na2SO4}$ gives $\ce{2Na+ + SO4^2-}$.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="split" data-short="What to split">What to split, and what to keep whole</h2>
+    <p>Writing the complete ionic equation comes down to one question for each formula: is this really floating around as separate ions? Only <strong>strong electrolytes</strong> are.</p>
+  </section>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Split into ions</th><th>Keep whole</th></tr></thead>
+      <tbody>
+        <tr><td>Soluble ionic compounds: $\ce{NaCl(aq)}$, $\ce{Ca(NO3)2(aq)}$</td><td>Solids: $\ce{AgCl(s)}$, $\ce{BaSO4(s)}$</td></tr>
+        <tr><td>Strong acids: $\ce{HCl(aq)}$, $\ce{HNO3(aq)}$, $\ce{H2SO4(aq)}$</td><td>Liquids and gases: $\ce{H2O(l)}$, $\ce{CO2(g)}$</td></tr>
+        <tr><td>Strong bases: $\ce{NaOH(aq)}$, $\ce{Ba(OH)2(aq)}$</td><td>Weak acids and bases: $\ce{HC2H3O2(aq)}$, $\ce{NH3(aq)}$</td></tr>
+        <tr><td></td><td>Dissolved molecules: $\ce{C6H12O6(aq)}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="bench" id="b-split">
+    <div class="bench-head">
+      <p class="bench-title">Split it or keep it whole?</p>
+      <p class="bench-hint">Read the phase label first.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-split"></canvas></div>
+    <div class="bench-controls pr-game-btns">
+      <button type="button" class="btn cyan" id="split-yes">Split into ions</button>
+      <button type="button" class="btn sun" id="split-no">Keep it whole</button>
+      <button type="button" class="btn" id="split-next" hidden>Next formula</button>
+    </div>
+    <div class="bench-foot" id="split-say" aria-live="polite"><p>Solids, liquids and gases are easy. Watch out for dissolved things that do not split.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: splitting the precipitate</h4>
+      <p>Students often write $\ce{Ag+(aq) + Cl^-(aq)}$ on both sides. The whole point is that those ions are no longer free. Anything marked (s), (l) or (g) stays as a whole formula, on either side of the arrow.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="how-much" data-short="How much solid?">How much solid will you get?</h2>
+    <p>Precipitation is stoichiometry in disguise. Volume times molarity gives moles. Then the balanced equation takes you to the solid, just as in the <a href="stoichiometry.html">stoichiometry</a> lesson.</p>
+  </section>
+
+  <div class="formula">
+    <p class="formula-name">Moles from a solution</p>
+    <div class="formula-body">$$\text{moles} = \text{molarity} \times \text{liters}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: excess reagent</h4>
+    <p class="worked-q">Excess $\ce{NaCl}$ solution is added to 25.0 mL of 0.200 M $\ce{AgNO3}$. What mass of $\ce{AgCl}$ forms?</p>
+    <ol>
+      <li>Write the equation: $\ce{AgNO3(aq)}$ + $\ce{NaCl(aq)}$ $\rightarrow$ $\ce{AgCl(s)}$ + $\ce{NaNO3(aq)}$.</li>
+      <li>Convert milliliters to liters: $25.0\ \cancel{\text{mL}} \times \dfrac{1\text{ L}}{1000\ \cancel{\text{mL}}} = 0.0250\text{ L}$.</li>
+      <li>Find moles of $\ce{AgNO3}$: $0.0250\ \cancel{\text{L}} \times \dfrac{0.200\text{ mol}}{1\ \cancel{\text{L}}} = 5.00 \times 10^{-3}\text{ mol}$.</li>
+      <li>The mole ratio is 1 to 1, so $5.00 \times 10^{-3}$ mol of $\ce{AgCl}$ forms.</li>
+      <li>Molar mass of $\ce{AgCl}$: $107.87 + 35.45 = 143.32\text{ g/mol}$.</li>
+      <li>Mass: $5.00 \times 10^{-3}\ \cancel{\text{mol}} \times \dfrac{143.32\text{ g}}{1\ \cancel{\text{mol}}} =$ <span class="answer">0.717 g of $\ce{AgCl}$</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a 1 to 2 ratio, with a limiting reagent</h4>
+    <p class="worked-q">50.0 mL of 0.100 M $\ce{Pb(NO3)2}$ is mixed with 30.0 mL of 0.200 M $\ce{KI}$. What mass of $\ce{PbI2}$ forms?</p>
+    <ol>
+      <li>Write the equation: $\ce{Pb(NO3)2(aq)}$ + $\ce{2KI(aq)}$ $\rightarrow$ $\ce{PbI2(s)}$ + $\ce{2KNO3(aq)}$.</li>
+      <li>Moles of $\ce{Pb(NO3)2}$: $0.0500\text{ L} \times 0.100\text{ mol/L} = 5.00 \times 10^{-3}\text{ mol}$.</li>
+      <li>Moles of $\ce{KI}$: $0.0300\text{ L} \times 0.200\text{ mol/L} = 6.00 \times 10^{-3}\text{ mol}$.</li>
+      <li>Divide each by its coefficient: $5.00 \times 10^{-3} \div 1 = 5.00 \times 10^{-3}$ and $6.00 \times 10^{-3} \div 2 = 3.00 \times 10^{-3}$. The smaller is $\ce{KI}$, so it runs out first.</li>
+      <li>Moles of $\ce{PbI2}$: $6.00 \times 10^{-3}\text{ mol KI} \times \dfrac{1\text{ mol PbI}_2}{2\text{ mol KI}} = 3.00 \times 10^{-3}\text{ mol}$.</li>
+      <li>Molar mass of $\ce{PbI2}$: $207.2 + 2(126.90) = 461.0\text{ g/mol}$.</li>
+      <li>Mass: $3.00 \times 10^{-3}\text{ mol} \times 461.0\text{ g/mol} =$ <span class="answer">1.38 g of $\ce{PbI2}$</span>.</li>
+    </ol>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="precipitation"></div>
+  <div data-practice="precipitation"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>To predict a <strong>precipitate</strong>, swap partners, then check each new pair with the solubility rules.</li>
+      <li><strong>Molecular</strong>: whole compounds. <strong>Complete ionic</strong>: dissolved strong electrolytes split up. <strong>Net ionic</strong>: spectators removed.</li>
+      <li>Split only strong electrolytes marked (aq). Never split (s), (l) or (g), or weak acids and bases.</li>
+      <li><strong>Spectators</strong> are the same on both sides. Cross them out.</li>
+      <li>A correct net ionic equation balances <strong>atoms and charge</strong>.</li>
+      <li>If every ion is a spectator, there is <strong>no reaction</strong>.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

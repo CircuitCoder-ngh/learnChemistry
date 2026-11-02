@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Limiting reactants and yield | The Mole Hole</title>
+<meta name="description" content="See what runs out first in a molecule reactor you control. Find the limiting reactant, the leftovers, the theoretical yield and the percent yield.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/lesson-limiting.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/limiting.js"></script>
+<script defer src="assets/js/pages/limiting.js"></script>
+</head>
+<body data-page="limiting">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Limiting reactants and yield</h1>
+        <p class="lede">A reaction stops when one ingredient runs out. Find which one, and you know exactly how much you can make.</p>
+      </div>
+      <div class="lesson-moe" data-moe="think"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Find the limiting reactant by comparing moles with the recipe, never by grams</li>
+    <li>Work out how much product forms and how much excess is left over</li>
+    <li>Use two different methods and get the same answer</li>
+    <li>Calculate theoretical yield and percent yield</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="sandwich" data-short="What runs out?">The sandwich shop runs out</h2>
+    <p>Real reactions rarely get ingredients in the perfect amounts. There is nearly always too much of something. So the big question is: <strong>what runs out first?</strong></p>
+  </section>
+
+  <div id="story-sandwich"></div>
+
+  <div class="big-idea">The limiting reactant is the one that runs out first. It alone decides how much product you get.</div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>The other one is the <b>excess reactant</b>. It is not useless. It reacts right up until the limiting one is gone, and then it just stands around, like me after the sandwiches run out.</p></div></div>
+
+  <section class="prose">
+    <h2 id="reactor" data-short="The reactor">Run the molecule reactor</h2>
+    <p>Set the amounts, <strong>predict what will be left over</strong>, then press run. The reactor counts every atom, before and after. Below it, three popular wrong ideas get tested live against your run. <strong>Can you find a mix that leaves nothing behind?</strong></p>
+  </section>
+
+  <figure class="bench" id="b-reactor">
+    <div class="bench-head">
+      <p class="bench-title">Molecule reactor</p>
+      <p class="bench-hint">Set the amounts, predict, then run.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-reactor"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="rc-rx"></div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="rc-a"><span id="rc-a-label">A</span> <span class="ctl-value" id="rc-a-out"></span></label>
+        <input type="range" id="rc-a" min="2" max="12" step="2" value="6">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="rc-b"><span id="rc-b-label">B</span> <span class="ctl-value" id="rc-b-out"></span></label>
+        <input type="range" id="rc-b" min="1" max="10" step="1" value="4">
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Try a mix</span>
+        <div class="seg" id="rc-preset"></div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Your prediction: what is left over at the end?</span>
+        <div class="seg" id="rc-predict"></div>
+      </div>
+      <div class="ctl rc-go">
+        <button type="button" class="btn" id="rc-run">Run the reaction</button>
+        <button type="button" class="btn ghost small" id="rc-reset">Reset</button>
+      </div>
+    </div>
+    <div class="bench-foot">
+      <p id="rc-verdict" aria-live="polite"></p>
+      <div class="rc-table-wrap"><table class="rc-table" id="rc-table"></table></div>
+      <ul class="myths" id="rc-myths"></ul>
+      <p class="rc-note">A simplified 2D model. One picture stands for one mole, and the sliders move in whole batches of the recipe so that no picture has to be cut in half. Real reactions happen one collision at a time, and the atoms here are counted exactly.</p>
+    </div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="surprise" data-short="The mass surprise">The mass surprise</h2>
+    <p>Here is the mistake that costs the most marks. Students see two masses and call the smaller one limiting. It sounds so reasonable. Watch it fail.</p>
+  </section>
+
+  <div id="story-myths"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: smallest mass is not limiting</h4>
+      <p>Grams tell you how heavy, not how many. Reactions run by counting. An exam will happily give you 20 g of one reactant and 10 g of another, with the 20 g sample running out first. <b>Always change to moles, then compare against the coefficients.</b></p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <p>Now try it with your own numbers. The calculation pipeline runs from grams to moles to recipe runs. <strong>Find a mix where the sample with more grams is the limiting one</strong>, or press the button if you want to see one straight away.</p>
+  </section>
+
+  <figure class="bench" id="b-mass">
+    <div class="bench-head">
+      <p class="bench-title">Grams can fool you</p>
+      <p class="bench-hint">Slide the masses. Watch which bar stops first.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-mass"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="ms-rx"></div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="ms-a"><span id="ms-a-label">A</span> <span class="ctl-value" id="ms-a-out"></span></label>
+        <input type="range" id="ms-a" min="1" max="100" step="1" value="10">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="ms-b"><span id="ms-b-label">B</span> <span class="ctl-value" id="ms-b-out"></span></label>
+        <input type="range" id="ms-b" min="1" max="100" step="1" value="20">
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="ms-surprise">Show me a surprise</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="ms-calc" aria-live="polite"></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="methods" data-short="Two methods">Two methods, same answer</h2>
+    <p>Your instructor may teach either one, so learn both. They always agree, and either one starts by changing every mass to moles. Follow one problem all the way through.</p>
+  </section>
+
+  <div id="story-methods"></div>
+
+  <div class="formula">
+    <p class="formula-name">Method 1: recipe runs</p>
+    <div class="formula-body">$$\text{recipe runs} = \frac{\text{moles you have}}{\text{coefficient}}$$</div>
+    <dl><dt>Limiting</dt><dd>the reactant with the fewest recipe runs</dd></dl>
+  </div>
+
+  <div class="formula">
+    <p class="formula-name">Method 2: product from each</p>
+    <div class="formula-body">$$\text{product} = \text{moles of reactant} \times \frac{\text{mol product}}{\text{mol reactant}}$$</div>
+    <dl><dt>Limiting</dt><dd>the reactant that makes the least product. That smallest amount is the real answer.</dd></dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: method 1 with leftovers</h4>
+    <p class="worked-q">15.0 g of $\ce{N2}$ reacts with 5.00 g of $\ce{H2}$ by $\ce{N2 + 3H2 -> 2NH3}$. Which is limiting? How much $\ce{NH3}$ forms? How much excess is left?</p>
+    <ol>
+      <li>Change both to moles. $\ce{N2}$: $15.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{28.01\ \cancel{\text{g}}} = 0.5355\text{ mol}$. $\ce{H2}$: $5.00\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{2.016\ \cancel{\text{g}}} = 2.480\text{ mol}$.</li>
+      <li>Divide each by its coefficient. $\ce{N2}$: $0.5355 \div 1 = 0.5355$ runs. $\ce{H2}$: $2.480 \div 3 = 0.8267$ runs.</li>
+      <li>$\ce{N2}$ allows fewer runs, so <b>$\ce{N2}$ is limiting</b>. Notice that it also has the most grams.</li>
+      <li>Use the limiting reactant for everything else. $0.5355\ \cancel{\text{mol N}_2} \times \dfrac{2\text{ mol NH}_3}{1\ \cancel{\text{mol N}_2}} = 1.071\text{ mol NH}_3$. Then $1.071\ \cancel{\text{mol}} \times \dfrac{17.03\text{ g}}{1\ \cancel{\text{mol}}} = $ <span class="answer">$18.2\text{ g NH}_3$</span>.</li>
+      <li>Find the $\ce{H2}$ used. $0.5355\ \cancel{\text{mol N}_2} \times \dfrac{3\text{ mol H}_2}{1\ \cancel{\text{mol N}_2}} = 1.607\text{ mol H}_2$, which is $1.607 \times 2.016 = 3.24\text{ g}$.</li>
+      <li>Subtract. $5.00\text{ g} - 3.24\text{ g} = $ <span class="answer">$1.76\text{ g H}_2$ left over</span>. Check the mass: $15.0 + 5.00 = 20.0$ g in, and $18.2 + 1.76 = 20.0$ g out.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <p>A tidy way to organize leftovers is a table of start, change and end. Some courses call it a BCA table (before, change, after). It is the same table the reactor builds, and it has the same shape as the ICE table (initial, change, equilibrium) you will meet in equilibrium. Here are the numbers from that worked example, in moles.</p>
+  </section>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th></th><th>$\ce{N2}$</th><th>$\ce{H2}$</th><th>$\ce{NH3}$</th></tr></thead>
+    <tbody>
+      <tr><td><b>Start</b></td><td>0.5355</td><td>2.480</td><td>0</td></tr>
+      <tr><td><b>Change</b></td><td>$-$0.5355</td><td>$-$1.607</td><td>+1.071</td></tr>
+      <tr><td><b>End</b></td><td>0</td><td>0.873</td><td>1.071</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="worked">
+    <h4>Worked example: method 2</h4>
+    <p class="worked-q">12.0 g of Mg burns with 10.0 g of $\ce{O2}$ by $\ce{2Mg + O2 -> 2MgO}$. How many grams of $\ce{MgO}$ can form?</p>
+    <ol>
+      <li>Pretend Mg runs out. $12.0\ \cancel{\text{g Mg}} \times \dfrac{1\ \cancel{\text{mol Mg}}}{24.31\ \cancel{\text{g Mg}}} \times \dfrac{2\ \cancel{\text{mol MgO}}}{2\ \cancel{\text{mol Mg}}} \times \dfrac{40.30\text{ g MgO}}{1\ \cancel{\text{mol MgO}}} = 19.9\text{ g MgO}$.</li>
+      <li>Pretend $\ce{O2}$ runs out. $10.0\ \cancel{\text{g O}_2} \times \dfrac{1\ \cancel{\text{mol O}_2}}{32.00\ \cancel{\text{g O}_2}} \times \dfrac{2\ \cancel{\text{mol MgO}}}{1\ \cancel{\text{mol O}_2}} \times \dfrac{40.30\text{ g MgO}}{1\ \cancel{\text{mol MgO}}} = 25.2\text{ g MgO}$.</li>
+      <li>The smaller number is the real one. Mg stops the reaction at <span class="answer">$19.9\text{ g MgO}$</span>, so Mg is limiting and $\ce{O2}$ is in excess.</li>
+    </ol>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="wave"></div><div class="bubble"><p>With method 2, never add the two product amounts together. Only one of them really happens. The other is a daydream about a world where the first reactant never ran out.</p></div></div>
+
+  <section class="prose">
+    <h2 id="yield" data-short="Percent yield">Theoretical and percent yield</h2>
+    <p>The map gives you the most product the atoms allow. That number is the <strong>theoretical yield</strong>. A real experiment nearly always gives less. What you really collect is the <strong>actual yield</strong>.</p>
+  </section>
+
+  <div id="story-yield"></div>
+
+  <div class="formula">
+    <p class="formula-name">Percent yield</p>
+    <div class="formula-body">$$\text{percent yield} = \frac{\text{actual yield}}{\text{theoretical yield}} \times 100\%$$</div>
+    <dl>
+      <dt>Actual</dt><dd>what you measured in the lab. A problem has to tell you this.</dd>
+      <dt>Theoretical</dt><dd>what you calculate from the limiting reactant</dd>
+    </dl>
+  </div>
+
+  <figure class="bench" id="b-yield">
+    <div class="bench-head">
+      <p class="bench-title">Percent yield filler</p>
+      <p class="bench-hint">Fill the jar. Try to land on the target.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-yield"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Reaction</span>
+        <div class="seg" id="yd-rx"></div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="yd-lim"><span id="yd-lim-label">Limiting reactant</span> <span class="ctl-value" id="yd-lim-out"></span></label>
+        <input type="range" id="yd-lim" min="5" max="50" step="1" value="20">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="yd-act">Product you collected <span class="ctl-value" id="yd-act-out"></span></label>
+        <input type="range" id="yd-act" min="0" max="110" step="1" value="70">
+      </div>
+      <div class="ctl">
+        <button type="button" class="btn small" id="yd-target">Give me a target</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="yd-calc" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: percent yield from the start</h4>
+    <p class="worked-q">20.0 g of $\ce{CaCO3}$ is heated and breaks down by $\ce{CaCO3 -> CaO + CO2}$. You collect 9.80 g of $\ce{CaO}$. What is the percent yield?</p>
+    <ol>
+      <li>There is only one reactant, so it is limiting. Change it to moles. $20.0\ \cancel{\text{g}} \times \dfrac{1\text{ mol}}{100.09\ \cancel{\text{g}}} = 0.1998\text{ mol CaCO}_3$.</li>
+      <li>Use the mole ratio. $0.1998\ \cancel{\text{mol CaCO}_3} \times \dfrac{1\text{ mol CaO}}{1\ \cancel{\text{mol CaCO}_3}} = 0.1998\text{ mol CaO}$.</li>
+      <li>Find the theoretical yield. $0.1998\ \cancel{\text{mol}} \times \dfrac{56.08\text{ g}}{1\ \cancel{\text{mol}}} = 11.2\text{ g CaO}$.</li>
+      <li>Divide what you got by what was possible. $\dfrac{9.80\ \cancel{\text{g}}}{11.2\ \cancel{\text{g}}} \times 100\% = $ <span class="answer">$87.5\%$</span>. A percent has no other unit, since the grams cancel.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: theoretical yield comes from the limiting reactant</h4>
+      <p>Compute it from the excess reactant and you get an answer that is too big, and it even looks reasonable. Also check your fraction: actual goes on top. A yield over 100% does not mean you made atoms. It usually means the product is still wet or impure.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="limiting"></div>
+  <div data-practice="limiting"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>The <strong>limiting reactant</strong> runs out first and sets how much product forms. The <strong>excess reactant</strong> has some left over.</li>
+      <li>Never compare grams. Change to <strong>moles</strong>, then divide each by its coefficient. The smallest result is limiting.</li>
+      <li>Method 2: find the product from each reactant. The <strong>smaller amount</strong> is the real answer.</li>
+      <li>Excess left = what you started with minus what the limiting reactant used up.</li>
+      <li><strong>Percent yield</strong> = actual ÷ theoretical × 100. Use the limiting reactant to get the theoretical yield.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

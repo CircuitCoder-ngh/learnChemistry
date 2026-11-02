@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit conversions and density | The Mole Hole</title>
+<meta name="description" content="Dimensional analysis with units that really cancel, cubed units, density with a float or sink tank, and three linked thermometers.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/conversions.js"></script>
+<script defer src="assets/js/pages/conversions.js"></script>
+</head>
+<body data-page="conversions">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Unit conversions and density</h1>
+        <p class="lede">One trick, units that cancel like fractions, solves half of chemistry. It also tells you when you got it wrong.</p>
+      </div>
+      <div class="lesson-moe" data-moe="cheer"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Build conversion factors and cancel units, even across several steps</li>
+    <li>Convert squared and cubed units without the classic mistake</li>
+    <li>Use density, rearranged for any variable, and predict float or sink</li>
+    <li>Convert between °C, K and °F</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="factors" data-short="Canceling units">Units cancel like fractions</h2>
+    <p>Chemists call this <strong>dimensional analysis</strong>. It sounds fancy. It is really one idea: you can multiply anything by 1 without changing it, and there are many clever ways to write 1.</p>
+  </section>
+
+  <div id="story-factor"></div>
+
+  <div class="big-idea">A conversion factor is a fraction equal to 1. Put the unit you want to lose on the bottom.</div>
+
+  <section class="prose">
+    <p>Now you do it. Tap a fraction to add it to the chain, and flip it first if it needs flipping. Watch the units: they tell you when you are done, and they tell you when you are wrong.</p>
+  </section>
+
+  <figure class="bench" id="b-cancel">
+    <div class="bench-head">
+      <p class="bench-title">Cancel the units</p>
+      <p class="bench-hint">Tap a fraction in the chain to take it back out.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cancel"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Problem</span>
+        <div class="seg" id="ca-prob">
+          <button type="button" data-value="0" aria-pressed="true">km to m</button>
+          <button type="button" data-value="1" aria-pressed="false">mL to L</button>
+          <button type="button" data-value="2" aria-pressed="false">inches to cm</button>
+          <button type="button" data-value="3" aria-pressed="false">hours to seconds</button>
+          <button type="button" data-value="4" aria-pressed="false">mg to kg</button>
+          <button type="button" data-value="5" aria-pressed="false">m³ to cm³</button>
+          <button type="button" data-value="6" aria-pressed="false">mi/h to m/s</button>
+        </div>
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <button type="button" class="btn ghost" id="ca-clear">Clear the chain</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="ca-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: the flipped fraction</h4>
+      <p>$2.50\text{ km} \times \dfrac{1\text{ km}}{1000\text{ m}}$ gives $0.00250\ \text{km}^2/\text{m}$. A calculator will not stop you, but the units will. If the units left over are not the ones you wanted, a fraction is upside down. <b>Always write the units down.</b></p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: a chain of conversions</h4>
+    <p class="worked-q">How many seconds are in 3.00 hours?</p>
+    <ol>
+      <li>Plan a path: hours to minutes to seconds.</li>
+      <li>Put hours on the bottom to cancel them: $3.00\ \cancel{\text{h}} \times \dfrac{60\ \text{min}}{1\ \cancel{\text{h}}} = 180\ \text{min}$.</li>
+      <li>Now put minutes on the bottom: $180\ \cancel{\text{min}} \times \dfrac{60\ \text{s}}{1\ \cancel{\text{min}}} = 10800\ \text{s}$.</li>
+      <li>The 60s are exact, so only 3.00 limits the sig figs: <span class="answer">$1.08 \times 10^{4}$ s</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="cubes" data-short="Cubed units">Squared and cubed units</h2>
+    <p>This is where most people get burned. A meter is 100 centimeters, but a <em>cubic</em> meter is not 100 cubic centimeters. Not even close.</p>
+  </section>
+
+  <div id="story-cube"></div>
+
+  <figure class="bench" id="b-cube">
+    <div class="bench-head">
+      <p class="bench-title">Cube of cubes</p>
+      <p class="bench-hint">Each little cube is 1 cm on a side.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-cube"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="cu-n">Edge length <span class="ctl-value" id="cu-n-out"></span></label>
+        <input type="range" id="cu-n" min="1" max="10" step="1" value="4">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Along one edge</div><div class="readout-value" id="cu-a">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Covering one face</div><div class="readout-value" id="cu-b">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">In the whole cube</div><div class="readout-value" id="cu-c">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Slide to 10. That cube is exactly <b>1 liter</b>. Each little cube is <b>1 cm³</b>, which is exactly <b>1 mL</b>.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: forgetting to cube the number</h4>
+      <p>$(100\text{ cm})^3$ means $100^3\text{ cm}^3$, which is $1{,}000{,}000\text{ cm}^3$. Cube the number <b>and</b> the unit. And remember this pair, since it is on every exam: $1\text{ mL} = 1\text{ cm}^3$, and $1\text{ L} = 1000\text{ mL}$.</p>
+    </div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: cubic units</h4>
+    <p class="worked-q">A tank holds 2.5 m³. How many liters is that?</p>
+    <ol>
+      <li>Cube the factor to change m³ to cm³: $2.5\ \cancel{\text{m}^3} \times \left(\dfrac{100\text{ cm}}{1\ \cancel{\text{m}}}\right)^{3} = 2.5 \times 10^{6}\text{ cm}^3$.</li>
+      <li>Use $1\text{ cm}^3 = 1\text{ mL}$: that is $2.5 \times 10^{6}\text{ mL}$.</li>
+      <li>Change mL to L: $2.5 \times 10^{6}\ \cancel{\text{mL}} \times \dfrac{1\text{ L}}{1000\ \cancel{\text{mL}}} = $ <span class="answer">$2.5 \times 10^{3}$ L</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="density" data-short="Density">Density</h2>
+    <p><strong>Density</strong> is how much mass is packed into each bit of space. It also works as a conversion factor between mass and volume, so everything you just learned still applies.</p>
+  </section>
+
+  <div id="story-density"></div>
+
+  <div class="formula">
+    <p class="formula-name">Density, three ways</p>
+    <div class="formula-body">$$d = \frac{m}{V} \qquad m = d \times V \qquad V = \frac{m}{d}$$</div>
+    <dl>
+      <dt>$d$</dt><dd>Density, usually in g/mL or g/cm³ (the same thing). Gases are often in g/L.</dd>
+      <dt>$m$</dt><dd>Mass, usually in g.</dd>
+      <dt>$V$</dt><dd>Volume, usually in mL or cm³.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: find the volume</h4>
+    <p class="worked-q">What volume does 50.0 g of ethanol occupy? Its density is 0.789 g/mL.</p>
+    <ol>
+      <li>Rearrange for $V$: $d = \dfrac{m}{V}$, so multiply both sides by $V$ to get $dV = m$, then divide by $d$ to get $V = \dfrac{m}{d}$.</li>
+      <li>Substitute, and watch grams cancel: $V = 50.0\ \cancel{\text{g}} \times \dfrac{1\text{ mL}}{0.789\ \cancel{\text{g}}}$.</li>
+      <li>Calculate with 3 sig figs: <span class="answer">$63.4$ mL</span>.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <p>Something floats when it is less dense than the liquid around it. Drag these blocks into the tank, and predict first. They are all the same size. Can you make the egg float? Can you make solid iron float?</p>
+  </section>
+
+  <figure class="bench" id="b-tank">
+    <div class="bench-head">
+      <p class="bench-title">Float or sink tank</p>
+      <p class="bench-hint">Drag a block into the liquid.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tank"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Liquid</span>
+        <div class="seg" id="ta-liq">
+          <button type="button" data-value="ethanol" aria-pressed="false">Ethanol</button>
+          <button type="button" data-value="water" aria-pressed="true">Water</button>
+          <button type="button" data-value="brine" aria-pressed="false">Very salty water</button>
+          <button type="button" data-value="mercury" aria-pressed="false">Mercury</button>
+        </div>
+      </div>
+      <div class="ctl" style="display:flex;align-items:end">
+        <button type="button" class="btn ghost" id="ta-empty">Empty the tank</button>
+      </div>
+    </div>
+    <div class="bench-foot" id="ta-foot" aria-live="polite"><p>Watch how much of each block stays under the surface. A floating block sinks until the fraction under the surface equals its density divided by the liquid's density. Wood and eggs vary, so those values are typical.</p></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: water displacement</h4>
+    <p class="worked-q">A rock of mass 21.6 g raises the water in a cylinder from 30.0 mL to 38.0 mL. What is its density?</p>
+    <ol>
+      <li>The rock pushes aside its own volume of water: $V = 38.0 - 30.0 = 8.0$ mL. Subtracting keeps one decimal place, which leaves 2 sig figs.</li>
+      <li>Divide: $d = \dfrac{m}{V} = \dfrac{21.6\text{ g}}{8.0\text{ mL}}$.</li>
+      <li>Keep the fewest sig figs, which is 2: <span class="answer">$2.7$ g/mL</span>. That happens to match the density of aluminum.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="temperature" data-short="Temperature">Temperature: three scales</h2>
+    <p>Temperature measures how fast particles are moving on average. Three scales describe the same thing. Drag the temperature and all three move together. Then take it as low as it can go.</p>
+  </section>
+
+  <figure class="bench" id="b-temp">
+    <div class="bench-head">
+      <p class="bench-title">Three linked thermometers</p>
+      <p class="bench-hint">Drag on the thermometers, or use the slider.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-temp"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="te-c">Temperature <span class="ctl-value" id="te-c-out"></span></label>
+        <input type="range" id="te-c" min="-273.15" max="150" step="0.05" value="20">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Jump to</span>
+        <div class="seg" id="te-jump">
+          <button type="button" data-value="-273.15" aria-pressed="false">Absolute zero</button>
+          <button type="button" data-value="-40" aria-pressed="false">Scales agree</button>
+          <button type="button" data-value="0" aria-pressed="false">Water freezes</button>
+          <button type="button" data-value="37" aria-pressed="false">Body</button>
+          <button type="button" data-value="100" aria-pressed="false">Water boils</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="te-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Temperature conversions</p>
+    <div class="formula-body">$$T_{\text{K}} = T_{^\circ\text{C}} + 273.15 \qquad T_{^\circ\text{F}} = 1.8\,T_{^\circ\text{C}} + 32$$</div>
+    <dl>
+      <dt>Backward</dt><dd>$T_{^\circ\text{C}} = \dfrac{T_{^\circ\text{F}} - 32}{1.8}$. Subtract first, then divide.</dd>
+      <dt>Absolute zero</dt><dd>0 K, which is $-273.15$ °C. Nothing can be colder.</dd>
+    </dl>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: Fahrenheit to Kelvin</h4>
+    <p class="worked-q">A room is at 68.0 °F. What is that in kelvin?</p>
+    <ol>
+      <li>There is no direct path, so go through Celsius. Subtract first: $68.0 - 32 = 36.0$.</li>
+      <li>Then divide: $\dfrac{36.0}{1.8} = 20.0$ °C. The 32 and 1.8 are exact.</li>
+      <li>Add to reach kelvin: $20.0 + 273.15 = $ <span class="answer">$293.2$ K</span>, keeping one decimal place.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: kelvin rules</h4>
+      <p>Write K, not °K. Kelvin temperatures are never negative, so a negative answer means a mistake. A <em>change</em> of 10 °C is also a change of 10 K, since the steps are the same size. The 273.15 matters only for a reading, not a difference.</p>
+    </div>
+  </div>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="wow"></div><div class="bubble"><p>At $-40$ the Celsius and Fahrenheit scales agree exactly. That is the one temperature where nobody has to convert. It is also the temperature at which I stay in my hole.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="conversions"></div>
+  <div data-practice="conversions"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li>A <strong>conversion factor</strong> is a fraction equal to 1. Put the unit you want to lose on the bottom.</li>
+      <li>Cube the number too: $1\text{ m}^3 = 10^{6}\text{ cm}^3$. Square it for areas: $1\text{ m}^2 = 10^{4}\text{ cm}^2$.</li>
+      <li>$1\text{ mL} = 1\text{ cm}^3$, and $1\text{ L} = 1000\text{ mL}$.</li>
+      <li>$d = m/V$. Less dense than the liquid floats. Volume of a lump: <strong>water displacement</strong>.</li>
+      <li>$T_{\text{K}} = T_{^\circ\text{C}} + 273.15$, and $T_{^\circ\text{F}} = 1.8\,T_{^\circ\text{C}} + 32$. Absolute zero is 0 K.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

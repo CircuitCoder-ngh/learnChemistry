@@ -1,0 +1,83 @@
+/* Home page: a live pond of atoms above ground, then a cutaway burrow you dig down through. */
+.home { background: #150C24; }
+.home .toasts { bottom: auto; top: calc(var(--topbar-h) + 12px); }
+
+/* ---------- The pond: the whole first screen is a toy ---------- */
+.pond { position: relative; min-height: calc(100vh - var(--topbar-h)); min-height: calc(100svh - var(--topbar-h)); background: #1A0F2E; overflow: hidden; color: #fff; display: flex; align-items: center; padding: 28px clamp(18px, 5vw, 72px) 118px; }
+#pond { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#pond.is-dragging { cursor: grabbing; }
+.pond-copy { position: relative; max-width: 35rem; pointer-events: none; }
+.pond-copy h1 { color: #fff; font-size: clamp(2.9rem, 7.2vw, 5.6rem); line-height: 0.98; margin-bottom: 0.36em; text-shadow: 0 4px 0 #1A0F2E, 0 0 30px #1A0F2E; }
+.pond-lede { font-size: clamp(1.16rem, 2.1vw, 1.42rem); line-height: 1.4; color: #E7DDF8; max-width: 30rem; text-shadow: 0 2px 10px #1A0F2E; }
+.pond-actions { display: flex; flex-wrap: wrap; gap: 14px 16px; pointer-events: auto; margin-top: 1.2em; }
+.btn.ghost-dark { background: transparent; color: #fff !important; box-shadow: 0 0 0 2.5px #8F76C2, 0 5px 0 2.5px #8F76C2; }
+.btn.ghost-dark:active { box-shadow: 0 0 0 2.5px #8F76C2, 0 1px 0 2.5px #8F76C2; }
+.pond .btn { color: #fff; --b: #D9127F; --bd: #A00A5D; }
+.pond-resume { margin-top: 1em; pointer-events: auto; color: #E7DDF8; font-weight: 500; }
+.pond-resume a { color: #FFD23F; }
+.pond-moe { position: absolute; right: clamp(14px, 4vw, 70px); bottom: 22px; width: clamp(96px, 11vw, 150px); pointer-events: none; z-index: 1; animation: moe-rise 900ms cubic-bezier(.2, 1.5, .45, 1) 450ms both; }
+.pond-moe .moe-svg { width: 100%; overflow: visible; }
+@keyframes moe-rise { from { transform: translateY(110%); } }
+@media (prefers-reduced-motion: reduce) { .pond-moe { animation: none; } }
+.pond-tray { position: absolute; right: calc(clamp(14px, 4vw, 70px) + clamp(96px, 11vw, 150px) + 18px); bottom: 92px; max-width: min(400px, calc(100vw - 180px)); pointer-events: none; display: grid; justify-items: end; gap: 8px; z-index: 3; animation: pop-tray 360ms cubic-bezier(.2, 1.4, .5, 1) 1300ms both; }
+@keyframes pop-tray { from { opacity: 0; transform: scale(0.8) translateX(20px); } }
+@media (prefers-reduced-motion: reduce) { .pond-tray { animation: none; } }
+.pond-try { position: relative; margin: 0; padding: 9px 16px; background: #FFFDF2; color: #22123A; border-radius: 18px; border: 3px solid #1A0F2E; font-weight: 700; font-size: 1.06rem; line-height: 1.3; }
+.pond-try::after { content: ""; position: absolute; right: -14px; bottom: 16px; width: 15px; height: 15px; background: #FFFDF2; border-right: 3px solid #1A0F2E; border-bottom: 3px solid #1A0F2E; transform: rotate(-45deg) skew(12deg, 12deg); }
+.pond-try b { font-family: var(--font-display); font-weight: 400; color: #D9127F; }
+.pond-made { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin: 0; padding: 0; }
+.pond-made li { margin: 0; padding: 2px 12px; background: #3DDC84; color: #0B2A1A; border-radius: 999px; font-weight: 700; font-size: 0.98rem; animation: toast-in 320ms cubic-bezier(.2, 1.4, .5, 1); }
+.ground-edge { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 70px; pointer-events: none; z-index: 2; }
+@media (max-width: 760px) {
+  .pond { align-items: flex-start; padding-top: 22px; padding-bottom: 150px; }
+  .pond-tray { left: 12px; right: 112px; max-width: none; bottom: 66px; }
+  .pond-try { font-size: 0.98rem; padding: 7px 12px; }
+}
+
+/* ---------- The dig ---------- */
+.dig { background: linear-gradient(180deg, #3B2150 0%, #331C4B 12%, #2B1D52 30%, #1D2559 48%, #281B57 62%, #231446 76%, #2E1436 90%, #451430 100%); color: #fff; padding: 34px clamp(14px, 3vw, 40px) 60px; position: relative; overflow: hidden; }
+.dig-intro { max-width: 40rem; margin: 0 auto 26px; text-align: center; }
+.dig-intro h2 { color: #fff; margin: 0.4em 0 0.4em; }
+.dig-intro p { color: #DDD2F2; font-size: 1.14rem; }
+.burrow { position: relative; max-width: 1020px; margin: 0 auto; }
+.tunnel { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.digger { position: absolute; left: 0; top: 0; width: 76px; margin: -82px 0 0 -38px; pointer-events: none; z-index: 1; will-change: transform; transition: opacity 240ms; filter: drop-shadow(0 5px 0 rgba(10, 4, 24, 0.5)); }
+.digger .moe-svg { width: 100%; overflow: visible; }
+.chambers { position: relative; display: grid; gap: clamp(30px, 5vw, 56px); z-index: 2; }
+.chamber { width: min(100%, 720px); background: linear-gradient(160deg, color-mix(in srgb, var(--u) 24%, #1A0F2E), #1A0F2E 72%); border-radius: 48px 26px 54px 30px / 34px 54px 30px 52px; padding: 18px 22px 18px; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 4px 20px; align-items: start; box-shadow: 0 0 0 5px rgba(10, 4, 24, 0.55), inset 0 -8px 0 rgba(0, 0, 0, 0.25), inset 0 0 0 2px color-mix(in srgb, var(--u) 55%, transparent); position: relative; }
+.chamber:nth-child(even) { margin-left: auto; border-radius: 26px 48px 30px 54px / 54px 34px 52px 30px; }
+.chamber-art { grid-row: span 2; width: 170px; align-self: center; }
+.chamber-art canvas { width: 100%; height: auto; border-radius: 22px; }
+.chamber-depth { font-size: 0.92rem; color: #BFB2DA; font-weight: 700; margin: 0; }
+.chamber h3 { margin: 0 0 0.25em; color: #fff; font-size: clamp(1.4rem, 3vw, 1.8rem); }
+.chamber ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.chamber li { margin: 0; }
+.chamber-link { display: grid; grid-template-columns: 2.8em 1fr auto; gap: 2px; align-items: baseline; padding: 0.24em 0.5em; border-radius: 10px; color: #EEE6FB; text-decoration: none; font-weight: 500; line-height: 1.28; }
+.chamber-link:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.chamber-link .n { color: var(--u-ink); font-family: var(--font-display); font-size: 0.98rem; }
+.chamber-link .tick { color: #3DDC84; font-weight: 700; opacity: 0; }
+.chamber-link.is-done .tick { opacity: 1; }
+.chamber-link small { display: block; color: #BFB2DA; font-size: 0.92rem; font-weight: 400; }
+.chamber.is-complete { box-shadow: 0 0 0 5px #3DDC84, inset 0 -8px 0 rgba(0, 0, 0, 0.25); }
+.chamber-meter { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: rgba(255, 255, 255, 0.1); margin-top: 8px; overflow: hidden; }
+.chamber-meter > span { display: block; height: 100%; width: 0; background: var(--u-ink); border-radius: 99px; transition: width 400ms ease; }
+@media (max-width: 640px) {
+  .chamber { grid-template-columns: minmax(0, 1fr); border-radius: 30px !important; padding: 16px; }
+  .chamber-art { grid-row: auto; width: 100%; max-width: 280px; margin: 0 auto 6px; }
+}
+@media (max-width: 980px) { .digger { display: none; } }
+
+/* ---------- The core ---------- */
+.core { position: relative; background: #2E0E1C; color: #fff; overflow: hidden; padding: clamp(46px, 7vw, 86px) clamp(16px, 4vw, 44px) clamp(46px, 7vw, 80px); }
+#core-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.core-inner { position: relative; max-width: 60rem; margin: 0 auto; text-align: center; }
+.core h2 { color: #fff; margin: 0 0 0.4em; font-size: clamp(2.3rem, 5.6vw, 4rem); text-shadow: 0 4px 0 rgba(40, 8, 20, 0.8); }
+.core p { font-size: 1.2rem; max-width: 37rem; margin: 0 auto 1.3em; color: #FFE6D2; text-shadow: 0 1px 8px rgba(40, 8, 20, 0.9); }
+.core-actions { margin-bottom: 2.2em; }
+.core .btn.sun { color: #22123A; font-size: 1.34rem; }
+.core-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; text-align: left; }
+.core-tools a { display: grid; gap: 1px; padding: 12px 15px; background: rgba(30, 8, 18, 0.74); border-radius: 18px; color: #fff; text-decoration: none; line-height: 1.26; box-shadow: inset 0 0 0 2px rgba(255, 180, 120, 0.3); }
+.core-tools a:hover { background: rgba(30, 8, 18, 0.92); box-shadow: inset 0 0 0 3px #FFD23F; }
+.core-tools b { font-family: var(--font-display); font-weight: 400; font-size: 1.16rem; color: #FFD23F; }
+.core-tools span { font-size: 0.95rem; color: #F2DFD3; }
+.home .site-footer { background: #150C24; }

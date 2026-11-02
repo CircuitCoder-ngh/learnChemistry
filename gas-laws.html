@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pressure and the gas laws | The Mole Hole</title>
+<meta name="description" content="See pressure as particles hitting a wall, read a barometer, convert atm, mmHg, torr and kPa, and explore Boyle's, Charles's, Gay-Lussac's and Avogadro's laws in a real particle lab.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/sim.js"></script>
+<script defer src="assets/js/bank/gas-laws.js"></script>
+<script defer src="assets/js/pages/gas-laws.js"></script>
+</head>
+<body data-page="gas-laws">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">On every exam</span></p>
+        <h1>Pressure and the gas laws</h1>
+        <p class="lede">Gas is a crowd of tiny things crashing into the walls. Squeeze it, heat it or add more, and you can predict exactly what happens.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Explain pressure as particles hitting a wall</li>
+    <li>Convert between atm, mmHg, torr and kPa</li>
+    <li>Use Boyle's, Charles's, Gay-Lussac's and Avogadro's laws</li>
+    <li>Always switch to Kelvin, and say why Celsius fails</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="pressure" data-short="What is pressure?">What is pressure?</h2>
+    <p>A blown-up balloon is hollow, yet it stays round. Something inside is pushing on the rubber, all the time, in every direction. Step through the story to find out what.</p>
+  </section>
+
+  <div id="story-pressure"></div>
+
+  <div class="big-idea">Pressure is force spread over an area. In a gas, that force comes from countless particles hitting the walls.</div>
+
+  <div class="formula">
+    <p class="formula-name">Pressure</p>
+    <div class="formula-body">$$P = \frac{F}{A} \qquad 1\text{ Pa} = 1\ \frac{\text{N}}{\text{m}^2}$$</div>
+  </div>
+
+  <section class="prose">
+    <h2 id="barometer" data-short="The barometer">Weighing the air with a barometer</h2>
+    <p>In 1643 Evangelista Torricelli found a way to measure the push of the air using nothing but a tube and a dish of mercury. His device is the <strong>barometer</strong>, and it gave us a unit we still use.</p>
+  </section>
+
+  <div id="story-baro"></div>
+
+  <section class="prose">
+    <h2 id="units" data-short="Pressure units">Four names for the same push</h2>
+    <p>Climb a mountain and there is less air above you, so it pushes down less. The mercury drops. Slide the altitude and watch all the units change together.</p>
+  </section>
+
+  <figure class="bench" id="b-baro">
+    <div class="bench-head">
+      <p class="bench-title">Take the barometer up a mountain</p>
+      <p class="bench-hint">Slide the altitude.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-baro"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="baro-h">Altitude <span class="ctl-value" id="baro-h-out"></span></label>
+        <input type="range" id="baro-h" min="0" max="9000" step="50" value="0">
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">atm</div><div class="readout-value" id="baro-atm">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">mmHg, same as torr</div><div class="readout-value" id="baro-mm">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">kPa</div><div class="readout-value" id="baro-kpa">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Pressure here comes from the <b>standard atmosphere model</b>, a smooth average. Real weather and latitude move the reading by a few percent or more: the real summit of Everest measures about 253 mmHg, not the model's 236. Water boils at a lower temperature up high, because this push is smaller.</p></div>
+  </figure>
+
+  <div class="formula">
+    <p class="formula-name">Pressure units: all the same push</p>
+    <div class="formula-body">$$\begin{gathered}1\text{ atm} = 760\text{ mmHg} = 760\text{ torr}\\ = 101.325\text{ kPa} = 1.01325\text{ bar}\end{gathered}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: converting pressure</h4>
+    <p class="worked-q">A barometer reads 745 mmHg. What is that in atm and in kPa?</p>
+    <ol>
+      <li>Write the fraction so mmHg cancels: $745\ \cancel{\text{mmHg}} \times \dfrac{1\text{ atm}}{760\ \cancel{\text{mmHg}}} = 0.980\text{ atm}$.</li>
+      <li>Carry on from atm to kPa: $0.980\ \cancel{\text{atm}} \times \dfrac{101.325\text{ kPa}}{1\ \cancel{\text{atm}}} = 99.3\text{ kPa}$.</li>
+      <li>The answer is <span class="answer">$0.980$ atm, or $99.3$ kPa</span>. Three significant figures, because 745 has three. The 760 and 101.325 are exact definitions.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="why" data-short="Why the laws work">Why the gas laws happen</h2>
+    <p>A gas has four things you can measure: <strong>pressure</strong> $P$, <strong>volume</strong> $V$, <strong>temperature</strong> $T$ and <strong>amount</strong> $n$ in moles. Hold two steady and the other two move together. Each pair has a law named after the person who pinned it down.</p>
+  </section>
+
+  <div id="story-why"></div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Law</th><th>Held steady</th><th>What happens</th><th>Equation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Boyle</b></td><td>$T$, $n$</td><td>Less volume, more pressure</td><td>$P_1V_1 = P_2V_2$</td></tr>
+        <tr><td><b>Charles</b></td><td>$P$, $n$</td><td>Hotter, more volume</td><td>$\dfrac{V_1}{T_1} = \dfrac{V_2}{T_2}$</td></tr>
+        <tr><td><b>Gay-Lussac</b></td><td>$V$, $n$</td><td>Hotter, more pressure</td><td>$\dfrac{P_1}{T_1} = \dfrac{P_2}{T_2}$</td></tr>
+        <tr><td><b>Avogadro</b></td><td>$P$, $T$</td><td>More gas, more volume</td><td>$\dfrac{V_1}{n_1} = \dfrac{V_2}{n_2}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="prose">
+    <h2 id="lab" data-short="The gas lab">The gas lab</h2>
+    <p>Now you drive. Pick a law and the lab locks the right variables for you. Every graph point is a real measurement of the state you just made. Then try the mission under the lab.</p>
+  </section>
+
+  <figure class="bench" id="b-lab">
+    <div class="bench-head">
+      <p class="bench-title">Piston, heater, gas valve</p>
+      <p class="bench-hint">Drag the piston, or use the sliders.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-lab"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <span class="ctl-label">Choose a law to lock the variables</span>
+        <div class="seg" id="lab-mode">
+          <button type="button" data-value="free" aria-pressed="true">Free play</button>
+          <button type="button" data-value="boyle" aria-pressed="false">Boyle</button>
+          <button type="button" data-value="charles" aria-pressed="false">Charles</button>
+          <button type="button" data-value="gay" aria-pressed="false">Gay-Lussac</button>
+          <button type="button" data-value="avo" aria-pressed="false">Avogadro</button>
+        </div>
+      </div>
+      <div class="ctl" id="ctl-v">
+        <label class="ctl-label" for="lab-v">Volume $V$ <span class="ctl-value" id="lab-v-out"></span></label>
+        <input type="range" id="lab-v" min="6" max="50" step="0.1" value="24.6">
+      </div>
+      <div class="ctl" id="ctl-t">
+        <label class="ctl-label" for="lab-t">Temperature $T$ <span class="ctl-value" id="lab-t-out"></span></label>
+        <input type="range" id="lab-t" min="100" max="600" step="5" value="300">
+      </div>
+      <div class="ctl" id="ctl-n">
+        <label class="ctl-label" for="lab-n">Amount of gas $n$ <span class="ctl-value" id="lab-n-out"></span></label>
+        <input type="range" id="lab-n" min="0.25" max="2" step="0.05" value="1">
+      </div>
+      <div class="ctl" style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center">
+        <div class="seg" id="lab-view" style="display:none">
+          <button type="button" data-value="a" aria-pressed="true" id="lab-view-a">First graph</button>
+          <button type="button" data-value="b" aria-pressed="false" id="lab-view-b">Second graph</button>
+        </div>
+        <button type="button" class="btn ghost small" id="lab-clear">Clear the graph points</button>
+      </div>
+      <div class="readouts" style="grid-column:1/-1">
+        <div class="readout is-sun"><div class="readout-label">Pressure in atm</div><div class="readout-value" id="lab-atm">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">In mmHg</div><div class="readout-value" id="lab-mm">—</div></div>
+        <div class="readout is-pink"><div class="readout-label">In kPa</div><div class="readout-value" id="lab-kpa">—</div></div>
+      </div>
+    </div>
+    <div class="bench-foot" id="lab-foot" aria-live="polite"></div>
+    <div class="bench-foot" style="padding-top:0"><p>A simplified 2D model. The solid needle is calculated from $P = nRT/V$ using $R = 0.08206$ L atm/(mol K). The pale needle is measured from the actual ball hits, so it shivers and sits close to the solid one. Squeeze very hard and it reads high, because the balls take up real room. Real gases do that too. Each ball stands for 0.05 mol, about $3 \times 10^{22}$ molecules, and all the motion is slowed way down.</p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>Try the graph button on Boyle's law. $P$ against $V$ is a curve, which is hard to read. $P$ against $1/V$ is a straight line through zero, and straight lines are how scientists prove a law.</p></div></div>
+
+  <div class="worked">
+    <h4>Worked example: Boyle's law</h4>
+    <p class="worked-q">A gas fills 5.00 L at 760 mmHg. At the same temperature, what volume does it fill at 2.50 atm?</p>
+    <ol>
+      <li>Check what is steady: $T$ and $n$. That is Boyle's law, $P_1V_1 = P_2V_2$.</li>
+      <li>Make the pressure units match: $760\ \cancel{\text{mmHg}} \times \dfrac{1\text{ atm}}{760\ \cancel{\text{mmHg}}} = 1.00\text{ atm}$.</li>
+      <li>Solve for $V_2$ by dividing both sides by $P_2$: $V_2 = \dfrac{P_1V_1}{P_2}$.</li>
+      <li>Put in the numbers: $V_2 = \dfrac{(1.00\ \cancel{\text{atm}})(5.00\text{ L})}{2.50\ \cancel{\text{atm}}} = $ <span class="answer">$2.00$ L</span>.</li>
+      <li>Sense check: pressure went up, so the volume should go down. It did.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="kelvin" data-short="Why Kelvin">Why Celsius breaks the gas laws</h2>
+    <p>This is the most common mistake in the whole unit. Charles's law and Gay-Lussac's law say a gas scales with temperature. But only one temperature scale starts at a real zero.</p>
+  </section>
+
+  <div id="story-kelvin"></div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: Celsius in a gas law</h4>
+      <p>A gas heated from 25 °C to 50 °C does <b>not</b> double in volume. In Kelvin it goes from 298 K to 323 K, only 8.4% more. Convert first, every single time: $T(\text{K}) = T(^\circ\text{C}) + 273.15$. Many courses round this to 273.</p>
+    </div>
+  </div>
+
+  <figure class="bench" id="b-double">
+    <div class="bench-head">
+      <p class="bench-title">The doubling test</p>
+      <p class="bench-hint">Pick a starting temperature.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-double"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl" style="grid-column:1/-1">
+        <label class="ctl-label" for="dbl-t">Starting temperature <span class="ctl-value" id="dbl-t-out"></span></label>
+        <input type="range" id="dbl-t" min="5" max="100" step="1" value="20">
+      </div>
+    </div>
+    <div class="bench-foot" id="dbl-foot" aria-live="polite"></div>
+  </figure>
+
+  <div class="worked">
+    <h4>Worked example: Charles's law, with the Celsius trap</h4>
+    <p class="worked-q">A balloon holds 2.00 L at 25 °C. It is warmed to 100 °C at constant pressure. What is its new volume?</p>
+    <ol>
+      <li>Convert to Kelvin first: $T_1 = 25 + 273 = 298\text{ K}$ and $T_2 = 100 + 273 = 373\text{ K}$.</li>
+      <li>Write Charles's law and solve for $V_2$ by multiplying both sides by $T_2$: $\dfrac{V_1}{T_1} = \dfrac{V_2}{T_2}$, so $V_2 = V_1 \times \dfrac{T_2}{T_1}$.</li>
+      <li>Put in the numbers: $V_2 = 2.00\text{ L} \times \dfrac{373\ \cancel{\text{K}}}{298\ \cancel{\text{K}}} = $ <span class="answer">$2.50$ L</span>.</li>
+      <li>The Celsius mistake would give $2.00 \times \frac{100}{25} = 8.00$ L, which is more than three times too big.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: Gay-Lussac's law</h4>
+    <p class="worked-q">A sealed spray can holds gas at 1.20 atm and 22 °C. It lands in a 400 °C campfire. What does the pressure reach before it bursts?</p>
+    <ol>
+      <li>The can is rigid, so $V$ and $n$ are steady. That is Gay-Lussac's law.</li>
+      <li>Convert: $T_1 = 22 + 273 = 295\text{ K}$ and $T_2 = 400 + 273 = 673\text{ K}$.</li>
+      <li>Solve for $P_2$: $P_2 = P_1 \times \dfrac{T_2}{T_1}$.</li>
+      <li>Put in the numbers: $P_2 = 1.20\text{ atm} \times \dfrac{673\ \cancel{\text{K}}}{295\ \cancel{\text{K}}} = $ <span class="answer">$2.74$ atm</span>. This is why spray cans warn you never to burn them.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: Avogadro's law</h4>
+    <p class="worked-q">A balloon holds 0.500 mol of helium in 12.0 L. How large is it with 0.750 mol at the same temperature and pressure?</p>
+    <ol>
+      <li>$P$ and $T$ are steady, so use Avogadro's law: $\dfrac{V_1}{n_1} = \dfrac{V_2}{n_2}$.</li>
+      <li>Solve for $V_2$: $V_2 = V_1 \times \dfrac{n_2}{n_1}$.</li>
+      <li>Put in the numbers: $V_2 = 12.0\text{ L} \times \dfrac{0.750\ \cancel{\text{mol}}}{0.500\ \cancel{\text{mol}}} = $ <span class="answer">$18.0$ L</span>.</li>
+    </ol>
+  </div>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: mixed pressure units</h4>
+      <p>Boyle's law works in any pressure unit, as long as both pressures use the <b>same</b> one. If $P_1$ is in mmHg and $P_2$ is in atm, the answer will be off by a factor of 760. Convert before you calculate.</p>
+    </div>
+  </div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="gas-laws"></div>
+  <div data-practice="gas-laws"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Pressure</strong> is force per area. In a gas it comes from particles hitting the walls.</li>
+      <li>$1\text{ atm} = 760\text{ mmHg} = 760\text{ torr} = 101.325\text{ kPa}$.</li>
+      <li><strong>Boyle:</strong> $P_1V_1 = P_2V_2$. <strong>Charles:</strong> $V_1/T_1 = V_2/T_2$.</li>
+      <li><strong>Gay-Lussac:</strong> $P_1/T_1 = P_2/T_2$. <strong>Avogadro:</strong> $V_1/n_1 = V_2/n_2$.</li>
+      <li>Temperature must be in <strong>Kelvin</strong>. Add 273.15 to Celsius. No exceptions.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>

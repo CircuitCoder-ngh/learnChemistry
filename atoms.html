@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside the atom | The Mole Hole</title>
+<meta name="description" content="Fire alpha particles at gold foil yourself. Learn the mass laws, Thomson's electron, Rutherford's nucleus, and the proton, neutron and electron.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Lilita+One&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=JSON.parse(localStorage.getItem('mh:theme'));if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="assets/js/data/elements.js"></script>
+<script defer src="assets/js/lab.js"></script>
+<script defer src="assets/js/moe.js"></script>
+<script defer src="assets/js/art.js"></script>
+<script defer src="assets/js/bank.js"></script>
+<script defer src="assets/js/bank/atoms.js"></script>
+<script defer src="assets/js/pages/atoms.js"></script>
+</head>
+<body data-page="atoms">
+<header id="site-header"></header>
+<div class="layout">
+<aside id="rail" class="rail"></aside>
+<main id="main" class="lesson">
+
+  <header class="lesson-head">
+    <div class="lesson-head-inner">
+      <div>
+        <p class="lesson-tag"><b id="lesson-num"></b><span id="lesson-unit"></span><span class="exam-chip">Often tested</span></p>
+        <h1>Inside the atom</h1>
+        <p class="lede">An atom is almost entirely empty space. You are about to prove it by firing particles at gold.</p>
+      </div>
+      <div class="lesson-moe" data-moe="wave"></div>
+    </div>
+  </header>
+
+  <ul class="goals">
+    <li>Use the laws of conservation of mass, definite proportions and multiple proportions</li>
+    <li>Say what Thomson, Millikan and Rutherford each discovered</li>
+    <li>Give the mass, charge and location of the proton, neutron and electron</li>
+    <li>Explain how gold foil proved that atoms are mostly empty</li>
+  </ul>
+
+  <section class="prose">
+    <h2 id="clues" data-short="Three clues">Three clues that atoms exist</h2>
+    <p>Nobody could see an atom in 1800. But careful weighing left clues. Step through them, then see what John Dalton made of them.</p>
+  </section>
+
+  <div id="story-clues"></div>
+
+  <div class="formula">
+    <p class="formula-name">Law of conservation of mass</p>
+    <div class="formula-body">$$\begin{gathered} \text{total mass of reactants} \\ = \text{total mass of products} \end{gathered}$$</div>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: conservation of mass</h4>
+    <p class="worked-q">In a sealed flask, 12.0 g of carbon burns in oxygen and makes 44.0 g of carbon dioxide. Nothing is left over. How much oxygen reacted?</p>
+    <ol>
+      <li>Write the law for this reaction: mass of carbon + mass of oxygen = mass of carbon dioxide.</li>
+      <li>Put in the numbers: $12.0\text{ g} + m = 44.0\text{ g}$.</li>
+      <li>Subtract 12.0 g from both sides: $m = 44.0\text{ g} - 12.0\text{ g}$.</li>
+      <li>The answer is <span class="answer">$32.0$ g of oxygen</span>.</li>
+    </ol>
+  </div>
+
+  <div class="worked">
+    <h4>Worked example: multiple proportions</h4>
+    <p class="worked-q">Nitrogen and oxygen form two compounds. For every 1.00 g of nitrogen, one holds 0.57 g of oxygen and the other holds 1.14 g. Show they obey the law of multiple proportions.</p>
+    <ol>
+      <li>Fix the mass of nitrogen. It is already 1.00 g in both, so compare only the oxygen.</li>
+      <li>Divide the larger oxygen mass by the smaller: $\dfrac{1.14\ \cancel{\text{g}}}{0.57\ \cancel{\text{g}}} = 2.0$.</li>
+      <li>The ratio is <span class="answer">2 to 1, small whole numbers</span>. The formulas could be $\ce{N2O}$ and $\ce{NO}$: one has twice as much oxygen per nitrogen.</li>
+    </ol>
+  </div>
+
+  <section class="prose">
+    <h2 id="thomson" data-short="Thomson's electron">Thomson finds something smaller</h2>
+    <p>In 1897 J. J. Thomson sent electricity through a glass tube with almost all the air pumped out. A beam shot from the negative metal plate, the <strong>cathode</strong>, so he called it a <strong>cathode ray</strong>. Now you run the tube.</p>
+  </section>
+
+  <figure class="bench" id="b-tube">
+    <div class="bench-head">
+      <p class="bench-title">Bend a cathode ray</p>
+      <p class="bench-hint">Which way does the beam go when you charge the plates?</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-tube"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <label class="ctl-label" for="tube-v">Charge on the plates <span class="ctl-value" id="tube-v-out"></span></label>
+        <input type="range" id="tube-v" min="-100" max="100" step="1" value="60">
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Metal in the cathode</span>
+        <div class="seg" id="tube-metal">
+          <button type="button" data-value="Cu" aria-pressed="true">Copper</button>
+          <button type="button" data-value="Fe" aria-pressed="false">Iron</button>
+          <button type="button" data-value="Pt" aria-pressed="false">Platinum</button>
+        </div>
+      </div>
+      <div class="readouts">
+        <div class="readout is-cyan"><div class="readout-label">Beam bends toward</div><div class="readout-value" id="tube-dir">—</div></div>
+        <div class="readout is-sun"><div class="readout-label">Charge per mass</div><div class="readout-value">1.76 × 10¹¹ C/kg</div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>Try every metal. <b>The beam never changes.</b> So these negative particles are not special to copper or iron. They are inside every atom. Thomson had found the <b>electron</b>, and atoms could no longer be the smallest thing there is.</p></div>
+  </figure>
+
+  <div class="moe-says"><div class="moe-pic" data-moe="point"></div><div class="bubble"><p>In 1909 Robert <b>Millikan</b> timed tiny oil drops falling between charged plates and measured the charge of one electron: $-1.602 \times 10^{-19}$ C. With Thomson's ratio, that gives its mass: $9.11 \times 10^{-31}$ kg. Extremely light. I have eaten heavier crumbs.</p></div></div>
+
+  <section class="prose">
+    <h2 id="foil" data-short="Gold foil">The gold foil surprise</h2>
+    <p>Atoms are neutral, so if electrons are negative, something positive must be in there too. But where? In 1909 Ernest Rutherford asked Hans Geiger and Ernest Marsden to find out.</p>
+  </section>
+
+  <div id="story-foil"></div>
+
+  <div class="big-idea">An atom has a tiny, heavy, positive center called the nucleus. Everything else is mostly empty space.</div>
+
+  <section class="prose">
+    <h3 id="foil-lab">Now fire it yourself</h3>
+    <p>The tube starts with the model everyone believed. Watch the screen for a while. Then flip to the nuclear model and see what changes. <strong>Can you bounce one straight back at the gun?</strong></p>
+  </section>
+
+  <figure class="bench" id="b-foil">
+    <div class="bench-head">
+      <p class="bench-title">Gold foil simulator</p>
+      <p class="bench-hint">Tap the picture to fire a shot at that height.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-foil"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">Model of the atom</span>
+        <div class="seg" id="foil-model">
+          <button type="button" data-value="pudding" aria-pressed="true">Plum pudding</button>
+          <button type="button" data-value="nuclear" aria-pressed="false">Nuclear</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="ctl-label">Metal foil</span>
+        <div class="seg" id="foil-metal">
+          <button type="button" data-value="Au" aria-pressed="true">Gold</button>
+          <button type="button" data-value="Ag" aria-pressed="false">Silver</button>
+          <button type="button" data-value="Al" aria-pressed="false">Aluminum</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="foil-speed">Alpha speed <span class="ctl-value" id="foil-speed-out"></span></label>
+        <input type="range" id="foil-speed" min="60" max="160" step="5" value="100">
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="foil-aim">Aim height <span class="ctl-value" id="foil-aim-out"></span></label>
+        <input type="range" id="foil-aim" min="-190" max="190" step="1" value="0">
+      </div>
+      <div class="ctl" style="grid-column:1/-1">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <button type="button" class="btn small" id="foil-one">Fire 1 at the aim</button>
+          <button type="button" class="btn small cyan" id="foil-many">Fire 20 across the foil</button>
+          <button type="button" class="btn small sun" id="foil-auto" aria-pressed="true">Stop firing</button>
+          <button type="button" class="btn small ghost" id="foil-clear">Clear the screen</button>
+        </div>
+      </div>
+    </div>
+    <div class="bench-foot" id="foil-foot" aria-live="polite"><p>A simplified 2D model. We use a real repulsion force, but the nucleus is drawn thousands of times too big, and the foil is one layer of atoms instead of over a thousand. So bounces show up a few times in every 100 shots. In the real experiment only about 1 alpha in several thousand came back, so Geiger sat in the dark counting flashes for hours.</p></div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: what actually bounced the alphas?</h4>
+      <p>Not the electrons. An alpha particle is about 7,300 times heavier than an electron, so electrons barely nudge it, like a bowling ball hitting a ping-pong ball. Only something heavy and strongly positive can turn an alpha around. That is the <b>nucleus</b>.</p>
+    </div>
+  </div>
+
+  <section class="prose">
+    <h2 id="scale" data-short="How empty?">How empty is an atom?</h2>
+    <p>Pictures of atoms lie, because a true-scale nucleus would be too small to draw. So let's fly in and find it. If the nucleus were a marble on the center spot, the atom would be a whole stadium.</p>
+  </section>
+
+  <figure class="bench" id="b-zoom">
+    <div class="bench-head">
+      <p class="bench-title">Zoom into a gold atom, to scale</p>
+      <p class="bench-hint">Drag the zoom slider, or press the fly-in button.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-zoom"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">What you see</span>
+        <div class="seg" id="zoom-mode">
+          <button type="button" data-value="atom" aria-pressed="true">Real atom</button>
+          <button type="button" data-value="stadium" aria-pressed="false">Stadium version</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="zoom-z">Zoom <span class="ctl-value" id="zoom-z-out"></span></label>
+        <input type="range" id="zoom-z" min="0" max="100" step="0.5" value="0">
+      </div>
+      <div class="ctl" style="display:flex;gap:12px;align-items:end;flex-wrap:wrap">
+        <button type="button" class="btn small" id="zoom-fly">Fly to the center</button>
+        <div class="readouts" style="flex:1 1 150px"><div class="readout is-sun"><div class="readout-label">Width of this view</div><div class="readout-value" id="zoom-view">—</div></div></div>
+      </div>
+    </div>
+    <div class="bench-foot"><p>A gold atom is about 288 pm across. Its nucleus is about 14 fm across, so the atom is roughly <b>20,000 times wider</b>. The nucleus holds more than 99.9% of the mass but only about one part in 8 trillion of the volume. Electrons are shown as dots, but really they are spread in a cloud. More on that in the orbitals lesson.</p></div>
+  </figure>
+
+  <section class="prose">
+    <h2 id="particles" data-short="Three particles">The three particles</h2>
+    <p>The positive particles in the nucleus are <strong>protons</strong>. In 1932 James Chadwick found the neutral ones, <strong>neutrons</strong>. Add the <strong>electrons</strong> in the cloud and you have all three.</p>
+  </section>
+
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>Particle</th><th>Charge</th><th>Mass in u</th><th>Mass in kg</th><th>Where it lives</th></tr></thead>
+    <tbody>
+      <tr><td><b>Proton</b>, $\ce{p+}$</td><td>+1</td><td>1.0073</td><td>$1.673 \times 10^{-27}$</td><td>Nucleus</td></tr>
+      <tr><td><b>Neutron</b>, $\ce{n^0}$</td><td>0</td><td>1.0087</td><td>$1.675 \times 10^{-27}$</td><td>Nucleus</td></tr>
+      <tr><td><b>Electron</b>, $\ce{e-}$</td><td>−1</td><td>0.00055</td><td>$9.109 \times 10^{-31}$</td><td>Cloud around the nucleus</td></tr>
+    </tbody>
+  </table></div>
+
+  <section class="prose">
+    <p>Exam shortcut: a proton and a neutron each weigh about <strong>1 u</strong>, and an electron weighs about <strong>0 u</strong>. But how light is "about 0"? Find out with the balance.</p>
+  </section>
+
+  <figure class="bench" id="b-balance">
+    <div class="bench-head">
+      <p class="bench-title">How many electrons weigh as much as a proton?</p>
+      <p class="bench-hint">Guess first, then slide until the balance levels.</p>
+    </div>
+    <div class="bench-stage"><canvas id="c-balance"></canvas></div>
+    <div class="bench-controls">
+      <div class="ctl">
+        <span class="ctl-label">On the left pan</span>
+        <div class="seg" id="bal-left">
+          <button type="button" data-value="p" aria-pressed="true">One proton</button>
+          <button type="button" data-value="n" aria-pressed="false">One neutron</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label class="ctl-label" for="bal-n">Electrons on the right pan <span class="ctl-value" id="bal-n-out"></span></label>
+        <input type="range" id="bal-n" min="1" max="2200" step="1" value="200">
+      </div>
+      <div class="readouts">
+        <div class="readout is-sun"><div class="readout-label">Left pan</div><div class="readout-value" id="bal-l">—</div></div>
+        <div class="readout is-cyan"><div class="readout-label">Right pan</div><div class="readout-value" id="bal-r">—</div></div>
+      </div>
+    </div>
+  </figure>
+
+  <div class="trap">
+    <div class="trap-stripe"></div>
+    <div class="trap-body">
+      <h4>Exam trap: who found what</h4>
+      <p>These get swapped on tests. <b>Thomson</b>: the electron (cathode rays, 1897). <b>Millikan</b>: the electron's charge (oil drops, 1909). <b>Rutherford</b>: the nucleus (gold foil, 1909 to 1911). <b>Chadwick</b>: the neutron (1932). Thomson did not find the nucleus. His model did not have one.</p>
+    </div>
+  </div>
+
+  <div class="moe-says is-tip"><div class="moe-pic" data-moe="think"></div><div class="bubble"><p>A neutral atom has equal numbers of <b>protons and electrons</b>, because their charges cancel. It does not need equal protons and neutrons. Gold has 79 protons, 79 electrons, and 118 neutrons.</p></div></div>
+
+  <h2 id="check" data-short="Check yourself">Check yourself</h2>
+  <div data-quiz="atoms"></div>
+  <div data-practice="atoms"></div>
+
+  <div class="pocket">
+    <h3>Pocket card</h3>
+    <ul>
+      <li><strong>Conservation of mass</strong>: total mass before equals total mass after.</li>
+      <li><strong>Definite proportions</strong>: a compound always has the same mass ratio. <strong>Multiple proportions</strong>: two compounds of the same elements give small whole-number ratios.</li>
+      <li><strong>Thomson</strong> found the electron. <strong>Millikan</strong> measured its charge. <strong>Rutherford</strong> found the nucleus. <strong>Chadwick</strong> found the neutron.</li>
+      <li>Gold foil: most alphas go straight (mostly empty), a few bend (positive center), rare ones bounce back (tiny and heavy center).</li>
+      <li>Proton: +1, about 1 u, nucleus. Neutron: 0, about 1 u, nucleus. Electron: −1, about 0 u, cloud.</li>
+    </ul>
+  </div>
+
+  <div id="lesson-end"></div>
+</main>
+</div>
+<footer id="site-footer"></footer>
+</body>
+</html>
